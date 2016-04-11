@@ -1,0 +1,32 @@
+﻿@model List<Rp3.AgendaComercial.Models.Consulta.View.EstadisticaEncuesta>
+
+@using (Html.Rp3BeginDataTable(autoInit:false, scrollY: "400px", allowSearch: true, allowPagination: false, allowSort: false, columnAutoWidth: true, htmlAttributes: new { id = "resultadotabla" }))
+{
+    <thead>
+        <tr>
+            <th style="display:none"></th>
+            <th>@ViewBag.TituloActividad</th>
+            @*<th>@Rp3.AgendaComercial.Resources.LabelFor.Cantidad</th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var data in Model)
+        {
+            <tr>
+                <td style="display:none"></td>
+                <td>@data.Resultado</td>
+                @*<td align="right" style="width:50px">@data.Cantidad</td>*@
+            </tr>
+        }
+    </tbody>
+}
+
+<script>
+    rp3DataTableReinitialize("resultadotabla");
+</script>
+
+<style>
+    #resultadotabla_wrapper .dataTables_scroll {
+        height: 440px;
+    }
+</style>

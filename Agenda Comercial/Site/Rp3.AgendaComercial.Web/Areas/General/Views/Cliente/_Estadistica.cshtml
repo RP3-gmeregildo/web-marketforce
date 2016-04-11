@@ -1,0 +1,48 @@
+﻿@model Rp3.AgendaComercial.Models.General.Cliente
+@{
+
+}
+
+@using Rp3.AgendaComercial.Models.General;
+@using Rp3.AgendaComercial.Models;
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_10, false))
+    {
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.FechaUtimaVisita, labelText: Rp3.AgendaComercial.Resources.LabelFor.FechaUltimaVisita)
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.Agente.Descripcion, labelText: Rp3.AgendaComercial.Resources.LabelFor.AgenteUltimaVisita)
+            }
+        }
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.IndiceActividad, labelText: Rp3.AgendaComercial.Resources.LabelFor.IndiceActividad1)
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.IndiceActividad2, labelText: Rp3.AgendaComercial.Resources.LabelFor.IndiceActividad2)
+            }
+        }
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.TiempoInactividadText, labelText: Rp3.AgendaComercial.Resources.LabelFor.TiempoInactividad)
+            }
+        }
+    }
+}

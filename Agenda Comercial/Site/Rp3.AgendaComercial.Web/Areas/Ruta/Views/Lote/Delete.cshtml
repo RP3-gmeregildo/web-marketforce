@@ -1,0 +1,65 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.Lote
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.EliminarLote;
+    //this.SetImportFormElements(true);
+    //this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@section Imports
+{
+    @Url.ImportApplicationScript("lote/lote.js", true)
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("rate.css", true)
+    @Url.ImportApplicationStyleSheet("mapa.css", true)
+}
+
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new Script { ExtensionSuite = ExtensionSuite.Editors }
+)
+
+@Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Editors, Theme = "MetropolisBlue" }
+)
+
+@section ActionTitle{
+    @Html.Rp3ActivityActionButton(ActivityActions.Delete, themeType: ElementThemeType.Error)
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "loteForm" }))
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            using (Html.Rp3BeginContentBox())
+            {
+                @: @{ Html.RenderPartial("_Datos", Model); }
+            }
+        }
+    }
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            using (Html.Rp3BeginContentBox())
+            {
+                <div id="content-detalle" style="position:relative;min-height:210px"></div>
+            }
+        }
+    }
+}
+
+<script>
+    $(function () {
+        initDelete();
+        initDetail();
+    });
+
+    showDependenciaMessage();
+</script>
+

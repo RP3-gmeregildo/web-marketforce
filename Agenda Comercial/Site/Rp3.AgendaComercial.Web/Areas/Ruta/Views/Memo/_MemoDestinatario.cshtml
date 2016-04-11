@@ -1,0 +1,41 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.Memo
+@{
+    List<Rp3.AgendaComercial.Models.General.Agente> agentes = (List<Rp3.AgendaComercial.Models.General.Agente>)ViewBag.Agentes;
+}
+
+@using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Destinatarios))
+{
+    using (Html.Rp3BeginTable(new { style = "height:200px" }))
+    {
+        <thead>
+            <tr>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Ruta</th>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Cargo</th>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Supervisor</th>
+                
+                @if (!Model.ReadOnly)
+                {
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var agente in agentes.OrderBy(p => p.Descripcion))
+            {
+                <tr>
+                    <td>@agente.Descripcion</td>
+                    <td>@(agente.Ruta != null ? agente.Ruta.Descripcion : "")</td>
+                    <td>@agente.Cargo.Descripcion</td>
+                    <td>@(agente.Supervisor != null ? agente.Supervisor.Descripcion : "")</td>
+                    @if (!Model.ReadOnly)
+                    {
+                        <td class="text-center">
+                            @Html.Rp3CheckBox("agentes", isChecked: Model.MemoDestinatarios.Any(p => p.IdAgente == agente.IdAgente), value: agente.Key)
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    }
+}

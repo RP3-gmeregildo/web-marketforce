@@ -1,0 +1,4 @@
+﻿@using(Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{ 
+    @:@Html.Rp3AlertBlock(String.Format("Bienvenido al Sistema {0}", Rp3.Web.Mvc.Session.ApplicationName), Rp3.Data.MessageType.Information, String.Format("Estimado {0}", Rp3.Web.Mvc.Session.UserFullName))
+}

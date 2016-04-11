@@ -1,0 +1,72 @@
+﻿@{
+    this.SetTitle(Rp3.AgendaComercial.Resources.TitleFor.AnalisisAgentes);
+    this.SetImportTables(true);
+}
+
+
+@section MainTitle{
+    @{Html.RenderPartial("_CargoRol");}
+}
+
+@section ActionTitle{
+    <div style="float:right">
+        <div class="row" style="float:right;width:252px;margin-right:2px;margin-left:15px;margin-top:-2px;margin-bottom:10px;height:40px;">
+            <div id="reportrange" class="pull-left form-control daterange" style=" height:48px">
+                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                <span style="height:100%"></span> <b style="height: 100%; display: inline-block;vertical-align: middle;"></b>
+            </div>
+        </div>
+    </div>
+
+    <a class="btn btn-default btn-lg pull-left" id="exportarExcel"><i class="fa fa-file-o"></i> @Rp3.AgendaComercial.Resources.LabelFor.Exportar</a>
+}
+
+@section BeforeStyleImports{
+    @Url.ImportApplicationStyleSheet("daterangepicker/daterangepicker-bs3.css")
+}
+
+@section ScriptImports{
+    @Url.ImportApplicationScript("highcharts/highcharts.js")
+    @Url.ImportApplicationScript("highcharts/modules/exporting.js")
+    @Url.ImportApplicationScript("highcharts/highcharts-more.js")
+
+    @Url.ImportApplicationScript("analisisagente.js", true)
+    @Url.ImportApplicationScript("exportexcel.js", true)
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("daterangepicker/moment.min.js")
+    @Url.ImportApplicationScript("daterangepicker/daterangepicker.js")
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "indexForm" }))
+{
+    <input type="hidden" id="IdAgente" name="IdAgente" />
+
+    <input type="hidden" id="Asistencias" name="Asistencias" />
+    <input type="hidden" id="Ausencias" name="Ausencias" />
+    <input type="hidden" id="Atrasos" name="Atrasos" />
+
+    <div id="main-content" style="min-width:400px">
+        @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            <div id="agente-content-container" style="min-width:400px">
+
+            </div>
+        }
+
+        @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            <div id="char-content-container" style="min-width:400px">
+
+            </div>
+        }
+    </div>
+}
+
+
+@using (Html.Rp3BeginModal("modal-detalle", effect: ModalEffect.FlipVertical3D, customWidth: 1000, includeOverlay: true))
+{
+    <div id="modal-detalle-content" style="z-index:9999;height:550px;">
+    </div>
+}

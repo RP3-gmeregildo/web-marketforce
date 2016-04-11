@@ -1,0 +1,62 @@
+﻿@model Rp3.Web.Mvc.Application.Security.Models.EditContact
+@{
+    ViewBag.Title = Rp3.Resources.TitleFor.EditContactSelf;
+}
+
+@section StyleImports{
+    @Url.ImportStyleSheet("rp3.editcontact.css", true)
+    @Url.ImportStyleSheet("../js/jquery.crop/css/jquery.Jcrop.min.css", true)
+}
+
+@section Imports{
+    @Url.ImportScript("rp3.editcontact.js", true)
+    @Url.ImportScript("rp3.cropimage.js")
+    @*@Url.ImportScript("fancy/jquery.fancybox.pack.js")*@
+
+    @Url.ImportScript("jquery.crop/js/jquery.Jcrop.min.js")
+}
+
+@{Html.RenderPartial("_CropImageDialog");}
+
+@using (Html.Rp3BeginContentBox(Rp3.Resources.TitleFor.EditContactSelf))
+{
+    using (Html.Rp3BeginForm())
+    {
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+            {
+                <text>
+                    @Html.HiddenFor(model => model.ContactId)
+                    @Html.Rp3FormGroupDisplayFor(model => model.LogonName)
+                    @Html.Rp3FormGroupDisplayFor(model => model.RoleName)
+                    @Html.Rp3FormGroupTextBoxFor(model => model.Email)
+                    @Html.Rp3FormGroupTextBoxFor(model => model.Names)
+                    @Html.Rp3FormGroupTextBoxFor(model => model.LastNames)
+                    @Html.Rp3FormGroupTextBoxFor(model => model.PhoneNumber)
+
+                    @Html.Rp3FormActionGroup(ActivityActions.Update)
+                </text>
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2, false))
+            {
+                @: @{Html.RenderPartial("_SetPhoto", Model); }
+            }
+        }
+    }
+}
+
+@using (Html.BeginForm("UploadPhoto", "Account",
+                                null,
+                                FormMethod.Post,
+                new
+                {
+                    enctype = "multipart/form-data",
+                    id = "ImgFormUser",
+                    target = "UploadTargetUser",
+                    name = "ImgFormUser"
+                }))
+{
+    <input style="display:none" type="file" name="file" onchange="uploadUserImage()" />
+}

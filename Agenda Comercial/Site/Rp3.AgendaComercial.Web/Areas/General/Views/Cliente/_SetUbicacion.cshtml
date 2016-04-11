@@ -1,0 +1,38 @@
+﻿@model Rp3.AgendaComercial.Models.General.ClienteDireccion
+
+
+    <h5>@Rp3.AgendaComercial.Resources.LegendFor.EstablecerUbicacion</h5>
+
+    <input id="LatitudString" type="hidden" />
+    <input id="LongitudString" type="hidden" />
+    <input id="PlaceString" type="hidden" />
+
+    <div id="content_dialog_form">
+        <div>
+            @{ Html.RenderPartial("_SetUbicacionMap", Model); }
+        </div>
+        @using (Html.Rp3BeginModalAction())
+        {
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Establecer, icon: Icons.Check,
+                htmlAttributes: new { save_button = "" })
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, icon: Icons.Cancel, allowCloseModal: true,
+                           customButtonClick: "closeUbicacionDialog(); return false;", themeType: ElementThemeType.Default)     //return false;  
+        }                       
+    </div>
+
+<script>
+    $(function () {
+        $('#setUbicacionDialog [save-button]').click(function (e) {
+            e.preventDefault();
+            postSetUbicacion(@Model.IdCliente, @Model.IdClienteDireccion, @Model.MarkerIndex);
+        });
+    });
+
+    function closeUbicacionDialog(){
+        @if (Model.IdClienteDireccion == 0) { 
+            <text>
+            setDireccionDialog(@Model.IdCliente, 0, '');
+            </text>
+        }
+    }
+</script>

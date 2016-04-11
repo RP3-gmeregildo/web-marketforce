@@ -1,0 +1,55 @@
+﻿@*@model IEnumerable<Rp3.Data.Models.Security.UserRoleBase>*@
+@{
+    this.SetTitle(Rp3.Resources.TitleFor.Users);
+    //this.SetImportFormElements(true);
+    this.SetImportAdvTables(true);    
+}
+@section ActionTitle{
+    @Html.Rp3OptionActivityButton("USER", "NEW", HtmlElementSize.Default, includeText: true, applicationId: "SECURITY")
+    @Html.Rp3OptionActivityButton("USER", "PROCESS", HtmlElementSize.Default, includeText: true, applicationId: "SECURITY")
+
+    @if (Rp3.Configuration.Rp3ConfigurationSection.Current.Authentication.Type == "ldap")
+    {
+        @:@Html.Rp3Button(Rp3.Resources.LabelFor.SyncActiveDirectoryUsers, HtmlElementSize.Default, icon: Icons.Refresh, 
+            includeText: true, actionName: "syncad")
+    }
+}
+
+@using(Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{
+    @Html.Action("GridViewIndex")
+}
+
+
+
+@if(Rp3.Configuration.Rp3ConfigurationSection.Current.Authentication.Type == "ldap")
+{
+<script>
+
+    var SYNC_USERS_ACTIVE_DIRECTORY_CONFIRMATION = "@Html.Raw(Rp3.Resources.MessageFor.SyncActiveDirectoryUsersConfirmation)";
+    var SYNC_USERS_ACTIVE_DIRECTORY_CONFIRMATION_TITLE = "@Html.Raw(Rp3.Resources.TitleFor.Users)";
+    var SYNC_USERS_ACTIVE_DIRECTORY_SYNCING = "@Html.Raw(Rp3.Resources.TitleFor.Syncing)";
+    var SYNC_USERS_ACTIVE_DIRECTORY_SINCING_MESSAGE = "@Html.Raw(Rp3.Resources.MessageFor.SyncingActiveDirectoryUsers)";
+    $(function () {
+
+        $("button[action='syncad']").click(function () {
+
+            rp3DialogConfirmationMessage(SYNC_USERS_ACTIVE_DIRECTORY_CONFIRMATION, SYNC_USERS_ACTIVE_DIRECTORY_CONFIRMATION_TITLE,function () {
+
+                rp3NotifyAsBlock(SYNC_USERS_ACTIVE_DIRECTORY_SINCING_MESSAGE, MESSAGE_TYPE_INFORMATION, SYNC_USERS_ACTIVE_DIRECTORY_SYNCING);
+
+                rp3Post("/Security/User/SyncActiveDirectory", null, function (data) {
+
+                    rp3ClearMessagesBlock();
+                    rp3NotifyAsBlock(data.Messages);
+
+                    if (!data.HasError) {
+                        location.href = "/Security/User/Index";
+                    }
+                });
+            });
+
+        });
+    });
+</script>
+}

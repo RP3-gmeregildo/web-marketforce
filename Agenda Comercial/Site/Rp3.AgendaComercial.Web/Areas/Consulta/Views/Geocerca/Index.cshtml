@@ -1,0 +1,74 @@
+﻿@model Rp3.AgendaComercial.Web.Areas.Consulta.Models.Geocerca
+@{
+    this.SetTitle(Rp3.AgendaComercial.Resources.TitleFor.Geocercas);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("geocerca.js")
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places,drawing&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section ActionTitle{
+
+    @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+    {
+        @Html.Rp3FormGroupCheckBoxFor(model => model.IncluirClientes, editorHtmlAttributes: new { cliente = "" }, labelText: Rp3.AgendaComercial.Resources.LabelFor.IncluirClientes)
+    }
+
+    @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+    {
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Consultar, icon: Icons.MapMarker, actionName:"QUERY")
+    }
+}
+
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "reportForm" }))
+{
+    <input id="IncluirClientes" name="IncluirClientes" type="hidden" value="false"/>
+
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                @:@{Html.RenderPartial("_Zona", Model); }
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_9))
+        {
+            <div id="content_map" class="content_map" style="height:400px; margin-top:-10px">
+                @{ Html.RenderPartial("_UbicacionMapMarkerAllFences", Model); } ;
+            </div>
+        }
+    }
+}
+
+
+<script>
+    $("#content_map").height($(window).height() - 170);
+
+    function resizePage() {
+        $("#content_map").height($(window).height() - 170);
+        // google.maps.event.trigger(viewMap, 'resize');
+    }
+
+    $(function () {
+        $(window).resize(function () {
+            resizePage();
+        });
+
+        $("[action='QUERY']").click(function () {
+
+            var clientes = $("[cliente]").is(':checked');
+
+            $("#reportForm #IncluirClientes").val(clientes);
+
+            $("#reportForm").submit();
+        });
+
+    });
+
+</script>

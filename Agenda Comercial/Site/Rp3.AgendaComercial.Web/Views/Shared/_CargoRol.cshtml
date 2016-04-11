@@ -1,0 +1,8 @@
+﻿@using Rp3.AgendaComercial.Models.General.View;
+
+<div style="margin-top:20px">
+    @if (ViewBag.AgenteCargoRol != null)
+    { 
+        <a style="color:white" href="@Url.Action("SeleccionRol", "Home", new { area = "" })">@String.Format("{0}: {1}", Rp3.AgendaComercial.Resources.LabelFor.Cargo, Enum.GetName(typeof(AgenteCargoRol), (int)ViewBag.AgenteCargoRol))</a>
+    }
+</div>

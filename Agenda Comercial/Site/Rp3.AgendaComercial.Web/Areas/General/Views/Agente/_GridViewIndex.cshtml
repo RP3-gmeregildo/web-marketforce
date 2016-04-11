@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.General.Agente>
+@{
+    
+}
+
+@Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "Agente", Action = "GridViewIndex" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);        
+        settings.KeyFieldName = "IdAgente";
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Agente;
+            column.FieldName = "Usuario.Contact.DefaultFullName";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        });
+
+        settings.Columns.Add("Usuario.DescriptionName", Rp3.AgendaComercial.Resources.LabelFor.Usuario);
+        settings.Columns.Add("Ruta.Descripcion", Rp3.AgendaComercial.Resources.LabelFor.Ruta);
+        settings.Columns.Add("Cargo.Descripcion", Rp3.AgendaComercial.Resources.LabelFor.Cargo);
+        settings.Columns.Add("Supervisor.Descripcion", Rp3.AgendaComercial.Resources.LabelFor.Supervisor);
+        settings.Columns.Add("Grupo.Descripcion", Rp3.AgendaComercial.Resources.LabelFor.Grupo);
+
+        var colEstado = settings.Columns.Add("EstadoGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Estado);
+        colEstado.Width = 75;
+    },
+    new List<OptionAction>() { 
+        new OptionAction("AGENTE", "DETAIL", "AGENDACOMERCIAL"),
+        new OptionAction("AGENTE", "EDIT", "AGENDACOMERCIAL"),
+        new OptionAction("AGENTE", "DELETE", "AGENDACOMERCIAL"),
+    }).Bind(Model).GetHtml()

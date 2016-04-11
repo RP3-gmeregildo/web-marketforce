@@ -1,0 +1,81 @@
+﻿@model Rp3.AgendaComercial.Models.General.View.ZonaModel
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.DetalleZona;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("zona.js")
+    @Url.ImportApplicationScript("fancy/jquery.fancybox.pack.js")
+
+
+    @Url.ImportApplicationScript("tapmodo-jcrop/jquery.Jcrop.min.js")
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places,drawing&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("mapa.css", true)
+    @Url.ImportApplicationStyleSheet("fancy/jquery.fancybox.css", true)
+}
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.Resources.LabelFor.GeneralData))
+            {
+                <div style="height:400px; overflow-y:auto; overflow-x:hidden">
+                    <text>
+                        @Html.HiddenFor(model => model.Id)
+                        @Html.Rp3FormGroupDisplayFor(model => model.Name, labelText: Rp3.AgendaComercial.Resources.LabelFor.Zona, labelSize: HtmlColumnSize.Size_2)
+                        @Html.Rp3FormGroupDisplayFor(model => model.EstadoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado, labelSize: HtmlColumnSize.Size_2)
+                        @Html.Rp3FormGroupDisplayFor(model => model.MovilizacionGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Movilizacion, labelSize: HtmlColumnSize.Size_2)
+                        @Html.Rp3FormGroupDisplayFor(model => model.Region.DescriptionName,  labelText: Rp3.AgendaComercial.Resources.LabelFor.Region, labelSize: HtmlColumnSize.Size_2)
+                    </text>
+                </div>
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_8))
+        {
+             if (Model.Tipo == Rp3.AgendaComercial.Models.Constantes.TipoZona.EstructuraGeopolitica)
+            {
+                using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.LabelFor.ZonaDetalle))
+                {
+                    <div style="height:400px; overflow-y:auto; overflow-x:hidden">
+                        @{Html.RenderPartial("_ZonaDetalle", Model);}
+                    </div>
+                }
+            }
+             else
+             {
+                 using (Html.Rp3BeginContentBox(String.Format("{0} - {1} {2}(s)", Rp3.AgendaComercial.Resources.LabelFor.Geocerca, Model.ZonaClienteGeocercas.Count, Rp3.AgendaComercial.Resources.LabelFor.Cliente)))
+                 {
+                    <div id="contentgeocerca" style="height:400px">
+                        @{
+                     ViewBag.MapHeight = "370px";
+                        }
+
+                        @{Html.RenderPartial("_UbicacionMapMarkerFences");}
+                    </div>
+                 }
+             }
+        }
+    }
+
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            using (Html.Rp3BeginContentBox())
+            {
+                @:@{Html.RenderPartial("_UbicacionZona", Model.ubicacion);}
+            }
+        }
+    }
+}

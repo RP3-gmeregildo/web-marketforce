@@ -1,0 +1,57 @@
+﻿@model List<Rp3.AgendaComercial.Models.Ruta.InformeTrazabilidad>
+
+<div id="dvData">
+    @using (Html.Rp3BeginDataTable(htmlAttributes: new { id = "agente-detalle-table" }, allowPagination: false,
+    columnAutoWidth: false, allowSort: false, autoWindowHeight: true))
+    {
+        <thead>
+            <tr>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.Fecha</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.Tipo</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.HoraInicio</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.Tiempo</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.HoraFin</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.Kms</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.Referencia</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderBy(p => p.Fecha).ThenBy(p => p.HoraEntrada))
+            {
+                <tr agente="@ViewBag.Agente" ubicacion="@item.Ubicacion" fecha="@item.Fecha.ToString("d")" horaentrada="@item.HoraEntrada" horasalida="@item.HoraSalida" tiempo="@item.Tiempo" kms="@item.Distancia.ToString("n2")" idruta="@item.IdRuta" idagenda="@item.IdAgenda">
+                    <td class="text-center selectable-item">@item.Fecha.ToString("d")</td>
+                    <td class="text-center selectable-item">@item.TipoNombre</td>
+                    <td class="text-center selectable-item">@item.HoraEntradaDisplay</td>
+                    <td class="text-center selectable-item">@item.Tiempo</td>
+                    <td class="text-center selectable-item">@item.HoraSalidaDisplay</td>
+                    <td class="text-center selectable-item">@item.Distancia.ToString("n2")</td>
+                    <td class="text-center selectable-item">@Html.Raw(!string.IsNullOrEmpty(item.Direccion) ? item.Direccion.Replace("\r\n", "<br />") : String.Empty)</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-center"><strong>@ViewBag.Kms</strong></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    }
+
+</div>
+
+
+<script>
+    $(function () {
+        $("#agente-detalle-table").rp3DataTable();
+
+        $("#TiempoDetenido").val('@ViewBag.TiempoDetenido');
+        $("#TiempoRecorrido").val('@ViewBag.TiempoRecorrido');
+
+        graficar(@ViewBag.MinutosDetenido, @ViewBag.MinutosRecorrido);
+    });
+</script>

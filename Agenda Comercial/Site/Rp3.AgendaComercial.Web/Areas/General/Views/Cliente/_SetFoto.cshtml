@@ -1,0 +1,18 @@
+﻿@model Rp3.AgendaComercial.Models.General.Cliente                   
+@{
+    string emptyPicture = "~/Content/AgendaComercial/img/DefaultPerson.jpg";
+}
+
+<div class="img_Foto_Content">
+    <div class="img_Foto_Border" idfoto="0" style="font-size:18px;">        
+        <a class="pictureActions color-success" idfoto="0" style="display:none; position:absolute" href="javascript:selectClienteImage();">@Html.Rp3Icon(Icons.Edit)</a>
+        <a class="pictureActions color-success" idfoto="0" style="display:none;position:absolute; margin-left:22px" href="javascript:deleteClienteImage();">@Html.Rp3Icon(Icons.Remove)</a>
+        @*<div id="panelLoadingFoto" style="display: none; width:75px;height:110px;">*@
+        <div id="panelLoadingFoto" style="display: none; width:95px;height:95px;">
+            <img src=@Url.Content("~/Content/AgendaComercial/img/loading.gif") style="padding-top:40px;padding-left:30px;" alt="" />
+        </div>
+        @Html.Rp3Image(Url.Content(string.IsNullOrEmpty(Model.Foto) ? emptyPicture : Model.Foto), Model.NombresCompletos, new { id = "fotocliente", width = 95, height = 95 })
+    </div>    
+</div>
+<iframe id="UploadTargetCliente" name="UploadTargetCliente" onload="refreshClienteImage()" style="position: absolute;
+        left: -999em; top: -999em;"></iframe>

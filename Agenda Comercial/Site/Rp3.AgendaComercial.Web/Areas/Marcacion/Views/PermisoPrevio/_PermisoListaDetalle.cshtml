@@ -1,0 +1,139 @@
+﻿@model Rp3.AgendaComercial.Models.Marcacion.View.PermisoConsulta
+
+
+@{ var table_number = 0; }
+
+@if (Model.PermisoCategorias.Count > 0)
+{
+    foreach (var cat in Model.PermisoCategorias)
+    {
+        var numDays = 1;
+        if (cat.Permiso != null)
+        {
+            if (cat.Permiso.FirstOrDefault() != null)
+            {
+                table_number++;
+
+                <div class="" style="margin-bottom:5px;">
+                    @using (Html.Rp3BeginRow())
+                    {
+                        <div class="block-lines-header">
+
+                            <h4 style="float:left;">@cat.Nombre</h4>
+                            <h5 style="color:#328fca;float:left;margin-left:10px;margin-top:14px;">@cat.Permiso.Count permiso(s)</h5>
+
+                            @if (cat.isBusqueda && cat.Permiso[0].TotalPages > 1)
+                            {
+                                <div style="width:200px; margin-top:-10px; float:right;">
+                                    <div class="spacer">
+                                        <div class="btn-group">
+                                            @Html.Rp3Button("", actionName: "listado_prev_begin", iconClass: "fa fa-fast-backward", themeType: ElementThemeType.Default, customButtonClick: "ListadoPreviousBeginPage('" + cat.Permiso[0].TotalPages + "')", htmlAttributes: new { type = "button" })
+                                            @Html.Rp3Button("", actionName: "listado_prev", iconClass: "fa fa-backward", themeType: ElementThemeType.Default, customButtonClick: "ListadoPreviousPage('" + cat.Permiso[0].TotalPages + "')", htmlAttributes: new { type = "button" })
+                                            @Html.Rp3Button("", actionName: "listado_next", iconClass: "fa fa-forward", themeType: ElementThemeType.Default, customButtonClick: "ListadoNextPage('" + cat.Permiso[0].TotalPages + "')", htmlAttributes: new { type = "button" })
+                                            @Html.Rp3Button("", actionName: "listado_next_end", iconClass: "fa fa-fast-forward", themeType: ElementThemeType.Default, customButtonClick: "ListadoNextEndPage('" + cat.Permiso[0].TotalPages + "')", htmlAttributes: new { type = "button" })
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                    }
+
+                    @using (Html.Rp3BeginRow())
+                    {
+                        using (Html.Rp3BeginTable())
+                        {
+                            <tbody class="content">
+                                @foreach (var app in cat.Permiso)
+                                {
+                                    <tr class="row  hov" style="cursor: pointer;" onclick="@("openPermisoDetalleView('" + app.IdPermiso + "', '" + app.Estado +  "')")">
+                                        <td class="col-sm-1" style="width:20px">@numDays</td>
+                                        <td class="col-md-2">
+                                        @if (app.IdAgente == null)
+                                        {
+                                            <img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("grupo.png")" />@app.Grupo
+                                        }
+                                        else
+                                        {
+                                            <img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("agentes.png")" />@app.Agente
+                                        }
+                                        </td>
+                                        <td class="col-md-1"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("tipo.png")" />@app.TipoDesripcion</td>
+                                        <td class="col-md-1"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("fecha-inicio.png")" />@app.FechaInicio.ToString("dd/MM/yyyy")</td>
+                                        <td class="col-md-1"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("fecha-fin.png")" />@app.FechaFin.ToString("dd/MM/yyyy")</td>
+                                        <td class="col-md-1"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("hora-inicio.png")" />@app.HoraInicio.ToString("HH:mm")</td>
+                                        <td class="col-md-1"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("hora-fin.png")" />@app.HoraFin.ToString("HH:mm")</td>
+                                        <td class="col-md-2"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("motivo.png")" />@app.MotivoDescripcion</td>
+                                        <td class="col-md-1"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("gray-flag.png")" />@app.EstadoDescripcion</td>
+                                        <td class="col-md-3"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("observ.png")" />@app.Observacion</td>
+                                        <td class="col-md-3"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("obs-superv.png")" />@app.ObservacionSupervisor</td>
+                                    </tr>
+                                         numDays++;
+                                }
+                            </tbody>
+                        }
+                    }
+                </div>
+            }
+            else
+            {
+                var countExist = 0;
+                foreach (var tempcat in Model.PermisoCategorias)
+                {
+                    if (tempcat.Permiso.Count > 0)
+                    {
+                        countExist++;
+                    }
+                }
+                if (countExist < 1 && table_number == 0)
+                {
+                    table_number++;
+                    <div class="" style="margin-bottom:50px;">
+                        <tbody class="content">
+                            <tr class="row  hov" style="cursor: pointer;">
+                                <td class="col-sm-12"><h4>No hay Registros a Mostrar</h4></td>
+                            </tr>
+                        </tbody>
+                    </div>
+                }
+            }
+        }
+        else
+        {
+            <div class="" style="margin-bottom:50px;">
+                <div class="block-lines-header">
+                    <h4>@cat.Nombre</h4>
+                </div>
+            </div>
+        }
+    }
+}
+else
+{
+    <div class="" style="margin-bottom:50px;">
+        <tbody class="content">
+            <tr class="row  hov" style="cursor: pointer;">
+                <td class="col-sm-12"><h4>No hay Registros a Mostrar</h4></td>
+            </tr>
+        </tbody>
+    </div>
+}
+
+<style>
+    .round-corner {
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px; /* future proofing */
+        -khtml-border-radius: 10px; /* for old Konqueror browsers */
+    }
+
+    .hov:hover {
+        background-color: #FBF7EA; /*#328fca;*/
+        color: black; /*white;*/
+    }
+</style>
+
+
+
+
+

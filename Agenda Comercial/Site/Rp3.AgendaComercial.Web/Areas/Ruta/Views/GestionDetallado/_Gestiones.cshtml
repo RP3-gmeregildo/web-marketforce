@@ -1,0 +1,42 @@
+﻿@model Rp3.AgendaComercial.Web.Ruta.GestionDetalladoConsulta
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.GestionDetallado;
+    this.SetImportTables(true);
+}
+
+@using (Html.Rp3BeginDataTable(allowSort: true))
+{
+    <thead>
+        <tr>
+            <th></th>
+            @*<th></th>*@
+            <th>@Rp3.AgendaComercial.Resources.LabelFor.Fecha</th>
+            <th>@Rp3.AgendaComercial.Resources.LabelFor.Cliente</th>
+            <th>@Rp3.AgendaComercial.Resources.LabelFor.Direccion</th>
+            <th>@Rp3.AgendaComercial.Resources.LabelFor.Estado</th>
+            <th>@Rp3.AgendaComercial.Resources.LabelFor.FechaGestion</th>
+            <th>@Rp3.AgendaComercial.Resources.LabelFor.Tareas</th>
+            <th>@Rp3.AgendaComercial.Resources.LabelFor.Observacion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Gestiones.OrderBy(p => p.FechaInicio))
+        {
+            <tr>
+                <td class="text-center" style="width:30px" tarea idruta="@item.IdRuta" idagenda="@item.IdAgenda">@Html.Rp3Button("", HtmlElementSize.Mini, submit: false, iconClass: "icon-eye-open", actionName: "ver")</td>
+                @*<td class="text-center" width="30px">
+                    <div id="icon_location">
+                        <strong>@item.MarkerIndex</strong>
+                    </div>
+                </td>*@
+                <td>@item.FechaInicio</td>
+                <td>@item.Cliente</td>
+                <td>@item.Direccion</td>
+                <td>@(item.EstadoAgendaGeneralValue != null ? item.EstadoAgendaGeneralValue.Content : "")</td>
+                <td>@item.FechaInicioGestion</td>
+                <td>@item.Tareas</td>
+                <td>@item.Observacion</td>
+            </tr>
+        }
+    </tbody>
+}

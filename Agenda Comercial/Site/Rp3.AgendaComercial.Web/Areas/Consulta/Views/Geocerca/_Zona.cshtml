@@ -1,0 +1,28 @@
+﻿@model Rp3.AgendaComercial.Web.Areas.Consulta.Models.Geocerca
+@{
+    List<Rp3.AgendaComercial.Models.General.Zona> zonas = (List<Rp3.AgendaComercial.Models.General.Zona>)ViewBag.Zonas;
+}
+
+@using (Html.Rp3BeginDataTable(scrollY: "445px", autoWindowHeight: false, allowPagination: false, allowSort: false, columnAutoWidth: true, htmlAttributes: new { id = "agentestabla" }))
+{
+    <thead>
+        <tr>
+            <th style="min-width:30px"></th>
+            <th>@Rp3.AgendaComercial.Resources.LabelFor.Zona</th>
+            <th class="text-center">@Html.Rp3CheckBox("zonacheckall", isChecked: Model.Zonas.Count() > 0)</th>
+        </tr> 
+    </thead>
+    <tbody>
+        @foreach (var zona in zonas.OrderBy(p => p.Descripcion))
+        {
+            <tr>
+                <td class="text-center"><i class="fa round-corner" id="ZonaColor@{ @zona.IdZona}" style="background-color:white; width:15px; height:15px;"></i></td>
+                <td>@zona.Descripcion</td>
+                <td class="text-center">
+                    @Html.Rp3CheckBox("zonas", isChecked: Model.Zonas.Any(p => p.IdZona == zona.IdZona), value: zona.Key)
+                </td>
+            </tr>
+        }
+    </tbody>
+}
+

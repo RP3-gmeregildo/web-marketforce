@@ -1,0 +1,135 @@
+﻿@model Rp3.AgendaComercial.Models.General.Calendario
+
+<div style="width:100%">
+    @using (Html.Rp3BeginTable(htmlAttributes: new { id = "programaciontabla", style = "height:200px;width:100%" }))
+    {
+        <thead>
+            <tr>
+                <th align="center" width="12%">@Rp3.AgendaComercial.Resources.LabelFor.Dia</th>
+                <th align="center" width="5%">Opcional</th>
+                <th align="center" width="5%">@Rp3.AgendaComercial.Resources.LabelFor.EsLaboral</th>
+                <th align="center" width="33%">@Rp3.AgendaComercial.Resources.LabelFor.Jornada1</th>
+                <th align="center" width="44%" colspan="2">@Rp3.AgendaComercial.Resources.LabelFor.Jornada2</th>                
+            </tr>
+        </thead>
+        <tbody style="">
+            @foreach (var data in Model.DiasLaborales)
+            {
+                <tr>
+                    <td>@data.DiaString.Trim()</td>
+                    <td align="center">
+                        @if (ViewBag.ReadOnly == false)
+                        {
+                            @Html.Rp3CheckBox("eslaboral_" + @data.IdDia, @data.EsLaboral, htmlAttributes: new { id = "eslaboral_" + @data.IdDia, idDia = @data.IdDia })
+                        }
+                        else
+                        {
+                            @Html.Rp3CheckBox("eslaboral_" + @data.IdDia, @data.EsLaboral, htmlAttributes: new { id = "eslaboral_" + @data.IdDia, disabled = ViewBag.ReadOnly, idDia = @data.IdDia })
+                        }
+                    </td>
+                    <td align="center">
+                        @if (ViewBag.ReadOnly == false)
+                        {
+                            @Html.Rp3CheckBox("eslaboral_" + @data.IdDia, @data.EsLaboral, htmlAttributes: new { id = "eslaboral_" + @data.IdDia, idDia = @data.IdDia })
+                        }
+                        else
+                        {
+                            @Html.Rp3CheckBox("eslaboral_" + @data.IdDia, @data.EsLaboral, htmlAttributes: new { id = "eslaboral_" + @data.IdDia, disabled = ViewBag.ReadOnly, idDia = @data.IdDia })
+                        }
+                    </td>
+                    <td>
+                        @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                        {
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                            {
+                                @Html.Rp3Label(labelText: Rp3.AgendaComercial.Resources.LabelFor.Desde)
+                            }
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+                            {
+                                if (ViewBag.ReadOnly == false)
+                                {
+                                    @Html.Rp3TextBox("desdeJornada1_" + @data.IdDia, @data.HoraInicio1)
+                                }
+                                else
+                                {
+                                    @Html.Rp3TextBox("desdeJornada1_" + @data.IdDia, @data.HoraInicio1, htmlAttributes: new { disabled = ViewBag.ReadOnly })
+                                }
+                            }
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                            {
+                                @Html.Rp3Label(labelText: Rp3.AgendaComercial.Resources.LabelFor.Hasta)
+                            }
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+                            {
+                                if (ViewBag.ReadOnly == false)
+                                {
+                                    @Html.Rp3TextBox("hastaJornada1_" + @data.IdDia, @data.HoraFin1)
+                                }
+                                else
+                                {
+                                    @Html.Rp3TextBox("hastaJornada1_" + @data.IdDia, @data.HoraFin1, htmlAttributes: new { disabled = ViewBag.ReadOnly })
+                                }
+                            }
+                        }
+                    </td>
+                    <td>
+                        @if (ViewBag.ReadOnly == false)
+                        {
+                            @Html.Rp3CheckBox("jornada2_" + @data.IdDia, @data.SegundaJornada, htmlAttributes: new { id = "jornada2_" + @data.IdDia, idDia = @data.IdDia })
+                        }
+                        else
+                        {
+                            @Html.Rp3CheckBox("jornada2_" + @data.IdDia, @data.SegundaJornada, htmlAttributes: new { id = "jornada2_" + @data.IdDia, idDia = @data.IdDia, disabled = ViewBag.ReadOnly })
+                        }
+                    </td>
+                    <td>
+                        @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                        {
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                            {
+                                @Html.Rp3Label(labelText: Rp3.AgendaComercial.Resources.LabelFor.Desde)
+                            }
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+                            {
+                                if (ViewBag.ReadOnly == false)
+                                {
+                                    @Html.Rp3TextBox("desdeJornada2_" + @data.IdDia, @data.HoraInicio2)
+                                }
+                                else
+                                {
+                                    @Html.Rp3TextBox("desdeJornada2_" + @data.IdDia, @data.HoraInicio2, htmlAttributes: new { disabled = ViewBag.ReadOnly })
+                                }
+                            }
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                            {
+                                @Html.Rp3Label(labelText: Rp3.AgendaComercial.Resources.LabelFor.Hasta)
+                            }
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+                            {
+                                if (ViewBag.ReadOnly == false)
+                                {
+                                    @Html.Rp3TextBox("hastaJornada2_" + @data.IdDia, @data.HoraFin2, htmlAttributes: new { idDia = @data.IdDia })
+                                }
+                                else
+                                {
+                                    @Html.Rp3TextBox("hastaJornada2_" + @data.IdDia, @data.HoraFin2, htmlAttributes: new { disabled = ViewBag.ReadOnly, idDia = @data.IdDia })
+                                }
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+    @*@using (Html.Rp3BeginModal("setProgramacionDialog", effect: ModalEffect.FlipVertical3D, customWidth: 850, includeOverlay: true))
+        {
+            <div id="setProgramacionDialogContent">
+            </div>
+            using (Html.Rp3BeginModalAction())
+            {
+                @Html.Rp3Button(Rp3.Resources.LabelFor.Accept, icon: Icons.Save, htmlAttributes: new { id = "saveProgramacion" })
+                @Html.Rp3Button(Rp3.Resources.LabelFor.Cancel, icon: Icons.Close, themeType: ElementThemeType.Default, allowCloseModal: true, htmlAttributes: new { id = "cancelProgramacion" })
+            }
+        }*@
+
+</div>

@@ -1,0 +1,46 @@
+﻿@*@model IEnumerable<Rp3.Data.Models.Security.UserRoleBase>*@
+
+    @Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "User", Action = "GridViewIndex" };
+        settings.KeyFieldName = "UserId";
+
+        settings.CustomBindingRouteValuesCollection.Add(
+            GridViewOperationType.Paging,
+            new { Controller = "User", Action = "GridViewPagingAction" }
+        );
+
+        settings.CustomBindingRouteValuesCollection.Add(
+            GridViewOperationType.Sorting,
+            new { Controller = "User", Action = "GridViewSortingAction" }
+        );
+
+        settings.CustomBindingRouteValuesCollection.Add(
+            GridViewOperationType.Filtering,
+            new { Controller = "User", Action = "GridViewFilteringAction" }
+        );
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.Resources.LabelFor.ContactNames;
+            column.FieldName = "DefaultFullName";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+            column.Width = 300;
+        });
+
+
+        settings.Columns.Add("LogonName", Rp3.Resources.LabelFor.User);
+        settings.Columns.Add("Email", Rp3.Resources.LabelFor.Email);
+        settings.Columns.Add("Role", Rp3.Resources.LabelFor.Role);
+        settings.Columns.Add("Active", Rp3.Resources.LabelFor.Active, MVCxGridViewColumnType.CheckBox).Width = 70;
+
+        settings.SettingsPager.PageSize = 15;      
+    },
+    new List<OptionAction>() {
+        new OptionAction("USER", "DETAIL", "SECURITY"),
+        new OptionAction("USER", "EDIT", "SECURITY"),
+        new OptionAction("USER", "DELETE", "SECURITY"),
+    }).BindToCustomData(Model).GetHtml()

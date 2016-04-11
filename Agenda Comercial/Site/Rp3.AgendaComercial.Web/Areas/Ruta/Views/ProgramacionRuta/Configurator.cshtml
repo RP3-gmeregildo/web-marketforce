@@ -1,0 +1,73 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.ProgramacionRuta
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.ConfigurarRuta;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+        new Script { ExtensionSuite = ExtensionSuite.Scheduler }
+)
+
+@Html.DevExpress().GetStyleSheets(
+                    new StyleSheet { ExtensionSuite = ExtensionSuite.Editors, Theme = "Office2010Blue" },
+                new StyleSheet { ExtensionSuite = ExtensionSuite.Scheduler, Theme = "Office2010Blue" }
+)
+
+@section Imports{
+    @Url.ImportApplicationScript("configurarruta.js")
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+<style type="text/css">
+    .dropTargetActive {
+        border: solid 5px darkgray;
+    }
+
+    .dropTargetHover {
+        border: solid 5px gray;
+    }
+</style>
+
+
+@Html.HiddenFor(model => model.IdProgramacionRuta)
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_9))
+    {
+        <div id="content_calendario">
+            <div class="droppable">
+                @Html.Action("RutaSchedulerPartial", new { IdProgramacionRuta = Model.IdProgramacionRuta, Duracion = Convert.ToInt32(Model.DuracionGeneralValue.Reference01) })
+            </div>
+        </div>
+    }
+
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+    {
+        using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.ClientesProgramar, paddingContent: true))
+        {
+            <div id="content_programacionrutadetalle">
+                @Html.Action("ProgramacionRutaDetalle", new { IdProgramacionRuta = Model.IdProgramacionRuta })
+            </div>
+        }
+    }
+}
+
+@using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top:10px"}))
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+    {
+        using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Ubicaciones))
+        {
+            <div id="content_map" class="content_map">
+
+            </div>
+        }
+    }
+}
+
+

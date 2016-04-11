@@ -1,0 +1,126 @@
+﻿@model int
+
+<div id="resumen-efectividad-chart-container" style="width:100%; height:100%;"></div>
+
+    <script>
+    $('#resumen-efectividad-chart-container').highcharts({
+        chart: {
+            type: 'gauge',
+            plotBackgroundColor: null,
+            plotBackgroundImage: null,
+            plotBorderWidth: 0,
+            plotShadow: false,
+            margintop: 0
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: "Efectividad",
+            //floating: true,
+            margin: 0
+            //style: {
+            //    display: 'none'
+            //}
+        },
+        
+        pane: {
+            startAngle: -150,
+            endAngle: 150,
+            background: {
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+                innerRadius: '60%',
+                outerRadius: '100%',
+                shape: 'arc'
+            }
+            //background: [{
+            //    backgroundColor: {
+            //        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            //        stops: [
+            //            [0, '#FFF'],
+            //            [1, '#333']
+            //        ]
+            //    },
+            //    shape: 'arc',
+            //    borderWidth: 0,
+            //    outerRadius: '100%'
+            //}, {
+            //    backgroundColor: {
+            //        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            //        stops: [
+            //            [0, '#333'],
+            //            [1, '#FFF']
+            //        ]
+            //    },
+            //    shape: 'arc',
+            //    borderWidth: 1,
+            //    outerRadius: '100%'
+            //}, {
+            //    // default background
+            //}, {
+            //    backgroundColor: '#DDD',
+            //    borderWidth: 0,
+            //    shape: 'arc',
+            //    outerRadius: '100%',
+            //    innerRadius: '60%'
+            //}]
+        },
+
+        // the value axis
+        yAxis: {
+            min: 0,
+            max: 100,
+
+            minorTickInterval: 'auto',
+            minorTickWidth: 1,
+            minorTickLength: 10,
+            minorTickPosition: 'inside',
+            minorTickColor: '#666',
+
+            tickPixelInterval: 30,
+            tickWidth: 2,
+            tickPosition: 'inside',
+            tickLength: 10,
+            tickColor: '#666',
+            labels: {
+                step: 1
+                //rotation: 'auto'
+            },
+            //title: {
+            //    text: '% Efectividad',
+            //    //y: -45,
+            //    style: {
+            //        //fontWeight: 'bold'
+            //    }
+            //},
+            plotBands: [{
+                from: 0,
+                to: 50,
+                color: '#DF5353' // red
+            }, {
+                from: 50,
+                to: 80,
+                color: '#DDDF0D' // yellow
+            }, {
+                from: 80,
+                to: 100,
+                color: '#55BF3B' // green
+            }]
+        },
+
+        series: [{
+            name: 'Efectividad',
+            data: [@Model],
+            dataLabels: {
+                format: '<div style="text-align:center"><span style="font-size:15px;color:' +
+                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span>' +
+                       '<span style="font-size:12px;color:silver">%</span></div>',
+                y:45
+            },
+            tooltip: {
+                valueSuffix: ' %'
+            }
+        }]
+        
+    });
+</script>

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.Ruta.Memo>
+@{
+    
+}
+
+@Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "Memo", Action = "GridViewIndex" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.ClientSideEvents.CustomButtonClick = "function(s, e) { document.location= e.buttonID + '?id=' + s.GetRowKey(e.visibleIndex); }";
+        settings.KeyFieldName = "IdMemo";
+
+        settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+        settings.Columns.Add("Titulo", Rp3.AgendaComercial.Resources.LabelFor.Titulo);
+        
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Fecha;
+            column.FieldName = "Fecha";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            column.PropertiesEdit.DisplayFormatString = "d";
+            column.Width = 150;
+        });
+
+        settings.Columns.Add("Remitente.Descripcion", Rp3.AgendaComercial.Resources.LabelFor.Remitente);
+        settings.Columns.Add("EstadoMemoGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Estado);
+        settings.Columns.Add("TipoMemoGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Tipo);
+        settings.Columns.Add("ImportanciaGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Importancia);
+    },
+    new List<OptionAction>() { 
+        new OptionAction("MEMO", "DETAIL", "AGENDACOMERCIAL"),
+        new OptionAction("MEMO", "EDIT", "AGENDACOMERCIAL"),
+        new OptionAction("MEMO", "DELETE", "AGENDACOMERCIAL"),
+    }).Bind(Model).GetHtml()

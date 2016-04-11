@@ -1,0 +1,188 @@
+﻿@model Rp3.AgendaComercial.Models.General.View.AgenteView
+@{
+    this.SetTitle(Rp3.AgendaComercial.Resources.TitleFor.Agenda);
+    this.SetImportTables(true);
+    this.SetImportFormElements(true);
+}
+
+
+@section BeforeStyleImports{
+    @Url.ImportApplicationStyleSheet("fullcalendar/fullcalendar.css")
+    <link href="~/Content/AgendaComercial/css/fullcalendar/fullcalendar.print.css" rel="stylesheet" media="print" />
+    @Url.ImportApplicationStyleSheet("daterangepicker/daterangepicker-bs3.css")
+    @Url.ImportApplicationStyleSheet("perfect_scroller/perfect-scrollbar.min.css")
+    @Url.ImportApplicationStyleSheet("select/bootstrap-select.css")
+    @Url.ImportApplicationStyleSheet("timepicker/jquery.timepicker.css")
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("agenda.css", true)
+    <link rel="stylesheet" type="text/css" href="~/Content/AgendaComercial/js/fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
+}
+
+@section ScriptImports{
+    @Url.ImportApplicationScript("fullcalendar/fullcalendar.js")
+    @Url.ImportApplicationScript("fullcalendar/calendar.js")
+    @Url.ImportApplicationScript("daterangepicker/moment.min.js")
+    @Url.ImportApplicationScript("daterangepicker/daterangepicker.js")
+    @Url.ImportStyleSheet("jquery.treegrid.css")
+    @Url.ImportScript("treegrid/jquery.treegrid.js")
+    @Url.ImportApplicationScript("fancybox/jquery.mousewheel-3.0.6.pack.js")
+    @Url.ImportApplicationScript("fancybox/jquery.fancybox.js?v=2.1.5")
+    @Url.ImportApplicationScript("datetimepicker/date.js")
+    @Url.ImportApplicationScript("timepicker/jquery.timepicker.js")
+
+    @Url.ImportApplicationScript("agenda/agendadetalle.js", true)
+    @Url.ImportApplicationScript("agenda/calendario.js", true)
+
+    @Url.ImportApplicationScript("screenshot/html2canvas.js")
+    @Url.ImportApplicationScript("screenshot/FileSaver.js")
+    @Url.ImportApplicationScript("screenshot/canvas-to-blob.js")
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places,geometry&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+
+
+<div class="header" style="float:left;">
+
+</div>
+
+@section MainTitle{
+    @{Html.RenderPartial("_CargoRol");}
+}
+
+@section ActionTitle{
+
+    @if (ViewBag.EsSupervisor)
+    {
+        if (!ViewBag.TodosMisAgentes)
+        {
+            <button class="btn btn-default btn-lg pull-left" id="elegir-Agente" onclick="elegirAgente();">@Model.Descripcion</button>
+        }
+        else
+        {
+            <button class="btn btn-default btn-lg pull-left" id="elegir-Agente" onclick="elegirAgente();">@Rp3.AgendaComercial.Resources.LabelFor.TodosMisAgentes</button>
+        }
+    }
+    else
+    {
+        <h4 class="pull-left" style="margin-right:10px">
+            @Html.Rp3LabelWidget(@Model.Descripcion, LabelWidgetType.Info)
+        </h4>
+    }
+
+    @if (!ViewBag.TodosMisAgentes)
+    {
+        <button class="btn btn-default btn-lg pull-left" id="crear-Agenda" onclick="crearAgendaShow();">@Rp3.AgendaComercial.Resources.LabelFor.AgregarVisita</button>
+    }
+
+    <div class="header" style="float:left;">
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+            {
+
+            }
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_9))
+            {
+                <div class="btn-group pull-right" style="width:140px;">
+                    @Html.Rp3Button("", actionName: "show-list", iconClass: "fa fa-list", includeText: false)
+
+                    @if (!ViewBag.TodosMisAgentes)
+                    {
+                        @Html.Rp3Button("", actionName: "show-calendar", iconClass: "fa fa-calendar", themeType: ElementThemeType.Default)
+                    }
+
+                    @Html.Rp3Button("", actionName: "show-photobook", iconClass: "fa fa-picture-o", themeType: ElementThemeType.Default)
+                </div>
+            }
+        }
+    </div>
+}
+
+<div id="content-agenda" style="min-height:500px;height:500px">
+
+</div>
+
+
+@{Html.RenderPartial("_AgendaDetalleGestionContent");}
+
+@using (Html.Rp3BeginModal("getModalDialogCrear"))
+{
+    <div id="getModalDialogCrearContent" style="margin-top:-15px;height:350px; width:800px; overflow-y:auto; overflow-x:hidden" class="scrollfx"> </div>
+    using (Html.Rp3BeginModalAction())
+    {
+        <div id="footer-create" class="show" actions-modal>
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.CrearAgenda, icon: Icons.Save, allowCloseModal: false, actionName: "viewCreate", customButtonClick: "createAgendaPost();")
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true)
+        </div>
+    }
+}
+
+@using (Html.Rp3BeginModal("modal-agenda-cliente-search", effect: ModalEffect.FlipVertical3D, customWidth: 500, includeOverlay: false))
+{
+    <div id="modal-agenda-cliente-search-content" style="z-index:9999;height:350px;">
+    </div>
+}
+
+<script>
+    $(function () {
+        initMain(@Model.IdRuta);
+    });
+
+    function openNotificacion() {
+        var idAgente = $("#IdAgenteAgenda").val();
+        if (idAgente) {
+            rp3Get("/Ruta/UbicacionAgente/Notificacion", {}, function (data) {
+
+                $("#modal-notificacion-content").html(data);
+
+                rp3ModalShow("modal-notificacion");
+            });
+        }
+        else {
+            rp3DialogInfoMessage("Debe seleccionar un Agente para enviar la notificación", "Estimado usuario", null);
+        }
+    };
+
+    function notificacionPost() {
+        var titulo = $("#sendnotificacionform [titulo]").val();
+        var mensaje = $("#sendnotificacionform [mensaje]").val();
+        var idAgente = $("#IdAgenteAgenda").val();
+
+        rp3Post("/Ruta/UbicacionAgente/Notificacion", {
+            idAgente: idAgente,
+            titulo: titulo,
+            mensaje: mensaje
+        }, function (data) {
+
+            if (!data.HasError) {
+                rp3ModalHide("modal-notificacion");
+            }
+            rp3NotifyAsPopup(data.Messages);
+        });
+    }
+</script>
+
+<style>
+    .panel-loading {
+        height: 500px;
+    }
+</style>
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginModal("modal-notificacion", customWidth: 450))
+    {
+        <div id="modal-notificacion-content" style="margin-top:-15px;height:200px; width:300px;"> </div>
+
+        using (Html.Rp3BeginModalAction())
+        {
+            <div actions-modal>
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Enviar, themeType: ElementThemeType.Success, icon: Icons.Reply, allowCloseModal: false, customButtonClick: "notificacionPost();")
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true, customButtonClick: "return;")
+            </div>
+        }
+    }
+}

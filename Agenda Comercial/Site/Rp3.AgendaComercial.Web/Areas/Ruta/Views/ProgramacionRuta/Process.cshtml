@@ -1,0 +1,42 @@
+﻿@model Rp3.AgendaComercial.Web.Ruta.GeneraAgenda
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.ProcesarAgenda;
+    this.SetImportTables(true);
+
+    this.SetInlineNotificationMessage(true, true);
+}
+
+@section ActionTitle{
+    @Html.Rp3FormActionGroup(ActivityActions.Send)
+}
+
+@using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.ProcesarAgenda, paddingContent: true, iconClass: "icon-retweet"))
+{
+    using (Html.Rp3BeginForm(htmlAttributes: new { id = "processForm" }))
+    {
+        @Html.HiddenFor(model => model.IdProgramacionRuta);
+        @Html.HiddenFor(model => model.IdRuta);
+        
+        using (Html.Rp3BeginRow())
+        {                    
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+            {
+                @Html.Rp3FormGroupDatePickerFor(model => model.FechaInicio)
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+            {
+                @Html.Rp3FormGroupDatePickerFor(model => model.FechaFin)
+            }         
+        }     
+    }
+}
+
+<script>
+    $(function () {
+        $('input[action="SEND"]').click(function () {
+            $('#processForm').submit();
+        });
+    });
+
+</script>

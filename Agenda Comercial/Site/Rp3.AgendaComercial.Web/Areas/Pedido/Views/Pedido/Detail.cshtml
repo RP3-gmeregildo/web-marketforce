@@ -1,0 +1,51 @@
+﻿@model Rp3.AgendaComercial.Models.Pedido.Pedido
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.Pedido + " # " + Model.IdPedido;
+    this.SetImportAdvTables(true);
+}
+
+@section ActionTitle{
+}
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_8))
+        {
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_10))
+                {
+
+                    @Html.Rp3FormGroupTextBoxFor(model => model.Cliente.NombresCompletos, labelText: Rp3.AgendaComercial.Resources.LabelFor.Cliente, editorHtmlAttributes: new { disabled = ViewBag.ReadOnly });
+
+                }
+            }
+
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_10))
+                {
+               
+                    @Html.Rp3FormGroupTextBoxFor(model => model.EstadoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado, editorHtmlAttributes: new { disabled = ViewBag.ReadOnly });
+
+                }
+            }
+
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_10))
+                {
+                    @Html.Rp3FormGroupTextBoxFor(model => model.ValorTotalCurrency, labelText: Rp3.AgendaComercial.Resources.LabelFor.ValorTotal, editorHtmlAttributes: new { disabled = ViewBag.ReadOnly, @class = "text-right" });
+
+                }
+            }
+
+
+        }
+    }
+<br />
+
+        @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            @Html.Partial("_GridViewIndexDetalle", Model.PedidoDetalles)
+        }

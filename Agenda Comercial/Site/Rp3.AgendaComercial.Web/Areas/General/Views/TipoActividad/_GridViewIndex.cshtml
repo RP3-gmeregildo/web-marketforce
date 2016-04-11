@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.General.TipoActividad>
+@{
+    
+}
+
+@Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "TipoActividad", Action = "GridViewIndex" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.ClientSideEvents.CustomButtonClick = "function(s, e) { document.location= e.buttonID + '?id=' + s.GetRowKey(e.visibleIndex); }";
+        settings.KeyFieldName = "IdTipoActividad";
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.TipoActividad;
+            column.FieldName = "Descripcion";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        });
+
+        settings.Columns.Add("TipoGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Tipo);
+        
+        var colEstado = settings.Columns.Add("EstadoGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Estado);
+        colEstado.Width = 75;
+    },
+    new List<OptionAction>() { 
+        new OptionAction("TIPOACTIVIDAD", "DETAIL", "AGENDACOMERCIAL"),
+        new OptionAction("TIPOACTIVIDAD", "EDIT", "AGENDACOMERCIAL"),
+        new OptionAction("TIPOACTIVIDAD", "DELETE", "AGENDACOMERCIAL"),
+    }).Bind(Model).GetHtml()

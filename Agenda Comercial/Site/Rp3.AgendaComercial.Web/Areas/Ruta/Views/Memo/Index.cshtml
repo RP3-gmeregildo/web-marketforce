@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.Ruta.Memo>
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.Memos;
+}
+
+@section ActionTitle{
+    @Html.Rp3OptionActivityButton("MEMO", "NEW", HtmlElementSize.Default, includeText: true, applicationId: "AGENDACOMERCIAL")
+}
+
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+
+@Html.DevExpress().GetStyleSheets(
+            new StyleSheet { ExtensionSuite = ExtensionSuite.GridView, Theme = "MetropolisBlue" }
+)
+
+@Html.Partial("_GridViewIndex", Model)

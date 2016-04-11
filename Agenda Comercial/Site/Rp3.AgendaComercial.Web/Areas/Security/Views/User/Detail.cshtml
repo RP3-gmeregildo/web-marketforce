@@ -1,0 +1,28 @@
+﻿@model Rp3.Web.Mvc.Application.Security.Models.DetailUser
+@{
+    ViewBag.Title = Rp3.Resources.TitleFor.DetailUser;
+    this.SetImportFormElements(true);
+}
+
+@using(Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+{
+    using (Html.Rp3BeginContentBox(Rp3.Resources.TitleFor.DetailUser))
+    {
+        using (Html.Rp3BeginForm())
+        {
+            <text>                                
+            @Html.Rp3FormGroupDisplayFor(model => model.LogonName)
+            @Html.Rp3FormGroupDisplayFor(model => model.Names)
+            @Html.Rp3FormGroupDisplayFor(model => model.LastNames)      
+            @Html.Rp3FormGroupDisplayFor(model => model.RoleName)
+            @Html.Rp3FormGroupDisplayFor(model => model.Email)
+            @Html.Rp3FormGroupDisplayFor(model => model.PhoneNumber)
+            @if(Rp3.Configuration.Rp3ConfigurationSection.Current.Authentication.AuthenticationType == Rp3.Configuration.AuthenticationElement.AuthenticationTypes.ActiveDirectory)
+            {
+                @:@Html.Rp3FormGroupDisplayFor(model => model.ActiveDirectoryEnabled)
+            }
+            @Html.Rp3FormGroupDisplayFor(model => model.Active)      
+            </text>
+        }
+    }
+}

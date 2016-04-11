@@ -1,0 +1,59 @@
+﻿@model Rp3.AgendaComercial.Models.General.Tarea
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.ConfigurarTarea;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("tarea.js")
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("dialog.css", true)
+}
+
+@Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList }
+)
+
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new Script { ExtensionSuite = ExtensionSuite.TreeList }
+)
+
+@Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList, Theme = "MetropolisBlue" }
+)
+
+@using (Html.Rp3BeginForm())
+{
+    @Html.HiddenFor(model => model.IdTarea)
+
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+
+            @Html.Rp3FormGroupDisplayFor(model => model.Descripcion)
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            @Html.Rp3FormGroupDisplayFor(model => model.TipoTareaGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Tipo)
+        }
+    }
+}
+
+<div id="setOpcionesDialog" style="display:none">  </div>
+
+<div id="content_actividades" style="margin-top:10px; margin-bottom: 10px">
+    @Html.Action("ActividadTreeListPartial", Model.IdTarea)
+</div>
+
+
+
+

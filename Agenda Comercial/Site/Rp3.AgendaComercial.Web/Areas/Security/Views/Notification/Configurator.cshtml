@@ -1,0 +1,44 @@
+﻿@model Rp3.Web.Mvc.Application.Security.Models.MailConfig
+@{
+    this.SetTitle(Rp3.Resources.TitleFor.MailConfig);
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+}
+
+
+@section ActionTitle{
+    @Html.Rp3ActivityActionButton(ActivityActions.Save, target: "#mainform", themeType: ElementThemeType.Success)
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "mainform" }))
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.Resources.TitleFor.MailAccount))
+            {
+                @Html.Rp3FormGroupTextBoxFor(model => model.ServerName)
+                @Html.Rp3FormGroupTextBoxFor(model => model.DisplayName)
+                @Html.Rp3FormGroupTextBoxFor(model => model.MailAddress)
+                @Html.Rp3FormGroupTextBoxFor(model => model.UserName)
+                @Html.Rp3FormGroupPasswordFor(model => model.Password)
+                @Html.Rp3FormGroupCheckBoxFor(model => model.EnableSsl)
+                @Html.Rp3FormGroupNumericTextBoxFor(model => model.Port)
+
+                @Html.Rp3AlertBlock(Rp3.Resources.MessageFor.MailAccount, Rp3.Data.MessageType.Information)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.Resources.TitleFor.DataBase))
+            {
+                @Html.Rp3FormGroupTextBoxFor(model => model.BDUserName)
+                @Html.Rp3FormGroupPasswordFor(model => model.BDPassword)
+    
+                @Html.Rp3AlertBlock(Rp3.Resources.MessageFor.BdData, Rp3.Data.MessageType.Information)
+            }
+        }
+    }
+}

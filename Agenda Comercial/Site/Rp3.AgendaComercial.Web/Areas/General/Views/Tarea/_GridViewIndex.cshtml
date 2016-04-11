@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.General.Tarea>
+@{
+    
+}
+
+@Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "Tarea", Action = "GridViewIndex" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.ClientSideEvents.CustomButtonClick = "function(s, e) { document.location= e.buttonID + '?id=' + s.GetRowKey(e.visibleIndex); }";
+        settings.KeyFieldName = "IdTarea";
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Tarea;
+            column.FieldName = "Descripcion";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        });
+
+        var colDesde = settings.Columns.Add("FechaVigenciaDesde", Rp3.AgendaComercial.Resources.LabelFor.Desde);
+        colDesde.PropertiesEdit.DisplayFormatString = Rp3.AgendaComercial.Models.Constantes.DateFormat;
+        colDesde.Width = 110;
+
+        var colHasta = settings.Columns.Add("FechaVigenciaHasta", Rp3.AgendaComercial.Resources.LabelFor.Hasta);
+        colHasta.PropertiesEdit.DisplayFormatString = Rp3.AgendaComercial.Models.Constantes.DateFormat;
+        colHasta.Width = 110;
+
+        settings.Columns.Add("Vigente", Rp3.AgendaComercial.Resources.LabelFor.Vigente, MVCxGridViewColumnType.CheckBox).Width = 80;
+        
+        settings.Columns.Add("TipoTareaGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Tipo);
+
+        var colEstado = settings.Columns.Add("EstadoGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Estado);
+        colEstado.Width = 75;
+    },
+    new List<OptionAction>() { 
+        new OptionAction("TAREA", "DETAIL", "AGENDACOMERCIAL"),
+        new OptionAction("TAREA", "EDIT", "AGENDACOMERCIAL"),
+        new OptionAction("TAREA", "DELETE", "AGENDACOMERCIAL")        
+    }).Bind(Model).GetHtml()
+

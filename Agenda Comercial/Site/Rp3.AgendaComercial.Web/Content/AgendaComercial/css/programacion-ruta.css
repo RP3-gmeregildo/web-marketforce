@@ -1,0 +1,14 @@
+﻿table.programacion-ruta{
+    border-width:0px !important;
+    border-style:none !important;
+    margin-bottom:0px !important;
+    background:none !important;
+}
+table.programacion-ruta tr {
+    background: none !important;
+}
+table.programacion-ruta td{
+    border-top:0px !important;
+    border-width:0px !important;
+    border-style:none !important;    
+}

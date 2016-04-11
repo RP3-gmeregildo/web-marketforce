@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.General.Calendario>
+@{
+
+}
+
+@Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "Calendario", Action = "GridViewIndex" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.ClientSideEvents.CustomButtonClick = "function(s, e) { document.location= e.buttonID + '?id=' + s.GetRowKey(e.visibleIndex); }";
+        settings.KeyFieldName = "IdCalendario";
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Calendario;
+            column.FieldName = "Descripcion";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        });
+
+        var colEstado = settings.Columns.Add("EstadoGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Estado);
+        colEstado.Width = 75;
+    },
+    new List<OptionAction>() {
+        new OptionAction("CALENDARIO", "DETAIL", "AGENDACOMERCIAL"),
+        new OptionAction("CALENDARIO", "EDIT", "AGENDACOMERCIAL"),
+        new OptionAction("CALENDARIO", "DELETE", "AGENDACOMERCIAL"),
+    }).Bind(Model).GetHtml()

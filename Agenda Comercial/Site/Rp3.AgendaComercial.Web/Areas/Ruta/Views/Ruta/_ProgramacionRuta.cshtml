@@ -1,0 +1,39 @@
+﻿@model List<Rp3.AgendaComercial.Models.Ruta.ProgramacionRuta>
+
+
+@using (Html.Rp3BeginTable(htmlAttributes: new { id = "programaciontabla", @class = "programacion-ruta" }))
+{
+    <tbody>
+        @if (Model.Count > 0)
+        {
+            foreach (var data in Model)
+            {
+                <tr>
+                    <td width="106px">
+                        @using (Html.Rp3BeginRow())
+                        {
+                            @Html.Rp3IconButton(Icons.Plus, submit: false, htmlAttributes: new { onclick = "getProgramacion(this); return false;" }, size: HtmlElementSize.Mini)
+                            @Html.Rp3IconButton(Icons.Edit, submit: false, htmlAttributes: new { onclick = "getProgramacion(this); return false;", idProgramacionRuta = data.IdProgramacionRuta }, size: HtmlElementSize.Mini)
+                            @Html.Rp3IconButton(Icons.Minus, submit: false, htmlAttributes: new { onclick = "deleteProgramacion(this); return false;", idProgramacionRuta = data.IdProgramacionRuta }, size: HtmlElementSize.Mini)
+                        }
+                    </td>
+
+                    <td>@data.Descripcion</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td width="106px">
+                    @using (Html.Rp3BeginRow())
+                    {
+                        @Html.Rp3IconButton(Icons.Plus, submit: false, htmlAttributes: new { onclick = "getProgramacion(this); return false;" }, size: HtmlElementSize.Mini)
+                    }
+
+                <td>@Rp3.AgendaComercial.Resources.LegendFor.NoExistenProgramaciones</td>
+            </tr>
+        }
+
+    </tbody>
+}

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Rp3.Data.Models.Definition.ApplicationOption>
+@{
+    ViewBag.Title = Rp3.Resources.TitleFor.Options;
+    this.SetImportFormElements(true);
+    this.SetImportTables(true);    
+}
+
+@using (Html.Rp3BeginDataTable(allowSort:false, pageSize: 20))
+{
+        <thead>
+            <tr>
+                <th></th>
+                <th>@Rp3.Resources.LabelFor.ApplicationOption</th>             
+                <th>@Rp3.Resources.LabelFor.Active</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var option in Model.OrderBy(p=>p.Position))
+            {                                      
+                <tr>
+                    <td style="min-width:70px; width:70px">
+                        @Html.Rp3OptionActivityButton("APPOPTION", "DETAIL", HtmlElementSize.Mini, routeValues: new { applicationId = option.ApplicationId, optionId = option.OptionId }, applicationId: "SECURITY")
+                        @Html.Rp3OptionActivityButton("APPOPTION", "EDIT", HtmlElementSize.Mini, routeValues: new { applicationId = option.ApplicationId, optionId = option.OptionId }, applicationId: "SECURITY")
+                     
+                    </td>
+                    <td>@option.Name</td>                                   
+                    <td class="text-center">@Html.Rp3ReadOnlyCheck(option.Active)</td>
+                </tr>
+            }
+        </tbody>
+}

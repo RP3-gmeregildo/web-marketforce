@@ -1,0 +1,110 @@
+﻿@model Rp3.AgendaComercial.Models.General.Ubicacion
+
+@using System.Threading;
+@using System.Globalization;
+@using System.Web.Script.Serialization
+
+@{
+    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+    string mapSelector = "viewMap";
+
+    ViewBag.MapWidth = "100%";
+
+    if (ViewBag.MapSelector != null) { mapSelector = ViewBag.MapSelector; }
+    if (ViewBag.MapHeight == null) { ViewBag.MapHeight = "400px"; }
+}
+
+<script language="javascript" type="text/javascript">
+    var googleMap@{@mapSelector} = null;
+    var marker@{@mapSelector} = null;
+    var bounds@{@mapSelector} = null;
+
+    @*$(window).resize(function(){
+        google.maps.event.trigger(googleMap@{@mapSelector}, 'resize');
+    });*@
+
+    $(document).ready(function () {
+        bounds@{@mapSelector} = new google.maps.LatLngBounds();
+        var options = {
+            zoom : 16,
+            scrollwheel: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        googleMap@{@mapSelector} = new google.maps.Map($("#@{@mapSelector}")[0], options);
+
+        var infowindow = new google.maps.InfoWindow();
+        var points = [];
+
+        @if(Model.Latitud != null && Model.Longitud != null)
+        {
+            <text>
+        var point = new google.maps.LatLng(@Model.Latitud, @Model.Longitud);
+
+        bounds@{@mapSelector}.extend(point);
+
+        var image, origin, size;
+
+        size = new google.maps.Size(30, 42, "px", "px");
+        origin = new google.maps.Point(@{ @Model.MarkerStart }, 0);
+        image = new google.maps.MarkerImage("@Url.Content("~/Content/AgendaComercial/img/style/sprite_numbers_location.png")", size, origin);
+
+        marker@{@mapSelector} = new google.maps.Marker({
+            position: point,
+            map: googleMap@{@mapSelector},
+            title: '@Model.Titulo',
+            @if (Model.MarkerIndex != 0)
+                {
+                    <text>
+            icon: image,
+            </text>
+                }
+            zIndex: @{ @Model.MarkerZIndex } ,
+            draggable: false
+        });
+
+        points.push(marker@{@mapSelector});
+
+        google.maps.event.addListener(marker@{@mapSelector}, "click", function () {
+            infowindow.close();
+            infowindow.setContent('<div style="width:80px"><strong>@{ @Model.Titulo }</strong><br>');
+            infowindow.open(googleMap@{@mapSelector}, this);
+        });
+        </text>
+        }
+        else {
+            <text>
+        googleMap@{@mapSelector}.setCenter(new google.maps.LatLng(@Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLatitud, @Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLongitud));
+        </text>
+        }
+
+        setCenter@{@mapSelector}();
+
+        $('a[data-toggle="tab"][targettype="content"]').click(function () {
+            setTimeout(function () {
+                checkResizeMap@{@mapSelector}();
+            }, 200);
+        });
+    });
+
+    function setCenter@{@mapSelector}()
+    {
+        @if(Model.Latitud != null && Model.Longitud != null) {
+            <text>
+        googleMap@{@mapSelector}.setCenter(new google.maps.LatLng(@Model.Latitud, @Model.Longitud));
+        </text>
+        }
+    };
+
+    function checkResizeMap@{@mapSelector}()
+    {
+        if(googleMap@{@mapSelector})
+        {
+            google.maps.event.trigger(googleMap@{@mapSelector}, 'resize');
+            setCenter@{@mapSelector}();
+        }
+    };
+
+</script>
+
+<div id="@{@mapSelector}" style="width: @ViewBag.MapWidth; height: @ViewBag.MapHeight;" />

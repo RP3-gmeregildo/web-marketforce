@@ -1,0 +1,135 @@
+﻿@model Rp3.AgendaComercial.Models.Oportunidad.View.EtapaSave
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.Etapas;
+
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportScript("treegrid/jquery.treegrid.js")
+    @Url.ImportApplicationScript("nestable/jquery.nestable.js")
+    @Url.ImportApplicationScript("etapa.js", true)
+}
+
+@section StyleImports{
+    @Url.ImportStyleSheet("jquery.treegrid.css")
+    @Url.ImportApplicationStyleSheet("treetable/jquery.treetable.css", true)
+    @Url.ImportApplicationStyleSheet("etapa.css", true)
+}
+
+@section ActionTitle{
+    @Html.Rp3ActivityActionButton(ActivityActions.Update, themeType: ElementThemeType.Success)
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+    {
+        if (!ViewBag.ReadOnly)
+        {
+            @Html.Rp3FormGroupTextBoxFor(model => model.OportunidadTipo.Descripcion, labelSize: HtmlColumnSize.Size_2)
+        }
+        else
+        {
+            @Html.Rp3FormGroupDisplayFor(model => model.OportunidadTipo.Descripcion, labelSize: HtmlColumnSize.Size_2)
+        }
+    }
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+    {
+        if (!ViewBag.ReadOnly)
+        {
+            @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.OportunidadTipo.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla, labelSize: HtmlColumnSize.Size_2)
+        }
+        else
+        {
+            @Html.Rp3FormGroupDisplayFor(model => model.OportunidadTipo.EstadoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado, labelSize: HtmlColumnSize.Size_2)
+        }
+    }
+}
+
+<input type="hidden" id="currentetapa" name="currentetapa" />
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+{
+    using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.EtapaSubEtapa))
+    {
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                @:@Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Nuevo, icon: Icons.New, actionName: "nueva-etapa")
+            }
+        }
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                <div id="content-treelist">
+                    <div id="tree-content" style="min-height:340px; height:340px; overflow:auto">
+                        <div id="tree-etapa" class="dd">
+                            <ol class="dd-list">
+                                @foreach (var parent in Model.Etapas.OrderBy(p => p.Orden))
+                                {
+                                    Html.RenderPartial("_Etapas", parent);
+                                }
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        }
+    }
+}
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, htmlAttributes: new { id = "colTarea" }))
+{
+    using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Tareas))
+    {
+        @Html.Rp3AlertBlock(Rp3.AgendaComercial.Resources.LegendFor.TareasEnEtapa, Rp3.Data.MessageType.Information)
+
+        <div class='input-group'>
+            <input class="form-control  text-left ui-autocomplete-input" id="tareaText" name="tareaText" placeholder="@Rp3.AgendaComercial.Resources.MessageFor.EscribaNombreTarea" type="text" value="" autocomplete="off">
+            <span class="input-group-addon" id="searchTareaButton" style="cursor:pointer">
+                <span class="glyphicon glyphicon-search"></span>
+            </span>
+        </div>
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                <div id="Notarea" style="min-height:340px; height:340px; overflow:auto">
+                    <h5>@Rp3.AgendaComercial.Resources.MessageFor.NoHaIngresadoTarea</h5>
+                </div>
+
+                <div id="tarea-content-treelist" style="display:none">
+                    <div id="tarea-tree-content" style="min-height:340px; height:340px; overflow:auto">
+                        <div id="tree-tarea" class="dd">
+                            <ol class="dd-list"></ol>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        }
+    }
+}
+
+@using (Html.Rp3BeginModal("ModalDialog"))
+{
+    @: @{Html.RenderPartial("_VerDatos"); }
+}
+
+@using (Html.Rp3BeginModal("modal-tarea-search", effect: ModalEffect.FlipVertical3D, customWidth: 500, includeOverlay: false))
+{
+    <div id="modal-tarea-search-content" style="z-index:9999;height:350px;">
+    </div>
+}
+<script>
+    var txtIdOportunidadTipo = @ViewBag.IdOportunidadTipo;
+</script>
+

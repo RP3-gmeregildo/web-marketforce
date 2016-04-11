@@ -1,0 +1,72 @@
+﻿@model Rp3.AgendaComercial.Web.Areas.Consulta.Models.DashboardAgenteCategoriaClienteModel
+
+@using (Html.Rp3BeginTabContentBox("", Model.Tabs))
+{
+    using (Html.Rp3BeginTabPane("tabGestionados", true, htmlAttributes: new { style = "height:280px; overflow:hidden" }))
+    {                
+        <div id="tab-agente-1">  
+            @{Html.RenderPartial("_AgenteGestionTabla", Model.Gestionados);}
+        </div>
+        <div id="tab-agente-2" style="margin-top:1000px">          
+            @{Html.RenderPartial("_AgenteGestionTabla", Model.NoGestionados);}
+        </div>
+        <div id="tab-agente-3" style="margin-top:2000px">
+            @{Html.RenderPartial("_AgenteGestionTabla", Model.Proximos);}
+        </div>
+    }
+    using (Html.Rp3BeginTabPane("tabNoGestionados", false, htmlAttributes: new { style = "height:280px", id = "tab2-content" }))
+    {
+
+    }
+    using (Html.Rp3BeginTabPane("tabProximos", false, htmlAttributes: new { style = "height:280px" }))
+    {
+
+    } 
+}
+@using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top:-30px; margin-left:0px;" }))
+{ 
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+    {
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Regresar, "fa fa-mail-reply", themeType: ElementThemeType.Default, actionName: "back-agente")
+    }
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_8))
+    {
+        if (ViewBag.AgenteSelectNombre != null)
+        {
+            @:<h5 style="margin-top:5px;">@Rp3.AgendaComercial.Resources.LabelFor.Agente: @ViewBag.AgenteSelectNombre.ToString()</h5>
+        }
+    }
+}
+
+        <script>
+            $(function () {
+
+                $("#tab-agente-1 [agente-table]").rp3DataTable(null, function () {
+                    if ($("#tab-agente-1 [agente-table][norow='True']").length > 0) {
+                        $("#tab-agente-1 .DTFC_LeftBodyLiner").hide();
+                    }                    
+                });
+
+                $("#tab-agente-2 [agente-table]").rp3DataTable(null, function () {
+                    $("#tab-agente-2").removeAttr('style');                                        
+                    $("#tab-agente-2").appendTo("#tabNoGestionados");
+                    
+                    if ($("#tab-agente-2 [agente-table][norow='True']").length > 0) {
+                        $("#tab-agente-2 .DTFC_LeftBodyLiner").hide();
+                    }                    
+                });
+
+                $("#tab-agente-3 [agente-table]").rp3DataTable(null, function () {
+                    $("#tab-agente-3").removeAttr('style');
+                    $("#tab-agente-3").appendTo("#tabProximos");
+                    
+                    if ($("#tab-agente-3 [agente-table][norow='True']").length > 0) {
+                        $("#tab-agente-3 .DTFC_LeftBodyLiner").hide();
+                    }
+                                        
+                    
+                });
+
+            });
+
+        </script>

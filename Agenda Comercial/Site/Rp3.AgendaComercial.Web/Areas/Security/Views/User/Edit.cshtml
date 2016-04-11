@@ -1,0 +1,37 @@
+﻿@model Rp3.Web.Mvc.Application.Security.Models.EditUser
+@{
+    this.SetTitle(Rp3.Resources.TitleFor.EditUser);
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+}
+
+@section ActionTitle{
+    @Html.Rp3ActivityActionButton(ActivityActions.Update, target: "#mainform")
+}
+
+@using(Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+{
+    using (Html.Rp3BeginRow()) 
+    { 
+        using (Html.Rp3BeginContentBox(Rp3.Resources.TitleFor.EditUser))
+        {
+            using (Html.Rp3BeginForm(htmlAttributes: new { id = "mainform" }))
+            {
+                <text>                
+                @Html.HiddenFor(model=>model.UserId)
+                @Html.Rp3FormGroupTextBoxFor(model=> model.LogonName, readOnly: true)
+                @Html.Rp3FormGroupTextBoxFor(model => model.Names)
+                @Html.Rp3FormGroupTextBoxFor(model => model.LastNames)      
+                @Html.Rp3FormGroupTextBoxFor(model => model.Email)
+                @Html.Rp3FormGroupTextBoxFor(model => model.PhoneNumber)        
+                @Html.Rp3FormGroupDropDownListFor(model => model.RoleId, (SelectList)ViewBag.RoleSelectList)
+                @if(Rp3.Configuration.Rp3ConfigurationSection.Current.Authentication.AuthenticationType == Rp3.Configuration.AuthenticationElement.AuthenticationTypes.ActiveDirectory)
+                {
+                    @:@Html.Rp3FormGroupCheckBoxFor(model => model.ActiveDirectoryEnabled)
+                }
+                @Html.Rp3FormGroupCheckBoxFor(model => model.Active)           
+                </text>
+            }
+        }
+    }
+}

@@ -1,0 +1,49 @@
+﻿@model List<DateTime>
+
+@using (Html.Rp3BeginDataTable(scrollY: "100px", allowPagination: false, allowSort: false, columnAutoWidth: true, allowSearch: Model.Count > 1, htmlAttributes: new { id = "fechastabla" }))
+{
+    <thead>
+        <tr>
+            <th style="display:none"></th>
+            <th>@Rp3.AgendaComercial.Resources.LabelFor.Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var data in Model)
+    {
+        <tr fecha="@{@data.Ticks}">
+            <td style="display:none"></td>
+            <td class="selectable-item">@data.ToLongDateString()</td>
+        </tr>
+    }
+    </tbody>
+}
+
+<style>
+     #fechastabla_wrapper .dataTables_scroll {
+        height: 130px;
+    }
+</style>
+
+@if(this.IsAjax)
+{
+    <script>
+        $(function () {
+        
+            if($("#fechastabla_wrapper").length==0) 
+                $("#fechastabla").rp3DataTable();
+
+            $("#fechastabla tr td").click(function () {
+                $("#fechastabla_wrapper tr td").removeClass("selected-item");
+                $(this).addClass("selected-item");
+
+                actualizarUbicaciones();
+            });
+
+            $("#fechastabla tbody tr:first td").addClass("selected-item");
+            setTimeout(function () { actualizarUbicaciones(); }, 500);
+            
+            
+        });
+    </script>
+}

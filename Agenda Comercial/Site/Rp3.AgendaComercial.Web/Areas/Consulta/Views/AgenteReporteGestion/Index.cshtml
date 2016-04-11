@@ -1,0 +1,176 @@
+﻿@model Rp3.AgendaComercial.Web.Areas.Consulta.Models.AgenteReporteGestion
+@{
+    this.SetTitle(Rp3.AgendaComercial.Resources.TitleFor.AgenteReporteGestion);
+    this.SetImportTables(true);
+    this.SetImportFormElements(true);
+    
+    SelectList modos = new SelectList(new[]
+    {
+        new SelectListItem { Text = "Resumido", Value = "0"},
+        new SelectListItem { Text = "Detallado", Value = "1"}
+    }, "Value", "Text", "0");
+}
+
+@section Imports{
+    
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+
+    @Url.ImportApplicationScript("daterangepicker/moment.min.js")
+    @Url.ImportApplicationScript("daterangepicker/daterangepicker.js")
+}
+
+@section BeforeStyleImports{
+    @Url.ImportApplicationStyleSheet("daterangepicker/daterangepicker-bs3.css")
+}
+
+@section ActionTitle{
+    <div class="row">
+        <div class="col-sm-2">
+            @Html.EnumDropDownListFor(m => m.Modo, htmlAttributes: new { Style = "width:120px;" }) 
+        </div>
+        <div class="col-sm-6">
+            @Html.Rp3FormGroupCheckBoxFor(model => model.MostrarFotos, labelSize: HtmlColumnSize.Size_6)
+        </div>
+        <div class="col-sm-4">
+            <div style="float:right">
+                <div class="row" style="float:right;width:300px;margin-right:2px;margin-left:15px;margin-top:3px;margin-bottom:10px;height:25px;">
+                    <div id="reportrange" class="pull-left form-control daterange" style=" height:34px;">
+                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                        <span style="height:100%"></span> <b style="height: 100%; display: inline-block;vertical-align: middle;"></b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>       
+}
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+{
+    using (Html.Rp3BeginDataTable(scrollY: "520px", allowPagination: false, allowSort: false, columnAutoWidth: true, allowSearch: false, autoWindowHeight: true, htmlAttributes: new { id = "agentestabla" }))
+    {
+        <thead>
+            <tr>
+                <th style="display:none"></th>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var agente in Model.Agentes.OrderBy(p => p.Descripcion))
+            {
+                <tr idagente="@{@agente.IdAgente}">
+                    <td style="display:none"></td>
+                    <td class="selectable-item">@agente.Descripcion</td>
+                </tr>
+            }
+        </tbody>
+    }
+}
+
+@using (Html.Rp3BeginColumn( HtmlColumnSize.Size_9))
+{
+    <div id="report">
+        <iframe id="reportFrame" style="width:100%" frameborder="0" onload='resizeFrame()'></iframe>
+    </div>
+}
+
+<script>
+    var currentFechaInicial = null;
+    var currentFechaFinal = null;
+    var inicioTicks = null;
+    var finTicks = null;
+    var currentIdAgente = null;
+
+    var offsetFrame = 155;
+
+    function resizeFrame() {
+        var opera = (navigator.userAgent.indexOf("Opera") >= 0) ? true : false;
+        var ie = (document.all && !opera) ? true : false;
+        var frame = document.getElementById('reportFrame');
+        if (parseInt(navigator.appVersion) > 3) {
+            if (ie) {
+                document.body.scroll = 'no';
+                frame.height = document.documentElement.clientHeight - offsetFrame;
+            }
+            else {
+                document.body.scroll = 'no';
+                frame.height = window.innerHeight - offsetFrame;
+            }
+        }
+        rp3HideLoadingPanel('#report');
+    }
+
+    function GetReport()
+    {
+        if (currentIdAgente) {
+            rp3ShowLoadingPanel('#report');
+            var modo = $('#Modo').val();
+            var mostrarFotos = $("#MostrarFotos").is(":checked");
+            var frame = document.getElementById('reportFrame');
+            frame.src = RP3_ROOT_PATH + '/Ruta/InformeParada/PreviewReporteGestion?IdAgente=' + currentIdAgente + '&FechaInicioTicks=' + inicioTicks + '&FechaFinTicks=' + finTicks + '&Modo=' + modo + '&MostrarFotos=' + mostrarFotos;
+        }
+        else {
+            rp3DialogInfoMessage("Debe seleccionar un Agente para ir a su reporte de gestión", "Estimado usuario", null);
+        }
+    }
+
+    $(function () {
+        resizeFrame();
+        $("#MostrarFotos").on('ifChecked || ifUnchecked', function () {
+            GetReport();
+        });
+
+        $('#Modo').change(function () {
+            GetReport();
+        });
+
+        var cb = function (start, end) {
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+
+            currentFechaInicial = start.format('YYYY-MM-D');
+            currentFechaFinal = end.format('YYYY-MM-D');
+            inicioTicks = rp3GetTicks(new Date(currentFechaInicial + " "));
+            finTicks = rp3GetTicks(new Date(currentFechaFinal + " "));
+
+            GetReport();
+        };
+
+        var fechaInicial = moment();
+        var fechaFinal = moment();
+
+        var optionSet2 = {
+            locale: 'es',
+            startDate: fechaInicial,
+            endDate: fechaFinal,
+            opens: 'left',
+            ranges: {
+                'Hoy': [moment(), moment()],
+                'Ayer': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                'Último Mes': [moment().subtract('days', 30), moment()],
+                'Últimos 3 Meses': [moment().subtract('days', 90), moment()],
+                'Últimos 6 Meses': [moment().subtract('days', 180), moment()],
+                'Últimos 12 Meses': [moment().subtract('days', 360), moment()]
+            }
+        };
+
+        $('#reportrange span').html(fechaInicial.format('MMMM D, YYYY') + ' - ' + fechaFinal.format('MMMM D, YYYY'));
+
+        currentFechaInicial = fechaInicial.format('YYYY-MM-D');
+        currentFechaFinal = fechaInicial.format('YYYY-MM-D');
+        inicioTicks = rp3GetTicks(new Date(currentFechaInicial + " "));
+        finTicks = rp3GetTicks(new Date(currentFechaFinal + " "));
+        $('#reportrange').daterangepicker(optionSet2, cb);
+
+        $(window).resize(function () {
+            rp3DataTableAjustsColumns();
+            resizeFrame();
+        });
+
+        $("#agentestabla tr td").click(function () {
+            $("#agentestabla_wrapper tr td").removeClass("selected-item");
+            $(this).addClass("selected-item");
+            currentIdAgente = $(this).parent().attr("idagente");
+            GetReport();
+        });
+    });
+
+</script>

@@ -1,0 +1,46 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.View.AgendaTarea
+
+<h4>@Model.Nombre</h4>
+@if (Model.Actividades.Any())
+{
+    <div class="modal-body" style="height:450px">
+        @using (Html.Rp3BeginTable(new { @class = "roleTree" }))
+        {
+            <tbody>
+                @foreach (var tar in Model.Actividades.Where(p => p.IdTareaActividadPadre == null))
+                {
+                    var optionActivities = tar.IdTareaActividad;
+                    <tr class="treegrid-@{@(tar.IdTareaActividad)}">
+                        @if (string.IsNullOrEmpty(tar.Respuesta))
+                        {
+                            <td style="width:40%">@tar.Pregunta</td>
+                        }
+                        else
+                        {
+                            <td style="width:40%">@tar.Pregunta</td>
+                            <td colspan="2" style="width:60%">@tar.Respuesta</td>
+                        }
+                    </tr>
+                    foreach (var tar2 in Model.Actividades.Where(p => p.IdTareaActividadPadre == tar.IdTareaActividad).OrderBy(a => a.IdTareaActividad))
+                    {
+                        <tr class="treegrid-@{@(tar2.IdTareaActividad)} treegrid-parent-@{@(tar2.IdTareaActividadPadre)}">
+                            <td style="width:40%">@tar2.Pregunta</td>
+                            <td colspan="2" style="width:60%">@tar2.Respuesta</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        }
+        <div class="myfooter">
+            @*@Html.Rp3Button("Regresar", icon: Icons.Refresh, allowCloseModal: false, actionName: "but-back", customButtonClick: "swap(1)")*@
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        init_Modal_Tareas();
+        
+    });
+</script>
+
+

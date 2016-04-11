@@ -1,0 +1,187 @@
+﻿@model Rp3.AgendaComercial.Models.Oportunidad.View.OportunidadConsulta
+
+
+@{ var table_number = 0; }
+
+@if (Model.OportunidadCategorias.Count > 0)
+{
+    foreach (var cat in Model.OportunidadCategorias)
+    {
+        var numDays = 1;
+        if (cat.Oportunidad != null)
+        {
+            if (cat.Oportunidad.FirstOrDefault() != null)
+            {
+                table_number++;
+
+                <div class="" style="margin-bottom:5px;">
+                    @using (Html.Rp3BeginRow())
+                    {
+                        <div class="block-lines-header">
+
+                            <h4 style="float:left;">@cat.Nombre</h4>
+                            <h5 style="color:#328fca;float:left;margin-left:10px;margin-top:14px;">@cat.Oportunidad.Count oportunidad(es)</h5>
+
+                            @if (cat.isBusqueda && cat.Oportunidad[0].TotalPages > 1)
+                            {
+                                <div style="width:200px; margin-top:-10px; float:right;">
+                                    <div class="spacer">
+                                        <div class="btn-group">
+                                            @Html.Rp3Button("", actionName: "listado_prev_begin", iconClass: "fa fa-fast-backward", themeType: ElementThemeType.Default, customButtonClick: "ListadoPreviousBeginPage('" + cat.Oportunidad[0].TotalPages + "')", htmlAttributes: new { type = "button" })
+                                            @Html.Rp3Button("", actionName: "listado_prev", iconClass: "fa fa-backward", themeType: ElementThemeType.Default, customButtonClick: "ListadoPreviousPage('" + cat.Oportunidad[0].TotalPages + "')", htmlAttributes: new { type = "button" })
+                                            @Html.Rp3Button("", actionName: "listado_next", iconClass: "fa fa-forward", themeType: ElementThemeType.Default, customButtonClick: "ListadoNextPage('" + cat.Oportunidad[0].TotalPages + "')", htmlAttributes: new { type = "button" })
+                                            @Html.Rp3Button("", actionName: "listado_next_end", iconClass: "fa fa-fast-forward", themeType: ElementThemeType.Default, customButtonClick: "ListadoNextEndPage('" + cat.Oportunidad[0].TotalPages + "')", htmlAttributes: new { type = "button" })
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                    }
+
+                    @using (Html.Rp3BeginRow())
+                    {
+                        using (Html.Rp3BeginTable())
+                        {
+                            <tbody class="content">
+                                @foreach (var app in cat.Oportunidad)
+                                {
+                                    <tr class="row  hov" style="cursor: pointer;" onclick="@("openOportunidadDetalleView('" + app.IdOportunidad + "')")">
+                                        <td class="col-sm-1" style="width:20px">@numDays</td>
+                                        <td class="col-sm-1" style="width:20px"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage(app.EstadoImageUrl)" /></td>
+                                        <td class="col-md-2" style="width:120px"><i class="fa fa-calendar"></i> @app.FechaInicio.ToString("dd/MM/yyyy")</td>
+                                        <td class="col-md-3" style="width:210px"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("oportunidad.png")" />@app.Descripcion</td>
+                                        <td class="col-sm-1" style="width:80px"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("probabilidad.png")" /><strong style="color:@app.ProbabilidadColor">@{@app.Probabilidad.ToString("n0")}%</strong></td>
+                                        <td class="col-md-1" style="width:150px"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("importe.png")" /><span style="float:right">@app.Importe.ToString("c0")</span></td>
+                                        @*<td class="col-md-1"><i class="fa fa-bookmark"></i>@app.EstadoDescripcion</td>*@
+
+                                        <td class="col-md-2"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("agentes.png")" /> @app.Agente</td>
+                                        @*<td class="col-md-2"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("clientes.png")" /> @app.Prospecto</td>*@
+                                        <td class="col-md-1"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("diastranscurridos.png")" />@app.DiasTranscurridos Día(s)</td>
+                                        <td class="col-md-1"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("diasinactivos.png")" />@app.DiasInactividad Día(s)</td>
+                                        @*<td class="col-md-2"><i class="fa fa-calendar"></i> @if (app.FechaUltimaGestion != null) { @app.FechaUltimaGestion.Value.ToString("dd/MM/yyyy HH:mm") } </td>*@
+                                        <td class="col-sm-1">@{ Html.Rp3RenderStage(app.Estado != Rp3.AgendaComercial.Models.Constantes.EstadoOportunidad.Concretado ? app.EtapaOrden - 1 : app.EtapaOrden); }</td>
+                                        <td class="col-sm-1">@{ Html.Rp3RenderRate(app.Calificacion); }</td>
+
+                                    </tr>
+                                         numDays++;
+                                }
+                            </tbody>
+
+                            <tfoot>
+                                <tr class="row  hov">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><strong>@Rp3.AgendaComercial.Resources.LabelFor.Total.ToUpper()</strong></td>
+                                    <td><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("importe.png")" /><strong style="float:right">@cat.Oportunidad.Sum(p => p.Importe).ToString("c0")</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        }
+                    }
+                </div>
+            }
+            else
+            {
+                var countExist = 0;
+                foreach (var tempcat in Model.OportunidadCategorias)
+                {
+                    if (tempcat.Oportunidad.Count > 0)
+                    {
+                        countExist++;
+                    }
+                }
+                if (countExist < 1 && table_number == 0)
+                {
+                    table_number++;
+                    <div class="" style="margin-bottom:50px;">
+                        <tbody class="content">
+                            <tr class="row  hov" style="cursor: pointer;">
+                                <td class="col-sm-12"><h4>No hay Registros a Mostrar</h4></td>
+                            </tr>
+                        </tbody>
+                    </div>
+                }
+            }
+        }
+        else
+        {
+            <div class="" style="margin-bottom:50px;">
+                <div class="block-lines-header">
+                    <h4>@cat.Nombre</h4>
+                </div>
+            </div>
+        }
+    }
+
+
+    @*using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginTable())
+        {
+            <tbody class="content">
+                    <tr class="row  hov">
+                        <td class="col-sm-1" style="width:20px"></td>
+                        <td class="col-sm-1" style="width:20px"></td>
+                        <td class="col-md-2" style="width:120px"></td>
+                        <td class="col-md-3" style="width:210px"></td>
+                        <td class="col-sm-1" style="width:80px"></td>
+                        <td class="col-md-1" style="width:150px"></td>
+
+                        <td class="col-md-2"></td>
+                        <td class="col-md-2"></td>
+                        <td class="col-sm-1"></td>
+                        <td class="col-sm-1"></td>
+
+                    </tr>
+            </tbody>
+        }
+    }*@
+}
+else
+{
+    <div class="" style="margin-bottom:50px;">
+        <tbody class="content">
+            <tr class="row  hov" style="cursor: pointer;">
+                <td class="col-sm-12"><h4>No hay Registros a Mostrar</h4></td>
+            </tr>
+        </tbody>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+
+        @if (Model.OportunidadCategorias.Count > 0 && Model.OportunidadCategorias[0].Oportunidad != null && Model.OportunidadCategorias[0].Oportunidad.Count > 0)
+        {
+            <text>
+        evaluateListadoNavigationButtons(@Model.OportunidadCategorias[0].Oportunidad[0].TotalPages);
+        </text>
+        }
+
+    });
+</script>
+
+<style>
+    .round-corner {
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px; /* future proofing */
+        -khtml-border-radius: 10px; /* for old Konqueror browsers */
+    }
+
+    .hov:hover {
+        background-color: #FBF7EA; /*#328fca;*/
+        color: black; /*white;*/
+    }
+</style>
+
+
+
+
+

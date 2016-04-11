@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.Ruta.Reunion>
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.Reuniones;
+}
+
+@section ActionTitle{
+    @Html.Rp3OptionActivityButton("REUNION", "NEW", HtmlElementSize.Default, includeText: true, applicationId: "AGENDACOMERCIAL")
+}
+
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+
+@Html.DevExpress().GetStyleSheets(
+            new StyleSheet { ExtensionSuite = ExtensionSuite.GridView, Theme = "MetropolisBlue" }
+)
+
+@Html.Partial("_GridViewIndex", Model)

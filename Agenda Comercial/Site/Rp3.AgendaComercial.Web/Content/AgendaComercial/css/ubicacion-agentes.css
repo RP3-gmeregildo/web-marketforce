@@ -1,0 +1,24 @@
+﻿.leyend-section
+{
+  position: absolute;
+  bottom: -25px;
+  right: 25px;
+  z-index: 10;
+}
+.leyend-section .leyend-icon-name
+{
+    float: right;
+    margin-top:3px;
+    margin-right: 10px;
+}
+
+.leyend-section .leyend-icon
+{
+    float: right;    
+}
+.leyend-section .leyend-icon.icalert
+{
+  font-size: 18px;
+  margin-right: 4px;
+  color: red;
+}

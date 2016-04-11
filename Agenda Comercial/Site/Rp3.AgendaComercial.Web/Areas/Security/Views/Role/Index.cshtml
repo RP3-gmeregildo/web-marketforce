@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Rp3.Data.Models.Security.RoleBase>
+@{
+    this.SetTitle(Rp3.Resources.TitleFor.Roles);
+    this.SetImportAdvTables(true);
+}
+
+@section ActionTitle{
+    @Html.Rp3OptionActivityButton("ROLE", "NEW", HtmlElementSize.Default, includeText: true, applicationId: "SECURITY")
+
+    @Html.Rp3OptionActivityButton("ROLE", "PROCESS", HtmlElementSize.Default, includeText: true, applicationId: "SECURITY")
+}
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Auto))
+{   
+    @Html.Partial("_GridViewIndex", Model)
+}

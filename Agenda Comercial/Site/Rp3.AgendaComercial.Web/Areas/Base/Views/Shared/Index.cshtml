@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = Rp3.Resources.TitleFor.DefaultHome;    
+}
+
+@using(Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{
+    if(Rp3.Web.Mvc.Session.IsLogged)
+    {
+        @:@Html.Rp3AlertBlock(string.Format(Rp3.Resources.LegendFor.DefaultHome,Rp3.Web.Mvc.Session.UserFullName), Rp3.Data.MessageType.Information, Rp3.Resources.LabelFor.Welcome)
+    }
+    else
+    {
+        @:@Html.Rp3AlertBlock(Rp3.Resources.LegendFor.DefaultHomeNoLogged, Rp3.Data.MessageType.Information, Rp3.Resources.LabelFor.Welcome)    
+    }
+}

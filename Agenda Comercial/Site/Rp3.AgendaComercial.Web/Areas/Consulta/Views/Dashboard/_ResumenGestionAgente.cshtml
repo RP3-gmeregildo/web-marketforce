@@ -1,0 +1,46 @@
+﻿@model List<Rp3.AgendaComercial.Models.Consulta.View.DashboardResumenGestionAgente>
+
+@using(Html.Rp3BeginDataTable(htmlAttributes:new{ id = "agente-dashboard-resumen-table" }, allowPagination:false, scrollY:"305px", scrollX:true, columnAutoWidth:false,leftColumns:1))
+{
+    <thead>
+        <tr>
+            <th style="min-width:150px">@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>
+            <th style="min-width:80px">@Rp3.AgendaComercial.Resources.LabelFor.IndicadorGestionados</th>
+            <th style="min-width:80px">@Rp3.AgendaComercial.Resources.LabelFor.IndicadorNoGestionados</th>
+            <th style="min-width:80px">@Rp3.AgendaComercial.Resources.LabelFor.IndicadorProximos</th>
+            <th style="min-width:80px">@Rp3.AgendaComercial.Resources.LabelFor.IndicadorTotalGestiones</th>
+            <th style="min-width:80px">@Rp3.AgendaComercial.Resources.LabelFor.IndicadorDuracionVisitaPromedio</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var agente in Model.OrderBy(p=>p.Agente))
+        {
+            <tr idagente="@agente.IdAgente">
+                <td class="selectable-item">
+                    @agente.Agente
+                </td>
+                <td class="selectable-item text-right">
+                    @agente.Gestionados 
+                </td>
+                <td class="selectable-item text-right">
+                    @agente.NoGestionados
+                </td>
+                <td class="selectable-item text-right">
+                    @agente.Proximos
+                </td>
+                <td class="selectable-item text-right">
+                    @agente.Total
+                </td>
+                <td class="selectable-item text-right">
+                    @agente.DuracionPromedio
+                </td>
+            </tr>
+        }
+    </tbody>
+}
+
+<script>
+    $(function () {
+        $("#agente-dashboard-resumen-table").rp3DataTable();
+    });
+</script>

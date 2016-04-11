@@ -1,0 +1,153 @@
+﻿@model Rp3.AgendaComercial.Models.General.TipoActividad
+@{
+
+}
+
+<div id="content_dialog_form">
+
+    @using (Html.Rp3BeginForm(htmlAttributes: new { id = "setopcionform" }))
+    {
+        <div style="height:350px;">
+
+            @Html.HiddenFor(model => model.IdTipoActividad, new { id = "IdTipoActividadOpcion" })
+
+            @using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+                {
+                    using (Html.Rp3BeginDataTable(scrollY: "300px", allowSort: false, allowPagination: false, allowSearch: false, htmlAttributes: new { id = "tipoActividades" }))
+                    {
+                        <thead>
+                            <tr>
+                                <th>@Rp3.AgendaComercial.Resources.LabelFor.Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Rp3.AgendaComercial.Models.General.TipoActividad tipoActividad in ViewBag.TipoActividades)
+                            {
+                                <tr class="selectable-item" idtipoactividad="@tipoActividad.IdTipoActividad" descripcion="@tipoActividad.Descripcion" estado="@tipoActividad.Estado" tipo="@tipoActividad.Tipo">
+                                    <td>@tipoActividad.Descripcion</td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                }
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_8))
+                {
+                    using (Html.Rp3BeginContentBox(paddingContent: false))
+                    {
+                        using (Html.Rp3BeginRow())
+                        {
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+                            {
+                                using (Html.Rp3BeginRow())
+                                {
+                                    @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion, labelText: Rp3.AgendaComercial.Resources.LabelFor.Descripcion, editorHtmlAttributes: new { id = "DescripcionOpcion" })
+                                }
+
+                                using (Html.Rp3BeginRow())
+                                {
+                                    @*@Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Tipo, Rp3.AgendaComercial.Models.Constantes.TipoActividad.Tabla, editorHtmlAttributes: new { id = "TipoOpcion" })*@
+               
+                                    @Html.Rp3FormGroupDropDownListFor(model => model.Tipo, (SelectList)ViewBag.Tipos, editorHtmlAttributes: new { id = "TipoOpcion" })
+                                }
+
+                                using (Html.Rp3BeginRow())
+                                {
+                                    @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla, editorHtmlAttributes: new { id = "EstadoOpcion" })
+                                }
+                            }
+
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, htmlAttributes: new { style = "margin-top:-40px" }))
+                            {
+                                using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.LegendFor.IngreseTextoOpcion, paddingContent: true))
+                                {
+                                    <input id="opcionText" name="opcionText" type="text" class="input_text" style="width:100%" />
+                                }
+
+                                using (Html.Rp3BeginDataTable(scrollY: "300px", allowSort: false, allowPagination: false, allowSearch: false, htmlAttributes: new { id = "opciones" }))
+                                {
+                                    <thead>
+                                        <tr>
+                                            <th style="width:67px"></th>
+                                            <th>@Rp3.AgendaComercial.Resources.LabelFor.Opcion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+
+        </div>
+
+        using (Html.Rp3BeginModalAction())
+        {
+            <div id="footer-main" actions-modal>
+                @*@Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Editar, icon: Icons.Edit, allowCloseModal: true, customButtonClick: "postSetOpciones()")*@
+
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Nuevo, icon: Icons.New, htmlAttributes: new { new_button = "" })
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Guardar, icon: Icons.Save, themeType: ElementThemeType.Success, htmlAttributes: new { save_button = "" })
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true)
+            </div>
+        }
+
+    }
+
+</div>
+
+
+<script>
+
+    triggerInput();
+
+    $('#setopcionform select').rp3SelectBox();
+
+    $('#setopcionform [save-button]').unbind("click");
+    $('#setopcionform [save-button]').click(function (e) {
+        e.preventDefault();
+        postSetOpciones();
+    });
+
+    $('#setopcionform [new-button]').unbind("click");
+    $('#setopcionform [new-button]').click(function (e) {
+        e.preventDefault();
+       
+        $('#IdTipoActividadOpcion').val('');
+        $('#DescripcionOpcion').val('');
+        $('#TipoOpcion').select2("val", "S");
+        $('#EstadoOpcion').select2("val", "A");
+
+        $("#tipoActividades_wrapper tr td").removeClass("selected-item");
+
+        clearRows();
+    });
+
+
+    $("#tipoActividades tr td").click(function () {
+        $("#tipoActividades_wrapper tr td").removeClass("selected-item");
+        $(this).addClass("selected-item");
+    });
+
+    $("#TipoOpcion").select2();
+
+    $('#opciones').dataTable({
+        "sScrollY": 155,
+        "bPaginate": false,
+        "bFilter": false,
+        "bInfo": false
+    });
+
+    $('#tipoActividades').dataTable({
+        "sScrollY": 295,
+        "bPaginate": false,
+        "bFilter": false,
+        "bInfo": false
+    });
+
+</script>

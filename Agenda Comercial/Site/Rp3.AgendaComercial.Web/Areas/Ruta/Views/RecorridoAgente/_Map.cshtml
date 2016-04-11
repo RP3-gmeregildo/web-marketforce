@@ -1,0 +1,516 @@
+﻿@model Rp3.AgendaComercial.Web.Ruta.RecorridoAgenteResult
+
+@using System.Threading;
+@using System.Globalization;
+@using System.Web.Script.Serialization
+@{
+    string defaultPhoto = "~/Content/AgendaComercial/img/DefaultPerson.jpg";
+    
+    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+    string mapSelector = "viewMapTracking";    
+
+    int count = Model.Recorrido.Where(p => p.Latitud != null && p.Longitud != null && p.Longitud != 0 && p.Latitud != 0).Count();
+    int countMarkerIndex = Model.Recorrido.Where(p => p.Latitud != null && p.Longitud != null && p.Longitud != 0 && p.Latitud != 0 && p.MarkerIndex != 0).Count();
+
+    int countTotal = count + Model.Clientes.Where(p=> p.Latitud != null && p.Longitud != null && p.Longitud != 0 && p.Latitud != 0).Count();
+    
+    var firstPoint = Model.Recorrido.Where(p => p.Latitud != null && p.Longitud != null && p.Longitud != 0 && p.Latitud != 0 && p.MarkerIndex != 0).OrderBy(p => p.MarkerIndex).FirstOrDefault();
+    var lastPoint = Model.Recorrido.Where(p => p.Latitud != null && p.Longitud != null && p.Longitud != 0 && p.Latitud != 0 && p.MarkerIndex != 0).OrderBy(p => p.MarkerIndex).LastOrDefault();        
+
+    if (firstPoint != null)
+    {
+        firstPoint.MarkerIndex = 1;
+    }
+
+    if (lastPoint != null)
+    {
+        lastPoint.MarkerIndex = 1;     
+    }
+
+    if (ViewBag.TravelMode == null) { ViewBag.TravelMode = "DRIVING"; }
+    if (ViewBag.MapWidth == null) { ViewBag.MapWidth = "100%"; }
+    if (ViewBag.MapHeight == null) { ViewBag.MapHeight = "400px"; }
+
+
+    int clienteCount = Model.Clientes.Count;
+    int gestionCount = Model.Clientes.Where(p => p.Realizada).Count();
+    int alertaCount = Model.Clientes.Where(p => p.Advertencia).Count();
+}
+
+
+<div id="map-tip" style="display:none">
+@foreach (var marker in Model.Clientes.Where(p => p.Latitud != null && p.Longitud != null && p.Longitud != 0 && p.Latitud != 0))
+        {
+            string foto = marker.FotoPath;
+            if (string.IsNullOrEmpty(foto))
+            {
+                foto = defaultPhoto;
+            }
+        
+            <div id="tip-cliente@{@marker.IdAgenda}">
+                <div class="tip-content-cliente">
+                    <div class="tip-foto">
+                        <img id="photo" src="@Url.Content(foto)" class="profile-avatar img-circle">
+                    </div>
+
+                    <div class="tip-data">
+                        <div class="titulo" onclick="openAgendaDetalleView(@marker.IdRuta,@marker.IdAgenda)"><h5>@marker.Titulo</h5></div>
+                        <div class="direccion"><i class="fa fa-home"></i> @marker.Direccion</div>
+                        <div class="estado">
+                            <div class="hora"><i class="fa fa-clock-o"></i> @marker.Fecha.ToString("HH:mm")</div>
+                            <div class="estado-icon img-circle" style="background-color:@marker.ColorEstado"></div>
+                            <div class="estado-descripcion">@marker.Estado</div>
+                        </div>
+                        @if (marker.Realizada && marker.DistanciaGestion.HasValue && marker.DistanciaGestion != 0 && marker.DistanciaGestion.Value > Model.RadioDistancia)
+                        {
+                            double distancia = marker.DistanciaGestion.Value;
+                            string unidadMedida = "mts";
+                            if (distancia > 1000)
+                            {
+                                distancia = distancia / (double)1000;
+                                unidadMedida = "Kms";
+                            }
+                            distancia = System.Math.Round(distancia, 2);
+                            <div class="alert-mensaje"><i class="fa fa-exclamation-triangle"></i> @string.Format(Rp3.AgendaComercial.Resources.LegendFor.AlertaVisitaRealizadaNDistanciaDestino, distancia, unidadMedida)</div>
+                        }
+                        else if (marker.Realizada && marker.LatitudGestion.HasValue && marker.LatitudGestion != 0)
+                        {
+                            <div class="info-mensaje"><i class="fa fa-check"></i> @Rp3.AgendaComercial.Resources.LegendFor.VisitaRealizadaEnDestino</div>
+                        }
+                        else if (marker.Realizada && (!marker.LatitudGestion.HasValue || marker.LatitudGestion == 0))
+                        {
+                            <div class="alert-mensaje"><i class="fa fa-exclamation-triangle"></i> @Rp3.AgendaComercial.Resources.MessageFor.GestionSinUbicacion</div>
+                        }
+                    </div>
+                </div>
+            </div>
+    }
+
+@foreach (var marker in Model.Clientes.Where(p => p.LatitudGestion != null && p.LongitudGestion != null && p.LatitudGestion != 0 && p.LongitudGestion != 0))
+{
+    string foto = marker.FotoPath;
+    if (string.IsNullOrEmpty(foto))
+    {
+        foto = defaultPhoto;
+    }
+
+    <div id="tip-gestion@{@marker.IdAgenda}">
+        <div class="tip-content-cliente">
+            <div class="tip-foto">
+                <img id="photo" src="@Url.Content(foto)" class="profile-avatar img-circle">
+            </div>
+
+            <div class="tip-data">
+                <div class="titulo" onclick="openAgendaDetalleView(@marker.IdRuta,@marker.IdAgenda)"><h5>@marker.Titulo</h5></div>
+                <div class="direccion"><i class="fa fa-home"></i> @marker.Direccion</div>
+                <div class="estado">
+                    @if (marker.FechaInicioGestion.HasValue) { 
+                        <div class="hora"><i class="fa fa-clock-o"></i> @marker.FechaInicioGestion.Value.ToString("HH:mm") 
+                        @if (marker.FechaFinGestion.HasValue)
+                        {
+                            @: - @marker.FechaFinGestion.Value.ToString("HH:mm")
+                        }
+                        </div>
+                    }
+                    <div class="estado-icon img-circle" style="background-color:@marker.ColorEstado"></div>
+                    <div class="estado-descripcion">@marker.Estado</div>
+                </div>
+                @if (marker.Realizada && marker.DistanciaGestion.HasValue && marker.DistanciaGestion != 0 && marker.DistanciaGestion.Value > Model.RadioDistancia)
+                {
+                    double distancia = marker.DistanciaGestion.Value;
+                    string unidadMedida = "mts";
+                    if (distancia > 1000)
+                    {
+                        distancia = distancia / (double)1000;
+                        unidadMedida = "Kms";
+                    }
+                    distancia = System.Math.Round(distancia, 2);
+                    <div class="alert-mensaje"><i class="fa fa-exclamation-triangle"></i> @string.Format(Rp3.AgendaComercial.Resources.LegendFor.AlertaVisitaRealizadaNDistanciaDestino,distancia,unidadMedida)</div>
+                }
+                else if(marker.Realizada && marker.LatitudGestion.HasValue && marker.LatitudGestion != 0)
+                {
+                    <div class="info-mensaje"><i class="fa fa-check"></i> @Rp3.AgendaComercial.Resources.LegendFor.VisitaRealizadaEnDestino</div>
+                }
+                else if (marker.Realizada && (!marker.LatitudGestion.HasValue || marker.LatitudGestion == 0))
+                {
+                    <div class="alert-mensaje"><i class="fa fa-exclamation-triangle"></i> @Rp3.AgendaComercial.Resources.MessageFor.GestionSinUbicacion</div>
+                }
+            </div>
+        </div>
+    </div>
+}
+</div>
+
+<script language="javascript" type="text/javascript">
+
+    var googleMapTracking = null;
+    var bounds = null;
+    var latitud = null;
+    var longitud = null;
+    var directionsService = new google.maps.DirectionsService();
+    var requestArray = [], renderArray = [];
+
+    $(window).resize(function(){
+        google.maps.event.trigger(googleMapTracking, 'resize');
+    });
+
+
+    $(function () {
+
+        @if (Model.IncluirClientes)
+        {
+            @:$("#cliente-count").text("(@{@clienteCount})");
+        }
+        else
+        {
+            @:$("#cliente-count").text("");
+        }
+        @if (Model.IncluirGestion)
+        {
+            @:$("#gestion-count").text("(@{@gestionCount})");
+        }
+        else
+        {
+            @:$("#gestion-count").text("");
+        }
+        @if (Model.IncluirGestion || Model.IncluirClientes)
+        {
+            @:$("#alert-count").text("(@{@alertaCount})");
+        }
+        else
+        {
+            @:$("#alert-count").text("");
+        }
+
+        bounds = new google.maps.LatLngBounds();
+        var options = {
+            @if (count > 1){
+                <text>zoom : 16,</text>
+            }
+            else{
+                <text>zoom : 14,</text>
+            }
+            scrollwheel: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        googleMapTracking = new google.maps.Map($("#@{@mapSelector}")[0], options);
+
+        var infowindow = new google.maps.InfoWindow();
+        var points = [];
+        var radiusMarker, secondMarker;
+
+
+        @if (countTotal == 0)
+        {
+        <text>
+        googleMapTracking.setCenter(new google.maps.LatLng(@Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLatitud, @Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLongitud));
+        </text>
+        }
+
+        @foreach (var marker in Model.Clientes.Where(p => p.Latitud != null && p.Longitud != null && p.Longitud != 0 && p.Latitud != 0))
+        {
+            if(Model.IncluirClientes)
+            {
+            <text>
+        var point = new google.maps.LatLng(@marker.Latitud, @marker.Longitud);
+
+        var markerCliente = new google.maps.Marker({
+            position: point,
+            map: googleMapTracking,
+            animation: google.maps.Animation.DROP,
+            title: '@Html.Raw(marker.NombresCompletos)',
+            @if (marker.Advertencia)
+                    {
+                        @:icon: "@Url.Content("~/Content/AgendaComercial/img/style/marker-cliente-blue-warning.png")",
+                                            }
+                    else{
+                        @:icon: "@Url.Content("~/Content/AgendaComercial/img/style/marker-cliente-blue.png")",
+                                            }
+            zIndex: @{ @marker.MarkerZIndex } ,
+            draggable: false
+        });
+
+        google.maps.event.addListener(markerCliente, "click", function () {
+            infowindow.close();
+            infowindow.setContent( $("#tip-cliente"+ @marker.IdAgenda).html() );
+            infowindow.open(googleMapTracking, this);
+        });
+
+        bounds.extend(point)
+        </text>
+            }
+
+        if(Model.IncluirGestion && marker.LongitudGestion.HasValue && marker.LatitudGestion.HasValue && marker.LatitudGestion!=0)
+            {
+                <text>
+        var pointGestion = new google.maps.LatLng(@marker.LatitudGestion, @marker.LongitudGestion);
+
+        var gestionMarker = new google.maps.Marker({
+            position: pointGestion,
+            animation: google.maps.Animation.DROP,
+            title: '@Html.Raw(marker.NombresCompletos)',
+            icon: "@Url.Content("~/Content/AgendaComercial/img/style/markervisit.png")",
+            zIndex: @{ @marker.MarkerZIndex } ,
+            draggable: false
+        });
+
+        google.maps.event.addListener(gestionMarker, "click", function () {
+            infowindow.close();
+            infowindow.setContent( $("#tip-gestion"+ @marker.IdAgenda).html() );
+            infowindow.open(googleMapTracking, this);
+        });
+
+        //var distancia = @marker.DistanciaGestion
+        //var distance = parseInt(google.maps.geometry.spherical.computeDistanceBetween (markerCliente.getPosition(), gestionMarker.getPosition()));
+
+        bounds.extend(pointGestion)
+
+        gestionMarker.setMap(googleMapTracking);
+
+        @if (Model.IncluirClientes && marker.DistanciaGestion.HasValue && marker.DistanciaGestion.Value > Model.RadioDistancia)
+                {
+                    <text>
+
+        var circle = new google.maps.Circle({
+            map: googleMapTracking,
+            radius: @Model.RadioDistancia,
+            strokeWeight: 1,
+            fillColor: '#335AA8'
+        });
+
+        circle.bindTo('center', markerCliente, 'position');
+
+        var line = new google.maps.Polyline({
+            path: [markerCliente.getPosition(), gestionMarker.getPosition()],
+            strokeColor: "#335AA8",
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+            geodesic: true,
+            map: googleMapTracking
+        });
+        </text>
+              }
+        </text>
+            }
+        }
+
+        @foreach (var marker in Model.Recorrido.Where(p => p.Latitud != null && p.Longitud != null && p.Longitud != 0 && p.Latitud != 0))
+        {
+        <text>
+        var point = new google.maps.LatLng(@marker.Latitud, @marker.Longitud);
+
+        @if (marker.MarkerIndex != 0 || countMarkerIndex == 0)
+            {
+            <text>
+        bounds.extend(point);
+        </text>
+            }
+
+        var image, origin, size;
+
+        @if (marker == firstPoint)
+            {
+            <text>
+        image = new google.maps.MarkerImage("@Url.Content("~/Content/AgendaComercial/img/style/markerstart.png")");
+        </text>
+            } else if (marker == lastPoint)
+            {
+            <text>
+        image = new google.maps.MarkerImage("@Url.Content("~/Content/AgendaComercial/img/style/markerend.png")");
+        </text>
+            } else
+            {
+            <text>
+        image = new google.maps.MarkerImage("@Url.Content("~/Content/AgendaComercial/img/style/markerpoint.png")");
+        </text>
+            }
+
+
+        var marker = new google.maps.Marker({
+            position: point,
+            map: googleMapTracking,
+            title: '@Html.Raw(marker.Titulo)',
+            @if (marker.MarkerIndex != 0)
+                {
+                    <text>
+            icon: image,
+            </text>
+                }
+            zIndex: @{ @marker.MarkerZIndex } ,
+            draggable: false
+        });
+
+        @if (marker.MarkerIndex != 0)
+        {
+            <text>
+        points.push(marker);
+        </text>
+        }
+
+        @if (marker.MarkerIndex == 1)
+        {
+             <text>
+        if(!radiusMarker){
+            radiusMarker = marker;
+        }
+        </text>
+        }
+
+        @if (marker.MarkerIndex == 2)
+        {
+             <text>
+        if(!secondMarker){
+            secondMarker = marker;
+        }
+        </text>
+         }
+
+        google.maps.event.addListener(marker, "click", function () {
+            var title = '@{ @marker.Titulo }';
+            var width = title.lenght * 10;
+
+            infowindow.close();
+            infowindow.setContent('<div style="width:' + width + 'px"><h5><i class="fa fa-clock-o"></i>  ' + title + '</h5></div>');
+            infowindow.open(googleMapTracking, this);
+        });
+
+        @if (count == 1)
+        {
+            <text>
+        latitud = @marker.Latitud;
+        longitud = @marker.Longitud;
+        </text>
+        }
+
+        </text>
+    }
+
+
+        @if(count > 0)
+        {
+            <text>
+        setMapTrackingRoutes(points);
+        </text>
+        }
+
+        setTrackingCenter();
+    });
+
+    function setMapTrackingRoutes(points)
+    {
+        var waypoints = [];
+        var i;
+        var orig, dest, marker;
+        var maxPoints = 8;
+
+        for(i = 0; i < points.length; i++)
+        {
+            marker = points[i];
+
+            if(i % maxPoints == 0 || i == points.length-1)
+            {
+                if(i == points.length-1)
+                {
+                    dest = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
+
+                    if(!orig)
+                        orig = dest;
+                }
+
+                if(orig && dest)
+                {
+                    var request = {
+                        origin: orig,
+                        waypoints: waypoints,
+                        destination: dest,
+                        travelMode: google.maps.TravelMode["@ViewBag.TravelMode"]
+                    };
+
+                    requestArray.push(request);
+                    orig = dest;
+                    waypoints = [];
+                    dest = null;
+
+                    waypoints.push({ location:new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng()), stopover:false});
+                }
+
+                if(!orig)
+                    orig = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
+            }
+            else if(i % maxPoints == maxPoints-1)
+            {
+                dest = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
+            }
+            else
+            {
+                waypoints.push({ location:new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng()), stopover:false});
+            }
+        }
+
+        processTrackingRequests();
+    };
+
+    function processTrackingRequests(){
+
+        var i = 0;
+
+        function submitRequest(){
+            directionsService.route(requestArray[i], directionResults);
+        }
+
+        function directionResults(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+
+                renderArray[i] = new google.maps.DirectionsRenderer({suppressMarkers: true});
+
+                renderArray[i].setMap(googleMapTracking);
+
+                renderArray[i].setOptions({
+                    preserveViewport: true,
+                    suppressInfoWindows: true
+                });
+
+                renderArray[i].setDirections(result);
+
+                nextRequest();
+            }
+        }
+
+        function nextRequest(){
+            i++;
+            if(i >= requestArray.length){
+                return;
+            }
+            submitRequest();
+        }
+
+        submitRequest();
+    };
+
+    function setTrackingCenter()
+    {
+        @if (countTotal == 1)
+        {
+             @:googleMapTracking.setCenter(new google.maps.LatLng(latitud, longitud));
+                        }
+
+        @if (countTotal > 1)
+         {
+             <text>
+        googleMapTracking.fitBounds(bounds);
+        </text>
+         }
+    };
+
+    function checkResizeTrackingMap()
+    {
+        if(googleMapTracking)
+        {
+            google.maps.event.trigger(googleMapTracking, 'resize');
+            setTrackingCenter();
+        }
+    };
+
+</script>
+<div id="@{@mapSelector}" style="width: @ViewBag.MapWidth; height: @ViewBag.MapHeight;" />

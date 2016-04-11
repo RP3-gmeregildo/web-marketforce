@@ -1,0 +1,32 @@
+﻿@model Rp3.AgendaComercial.Models.General.View.ZonaModel
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.CrearZona;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("zona.js")
+    @Url.ImportApplicationScript("fancy/jquery.fancybox.pack.js")
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("mapa.css", true)
+    @Url.ImportApplicationStyleSheet("fancy/jquery.fancybox.css", true)
+}
+@section ActionTitle{
+    @Html.Rp3ActivityActionButton(ActivityActions.Create, themeType: ElementThemeType.Success, target: "#form-zona")
+}
+
+
+@{Html.RenderPartial("_Edit", Model);}
+
+
+<script>
+    setTimeout(function () {
+        $('#Estado').select2("enable", false);
+    }, 100);
+</script>

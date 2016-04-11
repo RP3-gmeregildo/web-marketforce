@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.General.Cargo>
+@{
+
+}
+
+@Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "Cargo", Action = "GridViewIndex" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.KeyFieldName = "IdCargo";
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Cargo;
+            column.FieldName = "Descripcion";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.EsSupervisor;
+            column.FieldName = "EsSupervisor";
+            column.ColumnType = MVCxGridViewColumnType.CheckBox;
+            column.ReadOnly = true;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.EsAdministrador;
+            column.FieldName = "EsAdministrador";
+            column.ColumnType = MVCxGridViewColumnType.CheckBox;
+            column.ReadOnly = true;
+        });
+
+        var colEstado = settings.Columns.Add("EstadoGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Estado);
+        colEstado.Width = 75;
+    },
+    new List<OptionAction>() {
+        new OptionAction("CARGO", "DETAIL", "AGENDACOMERCIAL"),
+        new OptionAction("CARGO", "EDIT", "AGENDACOMERCIAL"),
+        new OptionAction("CARGO", "DELETE", "AGENDACOMERCIAL"),
+    }).Bind(Model).GetHtml()

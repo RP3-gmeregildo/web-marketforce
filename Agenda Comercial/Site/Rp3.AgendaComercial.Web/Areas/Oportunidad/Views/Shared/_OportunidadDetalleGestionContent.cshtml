@@ -1,0 +1,56 @@
+﻿@{
+    if (ViewBag.EsGerente == null)
+    {
+        ViewBag.EsGerente = false;
+    }
+}
+
+@using (Html.Rp3BeginModal("modal-oportunidad-sort", effect: ModalEffect.FlipVertical3D, customWidth: 300, includeOverlay: false))
+{
+    <div id="modal-oportunidad-sort-content" style="z-index:9999;height:400px;">
+    </div>
+}
+
+@using (Html.Rp3BeginModal("modal-oportunidad-detalle"))
+{
+        <div id="modal-oportunidad-detalle-content" style="margin-top:-15px; overflow-y:auto; overflow-x:hidden;background-color:white" class="scrollfx">
+            <div id="modal-oportunidad-content-general" style="min-height:500px;position:relative;"></div>
+            <div id="modal-oportunidad-content-etapas" style="position:relative;"></div>
+            <div id="modal-oportunidad-content-subetapas" style="position:relative;"></div>
+            <div id="modal-oportunidad-content-tareas" style="position:relative;"></div>
+            <div id="modal-oportunidad-content-info" style="position:relative;"></div>
+            <div id="modal-oportunidad-content-bitacora" style="position:relative;"></div>
+        </div>
+    
+
+    using (Html.Rp3BeginModalAction())
+    {
+        <div id="modal-oportunidad-footer-main" actions-modal>
+
+            @Html.Rp3Button("Imprimir", themeType: ElementThemeType.Default, iconClass: "fa fa-print", allowCloseModal: false, htmlAttributes: new { id = "modal-oportunidad-detalle-button-capturar" })
+
+            @if (ViewBag.EsGerente)
+            {
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Eliminar, themeType: ElementThemeType.Error, icon: Icons.Remove, allowCloseModal: false, htmlAttributes: new { id = "modal-oportunidad-detalle-button-eliminar" })
+            }
+
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true)
+        </div>
+
+        <div id="modal-oportunidad-footer-back" actions-modal>
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Regresar, themeType: ElementThemeType.Default, icon: Icons.Reply, allowCloseModal: false, htmlAttributes: new { id = "modal-oportunidad-detalle-button-back" })
+        </div>
+    }
+}
+
+@using (Html.Rp3BeginModal("modal-oportunidad-detalle-map", effect: ModalEffect.FlipVertical3D, customWidth: 1200, includeOverlay: false))
+{
+    <div id="modal-oportunidad-detalle-map-content" style="z-index:9999;height:550px;">
+    </div>
+}
+
+@using (Html.Rp3BeginModal("setUbicacionDialog", effect: ModalEffect.FlipVertical3D, customWidth: 850, includeOverlay: false))
+{
+    <div id="setUbicacionDialogContent">
+    </div>
+}

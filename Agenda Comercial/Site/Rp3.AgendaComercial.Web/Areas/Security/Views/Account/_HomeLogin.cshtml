@@ -1,0 +1,21 @@
+﻿@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+    {
+        @:@{Html.RenderPartial("_InnerLogin");}       
+    }
+
+    if (Rp3.Configuration.Rp3ConfigurationSection.Current.AllowUserRegister)
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.Resources.TitleFor.HasNotAccount))
+            {
+                using (Html.Rp3BeginForm())
+                {
+                    <h5>@Html.Rp3ActionLink(Rp3.Resources.LegendFor.RequestAccountRegister, Rp3.Configuration.Rp3ConfigurationSection.Current.RegisterRedirect.Url)</h5>
+                }
+            }
+        }
+    }
+}

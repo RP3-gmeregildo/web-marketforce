@@ -1,0 +1,94 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.ProgramacionTarea
+@{
+
+}
+
+<text>
+
+    @Html.HiddenFor(model => model.IdProgramacionTarea)
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.Descripcion)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupCheckBoxFor(model => model.EsIndefinida)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.EsIndefinida)
+            }
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDatePickerFor(model => model.FechaInicio)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.FechaInicio)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDatePickerFor(model => model.FechaFin)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.FechaFin)
+            }
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDropDownListFor(model => model.IdFrecuencia, (SelectList)ViewBag.FrecuenciasSelectList)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.Frecuencia.Descripcion)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.EstadoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado)
+            }
+        }
+    }
+
+
+
+
+</text>

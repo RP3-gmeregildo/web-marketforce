@@ -1,0 +1,132 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.Memo
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+<text>
+
+    @Html.HiddenFor(model => model.IdMemo)
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDatePickerFor(model => model.Fecha)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.Fecha)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupTextBoxFor(model => model.Titulo)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.Titulo)
+            }
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDropDownListFor(model => model.IdAgenteRemitente, (SelectList)ViewBag.AgentesSelectList, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarAgente })
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.Remitente.Descripcion)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.EstadoMemo, Rp3.AgendaComercial.Models.Constantes.EstadoMemo.Tabla)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.EstadoMemoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado)
+            }
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.TipoMemo, Rp3.AgendaComercial.Models.Constantes.TipoMemo.Tabla)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.TipoMemoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Tipo)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Importancia, Rp3.AgendaComercial.Models.Constantes.Importancia.Tabla)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.ImportanciaGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Importancia)
+            }
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_10))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupTextAreaFor(model => model.Detalle)
+            }
+            else
+            {
+                @Html.Rp3FormGroupTextAreaFor(model => model.Detalle, readOnly: true)
+            }
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_10))
+        {
+            using (@Html.Rp3BeginFormGroupEditor(labelText: Rp3.AgendaComercial.Resources.LabelFor.Destinatarios))
+            {
+                @Html.DevExpress().TokenBox(settings =>
+                {
+                    settings.Name = "Destinatarios";
+                    settings.Properties.AllowCustomTokens = false;
+                    settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                    //settings.Properties.ShowDropDownOnFocus = ShowDropDownOnFocusMode.Always;
+                    settings.Properties.ItemValueType = typeof(int);
+                    settings.Properties.ValueSeparator = '-';
+                    settings.Properties.ValueField = "IdAgente";
+                    settings.Properties.TextField = "Descripcion";
+                    settings.ReadOnly = Model.ReadOnly;
+                    settings.Properties.NullText = Rp3.AgendaComercial.Resources.LegendFor.AgenteToken;
+                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    settings.Height = System.Web.UI.WebControls.Unit.Pixel(27);
+                }).BindList(ViewBag.Agentes).Bind(Model.Destinatarios).GetHtml();
+            }
+        }
+    }
+
+</text>

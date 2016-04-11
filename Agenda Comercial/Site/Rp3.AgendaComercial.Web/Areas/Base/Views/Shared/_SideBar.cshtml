@@ -1,0 +1,214 @@
+﻿@model IEnumerable<ApplicationOptionActivity>
+@{
+    List<ApplicationOption> applicationOptionChilds = Model.Where(p => p.ApplicationOption.ParentOption != null).Select(p => p.ApplicationOption).Distinct().ToList();
+    List<ApplicationOption> applicationOptions = Model.Where(p => p.ApplicationOption.ParentOption == null).Select(p => p.ApplicationOption).Where(p => p.ApplicationOptionType == ApplicationOptionType.Option).Distinct().ToList();
+    applicationOptions.AddRange(Model.Where(p=>p.ApplicationOption.ParentOption!=null).Select(p=>p.ApplicationOption.ParentOption).Distinct().ToList());    
+}
+
+<div class="menu-space nano nscroller has-scrollbar">
+    <div class="content">
+        @*
+            <div class="side-user">
+                <div class="avatar"><img src="images/avatar1_50.jpg" alt="Avatar" /></div>
+                <div class="info">
+                    <a href="#">Jeff Hanneman</a>
+                    <img src="images/state_online.png" alt="Status" /> <span>Online</span>
+                </div>
+            </div>
+        *@
+
+        <ul class="cl-vnavigation">
+            <li><a href="@Url.Action("Index", "Home", new { area = Rp3.Web.Mvc.Session.OrganizationId })"><i class="fa fa-home"></i><span>@Rp3.Resources.LabelFor.Home</span></a></li>
+
+            @foreach (var applicationOption in applicationOptions.OrderBy(p => p.Position))
+                {
+                    bool subMenu = applicationOption.ApplicationOptionType == ApplicationOptionType.Group || applicationOption.ShowActivitiesInSideBar;
+
+                    if (subMenu)
+                    {
+                        bool active = Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity != null &&
+                                   Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.ApplicationId == applicationOption.ApplicationId &&
+                                   Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.OptionId == applicationOption.OptionId;
+
+            <li @(active ? "class=active" : "")>
+
+                <a href="#">@Html.Rp3Icon(applicationOption.IconClass)<span>@applicationOption.Name</span></a>
+                <ul class="sub-menu">
+                    @if (applicationOption.ApplicationOptionType == ApplicationOptionType.Group)
+                                {
+                                    foreach (var applicationOptionChild in applicationOptionChilds.Where(p => p.ParentOptionId == applicationOption.OptionId).OrderBy(p => p.Position))
+                                    {
+                                        var applicationOptionActivity = Model.FirstOrDefault(p => p.ApplicationId == applicationOptionChild.ApplicationId &&
+                                            p.OptionId == applicationOptionChild.OptionId && p.IsInitialActivity);
+
+                                        if (applicationOptionActivity != null)
+                                        {
+                                            bool activeActivity = Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity != null &&
+                                            Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.ApplicationId == applicationOptionActivity.ApplicationId &&
+                                            Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.ActivityId == applicationOptionActivity.ActivityId &&
+                                            Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.OptionId == applicationOptionActivity.OptionId;
+
+                                <li @(activeActivity ? "class=active" : "") title="@Html.Raw(applicationOptionChild.Name)"><a href="@Url.Action(applicationOptionActivity)">@Html.Rp3Icon(applicationOptionChild.IconClass) <span>@applicationOptionChild.Name</span></a></li>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (var applicationOptionActivity in Model.Where(p => p.OptionId == applicationOption.OptionId && p.ShowInSidebar))
+                                    {
+                                        bool activeActivity = Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity != null &&
+                                            Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.ApplicationId == applicationOptionActivity.ApplicationId &&
+                                            Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.ActivityId == applicationOptionActivity.ActivityId &&
+                                            Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.OptionId == applicationOptionActivity.OptionId;
+
+                                <li @(activeActivity ? "class=active" : "") title="@Html.Raw(applicationOption.Name)">@Html.Rp3ActionLink(applicationOptionActivity)</li>
+                                    }
+                                }
+                </ul>
+            </li>
+                    }
+                    else
+                    {
+                        var applicationOptionActivity = Model.FirstOrDefault(p => p.ApplicationId == applicationOption.ApplicationId &&
+                        p.OptionId == applicationOption.OptionId && p.IsInitialActivity);
+
+                        bool active = Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity != null &&
+                            Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.ApplicationId == applicationOptionActivity.ApplicationId &&
+                            Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.ActivityId == applicationOptionActivity.ActivityId &&
+                            Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.OptionId == applicationOptionActivity.OptionId;
+
+                        if (applicationOptionActivity != null)
+                        {
+            <li @(active ? "class=active" : "") title="@Html.Raw(applicationOption.Name)"><a href="@Url.Action(applicationOptionActivity)">@Html.Rp3Icon(applicationOption.IconClass)<span>@applicationOption.Name</span></a></li>
+                        }
+                    }
+                }
+
+
+
+            @*<li>
+                    <a href="#"><i class="fa fa-home"></i><span>Inicio</span></a>
+                    <ul class="sub-menu">
+                        <li class="active"><a href="index.html">Ir a inicio</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-male"></i><span>Cartera</span></a>
+                    <ul class="sub-menu">
+                        <li><a href="ui-elements.html">Clientes</a></li>
+                        <li><a href="ui-buttons.html">Lotes</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-users"></i><span>Equipo</span></a>
+                    <ul class="sub-menu">
+                        <li><a href="form-elements.html">Rutas</a></li>
+                        <li><a href="form-validation.html">Agentes</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-tasks"></i><span>Actividades</span></a>
+                    <ul class="sub-menu">
+                        <li><a href="tables-general.html">Tareas</a></li>
+                        <li><a href="tables-general.html">Reuniones</a></li>
+                        <li><a href="tables-general.html">Memos</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-calendar"></i><span>Programación</span></a>
+                    <ul class="sub-menu">
+                        <li><a href="maps.html">Programacion de Tareas</a></li>
+                        <li><a href="maps.html">Programacion de Rutas</a></li>
+                        <li><a href="maps.html">Agenda</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-briefcase"></i><span>Gestión</span></a>
+                    <ul class="sub-menu">
+                        <li><a href="email-inbox.html">Detallado</a></li>
+                        <li><a href="email-read.html">Resumido</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="typography.html"><i class="fa fa-map-marker nav-icon"></i><span>Ubicaciones</span></a>
+                    <ul class="sub-menu">
+                        <li><a href="email-inbox.html">Ubicacion de Agentes</a></li>
+                        <li><a href="email-read.html">Ubicacion de Agentes</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="charts.html"><i class="fa fa-cogs fa-fw"></i><span>Definiciones</span></a>
+                    <ul class="sub-menu">
+                        <li><a href="email-inbox.html">Cargos</a></li>
+                        <li><a href="email-read.html">Canales</a></li>
+                        <li><a href="email-inbox.html">Tipos de Clientes</a></li>
+                        <li><a href="email-read.html">Tipos de Actividad</a></li>
+                        <li><a href="email-inbox.html">Tipos de Cartera</a></li>
+                        <li><a href="email-read.html">Regiones</a></li>
+                        <li><a href="email-read.html">Zonas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-lock"></i><span>Seguridades</span></a>
+
+                </li>*@
+        </ul>
+    </div>
+</div>
+
+<div class="search-field collapse-button">@*<input type="text" placeholder="Search..." class="form-control search">*@<button id="sidebar-collapse" class="btn btn-default"><i class="fa fa-angle-right"></i></button></div>
+
+@*<div id="sidebar">
+    <ul>
+        <li><a href="@Url.Action("Index", "Home", new { area = Rp3.Web.Mvc.Session.OrganizationId })"><i class="icon-home"></i><span>@Rp3.Resources.LabelFor.Home</span></a></li>
+
+        @foreach (var applicationOption in applicationOptions.OrderBy(p=>p.Position))
+        {
+            bool subMenu = applicationOption.ApplicationOptionType == ApplicationOptionType.Group || applicationOption.ShowActivitiesInSideBar;
+
+            if (subMenu)
+            {
+            <li class="submenu">
+                <a href="#">@Html.Rp3Icon(applicationOption.IconClass)<span>@applicationOption.Name</span><i class="arrow icon-chevron-right"></i></a>
+                <ul>
+                    @if (applicationOption.ApplicationOptionType == ApplicationOptionType.Group)
+                    {
+                        foreach (var applicationOptionChild in applicationOptionChilds.Where(p => p.ParentOptionId == applicationOption.OptionId).OrderBy(p=>p.Position))
+                        {
+                            var applicationOptionActivity = Model.FirstOrDefault(p => p.ApplicationId == applicationOptionChild.ApplicationId &&
+                                p.OptionId == applicationOptionChild.OptionId && p.IsInitialActivity);
+                            
+                            if(applicationOptionActivity!=null)
+                            {
+                                <li><a href="@Url.Action(applicationOptionActivity)">@Html.Rp3Icon(applicationOptionChild.IconClass)<span>@applicationOptionChild.Name</span></a></li>
+                            } 
+                        }
+                    }
+                    else 
+                    { 
+                        foreach (var applicationOptionActivity in Model.Where(p=>p.OptionId == applicationOption.OptionId && p.ShowInSidebar))
+                        {
+                            <li>@Html.Rp3ActionLink(applicationOptionActivity)</li>
+                        }
+                    }
+                </ul>
+            </li>
+            }
+            else
+            {
+                var applicationOptionActivity = Model.FirstOrDefault(p=> p.ApplicationId == applicationOption.ApplicationId && 
+                    p.OptionId == applicationOption.OptionId && p.IsInitialActivity);
+                if(applicationOptionActivity!=null)
+                {
+                    <li><a href="@Url.Action(applicationOptionActivity)">@Html.Rp3Icon(applicationOption.IconClass)<span>@applicationOption.Name</span></a></li>
+                }
+            }
+        }            
+    </ul>
+</div>*@

@@ -1,0 +1,126 @@
+﻿@model Rp3.AgendaComercial.Models.General.View.TareaView
+@{
+    var bloquear = false;
+
+    if (Model.TipoTarea == Rp3.AgendaComercial.Models.Constantes.TipoTarea.ActualizacionClientes)
+    {
+        if ((ViewBag.ADCExistTodasRutas != null && ViewBag.ADCExistTodasRutas) ||
+            (ViewBag.ADCTareaRuta != null && ((List<Rp3.AgendaComercial.Models.General.TareaRutaAplica>)ViewBag.ADCTareaRuta).Count > 0))
+        {
+            bloquear = true;
+        }
+    }
+}
+
+@using (Html.Rp3BeginRow())
+{
+    if (!Model.ReadOnly && !bloquear)
+    {
+        <div style="float:left;height:30px;">@Html.Rp3CheckBoxFor(model => model.AplicaTodasLasRutas)</div>
+        <h5 style="float:left;margin-left:10px; margin-top:2px;height:30px;">@Rp3.AgendaComercial.Resources.LabelFor.AplicaTodasLasRutas</h5>
+    }
+    else
+    {
+        <div style="float:left;height:30px;margin-left:15px">@Html.Rp3DisableCheckBoxFor(model => model.AplicaTodasLasRutas)</div>
+        <h5 style="float:left;margin-left:10px; margin-top:2px;height:30px;">@Rp3.AgendaComercial.Resources.LabelFor.AplicaTodasLasRutas</h5>
+
+        if (bloquear)
+        {
+            <div style="float:left;margin-left:25px">
+                @Html.Rp3LabelWidget(Rp3.AgendaComercial.Resources.LabelFor.ExisteTareaTipoTodasRutas, LabelWidgetType.Warning)
+            </div>
+        }
+    }
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12, htmlAttributes: new { id = "rutatable-tab-content" }))
+    {
+        using (Html.Rp3BeginDataTable(scrollY: "250px", allowPagination: false, htmlAttributes: new { id = "rutatabla" }))
+        {
+            var countRuta = 0;
+            <thead>
+                <tr>
+                    @if (!Model.ReadOnly)
+                    {
+                        @*<th class="text-center">@Html.Rp3CheckBox("rutacheckall")</th>*@
+                        <th></th>
+                    }
+                    <th>@Rp3.AgendaComercial.Resources.LabelFor.Ruta</th>
+                    <th>@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>
+
+                    @if (ViewBag.ADCTareaRuta != null && ((List<Rp3.AgendaComercial.Models.General.TareaRutaAplica>)ViewBag.ADCTareaRuta).Count > 0)
+                    {
+                        <th>
+                            @Rp3.AgendaComercial.Resources.LabelFor.TareasYaAsignadas
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+
+                @{
+                    var listRuta = Model.TareaRutasAplica;
+
+                    if (Model.ReadOnly)
+                    {
+                        listRuta = listRuta.Where(p => p.Aplica).ToList();
+                    }
+                }
+
+                @foreach (var rut in listRuta.OrderBy(p => p.Nombre))
+                {
+                    countRuta++;
+                    string tareas = String.Empty;
+                    bool bloquerRuta = false;
+
+                    if (ViewBag.ADCTareaRuta != null)
+                    {
+                        foreach (var tareaRuta in ((List<Rp3.AgendaComercial.Models.General.TareaRutaAplica>)ViewBag.ADCTareaRuta).Where(p=>p.IdRuta == rut.IdRuta))
+                        {
+                            bloquerRuta = true;
+                            
+                            if (!String.IsNullOrEmpty(tareas))
+                            {
+                                tareas = ", " + tareaRuta.Tarea.Descripcion;
+                            }
+                            else
+                            {
+                                tareas = tareaRuta.Tarea.Descripcion;
+                            }
+                        }
+                    }
+
+                    if (!bloquerRuta && (ViewBag.ADCExistTodasRutas != null && ViewBag.ADCExistTodasRutas) && Model.TipoTarea == "ADC") {
+                        bloquerRuta = true;
+                    }
+
+                    <tr data-index="@countRuta" parentrutaid="@{@rut.IdRuta}" data-ruta="@rut.IdRuta" data-nombre="@rut.Nombre" data-agente="@rut.Agente" data-aplica="@rut.Aplica">
+                        @if (!Model.ReadOnly)
+                        {
+                            <td class="text-center">
+                                @if (!bloquerRuta)
+                                {
+                                    @Html.Rp3CheckBox("rutachk", isChecked: rut.Aplica, value: rut.IdRuta,
+                                    htmlAttributes: new { allowcheck = "" })
+                                }
+                                else
+                                {
+                                    @Html.Rp3CheckBox("rutachk", isChecked: false, value: rut.IdRuta,
+                                         htmlAttributes: new { checkreadOnly = "" })
+                                }
+                            </td>
+                        }
+                        <td>@rut.Nombre</td>
+                        <td>@rut.Agente</td>
+                        @if (ViewBag.ADCTareaRuta != null && ((List<Rp3.AgendaComercial.Models.General.TareaRutaAplica>)ViewBag.ADCTareaRuta).Count > 0)
+                        {
+                            <td>@tareas</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        }
+    }
+}

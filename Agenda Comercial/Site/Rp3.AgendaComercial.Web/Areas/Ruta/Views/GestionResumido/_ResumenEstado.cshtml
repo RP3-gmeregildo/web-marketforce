@@ -1,0 +1,24 @@
+﻿@model List<Rp3.AgendaComercial.Web.Ruta.ResumenEstado>
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.GestionResumido;
+    this.SetImportTables(true);
+}
+
+@using (Html.Rp3BeginDataTable(scrollY: 70,allowSort: false, allowPagination: false, allowSearch: false))
+{
+    <thead>
+        <tr>
+           <th>@Rp3.AgendaComercial.Resources.LabelFor.Estado</th>
+            <th>@Rp3.AgendaComercial.Resources.LabelFor.Cantidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderByDescending(p => p.Cantidad))
+        {
+            <tr>
+                <td>@item.EstadoAgendaContent</td>
+                <td align="right">@item.Cantidad</td>
+            </tr>
+        }
+    </tbody>
+}

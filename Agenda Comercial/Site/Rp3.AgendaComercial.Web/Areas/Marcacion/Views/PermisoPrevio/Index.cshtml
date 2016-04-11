@@ -1,0 +1,71 @@
+﻿@{
+    this.SetTitle(Rp3.AgendaComercial.Resources.TitleFor.PermisosPrevios);
+    this.SetImportTables(true);
+}
+
+@section BeforeStyleImports{
+    @Url.ImportApplicationStyleSheet("daterangepicker/daterangepicker-bs3.css")
+    @Url.ImportApplicationStyleSheet("perfect_scroller/perfect-scrollbar.min.css")
+    @Url.ImportApplicationStyleSheet("select/bootstrap-select.css")
+    @Url.ImportApplicationStyleSheet("timepicker/jquery.timepicker.css")
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("permiso.css", true)
+}
+
+@section ScriptImports{
+    @Url.ImportApplicationScript("daterangepicker/moment.min.js")
+    @Url.ImportApplicationScript("daterangepicker/daterangepicker.js")
+    @Url.ImportApplicationScript("fancybox/jquery.mousewheel-3.0.6.pack.js")
+    @Url.ImportApplicationScript("datetimepicker/date.js")
+    @Url.ImportApplicationScript("timepicker/jquery.timepicker.js")
+
+    @Url.ImportApplicationScript("permisoprevio.js", true)
+}
+
+
+@section ActionTitle{
+    <div class="pull-left" style="width:50px;margin-top:7px">
+        @Html.Rp3Button("", actionName: "sort-list", iconClass: "fa fa-sort", themeType: ElementThemeType.Default, htmlAttributes: new { title = Rp3.AgendaComercial.Resources.TitleFor.Ordenamiento })
+    </div>
+
+    <button class="btn btn-default btn-lg pull-left" style="margin-top:5px" id="crear-Permiso" onclick="crearPermisoShow();">@Rp3.AgendaComercial.Resources.LabelFor.AgregarPermiso</button>
+}
+
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+    {
+        using (Html.Rp3BeginContentBox(paddingContent: false))
+        {
+            <div style="height:20px;">
+
+                <div style="float:left">
+                    <div class="row" style="float:right;width:252px;margin-right:15px;margin-left:5px;margin-top:-7px;margin-bottom:10px;height:30px;">
+                        <div id="reportrange" class="pull-left form-control daterange" style=" height:35px;">
+                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                            <span style="height:100%"></span> <b style="height: 100%; display: inline-block;vertical-align: middle;"></b>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-group pull-left" style="width:200px;margin-right:15px;margin-left:5px;margin-top:-7px">
+                    @Html.Rp3DropDownList((IEnumerable<SelectListItem>)ViewBag.Agentes, htmlAttributes: new { style = "width:200px", placeholder = Rp3.AgendaComercial.Resources.LabelFor.AgenteGrupo }, name: "agente")
+                </div>
+
+                <div class="btn-group pull-left" style="width:60px;margin-right:15px;margin-left:5px;margin-top:-7px">
+                    @Html.Rp3DropDownList((IEnumerable<SelectListItem>)ViewBag.Estados, htmlAttributes: new { style = "width:150px", placeholder = Rp3.AgendaComercial.Resources.LabelFor.Estado }, name: "estado")
+                </div>
+
+            </div>
+        }
+    }
+}
+
+<div id="content-permiso" style="min-height:400px;height:400px">
+
+</div>
+
+@{Html.RenderPartial("_PermisoDetalleContent");}

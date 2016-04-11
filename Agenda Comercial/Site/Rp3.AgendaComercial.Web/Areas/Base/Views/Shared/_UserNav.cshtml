@@ -1,0 +1,52 @@
+﻿@{
+    string helpUrl = Url.Content("~/help/Index.html");
+    if (Rp3.Configuration.Rp3ConfigurationSection.Current.HelpIndex != null && !string.IsNullOrEmpty(Rp3.Configuration.Rp3ConfigurationSection.Current.HelpIndex.Url))
+    {
+        helpUrl = Url.Content("~" + Rp3.Configuration.Rp3ConfigurationSection.Current.HelpIndex.Url);
+    }
+    
+}
+    @if (Rp3.Web.Mvc.Session.IsLogged)
+    {
+        @:@{Html.RenderAction("ApplicationOptionActivitiesAssigned", "Security", new { area = "Security", layoutPosition = 1 });}
+
+        <ul class="nav navbar-nav navbar-right user-nav">
+            <li class="dropdown profile_menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="height:70px">
+                    @if (!String.IsNullOrEmpty(Rp3.Web.Mvc.Session.UserPhoto))
+                    {
+                        <img alt="Avatar" src="@Url.Content(Rp3.Web.Mvc.Session.UserPhoto)" class="img-circle" width="55" height="55" style="margin-top:-15px; margin-left: 0px; margin-right: 10px;" />
+                    }
+                    else
+                    {
+                        <img alt="Avatar" src="@Url.ContentImage("defaultperson.jpg")" class="img-circle" width="55" height="55" style="margin-top:-15px; margin-left: 0px; margin-right: 10px;" />
+                    }
+                    <span>@Rp3.Resources.LabelFor.Welcome<br>@Rp3.Web.Mvc.Session.UserFullName</span> <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+
+                    <li><a href="@Url.Action("EditContact", "Account", new { area = "Security" })">@Rp3.Resources.LabelFor.Profile</a></li>
+
+                    <li class="divider"></li>
+                    <li><a href="@Url.Action("ChangePassword", "Account", new { area = "Security" })">@Rp3.Resources.LabelFor.ChangePassword</a></li>
+                    <li class="divider"></li>
+                    <li><a href="@helpUrl">@Rp3.Resources.LabelFor.Help</a></li>
+                    <li class="divider"></li>
+                    <li><a href="@Url.Action("LogOut", "Account", new { area = "Security" })">@Rp3.Resources.LabelFor.LogOut</a></li>
+                </ul>
+            </li>
+        </ul>
+        @*<ul class="nav navbar-nav navbar-right not-nav">
+                <li class="active"><a href="#">Soporte</a></li>
+                <li class="active"><a href="#">Ajustes</a></li>
+            </ul>*@
+    }
+    else
+    {
+        <ul class="nav navbar-nav navbar-right not-nav">
+            <li class="active"><a href="@Url.Action("LogIn", "Account", new { area = "Security" })">@Rp3.Resources.LabelFor.Login</a></li>
+        </ul>
+    }
+
+
+<!--/.nav-collapse animate-collapse -->

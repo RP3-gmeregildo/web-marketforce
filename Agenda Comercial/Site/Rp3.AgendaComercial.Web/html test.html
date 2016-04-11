@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<header>
+<title>test</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</header>
+<body>
+<div>
+Url:<input id="url" style="width:300px; type="text" value="/api/agenda/reprogramar"></input>
+</div>
+<div>
+DATA:<textarea id="data" style="width:100%; height:100px">[{"FechaInicioTicks":635599341072710000,"MotivoReprogramacion":"2","MotivoReprogramacionTabla":1031,"EstadoAgenda":"R","IdRuta":5,"TiempoViaje":45,"FechaFinTicks":635599350072710000,"Duracion":15,"IdAgenda":230}]</textarea>
+</div>
+    <div>
+        content-type:<input id="contentEncoding" style="width:300px;" type="text" value=""></input>
+    </div>
+<div>
+Usuario:<input id="user" style="width:300px;" type="text" value=""></input> Contraseña:<input id="psw" style="width:300px;" type="text" value=""></input>
+</select>
+<button id="getAuthToken">Obtener AuthToken</button>
+</div>
+</div>
+<div>
+AuthToken:<input id="authtoken" style="width:300px;" type="text" value="L3egaF9FXAtDqv9ciGiOaFvmUxg="></input>
+</div>
+<div>
+AuthTypeToken:<input id="authtypetoken" type="text" style="width:300px;" value="rp3.marketforce"></input>
+</div>
+<div>
+ClientId:<input id="clientid" type="text" style="width:300px;" value="android-app-marketforce"></input>
+</div>
+<div>
+ClientSecret:<input id="clientsecret" type="text" style="width:300px;" value="rp3-marketforce2014"></input>
+</div>
+<div>
+<select id="method">
+<option value="POST">POST</option>
+<option value="GET">GET</option>
+</select>
+<button id="submit">Enviar</button>
+</div>
+<script>
+
+$(function(){
+
+$("#submit").click(function(){
+	var data = $("#data").val().trim();
+	var url = $("#url").val().trim();
+	var authtoken = $("#authtoken").val().trim();
+	var authtypetoken = $("#authtypetoken").val().trim();
+	var clientid = $("#clientid").val().trim();
+	var clientsecret = $("#clientsecret").val().trim();
+	var method = $("#method").val().trim();
+	var contentEncoding = $("#contentEncoding").val().trim();
+
+	var rdata;
+	if (contentEncoding == 'gzip') {
+	    rdata = data;
+	} else {
+	    rdata = JSON.stringify(
+					  JSON.parse(data
+				));
+	}
+
+
+	if (method == "POST")
+	{
+	
+		$.ajax({
+			type: "POST",
+			url: url,
+			data: 
+					
+					rdata,
+			contentType: "application/json",   
+			//dataType: 'json',		
+			headers: { 
+				"ClientId": clientid,
+				"ClientSecret": clientsecret,
+				"AuthToken": authtoken,
+				"AuthTypeToken": authtypetoken,
+				"Content-Encoding": contentEncoding
+				},
+			success: function(data){alert(data);},
+			failure: function(errMsg) {
+				alert(errMsg);
+			}
+	  });
+  }
+  else
+  {
+  alert("GET");
+			$.ajax({
+			type: "GET",
+			url: url,				
+			headers: { 
+				"ClientId": clientid,
+				"ClientSecret": clientsecret,
+				"AuthToken": authtoken,
+				"AuthTypeToken": authtypetoken
+				},
+			success: function(data){alert(data);},
+			failure: function(errMsg) {
+				alert(errMsg);
+			}
+	  });
+
+  }
+  });
+});
+
+$(function(){
+
+$("#getAuthToken").click(function(){
+        $.ajax({
+            type: 'POST',
+            url: 'api/account/signin',
+            dataType: 'json',
+            //contentType : 'json',
+            data: { LogonName: $("#user").val(), Password: $("#psw").val() },
+            headers: {                
+                "AuthTypeToken": $("#authtypetoken").val(),
+                "ClientId": $("#clientid").val(),
+                "ClientSecret": $("#clientsecret").val()
+            }
+            //OR
+            //beforeSend: function(xhr) { 
+            //  xhr.setRequestHeader("My-First-Header", "first value"); 
+            //  xhr.setRequestHeader("My-Second-Header", "second value"); 
+            //}
+        }).done(function (data) {
+   $("#authtoken").val(data.Data.AuthToken);            
+        });
+    });
+});
+
+ 
+</script>
+
+</body>

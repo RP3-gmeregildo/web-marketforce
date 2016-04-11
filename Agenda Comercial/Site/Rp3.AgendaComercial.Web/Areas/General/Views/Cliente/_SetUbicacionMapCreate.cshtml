@@ -1,0 +1,183 @@
+﻿@model Rp3.AgendaComercial.Models.General.IUbicacion
+@using System.Threading;
+@using System.Globalization;
+@using System.Web.Script.Serialization
+@{
+    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+    //Thread.CurrentThread.CurrentCulture = new CultureInfo("es-ES");
+    string mapEditSelector = "editMap";
+
+    ViewBag.MapWidth = "100%";
+    ViewBag.MapHeight = "310px";
+
+
+    if (ViewBag.SetClientLocation == null) { ViewBag.SetClientLocation = false; }
+}
+
+<script>
+    var googleMapEdit = null;
+
+    function initializeMapEdit() {
+
+        var bounds = new google.maps.LatLngBounds();
+
+        var options = {
+            zoom : 15,
+            scrollwheel: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControl: true
+        };
+
+        googleMapEdit = new google.maps.Map($("#@{@mapEditSelector}")[0],options);
+
+        var point = point = new google.maps.LatLng(@Model.Latitud, @Model.Longitud);
+
+        var size = new google.maps.Size(30, 42, "px", "px");
+        var origin = new google.maps.Point(@{ @Model.MarkerStart }, 0);
+        var image = new google.maps.MarkerImage("@Url.Content("~/Content/AgendaComercial/img/style/sprite_numbers_location.png")", size, origin);
+
+        var marker = new google.maps.Marker({
+            position: point,
+            map: googleMapEdit,
+            title: '@Model.Titulo',
+            icon: image,
+            zIndex: @{ @Model.MarkerZIndex } ,
+            draggable: true
+        });
+
+        //$('#LatitudString').val(marker.getPosition().lat());
+        //$('#LongitudString').val(marker.getPosition().lng());
+
+        google.maps.event.addListener(marker, "dragend", function () {
+            placeMarker(marker.getPosition(),  marker);
+        });
+
+        google.maps.event.addListener(googleMapEdit, "click", function(event) {
+            placeMarker(event.latLng, marker);
+        });
+
+        function placeMarker(pos, marker) {
+            marker.setPosition(pos);
+            $('#DireccionLatitud').val(pos.lat());
+            $('#DireccionLongitud').val(pos.lng());
+
+            geocoder.geocode({
+                'latLng': pos
+            }, function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                        var place = results[1];
+
+                        var placeString = '';
+                        placeString = place.formatted_address;
+                        SetDireccionData(placeString);
+                        //$('#PlaceString').val(placeString);
+                    } 
+                } 
+            });
+        }
+
+        geocoder = new google.maps.Geocoder();
+
+        googleMapEdit.setCenter(new google.maps.LatLng(@Model.Latitud, @Model.Longitud));
+
+        var input = document.getElementById('searchTextField');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        autocomplete.bindTo('bounds', googleMapEdit);
+        var infowindow = new google.maps.InfoWindow();
+
+        google.maps.event.addDomListener(input, 'keydown', function(e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+            }
+        });
+
+        google.maps.event.addListener(autocomplete, 'place_changed', function() { changeTextSearch(); });
+
+        function changeTextSearch() {
+
+            infowindow.close();
+            var place = autocomplete.getPlace();
+
+            if(!place)
+            {
+                input.className = 'notfound';
+                return;
+            }
+
+            if (!place.geometry) {
+                // Inform the user that the place was not found and return.
+                input.className = 'notfound';
+                return;
+            }
+
+            // If the place has a geometry, then present it on a map.
+            if (place.geometry.viewport) {
+                googleMapEdit.fitBounds(place.geometry.viewport);
+            } else {
+                googleMapEdit.setCenter(place.geometry.location);
+                googleMapEdit.setZoom(17);  // Why 17? Because it looks good.
+            }
+
+            marker.setVisible(false);
+            marker.setPosition(place.geometry.location);
+
+            $('#DireccionLatitud').val(marker.getPosition().lat());
+            $('#DireccionLongitud').val(marker.getPosition().lng());
+
+            marker.setVisible(true);
+
+            var address = '';
+            if (place.address_components) {
+                address = [
+                  (place.address_components[0] && place.address_components[0].short_name || ''),
+                  (place.address_components[1] && place.address_components[1].short_name || ''),
+                  (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+            }
+
+            var placeString = $(input).val();
+            SetDireccionData(placeString);
+            //$('#PlaceString').val(placeString);
+
+            $(input).val('');
+
+            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+            infowindow.open(googleMapEdit, marker);
+        }
+
+        function SetDireccionData(placeString){
+
+            rp3Get("/General/Cliente/ProcessPlaceString", {
+                place: placeString
+            }, function (data) {
+
+                $("#Direccion").val(data.direccion);
+                $("#DireccionDescripcion").val(data.referencia);
+
+                if(data.idCiudad){
+                    $("#DireccionIdCiudad").attr("defaultValue", data.idCiudad);
+                    $("#DireccionIdCiudad").attr("defaultValue-Text", data.ciudad);
+                    $("#DireccionIdCiudad").attr("value", data.idCiudad);
+
+                    $("#DireccionIdCiudad").select2('destroy');
+                    $("#DireccionIdCiudad").rp3RemoteGeopoliticalStructureBox();
+                }
+
+            });
+        }
+    }
+
+</script>
+
+<div>
+    <input id="searchTextField" type="text" size="107" style="width:100%"/>
+</div>
+<div id="@{@mapEditSelector}" style="margin-top:10px; width: @ViewBag.MapWidth; height: @ViewBag.MapHeight;">
+</div>
+<script>
+    $(function () {
+        initializeMapEdit();
+    });
+</script>

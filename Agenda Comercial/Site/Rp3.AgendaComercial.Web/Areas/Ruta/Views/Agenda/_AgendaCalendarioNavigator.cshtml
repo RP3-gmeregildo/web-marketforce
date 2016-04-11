@@ -1,0 +1,71 @@
+﻿<style>
+    a.ui-state-default.ui-state-hover,
+    a.ui-state-default.ui-state-active {
+        background-color: #52AEFF;
+        align-self: center;
+        color: white;
+        height: 22px;
+        width: 20px;
+        margin-right: 0px;
+        margin-left: auto;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px; /* future proofing */
+        -khtml-border-radius: 10px; /* for old Konqueror browsers */
+    }
+
+    table.ui-datepicker-calendar {
+        width: 100%;
+    }
+
+    .ui-datepicker table td {
+        padding: 2px 2px;
+    }
+
+    .ui-datepicker table th {
+        padding: 6px 0px 4px 10px;
+    }
+</style>
+
+<!--widget-->
+
+<div class="widget-block  white-box calendar-box">
+    @using (Html.Rp3BeginRow())
+    {
+        <div class="col-md-12 blue-box calendar no-padding" style="margin-top:10px;margin-bottom:20px">
+            <div class="padding ui-datepicker"></div>
+        </div>
+
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        <!--leyendas-->
+        <div class="" style="height:100px;">
+            @using (Html.Rp3BeginTable())
+            {
+            <tbody class="no-border-y">
+                <tr>
+                    <td style="width:5%;"><i class="fa fa-square pendiente-color"></i></td>
+                    <td>@Rp3.AgendaComercial.Resources.LabelFor.EstadoAgendaPendiente</td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-square reprogramada-color"></i></td>
+                    <td>@Rp3.AgendaComercial.Resources.LabelFor.EstadoAgendaReprogramado</td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-square realizada-color"></i></td>
+                    <td>@Rp3.AgendaComercial.Resources.LabelFor.EstadoAgendaRealizado</td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-square norealizada-color"></i></td>
+                    <td>@Rp3.AgendaComercial.Resources.LabelFor.EstadoAgendaNoRealizado</td>
+                </tr>
+            </tbody>
+            }
+        </div>
+        <!--leyendas-->
+    }
+
+</div>
+<!--widget-->

@@ -1,0 +1,46 @@
+﻿@{
+    Rp3.Data.MessageCollection messages = (Rp3.Data.MessageCollection)ViewBag.Rp3MessageCollection;
+}
+
+<div id="notification-message-content">
+
+    @if (messages != null && messages.Any())
+    {
+        if (this.InlineNotificationMessage())
+        {
+            foreach (var message in messages)
+            {
+                @:@Html.Rp3AlertBlock(message.TextMessage, message.MessageType, message.Title, this.InlineNotificationMessageCanClose())
+            };
+
+        }
+        else
+        {
+            <script>
+                $(function () {
+                    @foreach (var message in messages)
+        {
+            @:rp3StickyNotify('@message.TextMessage', '@(((int)message.MessageType))', '@message.Title', false);
+                                                                    }
+                });
+            </script>
+        }
+    }       
+    
+</div>
+
+@using (Html.Rp3BeginModal("rp3-modal-message", effect: ModalEffect.SuperScaled))
+{
+    <div class="text-center">
+        <div id="rp3-modal-message-content-icon" class="i-circle success"><i id="rp3-modal-message-icon" class="fa fa-check"></i></div>
+        <h4 id="rp3-modal-message-title">Awesome!</h4>
+        <p id="rp3-modal-message-content">Changes has been saved successfully!</p>
+    </div>
+    using (Html.Rp3BeginModalAction())
+    {
+        @Html.Rp3Button(Rp3.Resources.LabelFor.Cancel, icon: Icons.Cancel,themeType: ElementThemeType.Default, allowCloseModal: true, htmlAttributes: new { id = "rp3-modal-message-cancel" })
+        @Html.Rp3Button(Rp3.Resources.LabelFor.NegativeConfirmation, icon: Icons.Cancel, themeType: ElementThemeType.Default, allowCloseModal: true, htmlAttributes: new { id = "rp3-modal-message-negative" })
+        @Html.Rp3Button(Rp3.Resources.LabelFor.PositiveConfirmation, icon: Icons.Check, themeType: ElementThemeType.Success, allowCloseModal: true,htmlAttributes: new { id = "rp3-modal-message-positive" })
+        @Html.Rp3Button(Rp3.Resources.LabelFor.Accept, allowCloseModal: true, icon: Icons.Check, themeType: ElementThemeType.Success, htmlAttributes: new { id = "rp3-modal-message-accept" })
+    }
+}

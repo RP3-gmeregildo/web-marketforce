@@ -1,0 +1,67 @@
+﻿<div id="content_loteruta" class="content_loteruta">
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Lotes, paddingContent: false))
+            {
+                using (Html.Rp3BeginDataTable(scrollY: "190px", columnAutoWidth: true, allowSort: false, allowPagination: false, allowSearch: true, htmlAttributes: new { id = "lotetabla" }))
+                {
+                    <thead>
+                        <tr>
+                            <th style="display:none"></th>
+                            <th>@Rp3.AgendaComercial.Resources.LabelFor.Lote</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in (List<Rp3.AgendaComercial.Models.Ruta.Lote>)ViewBag.Lotes)
+                        {
+                            <tr>
+                                <td style="display:none"></td>
+                                <td>@item.Descripcion</td>
+                            </tr>
+                        }
+                    </tbody>
+                }
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, htmlAttributes: new { style = "height:380px" }))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Rutas, paddingContent: false))
+            {
+                using (Html.Rp3BeginDataTable(scrollY: "190px", columnAutoWidth: true, allowSort: false, allowPagination: false, allowSearch: true, htmlAttributes: new { id = "rutatabla" }))
+                {
+                    <thead>
+                        <tr>
+                            <th style="display:none"></th>
+                            <th>@Rp3.AgendaComercial.Resources.LabelFor.Ruta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in (List<Rp3.AgendaComercial.Models.Ruta.Ruta>)ViewBag.Rutas)
+                        {
+                            <tr>
+                                <td style="display:none"></td>
+                                <td>@item.Descripcion</td>
+                            </tr>
+                        }
+                    </tbody>
+                }
+            }
+        }
+    }
+
+</div>
+
+    <style>
+        .dataTables_scroll {
+            height: 220px;
+        }
+
+        #content_loteruta .block-flat {
+            height: 300px;
+        }
+    </style>
+

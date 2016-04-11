@@ -1,0 +1,34 @@
+﻿@model List<Rp3.AgendaComercial.Models.Oportunidad.OportunidadBitacora>
+
+
+<div class="modal-body" oportunidad-gestion-info-bitacora style="height:440px">
+
+    @if (Model.Any())
+    {
+        <div class="scrollfx" style="width:100%; height:400px; overflow-x:hidden;overflow-y:auto; ">
+            @using (Html.Rp3BeginTable(htmlAttributes: new { style = "" }))
+            {
+                var count = 1;
+
+                <tbody>
+                    @foreach (var bitacora in Model.OrderByDescending(p => p.FecIng))
+                    {
+                        <tr>
+                            <td style="height:10px;width:30px">@count</td>
+                            <td style="height:10px;">@bitacora.Detalle</td>
+                            <td style="height:10px;">@bitacora.Agente.Descripcion</td>
+                            <td style="height:10px;">@bitacora.FecIng.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                        count++;
+                    }
+                </tbody>
+            }
+        </div>
+
+    }
+    else
+    {
+        <div style="margin-left:20px;"><strong>No tiene bitácora</strong></div>
+    }
+</div>
+

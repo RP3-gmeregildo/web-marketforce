@@ -1,0 +1,148 @@
+﻿@model IEnumerable<Rp3.Data.Models.Definition.ApplicationParameter>
+@{
+    this.SetTitle(Rp3.Resources.TitleFor.ApplicationParameterTitle);
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);    
+}
+
+@section ScriptImports{
+    @Url.ImportScript("rp3.parameters.js",true)
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "mainform" }))
+{
+    using (Html.Rp3BeginContentBox())
+    {
+        foreach (var data in Model.OrderBy(p=>p.Position))
+        {
+            using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top: 15px;" }))
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                {
+                    <h5 style="float:left">@data.Label</h5>
+                    <div style="width:150px; float:left; margin-top:8px;">
+                        @Html.Rp3Button(Rp3.Resources.LabelFor.Edit, HtmlElementSize.Mini, icon: Icons.Edit, submit: false,
+                                                                                htmlAttributes: new
+                                                                                {
+                                                                                    id = "edit" + @data.ParameterId,
+                                                                                    pid = data.ParameterId,
+                                                                                    edit = ""
+                                                                                })
+
+                        @Html.Rp3Button(Rp3.Resources.LabelFor.Accept, HtmlElementSize.Mini, icon: Icons.Check, submit: false,
+                                                                                htmlAttributes: new
+                                                                                {
+                                                                                    id = "accept" + @data.ParameterId,
+                                                                                    pid = data.ParameterId,
+                                                                                    style = "display: none;float:left",
+                                                                                    accept = ""
+                                                                                })
+
+                        @Html.Rp3Button(Rp3.Resources.LabelFor.Cancel, HtmlElementSize.Mini, icon: Icons.Cancel, submit: false,
+                                                                                htmlAttributes: new
+                                                                                {
+                                                                                    id = "cancel" + data.ParameterId,
+                                                                                    pid = data.ParameterId,
+                                                                                    cancel = "",
+                                                                                    style = "display: none;float:left"
+                                                                                })
+                    </div>                    
+                }                                              
+
+            }
+
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12, htmlAttributes: new { style = "margin-left:0px;margin-right:auto;margin-top:-10px" }))
+                {
+                    @*@Html.Rp3LabelWidget(data.Description, LabelWidgetType.Info)*@
+                    @Html.Rp3Label(labelText: data.Description, htmlAttributes: new { style = "padding-top:4px;" })
+                }
+            }
+
+            using (Html.Rp3BeginRow(htmlAttributes: new { style="margin-top:5px;" }))
+            {
+
+                switch (data.ApplicarionParameterEditorType)
+                {
+                    case Rp3.Data.Models.Definition.ApplicarionParameterEditorType.Text:
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                        { 
+                                @Html.Rp3TextArea("parameter" + data.ParameterId, value: data.Value,
+                                    htmlAttributes: new
+                                    {
+                                        editorType = data.EditorType,
+                                        pid = data.ParameterId,
+                                        originalValue = data.Value,
+                                        disabled = "true",
+                                        maxlength = data.MaxLength
+                                    })
+                        }
+                        break;
+                    case Rp3.Data.Models.Definition.ApplicarionParameterEditorType.NumberText:
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                        { 
+                                @Html.Rp3TextBox("parameter" + data.ParameterId, value: data.Value,
+                                        htmlAttributes: new
+                                        {
+                                            editorType = data.EditorType,
+                                            pid = data.ParameterId,
+                                            originalValue = data.Value,
+                                            disabled = "true",
+                                            maxlength = data.MaxLength
+                                        })
+                        }
+                        break;
+                    case Rp3.Data.Models.Definition.ApplicarionParameterEditorType.Integer:
+                    case Rp3.Data.Models.Definition.ApplicarionParameterEditorType.Decimal:
+                    case Rp3.Data.Models.Definition.ApplicarionParameterEditorType.Percent:
+                        object value = data.Value;
+                        if (data.ApplicarionParameterEditorType == Rp3.Data.Models.Definition.ApplicarionParameterEditorType.Percent)
+                        {
+                            decimal t = 0;
+                            if (Decimal.TryParse(value.ToString(), out t))
+                            {
+                                value = t * 100;
+                            }
+                        }
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                        { 
+                                @Html.Rp3NumericTextBox("parameter" + data.ParameterId, value: value, precision: data.DecimalPlaces,
+                                htmlAttributes: new { editorType = data.EditorType, pid = data.ParameterId, originalValue = value, disabled = "true" })
+                        }
+                        break;
+                    case Rp3.Data.Models.Definition.ApplicarionParameterEditorType.Time:
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                        {
+                            @Html.Rp3DropDownListTime("data.ParameterDropDown",
+                                    htmlAttributes: new
+                                    {
+                                        id = data.ParameterId,
+                                        pid = data.ParameterId,
+                                        editorType = data.EditorType,
+                                        disabled = "true",
+                                        originalValue = data.Value,
+                                        maxlength = data.MaxLength
+                                    }, interval: 15)
+                        }
+                        break;
+                }
+
+            }
+
+
+
+
+
+
+
+
+        }
+    }
+}
+
+<script>
+    
+    
+</script>
+    

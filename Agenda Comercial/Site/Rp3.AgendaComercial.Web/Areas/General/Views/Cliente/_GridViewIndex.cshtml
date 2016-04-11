@@ -1,0 +1,109 @@
+﻿@*@model IEnumerable<Rp3.AgendaComercial.Models.General.Cliente>*@
+@{
+    List<ApplicationOptionColumn> columns = ViewBag.Columns;
+}
+
+@*@Html.DevExpress().GridView(*@
+@Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "Cliente", Action = "GridViewIndex" };                        
+        
+        settings.KeyFieldName = "IdCliente";
+
+        settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Visible;
+
+        settings.CustomBindingRouteValuesCollection.Add(
+            GridViewOperationType.Paging,
+            new { Controller = "Cliente", Action = "GridViewPagingAction" }
+        );
+
+        settings.CustomBindingRouteValuesCollection.Add(
+            GridViewOperationType.Sorting,
+            new { Controller = "Cliente", Action = "GridViewSortingAction" }
+        );
+
+        settings.CustomBindingRouteValuesCollection.Add(
+            GridViewOperationType.Filtering,
+            new { Controller = "Cliente", Action = "GridViewFilteringAction" }
+        );
+        
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Cliente;
+            column.FieldName = "NombresCompletos";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+            column.FixedStyle = GridViewColumnFixedStyle.Left;            
+            column.Width = 300;
+        });
+
+
+        if (columns.Where(p => p.ColumnName == "TipoPersona").Count() > 0)
+            settings.Columns.Add("TipoPersona", Rp3.AgendaComercial.Resources.LabelFor.TipoPersona);
+
+        if (columns.Where(p => p.ColumnName == "Identificacion").Count() > 0)
+            settings.Columns.Add("Identificacion", Rp3.AgendaComercial.Resources.LabelFor.Identificacion);
+
+        if (columns.Where(p => p.ColumnName == "CorreoElectronico").Count() > 0)
+            settings.Columns.Add("CorreoElectronico", Rp3.AgendaComercial.Resources.LabelFor.CorreoElectronico).MinWidth = 150;
+
+        if (columns.Where(p => p.ColumnName == "Ciudad").Count() > 0)
+            settings.Columns.Add("Ciudad", Rp3.AgendaComercial.Resources.LabelFor.Ciudad);
+
+        if (columns.Where(p => p.ColumnName == "Direccion").Count() > 0)
+            settings.Columns.Add("Direccion", Rp3.AgendaComercial.Resources.LabelFor.Direccion).Width = 300;
+
+        if (columns.Where(p => p.ColumnName == "Referencia").Count() > 0)
+            settings.Columns.Add("Referencia", Rp3.AgendaComercial.Resources.LabelFor.Referencia).MinWidth = 150;
+
+        if (columns.Where(p => p.ColumnName == "Telefono1").Count() > 0)
+            settings.Columns.Add("Telefono1", Rp3.AgendaComercial.Resources.LabelFor.Telefono);
+
+        if (columns.Where(p => p.ColumnName == "Telefono2").Count() > 0)
+            settings.Columns.Add("Telefono2", Rp3.AgendaComercial.Resources.LabelFor.Telefono);
+
+        if (columns.Where(p => p.ColumnName == "TipoCliente").Count() > 0)
+            settings.Columns.Add("TipoCliente", Rp3.AgendaComercial.Resources.LabelFor.TipoCliente).MinWidth = 130;
+
+        if (columns.Where(p => p.ColumnName == "Canal").Count() > 0)
+            settings.Columns.Add("Canal", Rp3.AgendaComercial.Resources.LabelFor.Canal).MinWidth = 130;
+        
+        if (columns.Where(p => p.ColumnName == "Calificacion").Count() > 0)
+        {
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Calificacion";
+                column.Width = 150;
+                column.SetDataItemTemplateContent(c =>
+                {
+                    Html.Rp3RenderRate((int)DataBinder.Eval(c.DataItem, "Calificacion"));
+                    //Html.RenderPartial("_Scorer", new Rp3.Models.Scorer((int)DataBinder.Eval(c.DataItem, "Calificacion")));
+                });
+
+            });
+        }
+
+        settings.Columns.Add("Agente", Rp3.AgendaComercial.Resources.LabelFor.Agente).MinWidth = 200;
+        
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.FechaUltimaVisita;
+            column.FieldName = "FechaUtimaVisita";
+            column.PropertiesEdit.DisplayFormatString = "g";
+            column.Width = 110;
+        });
+        
+        settings.Columns.Add("AgenteUltimaVisita", Rp3.AgendaComercial.Resources.LabelFor.AgenteUltimaVisita);
+        settings.Columns.Add("IndiceActividad", Rp3.AgendaComercial.Resources.LabelFor.IndiceActividad1);
+        settings.Columns.Add("IndiceActividad2", Rp3.AgendaComercial.Resources.LabelFor.IndiceActividad2);
+        settings.Columns.Add("TiempoInactividad", String.Format("{0} {1}", Rp3.AgendaComercial.Resources.LabelFor.TiempoInactividad, Rp3.AgendaComercial.Resources.LabelFor.Dias));
+
+        settings.SettingsPager.PageSize = 15;        
+    },
+    new List<OptionAction>() { 
+        new OptionAction("CLIENTE", "DETAIL", "AGENDACOMERCIAL"),
+        new OptionAction("CLIENTE", "EDIT", "AGENDACOMERCIAL"),
+        new OptionAction("CLIENTE", "DELETE", "AGENDACOMERCIAL"),
+    }).BindToCustomData(Model).GetHtml()

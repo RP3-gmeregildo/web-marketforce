@@ -1,0 +1,94 @@
+﻿@model Rp3.AgendaComercial.Models.General.View.ZonaModel
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "form-zona" }))
+{
+    using (Html.Rp3BeginRow())
+    {
+        <input type="hidden" id="process" name="process" value="false">
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.Resources.LabelFor.GeneralData))
+            {
+                <div style="height:400px; overflow-y:auto; overflow-x:hidden">
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.Rp3FormGroupTextBoxFor(model => model.Name, labelSize: HtmlColumnSize.Size_2)
+                    @Html.Rp3FormGroupDisplayFor(model => model.TipoGeneralValue.Content, labelSize: HtmlColumnSize.Size_2, labelText: Rp3.AgendaComercial.Resources.LabelFor.Tipo)
+                    @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Movilizacion, Rp3.AgendaComercial.Models.Constantes.Duracion.Tabla, labelSize: HtmlColumnSize.Size_2)
+                    @Html.Rp3FormGroupDropDownListFor(model => model.IdRegion, (SelectList)ViewBag.RegionesSelectList, labelText: Rp3.AgendaComercial.Resources.LabelFor.Region, editorHtmlAttributes: new { placeholder = "Seleccione Región" }, labelSize: HtmlColumnSize.Size_2)
+                    @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla, labelSize: HtmlColumnSize.Size_2)
+                </div>
+            }
+        }
+
+        if (Model.Tipo == Rp3.AgendaComercial.Models.Constantes.TipoZona.EstructuraGeopolitica)
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+            {
+                using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.LabelFor.AgregarAZona))
+                {
+                    <div style="height:400px; overflow-y:auto; overflow-x:hidden">
+                        <div id="geo-estructuras">
+                            @Html.Rp3FormGroupDropDownList((SelectList)ViewBag.Paises, Rp3.AgendaComercial.Resources.LabelFor.Pais, editorHtmlAttributes: new { @onchange = "getNextLevel(this);", placeholder = "Seleccione País" }, name: "paisSelect", labelSize: HtmlColumnSize.Size_3)
+                        </div>
+                        @using (Html.Rp3BeginFormActionGroup(HtmlColumnSize.Size_3))
+                        {
+                            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Agregar, htmlAttributes: new { style = "display: none", id = "zonaAgregar", onclick = "agregarZona(); return false;" }, submit: false, actionName: "AgregarZona")
+                        }
+                    </div>
+                }
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+            {
+                using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.LabelFor.ZonaDetalle))
+                {
+                    <div style="height:400px; overflow-y:auto; overflow-x:hidden">
+                        @{Html.RenderPartial("_ZonaDetalle", Model);}
+                    </div>
+                }
+            }
+        }
+        else
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_8))
+            {
+                using (Html.Rp3BeginContentBox(String.Format("{0} - {1} {2}(s)", Rp3.AgendaComercial.Resources.LabelFor.Geocerca, Model.ZonaClienteGeocercas.Count, Rp3.AgendaComercial.Resources.LabelFor.Cliente)))
+                {
+                    <div id="contentgeocerca" style="height:400px">
+                        @{
+                            ViewBag.MapHeight = "370px";
+                        }
+
+                        @{Html.RenderPartial("_UbicacionMapMarkerFences");}
+
+                       
+
+                    </div>
+
+                    @*<div class="leyend-section">
+                        <div class="leyend-icon-name"><strong>Actual</strong></div>
+                        <div class="leyend-icon"><i class="fa round-corner" style="background-color:#8A0808; width:15px; height:15px;"></i></div>
+                        <div class="leyend-icon-name"><strong>Otros</strong></div>
+                        <div class="leyend-icon"><i class="fa round-corner" style="background-color:#5858FA; width:15px; height:15px;"></i></div>
+                    </div>*@
+                }
+            }
+        }
+    }
+
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_11, htmlAttributes: new { style = "margin-left:20px" }))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.ZonaPuntoPartida))
+            {
+                @:@{Html.RenderPartial("_UbicacionZona", Model.ubicacion);}
+            }
+        }
+    }
+}
+
+<script>
+    MESSAGE = "@Rp3.AgendaComercial.Resources.ErrorMessageValidation.ZonaSinElementos"
+</script>

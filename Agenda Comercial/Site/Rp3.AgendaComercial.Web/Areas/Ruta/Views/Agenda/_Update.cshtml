@@ -1,0 +1,112 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.View.AgendaUpdates
+
+@*<h4>@Rp3.AgendaComercial.Resources.LabelFor.CrearAgenda</h4>*@
+<h4>@ViewBag.titulo</h4>
+<div style="width:550px; margin-top:30px;">
+    @using (Html.Rp3BeginForm(htmlAttributes: new { id = "agendaupdateform" }))
+    {
+        @Html.HiddenFor(model => model.IdCliente, htmlAttributes: new { idCliente = "" })
+        @Html.HiddenFor(model => model.IdContacto, htmlAttributes: new { idContacto = "" })
+        @Html.HiddenFor(model => model.IdAgenda, htmlAttributes: new { idAgenda = "" })
+        @Html.HiddenFor(model => model.FechaInicio, htmlAttributes: new { fechaInicio = "" })
+        @Html.HiddenFor(model => model.FechaFin, htmlAttributes: new { fechaFin = "" })
+        @Html.HiddenFor(model => model.EsReprogramada, htmlAttributes: new { esreprogramada = "" })
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Cliente, labelSize: HtmlColumnSize.Size_2))
+                {
+                    @:@Html.Rp3TextBox("txt_clientecontacto")
+                }
+            }
+        }
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Direccion, labelSize: HtmlColumnSize.Size_2))
+                {
+                    @:@Html.Rp3TextBox("txt_direccion")
+                }
+            }
+        }
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Fecha, labelSize: HtmlColumnSize.Size_4))
+                {
+                    <div class='input-group date' startdatea>
+                        <input type='text' class="form-control" id="startdatetxtA" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                }
+            }
+        }
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Inicio))
+                {
+                    <div class='input-group date' starthoura>
+                        <input type='text' class="form-control" id="starthourtxtB" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time" onclick="removeHeader()"></span>
+                        </span>
+                    </div>
+                }
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.DuracionVisita, Rp3.AgendaComercial.Models.Constantes.Duracion.Tabla, labelSize: HtmlColumnSize.Size_3,
+                     labelText: Rp3.AgendaComercial.Resources.LabelFor.Duracion, sortexpression: model => model.Reference02, editorHtmlAttributes: new { duracion = "" });
+            }
+        }
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                <div @*style="margin-top:-300px"*@>
+                    @Html.Rp3FormGroupDropDownListFor(model => model.Motivo, (SelectList)ViewBag.MotivoReprogrmacionSelectList, labelSize: HtmlColumnSize.Size_2, labelText: Rp3.AgendaComercial.Resources.LabelFor.Motivo,
+                editorHtmlAttributes: new { motivo = "", placeholder = Rp3.AgendaComercial.Resources.LabelFor.NecesarioMotivoReprogramacion })
+                </div>
+            }
+        }
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                @Html.Rp3FormGroupDropDownListFor(model => model.Tareas, new MultiSelectList(Model.Tareas, "IdTarea", "Descripcion"), labelSize: HtmlColumnSize.Size_2, editorHtmlAttributes: new { tareas = "", multiple = "" })
+            }
+        }
+    }
+</div>
+<script>
+    $(function () {
+        var t_cliente = @Html.Raw(Json.Encode(Model.ClienteContacto));
+        var t_direccion = @Html.Raw(Json.Encode(Model.Direccion));
+        var t_tarea = @Html.Raw(Json.Encode(Model.TareasSeleccion));
+
+        init_Modal_Update(t_cliente,t_direccion,t_tarea);
+    });
+</script>
+<style>
+    #ui-id-1 {
+        width: 400px;
+    }
+
+    .input-group {
+        margin-bottom: 0px;
+    }
+</style>

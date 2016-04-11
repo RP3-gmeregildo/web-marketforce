@@ -1,0 +1,39 @@
+@model Rp3.AgendaComercial.Models.General.View.TareaView
+@{
+
+}
+
+
+@*@using (Html.Rp3BeginDataTable(/*scrollY: "200",*/ allowSort: false, allowPagination: false, allowSearch: false, htmlAttributes: new { id = "tablatarea" }))
+{        
+<thead>
+    <tr>                
+        <th>Actividad</th>
+        <th>Tipo</th>
+        <th>Opciones</th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var tar in Model.Actividades.Where(p => p.IdTareaActividadPadre == null).OrderBy(p=>p.Orden))
+    {
+        var parentID = tar.IdTareaActividad;                
+        <tr data-tt-id="@tar.IdTareaActividad" data-group="0" data-item="@tar.IdTareaActividad">
+            <td><span class='group'>@tar.Descripcion</span></td>
+            <td>@tar.TipoActividad</td>
+            <td>@tar.Opciones</td>
+            <td><button class="btn btn-primary" style="height:25px;line-height:10px" onclick="showDetalleTarea(@tar.IdTareaActividad);">@Rp3.AgendaComercial.Resources.LabelFor.Editar</button></td>
+        </tr>
+        foreach (var tar2 in Model.Actividades.Where(p => p.IdTareaActividadPadre == tar.IdTareaActividad).OrderBy(a => a.IdTareaActividad))
+        {
+            <tr data-tt-id="@parentID-@tar2.IdTareaActividad" data-tt-parent-id="@parentID" data-group="@parentID" data-item="@tar2.IdTareaActividad">
+                <td><span class='item'>@tar2.Descripcion</span></td>
+                <td>@tar2.TipoActividad</td>
+                <td>@tar2.Opciones</td>
+                <td><button class="btn btn-primary" style="height:25px;line-height:10px" onclick="showDetalleTarea(@tar2.IdTareaActividad);">@Rp3.AgendaComercial.Resources.LabelFor.Editar</button></td>
+                <td><button id="up" onclientclick="return false;">up</button></td>
+            </tr>
+        }
+    }
+</tbody>
+}*@

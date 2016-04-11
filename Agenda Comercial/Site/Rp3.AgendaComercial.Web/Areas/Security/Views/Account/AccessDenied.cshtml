@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = Rp3.Resources.MessageFor.AccessDeniedTitle;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+}
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12)) 
+{ 
+    @Html.Rp3AlertBlock(Rp3.Resources.MessageFor.AccessDenied, Rp3.Data.MessageType.Warning, Rp3.Resources.MessageFor.AccessDeniedTitle, false)
+}
+
+ 
+@if (!Rp3.Web.Mvc.Session.IsLogged)
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {            
+            @:@{Html.RenderPartial("_InnerLogin");}
+        }
+    }    
+}

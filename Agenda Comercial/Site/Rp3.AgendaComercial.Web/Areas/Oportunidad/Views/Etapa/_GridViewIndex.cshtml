@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.Oportunidad.OportunidadTipo>
+@{
+
+}
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            @Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "Etapa", Action = "GridViewIndex" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.KeyFieldName = "IdOportunidadTipo";
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Tipo;
+            column.FieldName = "Descripcion";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        });
+
+        var colEstado = settings.Columns.Add("EstadoGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Estado);
+        colEstado.Width = 75;
+    },
+    new List<OptionAction>() {
+        new OptionAction("ETAPA", "DETAIL", "AGENDACOMERCIAL"),
+        new OptionAction("ETAPA", "EDIT", "AGENDACOMERCIAL"),
+        new OptionAction("ETAPA", "DELETE", "AGENDACOMERCIAL"),
+    }).Bind(Model).GetHtml()
+
+        }
+    }
+}

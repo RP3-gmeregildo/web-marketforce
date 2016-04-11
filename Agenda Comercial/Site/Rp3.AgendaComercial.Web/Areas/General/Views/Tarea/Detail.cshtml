@@ -1,0 +1,75 @@
+﻿@model Rp3.AgendaComercial.Models.General.View.TareaView
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.DetalleTarea;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+
+    Rp3.Web.Mvc.Html.TabCollection tabCollection = (Rp3.Web.Mvc.Html.TabCollection)ViewBag.TabCollection;
+
+    if (ViewBag.IsNew == null) { ViewBag.IsNew = false; }
+}
+
+@section Imports{
+
+    @Url.ImportStyleSheet("jquery.treegrid.css")
+    @Url.ImportScript("treegrid/jquery.treegrid.js")
+
+    @Url.ImportApplicationScript("nestable/jquery.nestable.js")
+    @Url.ImportApplicationScript("dotdot/jquery.dotdotdot.min.js")
+    @Url.ImportApplicationScript("tarea/tarea.js")
+}
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("treetable/jquery.treetable.css", true)
+}
+@using (Html.Rp3BeginTabContentBox(Rp3.AgendaComercial.Resources.TitleFor.EditarCliente, tabCollection, paddingContent: true))
+{
+    @Html.HiddenFor(model => model.IdTarea)
+
+    using (Html.Rp3BeginTabPane("tabdato", active: true))
+    {
+        @: @{Html.RenderPartial("_TabDato", Model); }
+    }
+
+    if (Model.TipoTarea == Rp3.AgendaComercial.Models.Constantes.TipoTarea.ActualizacionClientes)
+    {
+        using (Html.Rp3BeginTabPane("tabnuevos"))
+        {
+            @: @{Html.RenderPartial("_TabNuevo", Model); }
+        }
+
+        using (Html.Rp3BeginTabPane("tabexistentes"))
+        {
+            @: @{Html.RenderPartial("_TabExistente", Model); }
+        }
+
+        using (Html.Rp3BeginTabPane("tabgestion"))
+        {
+            @: @{Html.RenderPartial("_TabGestion", Model); }
+        }
+    }
+
+    if (Model.TipoTarea != Rp3.AgendaComercial.Models.Constantes.TipoTarea.CheckListOportunidad)
+    {
+        using (Html.Rp3BeginTabPane("tabruta"))
+        {
+            @: @{Html.RenderPartial("_TabRuta", Model); }
+        }
+    }
+
+    using (Html.Rp3BeginTabPane("tabactividad"))
+    {
+        @: @{Html.RenderPartial("_TabActividad", Model); }
+    }
+}
+
+@using (Html.Rp3BeginModal("ModalDialog"))
+{
+    @: @{Html.RenderPartial("_VerDatos"); }
+}
+
+<script>
+    $(function () {
+        init_Edit();
+    });
+</script>

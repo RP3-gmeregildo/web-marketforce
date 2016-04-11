@@ -1,0 +1,34 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.ProgramacionTarea
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.DetalleProgramacionTarea;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.ProgramacionTarea))
+            {
+                @:@{Html.RenderPartial("_Datos", Model);}
+                }
+        }
+    }
+
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            @:@{Html.RenderPartial("_ProgramacionTareaDetalle", Model);}
+            }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            @:@{Html.RenderPartial("_ProgramacionTareaRuta", Model);}
+            }
+    }
+}

@@ -1,0 +1,16 @@
+﻿@model Rp3.Web.Mvc.Application.Security.Models.EditContact             
+@{
+    string emptyPicture = Url.ContentImage("defaultperson.jpg");
+}
+
+<div class="img_Foto_Content">
+    <div class="img_Foto_Border" idphoto="0" style="font-size:18px;">        
+        <a class="pictureActions color-success" idphoto="0" style="display:none; position:absolute" href="javascript:selectUserImage();">@Html.Rp3Icon(Icons.Edit)</a>
+        <a class="pictureActions color-success" idphoto="0" style="display:none;position:absolute; margin-left:22px" href="javascript:deleteUserImage();">@Html.Rp3Icon(Icons.Remove)</a>
+        <div id="panelLoadingFoto" style="display: none; width:95px;height:95px;">
+            <img src=@Url.ContentImage("loading.gif") style="padding-top:40px;padding-left:30px;" alt="" />
+        </div>
+        @Html.Rp3Image(Url.Content(string.IsNullOrEmpty(Model.Photo) ? emptyPicture : Model.Photo), Model.Names, new { id = "photouser", width = 95, height = 95 })
+    </div>    
+</div>
+<iframe id="UploadTargetUser" name="UploadTargetUser" onload="refreshUserImage()" style="position: absolute;left: -999em; top: -999em;"></iframe>

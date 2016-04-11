@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Rp3.AgendaComercial.DataService.Auth" CodeBehind="Auth.svc.cs" %>

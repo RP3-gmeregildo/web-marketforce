@@ -1,0 +1,295 @@
+﻿@model Rp3.AgendaComercial.Models.Oportunidad.View.OportunidadListado
+
+@using System.Threading;
+@using System.Globalization;
+
+@{
+    Thread.CurrentThread.CurrentCulture = new CultureInfo("es-EC");
+}
+
+<div class="modal-body" oportunidad-gestion-detail-content style="height:510px">
+    <!--header modal visit-->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                @*<div class="col-md-3">
+                    </div>*@
+                <div class="col-md-12" style="font-size:12px; font-weight:500;">
+                    <div style="margin-left:10px;"><h4>@Model.Descripcion</h4></div>
+                    <div style="margin-left:10px;"><strong>@Model.Prospecto</strong></div>
+                    <div style="margin-left:10px;">@Model.ProspectoCargo</div>
+                    <table style="margin-top:10px;margin-left:10px;">
+                        <tr>
+                            <td><i class="fa fa-tags" style="width:20px;"></i></td>
+                            <td>
+                                @if (!String.IsNullOrEmpty(Model.OportunidadTipo.Descripcion))
+                                { @Model.OportunidadTipo.Descripcion;
+                                }
+                                else
+                                { @Rp3.AgendaComercial.Resources.LabelFor.SinEspecificar }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-phone" style="width:20px;"></i></td>
+                            <td>
+                                @if (!String.IsNullOrEmpty(Model.Telefono1))
+                                { @Model.Telefono1;
+                                }
+                                else
+                                { @Rp3.AgendaComercial.Resources.LabelFor.SinEspecificar }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-envelope"></i></td>
+                            <td>
+                                @if (!String.IsNullOrEmpty(Model.CorreoElectronico))
+                                { @Model.CorreoElectronico }
+                                else
+                                { @Rp3.AgendaComercial.Resources.LabelFor.SinEspecificar }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: text-top;"><i class="fa fa-home"></i></td>
+                            <td>
+                                @if (!String.IsNullOrEmpty(Model.Direccion))
+                                { @Model.Direccion }
+                                else
+                                { @Rp3.AgendaComercial.Resources.LabelFor.SinEspecificar }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-calendar"></i></td>
+                            <td>@Model.FechaInicio.ToString("dd/MM/yyyy HH:mm")<img class="" style="margin-left:5px;margin-right:3px;margin-top:-2px" width="14" height="14" src="@Url.ContentApplicationImage("diasinactivos.png")" />  @{ @String.Format("{0} {1}", Model.DiasInactividad, "día(s)") }</td>
+                        </tr>
+
+                        <tr>
+                            <td><img class="" style="margin-right:3px;margin-top:-2px" width="14" height="14" src="@Url.ContentApplicationImage("probabilidad.png")" /></td>
+                            <td>@{@Model.Probabilidad.ToString("n0")}%<img class="" style="margin-left:5px;margin-right:3px;margin-top:-2px" width="14" height="14" src="@Url.ContentApplicationImage("importe.png")" />  @{@Model.Importe.ToString("c0")}</td>
+                        </tr>
+
+                        @if (ViewBag.TodosMisAgentes)
+                        {
+                            <tr>
+                                <td><img class="" style="margin-right:3px;margin-top:-2px" width="14" height="14" src="@Url.ContentApplicationImage("agentes.png")" /></td>
+                                <td>@Model.Agente</td>
+                            </tr>
+                        }
+
+                        <tr>
+                            <td><i class="fa fa-globe"></i></td>
+                            <td>
+                                @if (!String.IsNullOrEmpty(Model.PaginaWeb))
+                                {
+                                    <a href="@String.Format("http://{0}", Model.PaginaWeb)" target="_blank">@Model.PaginaWeb</a>
+                                }
+                                else
+                                {
+                                    @Rp3.AgendaComercial.Resources.LabelFor.SinEspecificar }
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><i class="fa fa-tasks"></i></td>
+                        <td>
+                            @if (!String.IsNullOrEmpty(Model.TipoEmpresa))
+                            { @Model.TipoEmpresa;
+                            }
+                            else
+                            { @Rp3.AgendaComercial.Resources.LabelFor.SinEspecificar }
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><i class="fa fa-plus"></i></td>
+                        <td>
+                            @if (!String.IsNullOrEmpty(Model.Referencia))
+                            { @Model.Referencia;
+                            }
+                            else
+                            { @Rp3.AgendaComercial.Resources.LabelFor.SinEspecificar }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div style="width:100%;height:150px;">
+            @if (ViewBag.ShowProspectoSinUbicacion)
+            {
+                <div style="font-size:11px;position: absolute;z-index: 10;bottom:48px">@Html.Rp3LabelWidget(Rp3.AgendaComercial.Resources.MessageFor.ProspectoSinUbicacion, LabelWidgetType.Warning)</div>
+            }
+
+            @{ Html.RenderPartial("_UbicacionMapMarker", Model.Ubicaciones.Where(p => p.Latitud != null && p.Longitud != null)); }
+        </div>
+        <div>
+            <img class="" style="float:left;margin-right:1px;" width="16" height="16" src="@Url.ContentApplicationImage(Model.EstadoImageUrl)" />
+            <div style="float:left;"><strong>@Model.EstadoDescripcion</strong></div>
+            <div style="cursor:pointer;float:right;margin-left:10px" map-expand><i class="fa fa-search-plus" style="font-size:15px"></i></div>
+            <div style="float:right">@{ Html.Rp3RenderRate(Model.Calificacion); }</div>
+        </div>
+        <div>
+            <div style="cursor:pointer;float:right;" more-info><i class="fa fa-plus" style="font-size:15px"></i>  Más Info.</div>
+            <div style="cursor:pointer;float:right;" bitacora><i class="fa fa-plus" style="font-size:15px"></i>  Bitácora.</div>
+            <div style="cursor:pointer;float:right;">
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Editar, HtmlElementSize.Mini, icon: Icons.MapMarker, submit: false,
+                                                            htmlAttributes: new
+                                                            {
+                                                                ubicacion = "",
+                                                                markerindex = Model.MarkerIndex,
+                                                                markerstart = Model.MarkerStart,
+                                                                markerzindex = Model.MarkerZIndex,
+                                                                latitud = Model.Latitud == null ? -1 : Model.Latitud,
+                                                                longitud = Model.Longitud == null ? -1 : Model.Longitud,
+                                                                titulo = "Ubicación",
+                                                                onclick = "setUbicacion(this); return false;"
+                                                            })
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--header modal visit-->
+<div class="block-lines-header margin-5" style="margin-top:10px">
+    <div class="row">
+        <div class="col-md-6">
+            <h5 style="font-weight:bold;color:#1E83B6">@Rp3.AgendaComercial.Resources.LabelFor.Workflow.ToUpper()</h5>
+            <table>
+                <tbody class="content">
+                    @foreach (var etapa in Model.Etapas.Where(p => p.IdEtapaPadre == null).OrderBy(p => p.Orden))
+                    {
+                        <tr class="row hov" idetapa="@etapa.IdEtapa" style="cursor: pointer;width:300px;height:15px">
+                            <td>
+                                <div class="stage_content">
+                                    <i class="fa stage_icon" style="background-color:@Rp3.Web.Mvc.Html.StageExtensions.GetColor(etapa.Orden, etapa.Orden)"></i><strong class="stage_label" style="top:0px">@etapa.Orden</strong>
+                                </div>
+                            </td>
+                            <td width="10px"></td>
+                            <td width="200px" style="font-weight:bold">@etapa.Etapa.Descripcion</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <h5 style="font-weight:bold;color:#1E83B6">@Rp3.AgendaComercial.Resources.LabelFor.Timeline.ToUpper()</h5>
+            <table>
+                <tbody class="content">
+                    @{
+                        int diastotal = 0;
+
+                        DateTime? minDate = Model.Etapas.Min(p => p.FechaInicio);
+                        DateTime? maxDate = Model.Etapas.Max(p => p.FechaFin);
+
+                        if (minDate != null)
+                        {
+                            if (Model.Estado == Rp3.AgendaComercial.Models.Constantes.EstadoOportunidad.Abierta || maxDate == null)
+                            {
+                                diastotal = Convert.ToInt32((DateTime.Now - minDate.Value).TotalDays);
+                            }
+                            else
+                            {
+                                diastotal = Convert.ToInt32((maxDate.Value - minDate.Value).TotalDays);
+                            }
+                        }
+                    }
+                    @foreach (var etapa in Model.Etapas.Where(p => p.IdEtapaPadre == null).OrderBy(p => p.Orden))
+                    {
+                        int dias = 0;
+
+                        if (etapa.FechaInicio != null)
+                        {
+                            if (etapa.FechaFin != null)
+                            {
+                                dias = Convert.ToInt32((etapa.FechaFin.Value - etapa.FechaInicio.Value).TotalDays);
+                            }
+                            else
+                            {
+                                dias = Convert.ToInt32((DateTime.Now - etapa.FechaInicio.Value).TotalDays);
+                            }
+                        }
+
+                        <tr class="row hov" idetapa="@etapa.IdEtapa" style="cursor: pointer;height:15px">
+                            <td>
+                                <div class="stage_content">
+                                    <img class="fa" width="20" height="20" style="margin-bottom:2px" src="@Url.ContentApplicationImage(String.Format("{0}timeline.png", etapa.FechaFin != null ? etapa.Orden: 0))" />
+                                </div>
+                            </td>
+                            <td width="10px"></td>
+                            <td><img width="10" height="25" src="@Url.ContentApplicationImage("flecha.png")" /></td>
+                            <td width="150px" style="background:#E6E7E7; padding-left:10px;font-weight:bold;margin:5px">
+                                @if (etapa.FechaInicio != null)
+                                {
+                                    @etapa.FechaInicio.Value.ToString("dd/MM/yyyy");
+                                }
+                                else
+                                {
+                                    @Rp3.AgendaComercial.Resources.LabelFor.SinIniciar;
+                                }
+                            </td>
+                            <td width="100px" align="right" style="background:#B8B9BC; padding-right:10px; font-weight:bold;margin:5px;color:white">@String.Format("{0} día(s)", dias)</td>
+                        </tr>
+                        <tr style="height:3px"><td colspan="3"></td></tr>
+                    }
+                </tbody>
+                <tfoot><tr><td colspan="6" align="right" style="font-weight:bold;padding-right:10px;color:#1E83B6"><img class="" style="margin-left:5px;margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("diastranscurridos.png")" /> @String.Format("{0} día(s)", diastotal)</td></tr></tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+@using (Html.Rp3BeginRow(new { style = "margin-top:10px" }))
+{
+    <div class="col-md-6">
+
+        @{
+    var minNumPics = 3;
+    var boxsize = ((minNumPics * 110) + 10).ToString() + "px";
+    var countPics = 0;
+    if (Model.Imagen.FirstOrDefault() != null) { countPics = Model.Imagen.Count; }
+        }
+
+        <div style="width:100%;height:90px;overflow-y:auto;overflow-x:hidden; margin-bottom:5px;">
+            <div style="width:@boxsize;">
+                @foreach (var pic in Model.Imagen)
+                {
+                    <div style="width:80px; margin-left:2px; margin-right:5px; float:left; margin-bottom: 10px">
+                        <a class="fancybox" href="@Url.Content(pic.URL)" data-fancybox-group="gallery">
+                            <img class="round-corner" src="@Url.Content(pic.URLMin)" width="80" height="80">
+                        </a>
+                    </div>
+                }
+                @if (countPics < minNumPics)
+                {
+                    for (var x = 0; x < (minNumPics - countPics); x++)
+                    {
+                        <div style="width:80px; height:80px; margin-left:2px; margin-right:5px; float:left; margin-bottom: 10px">
+                            <img src="@Url.ContentApplicationImage("default.jpg")" width="80" height="80">
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        @Html.Rp3TextAreaFor(model => Model.Observacion, htmlAttributes: new { style = "height:80px" }, readOnly: true)
+    </div>
+}
+
+</div>
+
+
+<style>
+    .fancybox-wrap {
+        z-index: 99999999;
+    }
+
+    .fancybox-overlay,
+    .fancybox-overlay-fixed {
+        z-index: 9999998;
+    }
+</style>

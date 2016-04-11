@@ -1,0 +1,48 @@
+﻿@model Rp3.AgendaComercial.Models.General.Calendario
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.DetalleCalendario;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+
+    Rp3.Web.Mvc.Html.TabCollection tabCollection = (Rp3.Web.Mvc.Html.TabCollection)ViewBag.TabCollection;
+}
+ 
+@section Imports{
+    @Url.ImportApplicationScript("calendario.js", true)    
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "form-calendario", onsubmit ="" }))
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+        {
+            @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion, labelSize: HtmlColumnSize.Size_3, labelText: Rp3.AgendaComercial.Resources.LabelFor.Descripcion, editorHtmlAttributes: new { disabled="true"})
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            @Html.Rp3FormGroupCheckBoxFor(model => model.EsDefault, labelText: Rp3.AgendaComercial.Resources.LabelFor.EsDefault, editorHtmlAttributes: new { disabled = "true" })
+        }
+    }
+    using (Html.Rp3BeginTabContentBox(Rp3.AgendaComercial.Resources.TitleFor.DiasLaborales, tabCollection, paddingContent: true))
+    {
+
+        using (Html.Rp3BeginTabPane("tabdiaslaborales", active: true))
+        {
+            { Html.RenderPartial("_DiasLaborales", Model); }
+        }
+
+        using (Html.Rp3BeginTabPane("tabdiasnolaborables"))
+        {
+
+            { Html.RenderPartial("_DiasNoLaborables", Model); }
+        }
+    }
+}
+
+
+<script>
+    readOnly = true;
+</script>

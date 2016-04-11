@@ -1,0 +1,39 @@
+﻿@model Rp3.Web.Mvc.Application.Security.Models.Login
+@{
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+}
+
+@using (Html.Rp3BeginContentBox(Rp3.Resources.TitleFor.Login))
+{
+    using (Html.Rp3BeginForm("Login", "Account", new { area = "Security" }))
+    {
+        <text>
+            @Html.Rp3FormGroupTextBoxFor(model => model.LogonName)
+            @Html.Rp3FormGroupPasswordFor(model => model.Password)
+
+            <div class="row">
+
+
+                <div class="form-group">
+                    <div class="control-label" style="margin-right:10px; margin-bottom:10px; width:auto; float:right">
+                        <div style="float:left; margin-right:0px; margin-top:-5px">
+                            @Html.Rp3Label(labelText: Rp3.Resources.LabelFor.RememberMe)
+                        </div>
+                        <div style="float:left; margin-right:30px">
+                            @Html.Rp3CheckBoxFor(model => model.RememberMe)
+                        </div>
+                        <div style="float:left;margin-right:15px; margin-top:4px;">
+                            @Html.Rp3ActionLink(Rp3.Resources.LegendFor.ForgotPassword, "RequestingPasswordRecovery", "Account", new { area = "Security" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            @Html.Rp3FormActionGroup(ActivityActions.Login)
+
+        </text>
+    }
+}

@@ -1,0 +1,59 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.Ruta
+@{
+
+}
+
+<div style="margin-top:22px;height:200px">
+    @using (Html.Rp3BeginDataTable(scrollY: "150px", allowSort: false, allowPagination: false, allowSearch: true, htmlAttributes: new { id = "rutaincluir" }))
+    {
+        <thead>
+            <tr>
+                @if (!Model.ReadOnly)
+                {
+                    <th style="width:50px"></th>
+                }
+                @*<th class="text-center" width="14px"></th>*@
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Cliente</th>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Direccion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.RutaIncluirs != null)
+            {
+                if (Model.RutaIncluirs.FirstOrDefault() != null)
+                {
+                    foreach (var item in Model.RutaIncluirs.OrderBy(p => p.ClienteDireccion.Cliente.Apellido1))
+                    {
+                        <tr>
+                            <input name="clienteIncluir" type="hidden" value="@item.IdCliente-@item.IdClienteDireccion" ubicacion markerindex="@item.MarkerIndex" markerstart="@item.MarkerStart" markerzindex="@item.MarkerZIndex" latitud="@(item.Latitud == null ? -1 : item.Latitud)" longitud="@(item.Longitud == null ? -1 : item.Longitud)" titulo="@item.Titulo">
+                            @if (!Model.ReadOnly)
+                            {
+                                <td rutaincluirremovebutton class="text-center" style="width:50px">
+                                    @Html.Rp3Button(String.Empty, HtmlElementSize.Mini, icon: Icons.Remove, submit: false) @*iconClass iconClass: "icon-tag")*@
+                                </td>
+                            }
+                            <td>@item.ClienteDireccion.Cliente.NombresCompletos</td>
+                            <td>@item.ClienteDireccion.Etiqueta</td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>    
+    }
+</div>
+<div><h5 style="float:right;margin-top:10px;"> Registros]</h5><h5 id="tot_incluir" style="float:right;margin-right:5px;margin-top:10px;"></h5><h5 style="float:right;margin-top:10px;">[</h5></div>
+<style>
+    .text-center{
+        width:50px;
+    }
+
+     .dataTables_scroll {
+        height: 185px;
+    }
+</style>
+<script>
+    $(function () {
+        init_Incluir();        
+        retrieveTotalContent("rutaincluir", "#tot_incluir");
+    });
+</script>

@@ -1,0 +1,37 @@
+﻿@model Rp3.AgendaComercial.Models.General.Canal
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.CrearCanal;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("canal.js")
+}
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Canal))
+            {
+                <text>
+                    @Html.HiddenFor(model => model.IdCanal)
+                    @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion)
+                    @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla)
+                </text>
+
+                @Html.Rp3FormActionGroup(ActivityActions.Create)
+            }
+        }
+    }
+}
+
+<script>
+    setTimeout(function() {
+    $('#Estado').select2("enable", false);
+    }, 100);
+</script>

@@ -1,0 +1,35 @@
+﻿@model Rp3.AgendaComercial.Models.General.TipoActividad
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.EditarTipoActividad;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("tipoactividad.js")
+}
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.TipoActividades))
+            {
+                @:@{Html.RenderPartial("_Datos", Model);}
+
+                @Html.Rp3FormActionGroup(ActivityActions.Update)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Opciones, paddingContent: true))
+            {
+                @:@{Html.RenderPartial("_Opciones", Model);}
+                }
+        }
+    }
+}

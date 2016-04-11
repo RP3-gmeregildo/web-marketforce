@@ -1,0 +1,131 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.RecorridoAgente
+@{
+    this.SetTitle(Rp3.AgendaComercial.Resources.TitleFor.RecorridoAgente);
+    this.SetImportTables(true);
+    this.SetImportFormElements(true);
+}
+
+@section Imports{
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+    @Url.ImportApplicationStyleSheet("recorrido.css",true)
+
+    @Url.ImportApplicationScript("fancybox/jquery.mousewheel-3.0.6.pack.js")
+    @Url.ImportApplicationScript("fancybox/jquery.fancybox.js?v=2.1.5")
+
+    @Url.ImportApplicationScript("agenda/agendadetalle.js", true)
+    @Url.ImportApplicationScript("recorrido.js",true)
+
+    @Url.ImportApplicationScript("daterangepicker/moment.min.js")
+    @Url.ImportStyleSheet("jquery.treegrid.css")
+    @Url.ImportScript("treegrid/jquery.treegrid.js")
+
+    <link rel="stylesheet" type="text/css" href="~/Content/AgendaComercial/js/fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
+}
+
+@section ActionTitle{
+    <div class="row">
+        <div class="col-sm-4">
+            @Html.Rp3FormGroupCheckBoxFor(model => model.IncluirRecorrido, labelSize: HtmlColumnSize.Size_3)
+        </div>
+        <div class="col-sm-4">
+            @Html.Rp3FormGroupCheckBoxFor(model => model.IncluirClientes, labelSize: HtmlColumnSize.Size_3)
+        </div>
+        <div class="col-sm-4">
+            @Html.Rp3FormGroupCheckBoxFor(model => model.IncluirGestion, labelSize: HtmlColumnSize.Size_3)
+        </div>
+    </div>       
+}
+
+
+@{Html.RenderPartial("_AgendaDetalleGestionContent");}
+
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+{
+    @Html.HiddenFor(m => m.FechaInicioByAgente)
+    @Html.HiddenFor(m => m.FechaFinByAgente)
+    @Html.HiddenFor(m => m.IdByAgente)
+    using (Html.Rp3BeginDataTable(scrollY: "220px", allowPagination: false, allowSort: false, columnAutoWidth: true, allowSearch: Model.IdByAgente == null, htmlAttributes: new { id = "agentestabla" }))
+    {
+        <thead>
+            <tr>
+                <th style="display:none"></th>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var agente in Model.Agentes.OrderBy(p => p.Descripcion))
+            {
+                <tr idagente="@{@agente.IdAgente}">
+                    <td style="display:none"></td>
+                    <td class="selectable-item">@agente.Descripcion</td>
+                </tr>
+            }
+        </tbody>
+    }
+    
+   
+
+    using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top:-13px" }))
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            <div id="content-fechas" style="margin-top:10px">
+                @{ Html.RenderPartial("_Fechas", new List<DateTime>()); }
+            </div>
+        }
+    }
+
+
+}
+
+<div class="leyend-section">    
+    <div class="leyend-icon-name"><span id="alert-count"></span></div>
+    <div class="leyend-icon-name"><strong>@Rp3.AgendaComercial.Resources.LabelFor.RecorridoAlerta</strong></div>
+    <div class="leyend-icon icalert"> <i class="fa fa-exclamation-triangle"></i></div>
+    
+    <div class="leyend-icon-name"><span id="gestion-count"></span></div>
+    <div class="leyend-icon-name"><strong>@Rp3.AgendaComercial.Resources.LabelFor.IncluirGestion</strong></div>
+    <div class="leyend-icon"><img width="24" height="24" src="@Url.ContentApplicationImage("style/markervisit.png")" /></div>
+
+    <div class="leyend-icon-name"><span id="cliente-count"></span></div>
+    <div class="leyend-icon-name"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Cliente</strong></div>
+    <div class="leyend-icon"><img width="24" height="24"  src="@Url.ContentApplicationImage("style/marker-cliente-blue.png")" /></div>    
+    <div class="leyend-icon-name"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Fin</strong></div>
+    <div class="leyend-icon"><img width="24" height="24" src="@Url.ContentApplicationImage("style/markerend.png")" /></div> 
+    <div class="leyend-icon-name"><strong>@Rp3.AgendaComercial.Resources.LabelFor.RecorridoCheckPoint</strong></div>
+    <div class="leyend-icon"><img src="@Url.ContentApplicationImage("style/markerpoint.png")" /></div>   
+    <div class="leyend-icon-name"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Inicio</strong></div>
+    <div class="leyend-icon"><img width="24" height="24"  src="@Url.ContentApplicationImage("style/markerstart.png")" /></div>
+
+    <div class="leyend-icon-name" style="float:left;"><div style="cursor:pointer;color:blue" onclick="openNotificacion()"><b><i class="fa fa-comments-o"></i> Enviar notificación</b></div></div>
+    @if (string.IsNullOrEmpty(Model.FechaInicioByAgente)) {
+        <div class="leyend-icon-name" style="float:left;"><div style="cursor:pointer;color:blue" onclick="openTrazabilidad()"><i class="fa fa-flag"></i> Ir al Informe de Trazabilidad</div></div>
+    }
+</div>
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_9, htmlAttributes: new { @class = "content-map"}))
+{
+    using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Ubicaciones))
+    {        
+        <div id="content_map" class="content_map" style="height:425px">
+            @{ Html.RenderPartial("_Map", Model.RecorridoResult); }
+        </div>        
+    }
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginModal("modal-notificacion", customWidth: 450))
+    {
+        <div id="modal-notificacion-content" style="margin-top:-15px;height:200px; width:300px;"> </div>
+
+        using (Html.Rp3BeginModalAction())
+        {
+            <div actions-modal>
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Enviar, themeType: ElementThemeType.Success, icon: Icons.Reply, allowCloseModal: false, customButtonClick: "notificacionPost();")
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true, customButtonClick: "return;")
+            </div>
+        }
+    }
+}

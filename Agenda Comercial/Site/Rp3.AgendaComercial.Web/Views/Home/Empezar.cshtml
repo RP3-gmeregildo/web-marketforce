@@ -1,0 +1,12 @@
+﻿@using(Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{ 
+    @:@Html.Rp3AlertBlock("Por favor Inicie Sesión", Rp3.Data.MessageType.Information, "Bienvenido")
+}
+
+@{
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+}
+
+@{Html.RenderPartial("_HomeLogin");}    
+

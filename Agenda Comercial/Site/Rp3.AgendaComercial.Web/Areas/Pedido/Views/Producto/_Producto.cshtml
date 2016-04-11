@@ -1,0 +1,106 @@
+﻿@model Rp3.AgendaComercial.Models.Pedido.Producto
+
+<div style="width:100%">
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_8))
+        {
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_10))
+                {
+                    if (ViewBag.ReadOnly)
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.SubCategoria.Descripcion)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDropDownListFor(model => model.IdSubCategoria, (SelectList)ViewBag.SubCategorias, labelText: Rp3.AgendaComercial.Resources.LabelFor.SubCategoria, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarCategoria })
+                    }
+                }
+            }
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_10))
+                {
+                    @Html.HiddenFor(model => model.IdProducto);
+                    if(ViewBag.ReadOnly)
+                    { 
+                        @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion, labelText: Rp3.AgendaComercial.Resources.LabelFor.Descripcion, editorHtmlAttributes: new { disabled = ViewBag.ReadOnly });
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion, labelText: Rp3.AgendaComercial.Resources.LabelFor.Descripcion);
+                    }
+                }
+            }
+
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_10))
+                {
+                    if(ViewBag.ReadOnly)
+                    { 
+                        @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla, editorHtmlAttributes: new { disabled = ViewBag.ReadOnly })
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla)
+                    }
+                }
+            }
+
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_10))
+                {
+                    if(ViewBag.ReadOnly)
+                    { 
+                        using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Precio, labelSize: HtmlColumnSize.Size_4))
+                        {
+                            @Html.Rp3NumericTextBox("Precio", numericType: NumericType.Currency, value: Model.Precio, precision: 2, htmlAttributes: new { bindinginput = "Precio", disabled = ViewBag.ReadOnly }, currencySymbol: "$");
+                        }
+                    }
+                    else
+                    {
+                        using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Precio, labelSize: HtmlColumnSize.Size_4))
+                        {
+                            @Html.Rp3NumericTextBox("Precio", numericType: NumericType.Currency, value: Model.Precio, precision: 2, htmlAttributes: new { bindinginput = "Precio"}, currencySymbol: "$");
+                        }
+                    }
+                }
+            }
+
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_10))
+                {
+                    if(ViewBag.ReadOnly)
+                    {
+                        @Html.Rp3FormGroupTextBoxFor(model => model.IdExterno, labelText: Rp3.AgendaComercial.Resources.LabelFor.CodigoExterno, editorHtmlAttributes: new { disabled = ViewBag.ReadOnly });
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupTextBoxFor(model => model.IdExterno, labelText: Rp3.AgendaComercial.Resources.LabelFor.CodigoExterno);
+                    }
+                }
+            }
+        }
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2, false))
+        {
+            using (Html.Rp3BeginRow())
+            {
+                @: @{Html.RenderPartial("_SetFoto", Model); }
+            }
+            if(Model.QRCode != null)
+            { 
+                using (Html.Rp3BeginRow())
+                {
+                    <img src="data:image;base64,@System.Convert.ToBase64String(Model.QRCode)" />
+                }
+            }
+        }
+    }
+
+</div>
+

@@ -1,0 +1,90 @@
+﻿@model Rp3.AgendaComercial.Models.General.View.TareaView
+@{
+    List<Rp3.Data.Models.Definition.ApplicationOptionActivity> grupos = (List<Rp3.Data.Models.Definition.ApplicationOptionActivity>)
+      ViewBag.ApplicationOptionActivities;
+}
+
+@using (Html.Rp3BeginRow())
+{
+    if (!Model.ReadOnly)
+    {
+        <div style="float:left;height:30px;">@Html.Rp3CheckBoxFor(model => model.PermitirCreacion)</div>
+        <h5 style="float:left;margin-left:10px; margin-top:2px;height:30px;">@Rp3.AgendaComercial.Resources.LabelFor.PermitirCreacionClientes</h5>
+    }
+    else
+    {
+        <div style="float:left;height:30px;margin-left:15px;">@Html.Rp3DisableCheckBoxFor(model => model.PermitirCreacion)</div>
+        <h5 style="float:left;margin-left:10px; margin-top:2px;height:30px;">@Rp3.AgendaComercial.Resources.LabelFor.PermitirCreacionClientes</h5>
+    }
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+    {
+        using (Html.Rp3BeginTable(new { @class = "tree" }))
+        {
+            <thead>
+                <tr>
+                    <th>@Rp3.AgendaComercial.Resources.LabelFor.DatosEditar</th>
+                    @if (!Model.ReadOnly)
+                    {
+                        <th class="text-center">@Html.Rp3CheckBox("nuevocheckall")</th>
+                    }
+                    else { 
+                        <th></th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var grupo in ((List<Rp3.AgendaComercial.Models.General.View.ClienteCampoGrupo>)ViewBag.ClienteCampoGrupos).OrderBy(p => p.IdGrupo))
+                {
+                    var campos = ((List<Rp3.AgendaComercial.Models.General.ParametroClienteCampo>)ViewBag.ClienteCampos).Where(p => p.IdGrupo == grupo.IdGrupo).OrderBy(p => p.Prioridad);
+
+                    <tr class="treegrid-@{@(grupo.IdGrupo)}">
+                        <td>@grupo.Grupo</td>
+                        @*@if (!Model.ReadOnly)
+                        {*@
+                            <td></td>
+                        @*}*@
+                    </tr>
+
+                    foreach (var campo in campos)
+                    {
+                        <tr class="treegrid-@{@(campo.Key)} treegrid-parent-@{@(grupo.IdGrupo)}">
+
+                            <td>@campo.Nombre</td>
+
+                            @if (!Model.ReadOnly)
+                            {
+                                if (!campo.EsObligatorio){
+                                    <td class="text-center">
+                                        @Html.Rp3CheckBox("nuevocampo",
+                                isChecked: Model.TareaClienteActualizacionCampos.Any(p => p.Creacion && p.IdCampo == campo.IdCampo),
+                                value: campo.Key, htmlAttributes: new { allowcheck = "" })
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td class="text-center">
+                                        @Html.Rp3CheckBox("nuevocampo",
+                                isChecked: true,
+                                 value: campo.Key, htmlAttributes: new { checkreadOnly = "" })
+                                    </td>
+                                }
+                            }
+                            else
+                            {
+                                <td class="text-center">
+                                    @Html.Rp3CheckBox("nuevocampo",
+                                 isChecked: Model.TareaClienteActualizacionCampos.Any(p => p.Creacion && p.IdCampo == campo.IdCampo),
+                                 value: campo.Key, htmlAttributes: new { checkreadOnly = "" })
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        }
+    }
+}

@@ -1,0 +1,35 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.Lote
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.ProcesarLote;
+    this.SetImportTables(true);
+
+    this.SetInlineNotificationMessage(true, true);
+}
+
+@section Imports
+{
+    @Url.ImportApplicationScript("lote/lote.js")
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("rate.css", true)
+    @Url.ImportApplicationStyleSheet("mapa.css", true)
+}
+
+
+@using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            using (Html.Rp3BeginContentBox())
+            {
+                <div id="content-detalle" style="position:relative;height:500px"></div>
+            }
+        }
+    }
+<script>
+    $(function () {
+        initProcess();
+    });
+</script>

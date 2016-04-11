@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.ReasignacionClientes;
+
+    this.SetImportFormElements(true);
+    this.SetImportAdvTables(true);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("reasignacioncliente.js")
+}
+
+@section ActionTitle{
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_7))
+        {
+            using (Html.Rp3BeginDataTable(scrollY: "30px", allowPagination: false, allowSort: false, allowSearch: false, columnAutoWidth: true, htmlAttributes: new { style = "overflow:hidden;", @class = "linked", id = "rutaremovertabla" }))
+            {
+                <thead style="display:none">
+                    <tr>
+                        <th style="display:none"></th>
+                        <th>@Rp3.AgendaComercial.Resources.LabelFor.Rutas</th>
+                    </tr>
+                </thead>
+                <tbody id="rutaremoverdetalle-content">
+                    <tr idruta="0" style="overflow:hidden">
+                        <td style="display:none"></td>
+                        <td align="center">@Rp3.AgendaComercial.Resources.MessageFor.ArrasteClientesRemoverRuta</td>
+                    </tr>
+                </tbody>
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Filtros, HtmlElementSize.Default, icon: Icons.Minus, submit: false, actionName: "FILTER", themeType: ElementThemeType.Default)
+        }
+    }
+}
+
+
+<style>
+    .selected-item {
+        background-color: #328fca;
+        color: white;
+    }
+
+    .selectable-item {
+        cursor: pointer;
+    }
+
+    #rutaorigentabla_wrapper .dataTables_scroll {
+        height: 390px;
+    }
+
+    #rutadestinotabla_wrapper .dataTables_scroll {
+        height: 390px;
+    }
+
+    div.dataTables_scrollBody tbody tr:first-child td {
+        border-top: 1px solid #DADADA;
+    }
+
+    body {
+        overflow: hidden;
+    }
+</style>
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "indexForm" }))
+{
+    <input id="IdRutaOrigen" name="IdRutaOrigen" type="hidden">
+    <input id="IdRutaDestino" name="IdRutaDestino" type="hidden">
+
+    using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top:-35px" }))
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, htmlAttributes: new { id = "origenColumn" }))
+        {
+            using (Html.Rp3BeginContentBox(title: "Origen", paddingContent: true))
+            {
+                using (Html.Rp3BeginRow(htmlAttributes: new { id = "rutaOrigenRow" }))
+                {
+                    using (Html.Rp3BeginDataTable(scrollY: "350px", allowPagination: false, allowSort: false, columnAutoWidth: true, htmlAttributes: new { id = "rutaorigentabla" }))
+                    {
+                        <thead>
+                            <tr>
+                                <th style="display:none"></th>
+                                <th>@Rp3.AgendaComercial.Resources.LabelFor.Rutas</th>
+                                <th>@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr idruta="-1" descripcion="@Rp3.AgendaComercial.Resources.LabelFor.TodosClientes">
+                                <td style=" display:none"></td>
+                                <td class="selectable-item">@Rp3.AgendaComercial.Resources.LabelFor.TodosClientes</td>
+                                <td class="selectable-item"></td>
+                            </tr>
+                            <tr idruta="0" descripcion="@Rp3.AgendaComercial.Resources.LabelFor.ClientesSinRuta">
+                                <td style=" display:none"></td>
+                                <td class="selectable-item">@Rp3.AgendaComercial.Resources.LabelFor.ClientesSinRuta</td>
+                                <td class="selectable-item"></td>
+                            </tr>
+                            @foreach (Rp3.AgendaComercial.Models.Ruta.Ruta ruta in ViewBag.Rutas)
+                            {
+                                <tr idruta="@{@ruta.IdRuta}" descripcion="@ruta.Agente - @ruta.Descripcion">
+                                    <td style="display:none"></td>
+                                    <td class="selectable-item">@ruta.Descripcion</td>
+                                    <td class="selectable-item">@ruta.Agente</td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                }
+
+                using (Html.Rp3BeginRow())
+                {
+                    <div id="GridDetalleOrigen" style="position:relative; overflow:hidden"></div> @*height:230px;overflow: hidden;*@
+                }
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, htmlAttributes: new { id = "destinoColumn" }))
+        {
+            using (Html.Rp3BeginContentBox(title: "Destino", paddingContent: true))
+            {
+                using (Html.Rp3BeginRow(htmlAttributes: new { id = "rutaDestinoRow" }))
+                {
+                    using (Html.Rp3BeginDataTable(scrollY: "350px", allowPagination: false, allowSort: false, columnAutoWidth: true, htmlAttributes: new { id = "rutadestinotabla" }))
+                    {
+                        <thead>
+                            <tr>
+                                <th style="display:none"></th>
+                                <th>@Rp3.AgendaComercial.Resources.LabelFor.Rutas</th>
+                                <th>@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Rp3.AgendaComercial.Models.Ruta.Ruta ruta in ViewBag.Rutas)
+                            {
+                                <tr idruta="@{@ruta.IdRuta}" descripcion="@ruta.Agente - @ruta.Descripcion">
+                                    <td style="display:none"></td>
+                                    <td class="selectable-item">@ruta.Descripcion</td>
+                                    <td class="selectable-item">@ruta.Agente</td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                }
+
+                using (Html.Rp3BeginRow())
+                {
+                    <div id="GridDetalleDestino" style="position:relative;overflow:hidden"></div>
+                }
+            }
+        }
+    }
+}

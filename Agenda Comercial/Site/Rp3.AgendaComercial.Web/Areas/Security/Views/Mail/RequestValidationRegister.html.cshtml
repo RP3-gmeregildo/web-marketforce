@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Rp3.Web.Mvc.Session.ApplicationName - @Rp3.Resources.TitleFor.RequestRegisterValidationMailSubject</title>
+    <meta charset="UTF-8" />
+    <style>
+        /* Reset CSS */
+        body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, font, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+            font-size: 100%;
+            vertical-align: baseline;
+            background: transparent;
+            font: 13px Arial, Helvetica, sans-serif;
+        }
+
+        #mailform {
+            border: 1px #ccc solid;
+            width: 100%;
+            max-width: 500px;
+            -webkit-margin-start: auto;
+            -webkit-margin-end: auto;
+        }
+
+        #mailheader {
+            width: 100%;
+            height: 45px;
+            overflow: hidden;
+            position: relative;
+            max-width: 500px;
+        }
+
+        #mailbody {
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+            #mailbody h2 {
+                font: 15px Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                padding-bottom: 20px;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            #mailbody h3 {
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+                #mailbody h3 span {
+                    font-weight: bold;
+                }
+
+            #mailbody a {
+            }
+
+        #infouser {
+            background-color: #F0F0F0;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="mailform">
+        <div id="mailheader">
+            <img id="ecxsite_logo" src="@Url.AbsoluteUrlImage("email-header.jpg")"
+                alt="rp3" width="500" height="45" border="0" style="display: block; border: none;">
+        </div>
+        <div id="mailbody">
+
+            <p style="text-align: center;">@Rp3.Web.Mvc.Session.ApplicationName</p>
+
+            <h3>@Rp3.Resources.LegendFor.GreetingBegin @Model.User.Contact.DefaultFullName</h3>
+            <h2>@Rp3.Resources.LegendFor.RegisterValidationInstructions</h2>
+
+            <div id="infouser">
+                <h3><span><a href="@Url.AbsoluteAction("ValidationRegister", "Account", new { code = Model.EncryptCode })">
+                    @Url.AbsoluteAction("RegisterValidation", "Account", new { area = "Security", code = Model.EncryptCode })</a></span></h3>
+            </div>
+            
+            <p style="text-align: center;"><a href="@Url.AbsoluteUrl()" target="_blank">@Url.AbsoluteUrl()</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.Marcacion.Grupo>
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.Grupos;
+    this.SetImportAdvTables(true);
+}
+
+@section ActionTitle{
+    @Html.Rp3OptionActivityButton("GRUPO", "NEW", HtmlElementSize.Default, includeText: true, applicationId: "AGENDACOMERCIAL")
+
+    @Html.Rp3ActionButton(Rp3.AgendaComercial.Resources.LabelFor.Excel, "ExportToXls", "Grupo", new { Area = "Marcacion" }, themeType: ElementThemeType.Default, icon: Icons.File)
+    @Html.Rp3ActionButton(Rp3.AgendaComercial.Resources.LabelFor.Pdf, "ExportToPdf", "Grupo", new { Area = "Marcacion" }, themeType: ElementThemeType.Default, icon: Icons.File)
+}
+
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{
+    @Html.Partial("_GridViewIndex", Model)
+}

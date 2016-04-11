@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "No es un Agente";
+    this.SetImportFormElements(true);
+}
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            @:@Html.Rp3AlertBlock("Su usuario no está definido como un Agente. Consulte a su Administrador.", Rp3.Data.MessageType.Information, "Página disponible solo para Agentes")
+        }
+    }
+}
+
+

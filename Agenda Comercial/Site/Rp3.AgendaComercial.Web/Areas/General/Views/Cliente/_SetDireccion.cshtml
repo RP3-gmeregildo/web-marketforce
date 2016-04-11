@@ -1,0 +1,199 @@
+﻿@model Rp3.AgendaComercial.Models.General.ClienteDireccion
+@{
+    if (ViewBag.CampoObligatorio == null)
+    {
+        ViewBag.CampoObligatorio = new List<ParametroClienteCampo>();
+    }
+}
+
+@using Rp3.AgendaComercial.Models.General;
+@using Rp3.AgendaComercial.Models;
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "setdireccionform" }))
+{
+    <text>
+
+        @Html.HiddenFor(model => model.IdCliente)
+        @Html.HiddenFor(model => model.IdClienteDireccion)
+        @Html.HiddenFor(model => model.MarkerIndex)
+
+        @Html.HiddenFor(model => model.Latitud)
+        @Html.HiddenFor(model => model.Longitud)
+
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                string labelText = String.Format("{0}*", Rp3.AgendaComercial.Resources.LabelFor.TipoDireccion);
+                
+                @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.TipoDireccion, Rp3.AgendaComercial.Models.Constantes.TipoDireccion.Tabla, labelText: labelText)
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                string labelText = String.Format("{0}*", Rp3.AgendaComercial.Resources.LabelFor.Estado);
+                
+                @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla, labelText: labelText)
+            }
+        }
+
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Direccion;
+
+                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Dir" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                {
+                    labelText = String.Format("{0}*", labelText);
+                }
+                
+                @Html.Rp3FormGroupTextBoxFor(model => model.Direccion, labelText: labelText)
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Descripcion;
+
+                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "DirDesc" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                {
+                    labelText = String.Format("{0}*", labelText);
+                }
+                
+                @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion, labelText: labelText)
+            }
+        }
+
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Referencia;
+
+                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Ref" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                {
+                    labelText = String.Format("{0}*", labelText);
+                }
+                
+                @Html.Rp3FormGroupTextBoxFor(model => model.Referencia, labelText: labelText)
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                @Html.Rp3FormGroupCheckBoxFor(model => model.AplicaRuta)
+            }
+        }
+
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                if (ViewBag.ModificarCiudad)
+                {
+                    string labelText = Rp3.AgendaComercial.Resources.LabelFor.CiudadPoblacion;
+
+                    if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "CiuPar" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                    {
+                        labelText = String.Format("{0}*", labelText);
+                    }
+
+                    using (Html.Rp3BeginFormGroupEditor(labelText: labelText))
+                    {
+                        @Html.Rp3RemoteGeopoliticalStructureFor(model => model.IdCiudad)
+                    }
+                }
+                else
+                {
+                    @Html.HiddenFor(model => model.IdCiudad)
+                    @Html.Rp3FormGroupDisplayFor(model => model.Ciudad.Name, labelText: Rp3.AgendaComercial.Resources.LabelFor.Ciudad)
+                }
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                @Html.Rp3FormGroupCheckBoxFor(model => model.EsPrincipal)
+            }
+        }
+
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Telefono;
+
+                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "DirTelf1" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                {
+                    labelText = String.Format("{0}*", labelText);
+                }
+                
+                @Html.Rp3FormGroupTextBoxFor(model => model.Telefono1, labelText: labelText)
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Telefono;
+
+                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "DirTelf2" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                {
+                    labelText = String.Format("{0}*", labelText);
+                }
+                
+                @Html.Rp3FormGroupTextBoxFor(model => model.Telefono2, labelText: labelText)
+            }
+        }
+
+        @*@using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    @Html.Rp3FormGroupDisplayFor(model => model.Latitud)
+                }
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    @Html.Rp3FormGroupDisplayFor(model => model.Longitud)
+                }
+            }*@
+
+    </text>
+
+    using (Html.Rp3BeginModalAction())
+    {
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Guardar, icon: Icons.Check, htmlAttributes: new { save_button = "" })
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, allowCloseModal: true, icon: Icons.Close, themeType: ElementThemeType.Default, htmlAttributes: new { cancel_button = "" })
+    }
+}
+
+@Url.ImportValidateUnobtrusiveScript()
+
+<script>
+
+    $(function () {
+
+        $('#setdireccionform input[type=checkbox]').rp3CheckBox();
+
+        $('#setdireccionform select:not([rp3-custom])').rp3SelectBox();
+        $('#setdireccionform input[select-geopolitical]').rp3RemoteGeopoliticalStructureBox();
+
+        //$('#IdCiudad').select2({ height: 'resolve' });
+
+        $('[save-button]').click(function (e) {
+            e.preventDefault();
+            postSetDireccion(@Model.IdCliente);
+        });
+
+        $('[cancel-button]').click(function (e) {
+            e.preventDefault();
+        });
+
+        @if (Model.IdClienteDireccion == 0)
+        {
+            <text>
+                setTimeout(function () {
+                    $('#setdireccionform #Estado').select2("enable", false);
+                }, 300);
+            </text>
+        }
+    });
+
+</script>

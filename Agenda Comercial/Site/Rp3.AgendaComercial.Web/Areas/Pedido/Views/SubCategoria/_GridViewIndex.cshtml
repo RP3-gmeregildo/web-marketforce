@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.Pedido.SubCategoria>
+@{
+    
+}
+
+@Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "SubCategoria", Action = "GridViewIndex" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.ClientSideEvents.CustomButtonClick = "function(s, e) { document.location= e.buttonID + '?id=' + s.GetRowKey(e.visibleIndex); }";
+        settings.KeyFieldName = "IdSubCategoria";
+
+        var colCategoria = settings.Columns.Add("Categoria.Descripcion", Rp3.AgendaComercial.Resources.LabelFor.Categoria);
+        colCategoria.Width = 110;
+        
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.SubCategoria;
+            column.FieldName = "Descripcion";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        });
+
+        var colEstado = settings.Columns.Add("EstadoGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Estado);
+        colEstado.Width = 75;
+    },
+    new List<OptionAction>() { 
+        new OptionAction("SUBCATEGORIA", "DETAIL", "AGENDACOMERCIAL"),
+        new OptionAction("SUBCATEGORIA", "EDIT", "AGENDACOMERCIAL"),
+        new OptionAction("SUBCATEGORIA", "DELETE", "AGENDACOMERCIAL"),
+    }).Bind(Model).GetHtml()

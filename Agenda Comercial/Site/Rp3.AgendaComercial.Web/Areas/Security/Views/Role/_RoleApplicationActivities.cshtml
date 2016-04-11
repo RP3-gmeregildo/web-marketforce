@@ -1,0 +1,49 @@
+﻿@model Rp3.Web.Mvc.Application.Security.Models.EditRole
+@{
+    List<Rp3.Data.Models.Definition.ApplicationOptionActivity> activities = (List<Rp3.Data.Models.Definition.ApplicationOptionActivity>)
+        ViewBag.ApplicationOptionActivities;
+}
+ 
+@using (Html.Rp3BeginContentBox(Rp3.Resources.LabelFor.Permissions))
+{
+    @Html.Rp3FormGroupDropDownList((SelectList)ViewBag.ApplicationSelectList, Rp3.Resources.LegendFor.ApplicationSelect, name: "applicationSelect")
+    
+    using (Html.Rp3BeginTable(new { @class = "roleTree" }))
+    {
+        <thead>
+            <tr>                
+                <th>@Rp3.Resources.LegendFor.PermissionsSelect</th>
+                @if (!Model.ReadOnly)
+                {
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var option in activities.Select(p => p.ApplicationOption).OrderBy(p => p.Name).Distinct())
+            {                
+                var optionActivities = option.ApplicationOptionActivities.OrderBy(p => p.Activity.Name);               
+                <tr class="treegrid-@{@(option.OptionId)}" applicationId="@{@option.ApplicationId}">
+                    <td>@option.Name</td>
+                        @if (!Model.ReadOnly)
+                        {
+                        <td></td>
+                        }
+                </tr>
+                foreach (var activity in optionActivities)
+                {               
+                <tr class="treegrid-@{@(activity.Key)} treegrid-parent-@{@(activity.OptionId)}" applicationId="@{@option.ApplicationId}">
+                    <td>@activity.Activity.Name</td>
+                    @if (!Model.ReadOnly)
+                    {
+                        <td class="text-center">@Html.Rp3CheckBox("applicationOptionActivities",
+                    isChecked: Model.RoleApplicationOptionActivities.Any(p => p.ApplicationId == activity.ApplicationId &&
+                        p.ActivityId == activity.ActivityId && p.OptionId == activity.OptionId),
+                    value: activity.Key)</td>
+                    }
+                </tr>
+                }
+            }           
+        </tbody>       
+    }
+}

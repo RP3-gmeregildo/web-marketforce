@@ -1,0 +1,61 @@
+﻿@Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "EstadisticaEncuesta", Action = "GridViewIndex" };                        
+        
+        settings.KeyFieldName = "IdTarea";
+
+        settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Visible;
+
+        settings.CustomBindingRouteValuesCollection.Add(
+            GridViewOperationType.Paging,
+            new { Controller = "EstadisticaEncuesta", Action = "GridViewPagingAction" }
+        );
+
+        settings.CustomBindingRouteValuesCollection.Add(
+            GridViewOperationType.Sorting,
+            new { Controller = "EstadisticaEncuesta", Action = "GridViewSortingAction" }
+        );
+
+        settings.CustomBindingRouteValuesCollection.Add(
+            GridViewOperationType.Filtering,
+            new { Controller = "EstadisticaEncuesta", Action = "GridViewFilteringAction" }
+        );
+        
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Tarea;
+            column.FieldName = "Descripcion";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;         
+            column.Width = 300;
+        });
+
+        var colDesde = settings.Columns.Add("FechaVigenciaDesde", Rp3.AgendaComercial.Resources.LabelFor.Desde);
+        colDesde.PropertiesEdit.DisplayFormatString = Rp3.AgendaComercial.Models.Constantes.DateFormat;
+        colDesde.Width = 110;
+        
+        var colHasta = settings.Columns.Add("FechaVigenciaHasta", Rp3.AgendaComercial.Resources.LabelFor.Hasta);
+        colHasta.PropertiesEdit.DisplayFormatString = Rp3.AgendaComercial.Models.Constantes.DateFormat;
+        colHasta.Width = 110;
+        
+        settings.Columns.Add("Vigente", Rp3.AgendaComercial.Resources.LabelFor.Vigente, MVCxGridViewColumnType.CheckBox);
+        
+        settings.Columns.Add("NumeroGestiones", Rp3.AgendaComercial.Resources.LabelFor.NumGestiones).PropertiesEdit.DisplayFormatString = "n0";
+        settings.Columns.Add("NumeroClientes", Rp3.AgendaComercial.Resources.LabelFor.NumClientes).PropertiesEdit.DisplayFormatString = "n0";
+        settings.Columns.Add("NumeroPreguntas", Rp3.AgendaComercial.Resources.LabelFor.NumPreguntas).PropertiesEdit.DisplayFormatString = "n0";
+        
+        var colPrimeraGestion = settings.Columns.Add("PrimeraGestion", Rp3.AgendaComercial.Resources.LabelFor.PrimeraGestion);
+        colPrimeraGestion.PropertiesEdit.DisplayFormatString = Rp3.AgendaComercial.Models.Constantes.DateFormat;
+        colPrimeraGestion.Width = 110;
+        
+        var colUltimaGestion = settings.Columns.Add("UltimaGestion", Rp3.AgendaComercial.Resources.LabelFor.UltimaGestion);
+        colUltimaGestion.PropertiesEdit.DisplayFormatString = Rp3.AgendaComercial.Models.Constantes.DateFormat;
+        colUltimaGestion.Width = 110;
+
+        settings.SettingsPager.PageSize = 15;        
+    },
+    new List<OptionAction>() { 
+        new OptionAction("ESTADENCUESTA", "DETAIL", "AGENDACOMERCIAL")
+    }).BindToCustomData(Model).GetHtml()

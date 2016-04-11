@@ -1,0 +1,234 @@
+﻿@model Rp3.AgendaComercial.Web.Ruta.AgendaConsulta
+@{
+    //Esta Vista solo debe utilizarse para poner comportamientos generales del detalle de la visita
+    //Esta vista tambien se utiliza en otras opciones diferentes a la agenda
+    var fr = Model.AgendaClientes;
+    Rp3.AgendaComercial.Models.Ruta.View.AgendaClientes cli = null;
+}
+
+@if (fr != null)
+{
+    cli = Model.AgendaClientes[0];
+
+    <div class="modal-body" agenda-gestion-detail-content style="height:510px">
+        <!--header modal visit-->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">
+                        @if (!string.IsNullOrEmpty(cli.FotoMin))
+                        {
+                            <img src="@Url.Content(cli.FotoMin)" class="profile-avatar img-circle" style="width:60px; border: 2px solid;">
+                        }
+                        else
+                        {
+                            <img src="@Url.Content("~/Content/AgendaComercial/img/DefaultPerson.jpg")" class="profile-avatar img-circle" style="width:60px; border: 2px solid;">
+                        }
+                        @if (!string.IsNullOrEmpty(cli.FotoContactoMin))
+                        {
+                            <img src="@Url.Content(cli.FotoContactoMin)" class="profile-avatar img-circle" style="width:60px;margin-top:10px; border: 2px solid;">
+                        }
+                    </div>
+                    <div class="col-md-9" style="font-size:12px; font-weight:500;">
+                        @Html.Hidden("IdAgenteAgenda", cli.IdAgente)
+                        <div style="margin-left:10px;"><h5>@cli.ClienteContacto </h5></div>
+                        <div style="margin-left:10px;">@cli.CargoCanal</div>
+                        <table style="margin-top:10px;margin-left:10px;">
+                            <tr>
+                                <td><i class="fa fa-phone" style="width:20px;"></i></td>
+                                <td>@cli.Telefono</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-envelope"></i></td>
+                                <td>@cli.Correo</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: text-top;"><i class="fa fa-home"></i></td>
+                                <td>@cli.Direccion</td>
+                            </tr>
+                            <tr>
+                                <td><img class="" style="margin-right:1px;margin-top:-4px" width="16" height="16" src="@Url.ContentApplicationImage(cli.OrigenImageUrl)" /></td>
+                                <td>@cli.FechaInicio.Value.ToString("dd/MM/yyyy HH:mm") - @cli.FechaFin.Value.ToString("HH:mm")</td>
+                            </tr>
+                            @if (cli.EstadoAgenda == Rp3.AgendaComercial.Models.Constantes.EstadoAgenda.Visitada)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="img-circle" style="height:15px;width:15px;background-color:@cli.Color;"></div>
+                                    </td>
+                                    <td><div style="float:left;">@cli.ColorDetalle</div><div style="float:left;margin-left:20px">(@cli.FechaInicioGestion.Value.ToString("HH:mm") - @cli.FechaFinGestion.Value.ToString("HH:mm"))</div></td>
+                                </tr>
+                            }
+
+                            @if (ViewBag.TodosMisAgentes)
+                            {
+                                <tr>
+                                    <td><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("agentes.png")" /></td>
+                                    <td>@cli.Agente</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @{
+                            var lat = cli.Latitud.ToString().Replace(',', '.');
+                            var lon = cli.Longitud.ToString().Replace(',', '.');
+                            var concat = lat + "," + lon;
+            }
+
+            <div class="col-md-6">
+                <div style="width:100%;height:150px;">
+                    @if (ViewBag.ShowClienteSinUbicacion)
+                    {
+                        <div style="float:left;font-size:11px;position: absolute;z-index: 10;bottom:25px">@Html.Rp3LabelWidget(Rp3.AgendaComercial.Resources.MessageFor.ClienteSinUbicacion, LabelWidgetType.Warning)</div>
+                    }
+
+                    @if (ViewBag.ShowGestionSinUbicacion)
+                    {
+                        string position = "25px";
+                        if (ViewBag.ShowClienteSinUbicacion) { position = "45px"; }
+
+                        <div style="float:left;font-size:11px;position: absolute;z-index: 10;bottom:@position">@Html.Rp3LabelWidget(Rp3.AgendaComercial.Resources.MessageFor.GestionSinUbicacion, LabelWidgetType.Warning)</div>
+                    }
+                    @{ Html.RenderPartial("_UbicacionMapMarker", Model.Ubicaciones.Where(p => p.Latitud != null && p.Longitud != null)); }
+                </div>
+                <div>
+                    @*<div class="img-circle" style="margin-left:5px;margin-right:5px; margin-top:2px;float:left;height:15px;width:15px;background-color:@cli.Color;"></div>
+                    <div style="float:left;">@cli.ColorDetalle</div>*@
+                    @if (cli.EsReprogramada)
+                    {
+                        <div style="float:left; margin-left:10px"><i class="fa fa-calendar" style="margin-right:5px"></i>@cli.FechaInicioOriginal.Value.ToString("dd/MM/yyyy HH:mm")</div>
+
+                        if (!String.IsNullOrEmpty(cli.MotivoReprogramacion))
+                        {
+                            <div style="float:right;">@Html.Rp3LabelWidget(String.Format("{0}: {1}","Reprog.", cli.MotivoReprogramacion), LabelWidgetType.Info)</div>
+                        }
+                    }
+                    @if (cli.EstadoAgenda == Rp3.AgendaComercial.Models.Constantes.EstadoAgenda.NoVisitado)
+                    {
+                        <div style="float:left; margin-left:10px">@Html.Rp3LabelWidget(String.Format("{0}: {1}", "No Visita", @cli.MotivoNoGestion), LabelWidgetType.Info)</div>
+                    }
+                    <div style="cursor:pointer;float:right" map-expand><i class="fa fa-search-plus" style="font-size:15px"></i></div>
+                </div>
+            </div>
+        </div>
+        <!--header modal visit-->
+
+        <div class="block-lines-header margin-5">
+            <h5>Tareas</h5>
+        </div>
+        @{
+            var sizebox = "75px";
+            if (cli.Tarea != null) { if (cli.Tarea.FirstOrDefault() != null) { } else { sizebox = "40px;"; } } else { sizebox = "40px;"; }
+        }
+        <div class="scrollfx" style="width:100%; height : @sizebox; overflow-x:hidden;overflow-y:auto; ">
+            @using (Html.Rp3BeginTable(htmlAttributes: new { style = "" }))
+            {
+                var count = 1;
+                if (cli.Tarea != null)
+                {
+                    if (cli.Tarea.FirstOrDefault() != null)
+                    {
+                        <tbody>
+                            @foreach (var tar in cli.Tarea)
+                            {
+                                <tr>
+                                    @if (tar.Estado == Rp3.AgendaComercial.Models.Constantes.EstadoTarea.Realizada)
+                                    {
+                                        <td class="selectable-item" style="height:10px;width:30px" onclick="@("openAgendaDetalleTarea('" + cli.idRuta + "','" + cli.idAgenda + "','" + tar.idTarea + "')")">@count</td>
+                                        <td class="selectable-item" style="height:10px;" onclick="@("openAgendaDetalleTarea('" + cli.idRuta + "','" + cli.idAgenda + "','" + tar.idTarea + "')")">@tar.Nombre</td>
+                                        <td class="selectable-item" style="height:10px;width:40px" onclick="@("openAgendaDetalleTarea('" + cli.idRuta + "','" + cli.idAgenda + "','" + tar.idTarea + "')")">@tar.EstadoDescripcion</td>
+                                    }
+                                    else
+                                    {
+                                        <td style="height:10px;width:30px">@count</td>
+                                        <td style="height:10px;">@tar.Nombre</td>
+                                        <td style="height:10px;width:40px">@tar.EstadoDescripcion</td>
+                                    }
+                                </tr>
+                                    count++;
+                            }
+                        </tbody>
+                    }
+                    if (count < 2)
+                    { <div style="margin-left:20px;">Visita no tiene Tareas</div> }
+                }
+            }
+        </div>
+
+        @{
+            var minNumPics = 5;
+            var boxsize = ((minNumPics * 110) + 10).ToString() + "px";
+            var countPics = 0;
+            if (cli.Tarea != null) { if (cli.Imagen.FirstOrDefault() != null) { countPics = cli.Imagen.Count; } }
+        }
+
+        <div style="width:100%;height:90px;overflow-y:auto;overflow-x:hidden; margin-top:5px; margin-bottom:5px;">
+            <div style="width:@boxsize;">
+                @foreach (var pic in cli.Imagen)
+                {
+                    <div style="width:80px; margin-left:12px; margin-right:15px; float:left; margin-bottom: 10px">
+                        <a class="fancybox" href="@Url.Content(pic.URL)" data-fancybox-group="gallery">
+                            <img class="round-corner" src="@Url.Content(pic.URLMin)" width="80" height="80">
+                        </a>
+                    </div>
+                }
+                @if (countPics < minNumPics)
+                {
+                    for (var x = 0; x < (minNumPics - countPics); x++)
+                    {
+                        @*<a class="fancybox" href="@Url.ContentApplicationImage("default_b.jpg")" data-fancybox-group="gallery">*@
+                        <div style="width:80px; height:80px; margin-left:12px; margin-right:15px; float:left; margin-bottom: 10px">
+                            <img src="@Url.ContentApplicationImage("default.jpg")" width="80" height="80">
+                        </div>
+                        @*</a>*@
+                    }
+                }
+            </div>
+        </div>
+
+        @using (Html.Rp3BeginRow())
+        {
+            @Html.Rp3TextAreaFor(model => cli.Observacion, htmlAttributes: new { style = "height:80px" }, readOnly: true)
+        }
+    </div>
+}
+<style>
+    .fancybox-wrap {
+        z-index: 99999999;
+    }
+
+    .fancybox-overlay,
+    .fancybox-overlay-fixed {
+        z-index: 9999998;
+    }
+</style>
+<script>
+    $(function () {
+        @if (cli != null && !Model.ReadOnly && (cli.EstadoAgenda == Rp3.AgendaComercial.Models.Constantes.EstadoAgenda.Pendiente || cli.EstadoAgenda == Rp3.AgendaComercial.Models.Constantes.EstadoAgenda.Reprogramada))
+        {
+            <text>
+        $("#modal-agenda-detalle-button-eliminar").show();
+        $("#modal-agenda-detalle-button-editar").show();
+        </text>
+        }
+
+        @if (Model.ReadOnly)
+        {
+            <text>
+        $("#modal-agenda-detalle-button-eliminar").hide();
+        $("#modal-agenda-detalle-button-editar").hide();
+        </text>
+        }
+
+        @if (Model.idPedido != 0)
+        {
+            <text>
+            $("#modal-agenda-detalle-button-pedido").hide();
+            </text>
+        }
+    });
+
+    var ID_PEDIDO = @Model.idPedido;
+</script>

@@ -1,0 +1,19 @@
+﻿@model Rp3.AgendaComercial.Models.General.Cliente
+@{
+    string emptyPicture = "/Content/AgendaComercial/img/DefaultPerson.jpg";
+    string picture = emptyPicture;
+    if (!string.IsNullOrEmpty(Model.Foto))
+    {
+        picture = Model.Foto;
+    }
+}
+
+<div id="profilePicture">
+    <a class="fancyboxpicture" href="@picture" title="@Model.NombresCompletos">
+        <img id="imageprofile" src="@picture" alt="@Model.NombresCompletos" style="width: 120px; height: 150px;"/>
+    </a>
+</div>
+
+<script>
+    $(".fancyboxpicture").fancybox();
+</script>

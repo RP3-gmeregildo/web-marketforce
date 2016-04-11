@@ -1,0 +1,115 @@
+﻿@model Rp3.AgendaComercial.Web.Ruta.RutaConsulta
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{
+    if (Model.RutaDetalleGVs.FirstOrDefault() != null)
+    {
+        <div class="row" style="height:40px">
+
+            @if (Model.RutaDetalleGVs[0].TotalPages > 1)
+            {
+                <div style=" float:left;">
+                    <h5 style="float:left;">@Model.RutaDetalleGVs[0].CurrentPage / @Model.RutaDetalleGVs[0].TotalPages  Paginas  [@Model.RutaDetalleGVs[0].TotalRows Registros]</h5>
+                </div>
+            }
+            else
+            {
+                <div style="width:230px; float:left;">
+                    <h5>[@Model.RutaDetalleGVs[0].TotalRows Registros]</h5>
+                </div>
+            }
+            <div>
+                <div style="float:right">
+                    <input id="select2_registro" class="select2" style="" select-registro-destino />
+                </div>
+                @if (Model.RutaDetalleGVs[0].TotalPages > 1)
+                {
+                    <div style="width:180px; margin-top:-15px; float:right; ">
+                        <div class="spacer">
+                            <div class="btn-group">
+                                @*<button id="destinolistado_prev" type="button" class="btn btn-default" onclick="@("DestinoListadoPreviousPage('" + Model.RutaDetalleGVs[0].TotalPages + "')")">Anterior</button>
+                                <button id="destinolistado_next" type="button" class="btn btn-default" onclick="@("DestinoListadoNextPage('" + Model.RutaDetalleGVs[0].TotalPages + "')")">Siguiente</button>*@
+                                @Html.Rp3Button("", actionName: "destinolistado_prev_begin", iconClass: "fa fa-fast-backward", themeType: ElementThemeType.Default, customButtonClick: "DestinoListadoPreviousBeginPage('" + Model.RutaDetalleGVs[0].TotalPages + "')", htmlAttributes: new { type = "button" })
+                                @Html.Rp3Button("", actionName: "destinolistado_prev", iconClass: "fa fa-backward", themeType: ElementThemeType.Default, customButtonClick: "DestinoListadoPreviousPage('" + Model.RutaDetalleGVs[0].TotalPages + "')", htmlAttributes: new { type = "button" })
+                                @Html.Rp3Button("", actionName: "destinolistado_next", iconClass: "fa fa-forward", themeType: ElementThemeType.Default, customButtonClick: "DestinoListadoNextPage('" + Model.RutaDetalleGVs[0].TotalPages + "')", htmlAttributes: new { type = "button" })
+                                @Html.Rp3Button("", actionName: "destinolistado_next_end", iconClass: "fa fa-fast-forward", themeType: ElementThemeType.Default, customButtonClick: "DestinoListadoNextEndPage('" + Model.RutaDetalleGVs[0].TotalPages + "')", htmlAttributes: new { type = "button" })
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="row" style="width:230px; float:left;">
+            <h5>[0 Registros]</h5>
+        </div>
+    }
+    <div class="row">
+        @Html.Rp3TextBox("search-table-destino", htmlAttributes: new { id = "search-table-destino", placeholder = @Rp3.AgendaComercial.Resources.LegendFor.ClienteBuscar })
+    </div>
+    <div class="row" @*style="height:120px;"*@>
+        @using (Html.Rp3BeginDataTable(scrollY: "120px", allowSort: false, allowPagination: false, allowSearch: false, htmlAttributes: new { @class = "dragdrop linked", id = "rutadestinodetalle" }))
+        {
+            <thead>
+                <tr>
+                    <th>@Rp3.AgendaComercial.Resources.LabelFor.Cliente</th>
+                    <th>@Rp3.AgendaComercial.Resources.LabelFor.Direccion</th>
+                </tr>
+            </thead>
+            <tbody id="rutadestinodetalle-content">
+                @foreach (var item in Model.RutaDetalleGVs)
+                {
+                    <tr idcliente="@item.IdCliente-@item.IdClienteDireccion">
+                        <td move class="selectable-item">@item.Cliente</td>
+                        <td class="selectable-item">@item.Direccion</td>
+                    </tr>
+                }
+            </tbody>
+        }
+    </div>
+
+}
+
+
+
+<script>
+
+    $(function () {
+
+        $("#rutadestinodetalle").rp3DataTable();
+
+        var numdestino = [{ "id": "10", "text": "10" }, { "id": "20", "text": "20" }, { "id": 50, "text": "50" }, { "id": 100, "text": "100" }];
+        $("input[select-registro-destino]").select2({ placeholder: "Elejir", data: function () { return { results: numdestino }; } });
+
+        init_DestinoDetalle();
+
+        $('input[select-registro-destino]').on("change", function (e) {
+            UpdateDestinoNumReg(e.val);
+        });
+
+        @if (Model.RutaDetalleGVs.FirstOrDefault() != null)
+        {
+            <text>
+                evaluateDestinoNavigationButtons(@Model.RutaDetalleGVs[0].TotalPages);
+            </text>
+        }
+
+        $("#search-table-destino").keyup(function () {
+            var word = $(this).val();
+            if (word.length > 2) {
+                busquedaDestinoTableTrigger(word);
+            }
+            else if (word.length > 0) { }
+            else { busquedaDestinoTableTrigger(''); }
+        });
+    });
+</script>
+
+
+
+
+
+

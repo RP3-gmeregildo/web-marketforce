@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Rp3.Data.Models.General.GeneralTables>
+@{
+    ViewBag.Title = Rp3.Resources.TitleFor.GeneralTables; 
+    this.SetImportAdvTables(true);
+}
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Auto))
+{
+    @Html.Partial("_GridViewIndex", Model)
+}

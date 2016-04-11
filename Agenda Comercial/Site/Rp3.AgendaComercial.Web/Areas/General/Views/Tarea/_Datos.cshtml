@@ -1,0 +1,55 @@
+﻿@model Rp3.AgendaComercial.Models.General.Tarea
+@{
+
+}
+
+<text>
+
+    @Html.HiddenFor(model => model.IdTarea)
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion, labelSize: HtmlColumnSize.Size_2)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.Descripcion, labelSize: HtmlColumnSize.Size_2)
+            }
+        }
+  
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.TipoTarea, Rp3.AgendaComercial.Models.Constantes.TipoTarea.Tabla, labelSize: HtmlColumnSize.Size_2)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.TipoTareaGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Tipo, labelSize: HtmlColumnSize.Size_2)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla, labelSize: HtmlColumnSize.Size_2)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.EstadoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado, labelSize: HtmlColumnSize.Size_2)
+            }
+        }
+    }
+
+
+</text>
+<script>
+    $(function () {
+        //init_Datos();
+    });
+</script>

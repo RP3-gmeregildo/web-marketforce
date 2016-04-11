@@ -1,0 +1,27 @@
+﻿@model Rp3.AgendaComercial.Models.General.Cargo
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.DetalleCargo;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Cargo))
+            {
+                <text>
+                    @Html.HiddenFor(model => model.IdCargo)
+                    @Html.Rp3FormGroupDisplayFor(model => model.Descripcion)
+                    @Html.Rp3FormGroupDisplayFor(model => model.EsSupervisor)
+                    @Html.Rp3FormGroupDisplayFor(model => model.EsAdministrador)
+                    @Html.Rp3FormGroupDisplayFor(model => model.EstadoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado)
+                </text>
+            }
+        }
+    }
+}

@@ -1,0 +1,98 @@
+﻿@{
+
+}
+
+<h5 style="font-weight:bold;color:#1E83B6">@Rp3.AgendaComercial.Resources.TitleFor.Ordenamiento</h5>
+
+<div id="sort_content_dialog_form">
+
+    @using (Html.Rp3BeginDataTable(scrollY: "250px", allowSort: false, allowPagination: false, allowSearch: false, sortColumn:0, htmlAttributes: new { id = "sorttable" }))
+    {
+        <thead style="display:none">
+            <tr>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Campo</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr field="agente">
+                <td>
+                    <img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("agentes.png")" />@Rp3.AgendaComercial.Resources.LabelFor.Agente
+                    <img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("grupo.png")" />@Rp3.AgendaComercial.Resources.LabelFor.Grupo
+                </td>
+                <td>
+                    @Html.Rp3Button("", actionName: "order-asc", iconClass: "fa fa-sort-alpha-asc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                    @Html.Rp3Button("", actionName: "order-desc", iconClass: "fa fa-sort-alpha-desc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                </td>
+            </tr>
+            <tr field="tipo">
+                <td><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("tipo.png")" />@Rp3.AgendaComercial.Resources.LabelFor.Tipo</td>
+                <td>
+                    @Html.Rp3Button("", actionName: "order-asc", iconClass: "fa fa-sort-alpha-asc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                    @Html.Rp3Button("", actionName: "order-desc", iconClass: "fa fa-sort-alpha-desc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                </td>
+            </tr>
+            <tr field="fechainicio">
+                <td><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("fecha-inicio.png")" />@Rp3.AgendaComercial.Resources.LabelFor.FechaInicio</td>
+                <td>
+                    @Html.Rp3Button("", actionName: "order-asc", iconClass: "fa fa-sort-alpha-asc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                    @Html.Rp3Button("", actionName: "order-desc", iconClass: "fa fa-sort-alpha-desc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                </td>
+            </tr>
+            <tr field="fechafin">
+                <td><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("fecha-fin.png")" />@Rp3.AgendaComercial.Resources.LabelFor.FechaFin</td>
+                <td>
+                    @Html.Rp3Button("", actionName: "order-asc", iconClass: "fa fa-sort-alpha-asc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                    @Html.Rp3Button("", actionName: "order-desc", iconClass: "fa fa-sort-alpha-desc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                </td>
+            </tr>
+            @*<tr field="horainicio">
+                <td><i class="fa fa-clock-o"></i>@Rp3.AgendaComercial.Resources.LabelFor.HoraInicio</td>
+                <td>
+                    @Html.Rp3Button("", actionName: "order-asc", iconClass: "fa fa-sort-alpha-asc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                    @Html.Rp3Button("", actionName: "order-desc", iconClass: "fa fa-sort-alpha-desc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                </td>
+            </tr>
+            <tr field="horafin">
+                <td><i class="fa fa-clock-o"></i>@Rp3.AgendaComercial.Resources.LabelFor.HoraFin</td>
+                <td>
+                    @Html.Rp3Button("", actionName: "order-asc", iconClass: "fa fa-sort-alpha-asc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                    @Html.Rp3Button("", actionName: "order-desc", iconClass: "fa fa-sort-alpha-desc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                </td>
+            </tr>*@
+
+
+            <tr field="motivo">
+                <td><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("motivo.png")" />@Rp3.AgendaComercial.Resources.LabelFor.Motivo</td>
+                <td>
+                    @Html.Rp3Button("", actionName: "order-asc", iconClass: "fa fa-sort-alpha-asc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                    @Html.Rp3Button("", actionName: "order-desc", iconClass: "fa fa-sort-alpha-desc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                </td>
+            </tr>
+
+            <tr field="estado">
+                <td><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("gray-flag.png")" />@Rp3.AgendaComercial.Resources.LabelFor.Estado</td>
+                <td>
+                    @Html.Rp3Button("", actionName: "order-asc", iconClass: "fa fa-sort-alpha-asc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                    @Html.Rp3Button("", actionName: "order-desc", iconClass: "fa fa-sort-alpha-desc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                </td>
+            </tr>
+
+            <tr field="observacion">
+                <td><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("observ.png")" />@Rp3.AgendaComercial.Resources.LabelFor.Observacion</td>
+                <td>
+                    @Html.Rp3Button("", actionName: "order-asc", iconClass: "fa fa-sort-alpha-asc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                    @Html.Rp3Button("", actionName: "order-desc", iconClass: "fa fa-sort-alpha-desc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                </td>
+            </tr>
+
+            <tr field="observacionsupervisor">
+                <td><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("obs-superv.png")" />@Rp3.AgendaComercial.Resources.LabelFor.ObservacionSupervisor</td>
+                <td>
+                    @Html.Rp3Button("", actionName: "order-asc", iconClass: "fa fa-sort-alpha-asc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                    @Html.Rp3Button("", actionName: "order-desc", iconClass: "fa fa-sort-alpha-desc", size: HtmlElementSize.Mini, themeType: ElementThemeType.Default)
+                </td>
+            </tr>
+        </tbody>
+    }
+</div>

@@ -1,0 +1,61 @@
+﻿@model Rp3.AgendaComercial.Models.General.Ubicacion
+@{
+    //List<Rp3.Data.Models.General.GeopoliticalStructure> ciudades = (List<Rp3.Data.Models.General.GeopoliticalStructure>)ViewBag.Ciudades;
+}
+
+@using (Html.Rp3BeginModal("setDireccionDialog", customWidth: 900, includeOverlay: false))
+{
+    <div id="setDireccionDialogContent">
+    </div>
+}
+
+<div id="content_direcciones" class="content_direcciones">
+    @using (Html.Rp3BeginRow())
+    {
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            <div class="action_item_content">
+
+                @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2, htmlAttributes: new { style = "margin-top:auto;margin-bottom:auto" }))
+                {
+                    @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Editar, HtmlElementSize.Default, icon: Icons.MapMarker, submit: false,
+                                                            htmlAttributes: new
+                                                            {
+                                                                ubicacion = "",
+                                                                markerindex = Model.MarkerIndex,
+                                                                markerstart = Model.MarkerStart,
+                                                                markerzindex = Model.MarkerZIndex,
+                                                                latitud = Model.Latitud == null ? -1 : Model.Latitud,
+                                                                longitud = Model.Longitud == null ? -1 : Model.Longitud,
+                                                                titulo = "Punto de Partida Default",
+                                                                onclick = "setUbicacion(this); return false;"
+                                                            })
+
+                }
+
+                @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3, htmlAttributes: new { style = "margin-top:auto;margin-bottom:auto" }))
+                {
+                    @Html.Rp3Label(labelText: Rp3.AgendaComercial.Resources.LabelFor.UbicacionMatriz)
+                }
+
+                @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_7, htmlAttributes: new { style = "margin-top:5px" }))
+                {
+                    @Html.Rp3LabelWidget(Rp3.AgendaComercial.Resources.LegendFor.UsoUbicacionMatriz, LabelWidgetType.Info)
+                }
+            </div>
+        }
+    }
+</div>
+
+@using (Html.Rp3BeginModal("setUbicacionDialog", effect: ModalEffect.FlipVertical3D, customWidth: 850, includeOverlay: false))
+{
+    <div id="setUbicacionDialogContent">
+    </div>
+}
+
+@Html.Rp3ModalOverlay()
+
+<div id="content_mapClient" class="content_mapClient">
+    @{ Html.RenderPartial("_UbicacionMapMarkerClient"); }
+</div>

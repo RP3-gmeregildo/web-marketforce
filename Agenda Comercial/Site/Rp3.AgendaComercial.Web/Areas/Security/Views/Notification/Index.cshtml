@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Rp3.Data.Models.Security.Notificacion>
+@{
+    ViewBag.Title = Rp3.Resources.TitleFor.Notifications; 
+    this.SetImportAdvTables(true);
+}
+
+@section ActionTitle{
+    @Html.Rp3OptionActivityButton("NOTIFICATION", "CONFIGURATOR", HtmlElementSize.Default, includeText: true, applicationId: "SECURITY")
+    @Html.Rp3OptionActivityButton("NOTIFICATION", "SEND", HtmlElementSize.Default, includeText: true, applicationId: "SECURITY")
+}
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Auto))
+{
+    @Html.Partial("_GridViewIndex", Model)
+}

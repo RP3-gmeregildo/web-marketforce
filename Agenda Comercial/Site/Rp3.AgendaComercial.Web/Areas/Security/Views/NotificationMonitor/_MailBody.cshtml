@@ -1,0 +1,14 @@
+﻿@model Rp3.Data.Models.Security.View.NotificacionEmitida
+
+
+@Html.DevExpress().HtmlEditor(settings =>
+{
+    settings.Name = "htmlEditor";
+
+    settings.Html = Model.Body;
+    settings.Enabled = false;
+    settings.Settings.AllowDesignView = false;
+    settings.Settings.AllowHtmlView = false;
+    
+}).GetHtml()
+

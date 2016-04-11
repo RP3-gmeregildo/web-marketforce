@@ -1,0 +1,567 @@
+﻿@model Rp3.AgendaComercial.Models.General.Cliente
+@{
+    if (ViewBag.CampoObligatorio == null)
+    {
+        ViewBag.CampoObligatorio = new List<ParametroClienteCampo>();
+    }
+}
+
+@using Rp3.AgendaComercial.Models.General;
+@using Rp3.AgendaComercial.Models;
+
+<text>
+
+    @Html.HiddenFor(model => model.Foto)
+
+    @Html.HiddenFor(model => model.DireccionLatitud)
+    @Html.HiddenFor(model => model.DireccionLongitud)
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_10, false))
+        {
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = String.Format("{0}*", Rp3.AgendaComercial.Resources.LabelFor.TipoPersona);
+
+                        @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.TipoPersona, Rp3.AgendaComercial.Models.Constantes.TipoPersona.Tabla, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.HiddenFor(model => model.TipoPersona)
+                        @Html.Rp3FormGroupDisplayFor(model => model.TipoPersonaGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.TipoPersona)
+                    }
+                }
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    @Html.HiddenFor(model => model.Calificacion)
+
+                    if (!Model.ReadOnly)
+                    {
+                        using (Html.Rp3BeginFormGroupEditor(labelText: Rp3.AgendaComercial.Resources.LabelFor.Calificacion))
+                        {
+                            //Html.RenderPartial("_Scorer", new Rp3.Models.Scorer(Model.Calificacion, target: "Calificacion", readOnly: false));
+                            @:@Html.Rp3Rate(Model.Calificacion, target: "Calificacion")
+                        }
+                    }
+                    else
+                    {
+                        using (Html.Rp3BeginFormGroupEditor(labelText: Rp3.AgendaComercial.Resources.LabelFor.Calificacion))
+                        {
+                            Html.RenderPartial("_Scorer", new Rp3.Models.Scorer(Model.Calificacion));
+                        }
+                    }
+                }
+            }
+
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.TipoIdentificacion;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "TipoId" && p.IdGrupo == Constantes.GrupoClienteCampo.Persona).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupDropDownListFor(model => model.IdTipoIdentificacion, (SelectList)ViewBag.TipoIdentificacionSelectList, labelText: labelText, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarTipoIdentificacion })
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.TipoIdentificacion.Name, labelText: Rp3.AgendaComercial.Resources.LabelFor.TipoIdentificacion)
+                    }
+
+                }
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.Identificacion;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Id" && p.IdGrupo == Constantes.GrupoClienteCampo.Persona).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupTextBoxFor(model => model.Identificacion, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.Identificacion)
+                    }
+                }
+            }
+
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.Nombre1;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Nom1Natural" && p.IdGrupo == Constantes.GrupoClienteCampo.PersonaNatural).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupTextBoxFor(model => model.Nombre1, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.Nombre1)
+                    }
+                }
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false, new { personaNatural = "" }))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.Nombre2;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Nom2Natural" && p.IdGrupo == Constantes.GrupoClienteCampo.PersonaNatural).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupTextBoxFor(model => model.Nombre2, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.Nombre2)
+                    }
+                }
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false, new { personaJuridica = "" }))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.RazonSocial;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "RazSoc" && p.IdGrupo == Constantes.GrupoClienteCampo.PersonaJuridica).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupTextBoxFor(model => model.RazonSocial, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.RazonSocial)
+                    }
+                }
+            }
+
+            using (Html.Rp3BeginRow(new { personaNatural = "" }))
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.Apellido1;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Ape1Natural" && p.IdGrupo == Constantes.GrupoClienteCampo.PersonaNatural).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupTextBoxFor(model => model.Apellido1, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.Apellido1)
+                    }
+                }
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.Apellido2;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Ape2Natural" && p.IdGrupo == Constantes.GrupoClienteCampo.PersonaNatural).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupTextBoxFor(model => model.Apellido2, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.Apellido2)
+                    }
+                }
+            }
+
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.CorreoElectronico;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Correo" && p.IdGrupo == Constantes.GrupoClienteCampo.Persona).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupTextBoxFor(model => model.CorreoElectronico, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.CorreoElectronico)
+                    }
+                }
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false, new { personaJuridica = "" }))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.PaginaWeb;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "PagWeb" && p.IdGrupo == Constantes.GrupoClienteCampo.PersonaJuridica).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupTextBoxFor(model => model.ClienteDato.PaginaWeb, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.ClienteDato.PaginaWeb)
+                    }
+                }
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false, new { personaNatural = "" }))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.FechaNacimiento;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "FecNac" && p.IdGrupo == Constantes.GrupoClienteCampo.PersonaNatural).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupDatePickerFor(model => model.ClienteDato.FechaNacimiento, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDatePickerFor(model => model.ClienteDato.FechaNacimiento, editorHtmlAttributes: new { @readonly = "" })
+                    }
+                }
+            }
+
+            using (Html.Rp3BeginRow(new { personaNatural = "" }))
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.Genero;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Gen" && p.IdGrupo == Constantes.GrupoClienteCampo.PersonaNatural).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.ClienteDato.Genero, Rp3.AgendaComercial.Models.Constantes.Genero.Tabla, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.ClienteDato.GeneroGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Genero)
+                    }
+                }
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.EstadoCivil;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "EstCiv" && p.IdGrupo == Constantes.GrupoClienteCampo.PersonaNatural).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.ClienteDato.EstadoCivil, Rp3.AgendaComercial.Models.Constantes.EstadoCivil.Tabla, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.ClienteDato.EstadoCivilGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.EstadoCivil)
+                    }
+                }
+            }
+
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.TipoCliente;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "TipoCli" && p.IdGrupo == Constantes.GrupoClienteCampo.Persona).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupDropDownListFor(model => model.IdTipoCliente, (SelectList)ViewBag.TipoClienteSelectList, labelText: labelText, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarTipoCliente })
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.TipoCliente.Descripcion)
+                    }
+                }
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.Canal;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Canal" && p.IdGrupo == Constantes.GrupoClienteCampo.Persona).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupDropDownListFor(model => model.IdCanal, (SelectList)ViewBag.CanalSelectList, labelText: labelText, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarCanal })
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.Canal.Descripcion)
+                    }
+                }
+            }
+
+            using (Html.Rp3BeginRow(new { personaJuridica = "" }))
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.ActividadEconomica;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "ActEco" && p.IdGrupo == Constantes.GrupoClienteCampo.PersonaJuridica).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupTextBoxFor(model => model.ClienteDato.ActividadEconomica, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.ClienteDato.ActividadEconomica)
+                    }
+                }
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.InicioActividad;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "IniAct" && p.IdGrupo == Constantes.GrupoClienteCampo.PersonaJuridica).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupDatePickerFor(model => model.ClienteDato.InicioActividad, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.ClienteDato.InicioActividad)
+                    }
+                }
+            }
+
+            using (Html.Rp3BeginRow(new { personaJuridica = "" }))
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.RepresentanteLegal;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "RepLeg" && p.IdGrupo == Constantes.GrupoClienteCampo.PersonaJuridica).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupTextBoxFor(model => model.ClienteDato.RepresentanteLegal, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.ClienteDato.RepresentanteLegal)
+                    }
+                }
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = Rp3.AgendaComercial.Resources.LabelFor.RepresentateLegalIdentificacion;
+
+                        if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "CedRep" && p.IdGrupo == Constantes.GrupoClienteCampo.PersonaJuridica).Any())
+                        {
+                            labelText = String.Format("{0}*", labelText);
+                        }
+
+                        @Html.Rp3FormGroupTextBoxFor(model => model.ClienteDato.RepresentateLegalIdentificacion, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.ClienteDato.RepresentateLegalIdentificacion)
+                    }
+                }
+            }
+
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+                        string labelText = String.Format("{0}*", Rp3.AgendaComercial.Resources.LabelFor.Estado);
+
+                        @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla, labelText: labelText)
+                    }
+                    else
+                    {
+                        @Html.HiddenFor(model => model.Estado)
+                        @Html.Rp3FormGroupDisplayFor(model => model.EstadoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado)
+                    }
+                }
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                {
+                    if (!Model.ReadOnly)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2, false))
+        {
+            @: @{Html.RenderPartial("_SetFoto", Model); }
+        }
+    }
+
+    @if (ViewBag.IsNew != null && ViewBag.IsNew)
+    {
+        using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.LabelFor.Direccion, paddingContent: false))
+        {
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4, false))
+                {
+                    @:@{ Html.RenderPartial("_SetUbicacionMapCreate", new Ubicacion() { MarkerIndex = 1, Latitud = @Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLatitud, Longitud = @Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLongitud }); }
+                }
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_7, false))
+                {
+                    using (Html.Rp3BeginRow())
+                    {
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                        {
+                            string labelText = Rp3.AgendaComercial.Resources.LabelFor.Direccion;
+
+                            if (((List<ParametroClienteCampo>
+                                )ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Dir" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                            {
+                                labelText = String.Format("{0}*", labelText);
+                            }
+
+                            @Html.Rp3FormGroupTextBoxFor(model => model.Direccion, labelText: labelText)
+                        }
+
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                        {
+                            string labelText = Rp3.AgendaComercial.Resources.LabelFor.Descripcion;
+
+                            if (((List<ParametroClienteCampo>
+                                )ViewBag.CampoObligatorio).Where(p => p.IdCampo == "DirDesc" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                            {
+                                labelText = String.Format("{0}*", labelText);
+                            }
+
+                            @Html.Rp3FormGroupTextBoxFor(model => model.DireccionDescripcion, labelText: labelText)
+                        }
+                    }
+
+                    using (Html.Rp3BeginRow())
+                    {
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                        {
+                            string labelText = Rp3.AgendaComercial.Resources.LabelFor.Referencia;
+
+                            if (((List<ParametroClienteCampo>
+                                )ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Ref" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                            {
+                                labelText = String.Format("{0}*", labelText);
+                            }
+
+                            @Html.Rp3FormGroupTextBoxFor(model => model.DireccionReferencia, labelText: labelText)
+                        }
+
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                        {
+                            string labelText = Rp3.AgendaComercial.Resources.LabelFor.CiudadPoblacion;
+
+                            if (((List<ParametroClienteCampo>
+                                )ViewBag.CampoObligatorio).Where(p => p.IdCampo == "CiuPar" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                            {
+                                labelText = String.Format("{0}*", labelText);
+                            }
+
+                            using (Html.Rp3BeginFormGroupEditor(labelText: labelText))
+                            {
+                                @Html.Rp3RemoteGeopoliticalStructureFor(model => model.DireccionIdCiudad)
+                            }
+                        }
+                    }
+
+                    using (Html.Rp3BeginRow())
+                    {
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                        {
+                            string labelText = Rp3.AgendaComercial.Resources.LabelFor.Telefono;
+
+                            if (((List<ParametroClienteCampo>
+                                )ViewBag.CampoObligatorio).Where(p => p.IdCampo == "DirTelf1" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                            {
+                                labelText = String.Format("{0}*", labelText);
+                            }
+
+                            @Html.Rp3FormGroupTextBoxFor(model => model.DireccionTelefono1, labelText: labelText)
+                        }
+
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                        {
+                            string labelText = Rp3.AgendaComercial.Resources.LabelFor.Telefono;
+
+                            if (((List<ParametroClienteCampo>
+                                )ViewBag.CampoObligatorio).Where(p => p.IdCampo == "DirTelf2" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                            {
+                                labelText = String.Format("{0}*", labelText);
+                            }
+
+                            @Html.Rp3FormGroupTextBoxFor(model => model.DireccionTelefono2, labelText: labelText)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+</text>

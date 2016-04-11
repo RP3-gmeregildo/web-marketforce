@@ -1,0 +1,29 @@
+﻿@model Rp3.Data.Models.General.GeneralTables
+@{
+    ViewBag.Title = Rp3.Resources.TitleFor.DetailGeneralTable;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "generaltableform" }))
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.Resources.LabelFor.GeneralData))
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.Name)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_7))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.Resources.LabelFor.Values, paddingContent: true))
+            {
+                @:@{Html.RenderPartial("_GeneralValues", Model);}
+            }
+        }
+    }
+}

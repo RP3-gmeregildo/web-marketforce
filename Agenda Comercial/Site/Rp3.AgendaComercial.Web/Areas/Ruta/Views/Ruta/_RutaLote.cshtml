@@ -1,0 +1,31 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.Ruta
+@{
+    List<Rp3.AgendaComercial.Models.Ruta.Lote> lotes = (List<Rp3.AgendaComercial.Models.Ruta.Lote>)ViewBag.Lotes;
+}
+
+@using (Html.Rp3BeginDataTable(scrollY: "200", functionsPageTop: false, allowPagination: false, allowSearch: false, allowSort: false))
+{
+    <thead>
+        <tr>
+            <th>@Rp3.AgendaComercial.Resources.LabelFor.Lote</th>
+            @if (!Model.ReadOnly)
+            {
+                <th>@Html.Rp3CheckBox("lotecheckall", isChecked: Model.RutaLotes.Count() > 0)</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var lote in lotes.OrderBy(p => p.Descripcion))
+        {
+            <tr>
+                <td>@lote.Descripcion</td>
+                @if (!Model.ReadOnly)
+                {
+                    <td class="text-center">
+                        @Html.Rp3CheckBox("lotes", isChecked: Model.RutaLotes.Any(p => p.IdLote == lote.IdLote), value: lote.Key)
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+}

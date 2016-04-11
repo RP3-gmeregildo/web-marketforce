@@ -1,0 +1,27 @@
+﻿@model Rp3.AgendaComercial.Models.General.Ubicacion
+
+
+<h5>@Rp3.AgendaComercial.Resources.LegendFor.EstablecerUbicacion</h5>
+<input id="LatitudString" type="hidden" />
+<input id="LongitudString" type="hidden" />
+<div id="content_dialog_form">
+    <div>
+        @{ Html.RenderPartial("_SetUbicacionMap", Model); }
+    </div>
+    @using (Html.Rp3BeginModalAction())
+    {
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Establecer, icon: Icons.Check,
+                htmlAttributes: new { save_button = "" })
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, icon: Icons.Cancel, allowCloseModal: true,
+            customButtonClick: "return false;", themeType: ElementThemeType.Default)
+    }        
+</div>
+
+<script>
+    $(function () {
+        $('#setUbicacionDialog [save-button]').click(function (e) {
+            e.preventDefault();
+            postSetUbicacion();
+        });
+    });
+</script>

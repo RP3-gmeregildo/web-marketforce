@@ -1,0 +1,76 @@
+﻿@model Rp3.AgendaComercial.Web.Ruta.GestionResumidoConsulta
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.GestionResumido;
+    this.SetImportTables(true);
+}
+
+@Html.DevExpress().GetStyleSheets(
+            new StyleSheet { ExtensionSuite = ExtensionSuite.Chart }
+    )
+@Html.DevExpress().GetScripts(
+            new Script { ExtensionSuite = ExtensionSuite.Chart }
+    )
+
+@section ActionTitle{
+    @Html.Rp3FormActionGroup(ActivityActions.Send)
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "agendaForm" }))
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            @Html.Rp3FormGroupDropDownListFor(model => model.IdRuta, (SelectList)ViewBag.RutasSelectList, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarRuta }, labelSize: HtmlElementSize.Small)
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+        {
+            @Html.Rp3FormGroupDatePickerFor(model => model.FechaInicioCalendario, labelSize: HtmlElementSize.Small)
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+        {
+            @Html.Rp3FormGroupDatePickerFor(model => model.FechaFinCalendario, labelSize: HtmlElementSize.Small)
+        }
+    }
+
+    using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top:5px" }))
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Visitas, paddingContent: true))
+            {
+                using (Html.Rp3BeginRow())
+                {
+
+                    { Html.RenderPartial("_ResumenEstado", Model.ResumenEstado); }
+
+                    { Html.RenderPartial("_ChartVisita", Model.ResumenEstado); }
+                }
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Tareas, paddingContent: true))
+            {
+                using (Html.Rp3BeginRow())
+                {
+                    { Html.RenderPartial("_ResumenEstado", Model.ResumenTareaEstado); }
+
+                    { Html.RenderPartial("_ChartTarea", Model.ResumenTareaEstado); }
+                }
+            }
+        }
+    }
+}
+
+<script>
+    $(function () {
+        $('input[action="SEND"]').click(function () {
+            $('#agendaForm').submit();
+        });
+    });
+
+</script>

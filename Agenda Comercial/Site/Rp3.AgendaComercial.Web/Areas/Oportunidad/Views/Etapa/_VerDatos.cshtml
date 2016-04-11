@@ -1,0 +1,34 @@
+﻿<div id="DialogContent" style="margin-top:-15px; overflow-y:auto; overflow-x:hidden">
+    <div style="width:550px; margin-top:30px;">
+        @using (Html.Rp3BeginForm(htmlAttributes: new { id = "modalform" }))
+        {
+            <div></div>
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                {
+                    using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Descripcion, labelSize: HtmlColumnSize.Size_2))
+                    {
+                        @Html.Rp3TextBox("etapaNombre");
+                    }
+                    using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.DuracionDias, labelSize: HtmlColumnSize.Size_2))
+                    {
+                        @Html.Rp3NumericTextBox("etapaDias", numericType: NumericType.Number);
+                    }
+                    using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.EsVariable, labelSize: HtmlColumnSize.Size_6))
+                    {
+                        @Html.Rp3CheckBox("etapaEsVariable");
+                    }
+                }
+            }
+        }
+    </div>
+</div>
+
+@using (Html.Rp3BeginModalAction())
+{
+    <div id="footer-main" actions-modal>
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Aceptar, icon: Icons.Edit, allowCloseModal: true, customButtonClick: "editModalDatos()")
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true)
+    </div>
+}

@@ -1,0 +1,25 @@
+﻿@model Rp3.Web.Mvc.Application.Security.Models.MailTest
+@{
+    this.SetTitle(Rp3.Resources.TitleFor.MailTest);
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+}
+
+
+@section ActionTitle{
+    @Html.Rp3ActivityActionButton(ActivityActions.Send, target: "#mainform", themeType: ElementThemeType.Success)
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "mainform" }))
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.Resources.TitleFor.MailAccount))
+            {
+                @Html.Rp3FormGroupTextBoxFor(model => model.MailAddress)
+            }
+        }
+    }
+}

@@ -1,0 +1,130 @@
+﻿@model IEnumerable<ApplicationOptionActivity>
+@{
+    List<ApplicationOption> applicationOptionChilds = Model.Where(p => p.ApplicationOption.ParentOption != null).Select(p => p.ApplicationOption).Distinct().ToList();
+    List<ApplicationOption> applicationOptions = Model.Where(p => p.ApplicationOption.ParentOption == null).Select(p => p.ApplicationOption).Where(p => p.ApplicationOptionType == ApplicationOptionType.Option).Distinct().ToList();
+    applicationOptions.AddRange(Model.Where(p => p.ApplicationOption.ParentOption != null).Select(p => p.ApplicationOption.ParentOption).Distinct().ToList());
+}
+
+<ul class="nav navbar-nav" style="background-color:#34383c">
+    @*<li title="@Rp3.Resources.LabelFor.Home"><a href="@Url.Action("Index", "Home", new { area = Rp3.Web.Mvc.Session.OrganizationId })"><i class="fa fa-home" style="font-size:20px"></i></a></li>*@
+
+    @foreach (var applicationOption in applicationOptions.OrderBy(p => p.Position))
+    {
+        bool subMenu = applicationOption.ApplicationOptionType == ApplicationOptionType.Group || applicationOption.ShowActivitiesInSideBar;
+
+        if (subMenu)
+        {
+            bool active = Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity != null &&
+                       Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.ApplicationId == applicationOption.ApplicationId &&
+                       Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.OptionId == applicationOption.OptionId;
+
+            <li @(active ? "class=active dropdown" : "class=dropdown") title="@Html.Raw(applicationOption.Name)">
+
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="false">
+                    <i class="@applicationOption.IconClass" style="font-size:20px;width:20px;text-align:center"></i>@*<span style="font-size:14px;margin-left:5px">@applicationOption.Name</span>*@
+                    <b class="caret"></b>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li class="dropdown-header" style="color:#2083D6"><i class="@applicationOption.IconClass"></i>@applicationOption.Name</li>
+                    @if (applicationOption.ApplicationOptionType == ApplicationOptionType.Group)
+                    {
+                        foreach (var applicationOptionChild in applicationOptionChilds.Where(p => p.ParentOptionId == applicationOption.OptionId).OrderBy(p => p.Position))
+                        {
+                            var applicationOptionActivity = Model.FirstOrDefault(p => p.ApplicationId == applicationOptionChild.ApplicationId &&
+                                p.OptionId == applicationOptionChild.OptionId && p.IsInitialActivity);
+
+                            if (applicationOptionActivity != null)
+                            {
+                                bool activeActivity = Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity != null &&
+                                Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.ApplicationId == applicationOptionActivity.ApplicationId &&
+                                Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.ActivityId == applicationOptionActivity.ActivityId &&
+                                Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.OptionId == applicationOptionActivity.OptionId;
+
+                                <li @(activeActivity ? "class=active" : "") title="@Html.Raw(applicationOptionChild.Name)"><a href="@Url.Action(applicationOptionActivity)">@Html.Rp3Icon(applicationOptionChild.IconClass) <span>@applicationOptionChild.Name</span></a></li>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (var applicationOptionActivity in Model.Where(p => p.OptionId == applicationOption.OptionId && p.ShowInSidebar))
+                        {
+                            bool activeActivity = Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity != null &&
+                                Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.ApplicationId == applicationOptionActivity.ApplicationId &&
+                                Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.ActivityId == applicationOptionActivity.ActivityId &&
+                                Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.OptionId == applicationOptionActivity.OptionId;
+
+                            <li @(activeActivity ? "class=active" : "") title="@Html.Raw(applicationOption.Name)">@Html.Rp3ActionLink(applicationOptionActivity)</li>
+                        }
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+            var applicationOptionActivity = Model.FirstOrDefault(p => p.ApplicationId == applicationOption.ApplicationId &&
+            p.OptionId == applicationOption.OptionId && p.IsInitialActivity);
+
+            bool active = Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity != null &&
+                Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.ApplicationId == applicationOptionActivity.ApplicationId &&
+                Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.ActivityId == applicationOptionActivity.ActivityId &&
+                Rp3.Web.Mvc.Session.CurrentRoleApplicationOptionActivity.OptionId == applicationOptionActivity.OptionId;
+
+            if (applicationOptionActivity != null)
+            {
+                <li @(active ? "class=active" : "") title="@Html.Raw(applicationOption.Name)"><a href="@Url.Action(applicationOptionActivity)"><i class="@applicationOption.IconClass" style="font-size:20px"></i>@*@Html.Rp3Icon(applicationOption.IconClass)*@@*<span>@applicationOption.Name</span>*@</a></li>
+            }
+        }
+    }
+
+</ul>
+
+
+@*<ul class="nav navbar-nav">
+        <li class="active"><a href="#"><i class="fa fa-home" style="font-size:20px"></i></a></li>
+        <li><a href="#about">About</a></li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="false">Contact <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="dropdown-submenu">
+                    <a href="#">Sub menu</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Large menu <b class="caret"></b></a>
+            <ul class="dropdown-menu col-menu-2">
+                <li class="col-sm-6 no-padding">
+                    <ul>
+                        <li class="dropdown-header"><i class="fa fa-group"></i>Users</li>
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="dropdown-header"><i class="fa fa-gear"></i>Config</li>
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="col-sm-6 no-padding">
+                    <ul>
+                        <li class="dropdown-header"><i class="fa fa-legal"></i>Sales</li>
+                        <li><a href="#">New sale</a></li>
+                        <li><a href="#">Register a product</a></li>
+                        <li><a href="#">Register a client</a></li>
+                        <li><a href="#">Month sales</a></li>
+                        <li><a href="#">Delivered orders</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>*@
+

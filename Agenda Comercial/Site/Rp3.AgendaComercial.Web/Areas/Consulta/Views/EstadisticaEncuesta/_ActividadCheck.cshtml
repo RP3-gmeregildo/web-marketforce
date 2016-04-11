@@ -1,0 +1,70 @@
+﻿@model List<Rp3.AgendaComercial.Models.Consulta.View.EstadisticaEncuesta>
+
+<div id="chart" style="width:100%; height:100%;"></div>
+
+<script>
+
+    $(function () {
+        var dataarray = [];
+
+        @foreach (var item in Model)
+        {
+            <text>
+        dataarray.push(['@Html.Raw(item.Resultado)', @item.Cantidad])
+        </text>
+        }
+
+        $('#chart').highcharts({
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: '@Html.Raw(ViewBag.TituloActividad)',
+                x: -20 //center
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            yAxis: {
+                title: {
+                    text: '@Html.Raw(Rp3.AgendaComercial.Resources.LabelFor.NumRepuestas)'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    //allowPointSelect: true,
+                    //cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function () {
+                            return '<b>' + this.point.name + '</b>: ' + Math.round(this.percentage) + ' %';
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: '@Html.Raw(Rp3.AgendaComercial.Resources.LabelFor.Respuestas)',
+                data: dataarray,
+                dataLabels: {
+                    enabled: true,
+                    rotation: 0,
+                    color: 'Black',
+                    align: 'center',
+                    x: 4,
+                    y: 10,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif',
+                        //textShadow: '0 0 3px black'
+                    }
+                }
+            }]
+        });
+            });
+
+</script>

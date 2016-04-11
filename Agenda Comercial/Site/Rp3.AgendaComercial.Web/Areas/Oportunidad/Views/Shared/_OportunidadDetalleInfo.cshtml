@@ -1,0 +1,86 @@
+﻿@model Rp3.AgendaComercial.Models.Oportunidad.View.OportunidadListado
+
+<h4 style="font-weight:bold;">@Model.Descripcion</h4>
+
+<h4 style="font-weight:bold;color:#1E83B6;margin-top:20px">@Rp3.AgendaComercial.Resources.TitleFor.Contactos.ToUpper()</h4>
+
+<div class="modal-body" oportunidad-gestion-info-content style="height:200px">
+
+    @if (Model.Contactos.Any())
+    {
+        <div class="scrollfx" style="width:100%; height:180px; overflow-x:hidden;overflow-y:auto; ">
+            @using (Html.Rp3BeginTable(htmlAttributes: new { style = "" }))
+            {
+                var count = 1;
+
+                <tbody>
+                    @foreach (var contacto in Model.Contactos.OrderBy(p => p.IdOportunidadContacto))
+                    {
+                        <tr>
+                            <td style="height:10px;width:30px">@count</td>
+                            <td style="height:10px;">@contacto.Nombre</td>
+                            <td style="height:10px;">@contacto.Cargo</td>
+                            <td style="height:10px;"><i class="fa fa-phone"></i>@contacto.Telefono1</td>
+                            <td style="height:10px;"><i class="fa fa-envelope"></i>@contacto.CorreoElectronico</td>
+                            <td style="width:25px">
+                                @if (!String.IsNullOrEmpty(contacto.Path))
+                                {
+                                    <div style="width:25px; margin-left:2px; margin-right:5px; float:left;">
+                                        <a class="fancybox" href="@Url.Content(contacto.Path)" data-fancybox-group="gallerycontact">
+                                            <img class="round-corner" src="@Url.Content(contacto.PathMin)" width="25" height="25">
+                                        </a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div style="width:25px; height:25px; margin-left:2px; margin-right:5px; float:left;">
+                                        <img src="@Url.ContentApplicationImage("default.jpg")" width="25" height="25">
+                                    </div>
+                                }
+                            </td>
+                        </tr>
+                                count++;
+                    }
+                </tbody>
+            }
+        </div>
+
+    }
+    else
+    {
+        <div style="margin-left:20px;"><strong>No tiene contactos</strong></div>
+    }
+</div>
+
+
+<h4 style="font-weight:bold;color:#1E83B6">@Rp3.AgendaComercial.Resources.TitleFor.Responsables.ToUpper()</h4>
+
+<div class="modal-body" style="height:200px">
+
+    @if (Model.Responsables.Any())
+    {
+        <div class="scrollfx" style="width:100%; height:180px; overflow-x:hidden;overflow-y:auto; ">
+            @using (Html.Rp3BeginTable(htmlAttributes: new { style = "" }))
+            {
+                var count = 1;
+
+                <tbody>
+                    @foreach (var agente in Model.Responsables)
+                    {
+                        <tr>
+                            <td style="height:10px;width:30px">@count</td>
+                            <td style="height:10px;">@agente.Agente.Descripcion</td>
+                            <td style="height:10px;">@agente.Agente.Cargo.Descripcion</td>
+                        </tr>
+                        count++;
+                    }
+                </tbody>
+            }
+        </div>
+
+    }
+    else
+    {
+        <div style="margin-left:20px;"><strong>No tiene responsables</strong></div>
+    }
+</div>

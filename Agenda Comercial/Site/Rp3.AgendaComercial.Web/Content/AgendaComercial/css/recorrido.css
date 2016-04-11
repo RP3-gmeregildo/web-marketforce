@@ -1,0 +1,102 @@
+﻿.content-map{
+    margin-top:-35px;
+}
+    
+.leyend-section
+{
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  z-index: 10;
+}
+.leyend-section .leyend-icon-name
+{
+    float: right;
+    margin-top:3px;
+    margin-right: 10px;
+}
+
+.leyend-section .leyend-icon
+{
+    float: right;    
+}
+.leyend-section .leyend-icon.icalert
+{
+  font-size: 18px;
+  margin-right: 4px;
+  color: red;
+}
+
+.selected-item {
+    background-color: #328fca;
+    color: white;
+}
+
+.form-group .control-label {  
+  padding-top: 2px;
+}
+
+.selectable-item {
+    cursor: pointer;
+}
+
+.tip-content-cliente {
+        width: 320px;
+        padding: 10px;
+    }
+
+        .tip-content-cliente .tip-foto {
+            float: left;
+            width: 100px;
+        }
+
+        .tip-content-cliente img {
+            width: 60px;
+            border: 2px solid;
+        }
+
+        .tip-content-cliente .tip-data {
+            width: 200px;
+            float:left;
+        }
+
+            .tip-content-cliente .tip-data .titulo {
+                margin-bottom: 8px;
+                cursor:pointer;
+            }
+
+            .tip-content-cliente .tip-data .direccion {
+                margin-bottom: 1px;
+            }
+            .tip-content-cliente .tip-data .hora {
+                margin-bottom: 1px;
+                float:left;               
+            }
+
+       
+            .tip-content-cliente .estado-icon {
+                margin-left: 10px;
+                margin-right: 5px;
+                margin-top: 2px;
+                float: left;
+                height: 15px;
+                width: 15px;
+                background-color: red;                 
+            }
+
+            .tip-content-cliente .estado-descripcion {
+                float: left;
+            }
+
+            .tip-content-cliente .alert-mensaje {
+                clear:both;
+                color:red;
+            }   
+            .tip-content-cliente .info-mensaje {
+                clear:both;
+                color:#328fca;                
+            }       
+            
+#agentestabla_wrapper .dataTables_scroll {
+    height: 250px;
+}  

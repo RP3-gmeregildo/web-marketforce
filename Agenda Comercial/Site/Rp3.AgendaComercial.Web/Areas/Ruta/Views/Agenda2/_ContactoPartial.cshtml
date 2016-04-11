@@ -1,0 +1,16 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.Agenda
+
+@Html.DevExpress().ComboBox(
+                settings =>
+                {
+                    settings.Theme = ViewBag.Theme;
+                    settings.Name = "IdClienteContacto";
+                    settings.CallbackRouteValues = new { Controller = "Agenda", Action = "ContactoPartial" };
+                    settings.Properties.ValueType = typeof(int);
+                    settings.Properties.ValueField = "IdClienteContacto";
+                    settings.Properties.TextField = "NombresCompletos";
+                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(89.5);
+                    settings.ReadOnly = Model.ReadOnly;
+                    settings.Properties.EnableCallbackMode = true;
+                    settings.Properties.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['IdRecurso'] = IdRecurso.GetValue(); }";
+                }).BindList(Rp3.AgendaComercial.Web.Ruta.Controllers.AgendaController.GetContactos(Model.IdRecurso)).Bind(Model.IdClienteContacto).GetHtml()

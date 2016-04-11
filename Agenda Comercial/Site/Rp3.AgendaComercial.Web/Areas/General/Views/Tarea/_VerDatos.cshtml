@@ -1,0 +1,70 @@
+﻿<div id="DialogContent" style="margin-top:-15px; overflow-y:auto; overflow-x:hidden">
+    @*@{Html.RenderPartial("_VerDatos", TarAct); }*@
+    <div style="width:550px; margin-top:30px;">
+        @using (Html.Rp3BeginForm(htmlAttributes: new { id = "modalform" }))
+        {
+            <div></div>
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                {
+                    using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Descripcion, labelSize: HtmlColumnSize.Size_2))
+                    {
+                        @Html.Rp3TextBox("actividadNombre");
+                    }
+                }
+            }
+            using (Html.Rp3BeginRow(htmlAttributes: new { id = "rowtipoactividad" }))
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                {
+                    @Html.Rp3FormGroupDropDownList(new SelectList(ViewBag.TipoActividades, "IdTipoActividad", "Descripcion"), name: "TipoActividad", 
+                    labelText: Rp3.AgendaComercial.Resources.LabelFor.Tipo, labelSize: HtmlColumnSize.Size_2, editorHtmlAttributes: new { tipoactividad = "" })
+                }
+            }
+
+            using (Html.Rp3BeginRow(htmlAttributes: new { id = "rowopciones" }))
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                {
+                    using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Opciones, labelSize: HtmlColumnSize.Size_2))
+                    {
+                        <div class="select2-container select2-container-multi tags" id="s2id_autogen5" style="width: 100%;">
+                            <ul id="idopts" class="select2-choices"></ul>
+                        </div>
+                    }
+                }
+            }
+
+            using (Html.Rp3BeginRow(htmlAttributes: new { id = "rowvalor" }))
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                {
+                    using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Valor, labelSize: HtmlColumnSize.Size_2))
+                    {
+                        @Html.Rp3NumericTextBox("actividadValor", numericType: NumericType.Number);
+                    }
+                }
+            }
+
+            using (Html.Rp3BeginRow(htmlAttributes: new { id = "rowlimite" }))
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                {
+                    using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Limite, labelSize: HtmlColumnSize.Size_2))
+                    {
+                        @Html.Rp3NumericTextBox("actividadLimite", numericType: NumericType.Number);
+                    }
+                }
+            }
+        }
+    </div>
+</div>
+
+@using (Html.Rp3BeginModalAction())
+{
+    <div id="footer-main" actions-modal>
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Editar, icon: Icons.Edit, allowCloseModal: true, customButtonClick: "editModalDatos()")
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true)
+    </div>
+}

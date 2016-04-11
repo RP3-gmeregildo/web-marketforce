@@ -1,0 +1,80 @@
+﻿@model Rp3.AgendaComercial.Web.Ruta.AgendaConsulta
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.Agenda;
+    this.SetImportTables(true);
+}
+
+@Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Scheduler }
+)
+
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+        new Script { ExtensionSuite = ExtensionSuite.Scheduler }
+)
+
+@Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Editors, Theme = "Office2010Blue" },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Scheduler, Theme = "Office2010Blue" }
+)
+
+@section Imports{
+    @Url.ImportApplicationScript("agenda.js")
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section ActionTitle{
+    @Html.Rp3FormActionGroup(ActivityActions.Send)
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "agendaForm" }))
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            @Html.Rp3FormGroupDropDownListFor(model => model.IdRuta, (SelectList)ViewBag.RutasSelectList, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarRuta }, labelSize: HtmlElementSize.Small)
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+        {
+            @Html.Rp3FormGroupDatePickerFor(model => model.FechaInicioCalendario, labelSize: HtmlElementSize.Small)
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+        {
+            @Html.Rp3FormGroupDatePickerFor(model => model.FechaFinCalendario, labelSize: HtmlElementSize.Small)
+        }
+    }
+}
+
+@if (Model.IdRuta != null)
+{
+    using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top:10px" }))
+    {
+        <div id="content_calendario">
+            @Html.Action("AgendaSchedulerPartial", new { IdRuta = Model.IdRuta, Duracion = 30, FechaInicioCalendario = Model.FechaInicioCalendario, FechaFinCalendario = Model.FechaFinCalendario })
+        </div>
+    }
+
+    using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top:10px" }))
+    {
+        using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Ubicaciones))
+        {
+            <div id="content_map" class="content_map">
+
+            </div>
+        }
+    }
+}
+
+<script>
+    $(function () {
+        $('input[action="SEND"]').click(function () {
+            $('#agendaForm').submit();
+        });
+    });
+
+</script>

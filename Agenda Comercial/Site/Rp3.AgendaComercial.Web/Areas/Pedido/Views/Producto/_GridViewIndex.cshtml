@@ -1,0 +1,83 @@
+﻿@*@model IEnumerable<Rp3.AgendaComercial.Models.Pedido.Producto>
+@{
+
+}*@
+
+    @Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "Producto", Action = "GridViewIndex" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.KeyFieldName = "IdProducto";
+
+        settings.CustomBindingRouteValuesCollection.Add(
+            GridViewOperationType.Paging,
+            new { Controller = "Producto", Action = "GridViewPagingAction" }
+        );
+
+        settings.CustomBindingRouteValuesCollection.Add(
+            GridViewOperationType.Sorting,
+            new { Controller = "Producto", Action = "GridViewSortingAction" }
+        );
+
+        settings.CustomBindingRouteValuesCollection.Add(
+            GridViewOperationType.Filtering,
+            new { Controller = "Producto", Action = "GridViewFilteringAction" }
+        );
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Codigo;
+            column.FieldName = "IdProducto";
+            column.Width = 50;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Categoria;
+            column.FieldName = "SubCategoria.Categoria.Descripcion";
+            column.Width = 100;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.SubCategoria;
+            column.FieldName = "SubCategoria.Descripcion";
+            column.Width = 100;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Descripcion;
+            column.FieldName = "Descripcion";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        });
+
+        var colEstado = settings.Columns.Add("EstadoGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Estado);
+        colEstado.Width = 75;
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Precio;
+            column.FieldName = "Precio";
+            column.PropertiesEdit.DisplayFormatString = "C2";
+            column.Width = 75;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.FechaUltimaModificacion;
+            column.FieldName = "FecMod";
+            column.PropertiesEdit.DisplayFormatString = "g";
+            column.Width = 150;
+        });
+        
+    },
+    new List<OptionAction>() {
+        new OptionAction("PRODUCTOS", "DETAIL", "AGENDACOMERCIAL"),
+        new OptionAction("PRODUCTOS", "EDIT", "AGENDACOMERCIAL"),
+        new OptionAction("PRODUCTOS", "DELETE", "AGENDACOMERCIAL"),
+    }).BindToCustomData(Model).GetHtml()

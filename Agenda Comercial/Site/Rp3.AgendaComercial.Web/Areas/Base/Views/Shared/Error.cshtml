@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <title>@Rp3.Resources.MessageFor.ErrorPageTitle</title>
+    <link rel="shortcut icon" type="image/x-icon" href="@Url.ContentApplicationImage("favicon.ico")" />
+    <link rel="icon" type="image/png" href="@Url.ContentApplicationImage("favicon.png")" />
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:100' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+  
+    <!-- Bootstrap core CSS -->
+    <link href="@Url.Content("~/Content/Base/js/bootstrap/dist/css/bootstrap.css")" rel="stylesheet" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/Base/fonts/font-awesome-4/css/font-awesome.min.css")">
+    <link href="@Url.ContentVersion("~/Content/Base/css/style.css")" rel="stylesheet" />
+</head>
+
+<body class="texture">
+
+    <div id="cl-wrapper" class="error-container">
+        <div class="page-error">
+            <h1 class="number text-center">500</h1>
+            <h2 class="description text-center">@Rp3.Resources.MessageFor.ErrorPart1</h2>
+            <h3 class="text-center"> @Rp3.Resources.MessageFor.ErrorPart2</h3>
+        </div>
+        @*<div class="text-center copy">&copy; 2013 <a href="#">Your Company</a></div>*@
+
+
+    </div>
+
+    
+</body>
+</html>

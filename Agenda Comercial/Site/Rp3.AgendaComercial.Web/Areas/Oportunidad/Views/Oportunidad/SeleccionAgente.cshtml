@@ -1,0 +1,32 @@
+﻿@model Rp3.AgendaComercial.Web.Ruta.SeleccionAgente
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.SeleccionAgente;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{
+    @:@Html.Rp3AlertBlock(Rp3.AgendaComercial.Resources.LegendFor.SeleccioneAgenteOportunidad, Rp3.Data.MessageType.Information, Rp3.AgendaComercial.Resources.LegendFor.SeleccioneAgenteAgendaTitulo)
+}
+
+<div>
+    @using (Html.Rp3BeginForm())
+    {
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+            {
+                using (Html.Rp3BeginContentBox())
+                {
+                    <text>
+                        @Html.Rp3FormGroupDropDownListFor(model => model.IdAgente, (SelectList)ViewBag.AgenteSelectList, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarAgente })
+                    </text>
+
+                    @Html.Rp3FormActionGroup(ActivityActions.Send)
+                }
+            }
+        }
+    }
+</div>

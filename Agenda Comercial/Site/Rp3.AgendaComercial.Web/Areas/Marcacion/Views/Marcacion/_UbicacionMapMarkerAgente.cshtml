@@ -1,0 +1,196 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.General.Ubicacion>
+@using System.Threading;
+@using System.Globalization;
+@using System.Web.Script.Serialization
+@{
+    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+    string mapSelector = "viewMap";
+
+    if (ViewBag.MapSelector != null) { mapSelector = ViewBag.MapSelector; }
+
+    int count = Model.Where(p => p.Latitud != null && p.Longitud != null && p.Longitud != 0 && p.Latitud != 0).Count();
+    int countMarkerIndex = Model.Where(p => p.Latitud != null && p.Longitud != null && p.Longitud != 0 && p.Latitud != 0 && p.MarkerIndex != 0).Count();
+
+    //ViewBag.MapWidth = "100%";
+    ViewBag.MapHeight = "100%";
+
+
+    if (ViewBag.TravelMode == null) { ViewBag.TravelMode = "DRIVING"; }
+    if (ViewBag.MapWidth == null) { ViewBag.MapWidth = "100%"; }
+}
+
+<script language="javascript" type="text/javascript">
+
+    var googleMapArray = [];
+    var googleMap = null;
+    var bounds = null;
+    var latitud = null;
+    var longitud = null;
+    var directionsService = new google.maps.DirectionsService();
+    var requestArray = [], renderArray = [];
+
+    var colorBlue = "#335AA8";
+    var colorGreen = "#6FBF56";
+    var colorOrange = "#FF8838";
+    var colorRed = "#BE2026";
+
+    function setMap()
+    {
+        bounds = new google.maps.LatLngBounds();
+        var options = {
+            @if (count > 1)
+        {
+            <text>zoom : 16,</text>
+        }
+        else
+        {
+            <text>zoom : 14,</text>
+        }
+            scrollwheel: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        googleMap = new google.maps.Map($("#@{@mapSelector}")[0], options);
+
+        var infowindow = new google.maps.InfoWindow();
+
+        var image;
+
+        @if (count == 0)
+        {
+            <text>
+        googleMap.setCenter(new google.maps.LatLng(@Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLatitud, @Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLongitud));
+        </text>
+        }
+
+        @foreach (var marker in Model.Where(p => p.Latitud != null && p.Longitud != null && p.Longitud != 0 && p.Latitud != 0))
+        {
+        <text>
+
+        var point = new google.maps.LatLng(@marker.Latitud, @marker.Longitud);
+        bounds.extend(point);
+
+        var image, origin, size;
+
+        size = new google.maps.Size(30, 42, "px", "px");
+        origin = new google.maps.Point(@{ @marker.MarkerStart }, 0);
+
+        var colorMark = colorRed;
+
+        @if(marker.Color == "blue")
+        {
+            <text>
+        colorMark = colorBlue;
+        image = new google.maps.MarkerImage("@Url.Content("~/Content/AgendaComercial/img/style/sprite_numbers_location.png")", size, origin);
+        </text>
+        }
+        else if (marker.Color == "green")
+        {
+            <text>
+        colorMark = colorGreen;
+        image = new google.maps.MarkerImage("@Url.Content("~/Content/AgendaComercial/img/style/sprite_numbers_location_verde.png")", size, origin);
+        </text>
+        }
+        else if (marker.Color == "orange")
+        {
+            <text>
+        colorMark = colorOrange;
+        image = new google.maps.MarkerImage("@Url.Content("~/Content/AgendaComercial/img/style/sprite_numbers_location_naranja.png")", size, origin);
+        </text>
+        }
+        else
+        {
+            <text>
+        colorMark = colorRed;
+        image = new google.maps.MarkerImage("@Url.Content("~/Content/AgendaComercial/img/style/sprite_numbers_location_rojo.png")", size, origin);
+        </text>
+        }
+
+        var marker = new google.maps.Marker({
+            position: point,
+            map: googleMap,
+            title: '@Html.Raw(marker.Titulo)',
+            animation: google.maps.Animation.DROP,
+            @if (marker.MarkerIndex != 0)
+            {
+                <text>
+            icon: image,
+            </text>
+            }
+            zIndex: @{ @marker.MarkerZIndex } ,
+            draggable: false
+        });
+
+        @if (marker.Color == "blue"){
+             <text>
+        var circle = new google.maps.Circle({
+            map: googleMap,
+            radius: @ViewBag.MapRadius,
+            strokeWeight: 1,
+            fillColor: '#335AA8'
+        });
+        circle.bindTo('center', marker, 'position');
+        </text>
+        }
+
+        google.maps.event.addListener(marker, "click", function () {
+            infowindow.close();
+            infowindow.setContent('<div style="width:250px"><strong>@{ @marker.Titulo }</strong><br>');
+            infowindow.open(googleMap, this);
+        });
+
+        @if (count == 1)
+        {
+            <text>
+        latitud = @marker.Latitud;
+        longitud = @marker.Longitud;
+        </text>
+        }
+
+        </text>
+    }
+
+        setCenter();
+    }
+
+    $(document).ready(function () {
+        setMap();
+    });
+
+    function setCenter()
+    {
+        @if(count==1)
+        {
+             @:googleMap.setCenter(new google.maps.LatLng(latitud, longitud));
+                                                                                        }
+
+        @if (count > 1)
+        {
+            <text>
+        googleMap.fitBounds(bounds);
+        </text>
+        }
+    };
+
+    function checkResizeMap()
+    {
+        if(googleMap)
+        {
+            setCenter();
+        }
+    };
+
+</script>
+@*<h4>@Rp3.AgendaComercial.Resources.TitleFor.Ubicaciones</h4>*@
+<div id="@{@mapSelector}" style="width: @ViewBag.MapWidth; height: @ViewBag.MapHeight;" />
+<div>
+        
+        <div style="float:left;"><img width="24" height="24" src="@Url.ContentApplicationImage("style/map_position.png")" /></div>
+        <div style="float:left"><strong>@Rp3.AgendaComercial.Resources.LabelFor.LugarPlanificado</strong></div>
+        <div style="float:left;margin-left:15px"><img width="24" height="24" src="@Url.ContentApplicationImage("style/map_naranja.png")" /></div>
+        <div style="float:left"><strong>@Rp3.AgendaComercial.Resources.LabelFor.LugarMarcacion</strong></div>
+        <div style="float:left;margin-left:15px"><strong>(1) @Rp3.AgendaComercial.Resources.LabelFor.HoraInicioPrimeraJornada @ViewBag.HorarioInicioJornada1</strong></div>
+        <div style="float:left;margin-left:15px"><strong>(2) @Rp3.AgendaComercial.Resources.LabelFor.Break @ViewBag.HorarioFinJornada1</strong></div>
+        <div style="float:left;margin-left:15px"><strong>(3) @Rp3.AgendaComercial.Resources.LabelFor.HoraInicioSegundaJornada @ViewBag.HorarioInicioJornada2</strong></div>
+        <div style="float:left;margin-left:15px"><strong>(4) @Rp3.AgendaComercial.Resources.LabelFor.HoraFinJornada @ViewBag.HorarioFinJornada2</strong></div>
+    </div>

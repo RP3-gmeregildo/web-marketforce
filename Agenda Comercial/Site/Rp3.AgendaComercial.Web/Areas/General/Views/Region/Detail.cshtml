@@ -1,0 +1,25 @@
+﻿@model Rp3.AgendaComercial.Models.General.Region
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.DetalleRegion;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Region))
+            {
+                <text>
+                    @Html.HiddenFor(model => model.IdRegion)
+                    @Html.Rp3FormGroupDisplayFor(model => model.Descripcion)
+                    @Html.Rp3FormGroupDisplayFor(model => model.EstadoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado)
+                </text>
+            }
+        }
+    }
+}

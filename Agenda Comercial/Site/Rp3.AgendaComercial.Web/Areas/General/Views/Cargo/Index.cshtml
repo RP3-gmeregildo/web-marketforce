@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.General.Cargo>
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.Cargos;
+    this.SetImportAdvTables(true);
+}
+
+@section ActionTitle{
+    @Html.Rp3OptionActivityButton("CARGO", "NEW", HtmlElementSize.Default, includeText: true, applicationId: "AGENDACOMERCIAL")
+
+    @Html.Rp3ActionButton(Rp3.AgendaComercial.Resources.LabelFor.Excel, "ExportToXls", "Cargo", new { Area = "General" }, themeType: ElementThemeType.Default, icon: Icons.File)
+    @Html.Rp3ActionButton(Rp3.AgendaComercial.Resources.LabelFor.Pdf, "ExportToPdf", "Cargo", new { Area = "General" }, themeType: ElementThemeType.Default, icon: Icons.File)
+}
+
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{            
+        @Html.Partial("_GridViewIndex", Model)            
+}

@@ -1,0 +1,118 @@
+﻿@model List<Rp3.AgendaComercial.Models.Marcacion.View.ReporteMarcacion>
+
+<div id="dvData">
+    @using (Html.Rp3BeginDataTable(htmlAttributes: new { id = "agente-detalle-table" }, allowPagination: false,
+    columnAutoWidth: false, sortColumn: 1, autoWindowHeight: true))
+    {
+        <thead>
+            <tr>
+                <th class="text-center" style="width:50px"></th>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Grupo</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.HoraInicioPrimeraJornada</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.Break</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.HoraInicioSegundaJornada</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.HoraFinJornada</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.AtrasosMinutos</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.Permiso</th>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Referencia</th>
+                <th class="text-center" style="width:80px"><img src="@Url.Content("~/Content/AgendaComercial/img/efectividad.png")" /><span style="display:none">@Rp3.AgendaComercial.Resources.LabelFor.Efectividad</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var agente in Model.OrderBy(p => p.Agente))
+            {
+                string classtext = "selectable-item";
+
+                <tr idagente="@agente.IdAgente" descripcion="@agente.Agente" direccionmarcacion="@agente.DireccionMarcacion">
+                    <td class="text-center @classtext">
+                        @if (!agente.Ausente && (!agente.EnUbicacion || agente.TienePermiso))
+                        {
+                            string title = String.Empty;
+
+                            if (!agente.EnUbicacion)
+                            {
+                                title = Rp3.AgendaComercial.Resources.MessageFor.MarcacionesFueraArea;
+                            }
+
+                            if (agente.TienePermiso)
+                            {
+                                if (title.Length > 0)
+                                {
+                                    title = String.Format("{0} - {1}", title, Rp3.AgendaComercial.Resources.MessageFor.TienePermisos);
+                                }
+                                else
+                                {
+                                    title = Rp3.AgendaComercial.Resources.MessageFor.TienePermisos;
+                                }
+                            }
+
+                        <i class="fa fa-exclamation-triangle" title="@title"></i>
+                        }
+                    </td>
+                    <td class="@classtext">@agente.Agente</td>
+                    <td class="@classtext">@agente.Grupo</td>
+                    <td class="text-center @classtext">@agente.HoraInicioPrimeraJornada</td>
+                    <td class="text-center @classtext">@agente.HoraFinPrimeraJornada</td>
+                    <td class="text-center @classtext">@agente.HoraInicioSegundaJornada</td>
+                    <td class="text-center @classtext">@agente.HoraFinSegundaJornada</td>
+                    <td class="text-center @classtext">
+                        @if (!agente.AplicaMarcacion)
+                        {
+                        <span>@Rp3.AgendaComercial.Resources.LabelFor.NoAplicaMarcacion</span>
+                        }
+                        else if (agente.Ausente && agente.AplicaMarcacion)
+                        {
+                        <span>@Rp3.AgendaComercial.Resources.LabelFor.Ausente</span>
+                        }
+                        else
+                        {
+                        <span>@agente.MinutosAtrasoNoJustificado</span>
+                        }
+                    </td>
+                    <td class="text-center @classtext">
+                        @if (agente.PermisoPrevio)
+                        {
+                        <span>@Rp3.AgendaComercial.Resources.LabelFor.Si</span>
+                        }
+                        else
+                        {
+                        <span>@Rp3.AgendaComercial.Resources.LabelFor.No</span>
+                        }
+                    </td>
+                    <td class="text-center @classtext">@agente.DireccionMarcacion</td>
+                    <td align="right">
+                        @if (agente.AplicaMarcacion)
+                        {
+                            <span>@agente.Eficiencia.ToString("n0") %</span><div class="img-circle" style="margin-right:5px; margin-top:2px;float:left;height:15px;width:15px;background-color:@agente.KpiEficienciaColor;"></div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td><strong>@Rp3.AgendaComercial.Resources.LabelFor.Total</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-center"><strong>@Model.Sum(p => p.MinutosAtraso)</strong></td>
+                <td></td>
+                <td></td>
+                <td align="right"><strong>@ViewBag.Eficiencia.ToString("n0") %</strong> <div class="img-circle" style="margin-right:5px; margin-top:2px;float:left;height:15px;width:15px;background-color:@ViewBag.EficienciaKpiColor;"></div></td>
+            </tr>
+        </tfoot>
+    }
+
+    </div>
+
+    <script>
+        $(function () {
+            $("#agente-detalle-table").rp3DataTable();
+            //$("#agente-resumen-table").DataTable({
+            //});
+        });
+    </script>

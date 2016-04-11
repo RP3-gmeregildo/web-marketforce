@@ -1,0 +1,141 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.ProgramacionRutaDetalle
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+
+    ViewBag.Theme = "Office2010Blue";
+}
+
+@using (Html.BeginForm())
+{
+    <table style="width: 100%; height: 60px; border-collapse: separate; border-spacing: 2px;">
+        <tr>
+            <td style="white-space: nowrap; padding-right: 5px;">
+                @Html.DevExpress().Label(
+                        settings =>
+                        {
+                            settings.Theme = ViewBag.Theme;
+                            settings.AssociatedControlName = "FechaInicio";
+                            settings.Text = Rp3.AgendaComercial.Resources.LabelFor.Inicio;
+                            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        }).GetHtml()
+            </td>
+            <td>
+                @Html.DevExpress().DateEdit(
+                        settings =>
+                        {
+                            settings.Theme = ViewBag.Theme;
+                            settings.Name = "FechaInicio";
+                            settings.Properties.EditFormat = EditFormat.Time;
+                            settings.ShowModelErrors = true;
+                            settings.ReadOnly = true;
+                            settings.Enabled = false;
+                            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        }).Bind(Model.FechaInicio).GetHtml()
+            </td>
+            <td style="white-space: nowrap; padding-right: 5px;">
+                @Html.DevExpress().Label(
+                        settings =>
+                        {
+                            settings.Theme = ViewBag.Theme;
+                            settings.AssociatedControlName = "FechaFin";
+                            settings.Text = Rp3.AgendaComercial.Resources.LabelFor.Fin;
+                            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        }).GetHtml()
+            </td>
+            <td>
+                @Html.DevExpress().DateEdit(
+                        settings =>
+                        {
+                            settings.Theme = ViewBag.Theme;
+                            settings.Name = "FechaFin";
+                            settings.Properties.EditFormat = EditFormat.Time;
+                            settings.ShowModelErrors = true;
+                            settings.ReadOnly = true;
+                            settings.Enabled = false;
+                            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        }).Bind(Model.FechaFin).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap; padding-right: 5px;">
+                @Html.DevExpress().Label(
+                    settings =>
+                    {
+                        settings.Theme = ViewBag.Theme;
+                        settings.AssociatedControlName = "IdRecurso";
+                        settings.Text = Rp3.AgendaComercial.Resources.LabelFor.Cliente;
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    }).GetHtml()
+            </td>
+            <td colspan="3">
+                @Html.DevExpress().ComboBox(
+                settings =>
+                {
+                    settings.Theme = ViewBag.Theme;
+                    settings.Name = "IdRecurso";
+                    settings.Properties.ValueType = typeof(string);
+                    settings.Properties.ValueField = "Key";
+                    settings.Properties.TextField = "EtiquetaCliente";
+                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(95.7);
+                }).BindList(ViewData["Resources"]).Bind(Model.IdRecurso).GetHtml()
+            </td>            
+        </tr>
+    </table>
+    <table cellpadding="0" cellspacing="0" style="width: 100%; height: 35px;">
+        <tr>
+            <td style="width: 100%; height: 100%;" align="center">
+                <table style="height: 100%;">
+                    <tr>
+                        <td>
+                            @Html.DevExpress().Button(
+                                settings =>
+                                {
+                                    settings.Theme = ViewBag.Theme;
+                                    settings.Name = "Apply";
+                                    settings.Text = Rp3.AgendaComercial.Resources.LabelFor.Aceptar;
+                                    settings.Width = System.Web.UI.WebControls.Unit.Pixel(91);
+                                    settings.ClientSideEvents.Click = "function(s, e){ RutaScheduler.AppointmentFormSave(); }";
+                                }).GetHtml()
+                        </td>
+                        <td style="padding: 0 4px;">
+                            @Html.DevExpress().Button(
+                                settings =>
+                                {
+                                    settings.Theme = ViewBag.Theme;
+                                    settings.Name = "Cancel";
+                                    settings.Text = Rp3.AgendaComercial.Resources.LabelFor.Cancelar;
+                                    settings.ClientSideEvents.Click = "function(s, e){ RutaScheduler.AppointmentFormCancel(); }";
+                                    settings.Width = System.Web.UI.WebControls.Unit.Pixel(91);
+                                }).GetHtml()
+                        </td>
+                        <td>
+                            @Html.DevExpress().Button(
+                                settings =>
+                                {
+                                    settings.Theme = ViewBag.Theme;
+                                    settings.Name = "Delete";
+                                    settings.Text = Rp3.AgendaComercial.Resources.LabelFor.Eliminar;
+                                    settings.Width = System.Web.UI.WebControls.Unit.Pixel(91);
+                                    settings.ClientSideEvents.Click = "function(s, e){ RutaScheduler.AppointmentFormDelete(); }";
+                                }).GetHtml()
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <table cellpadding="0" cellspacing="0" style="width: 100%">
+        <tr>
+            <td style="width: 100%; height: 100%;" align="left">
+                @Html.DevExpress().SchedulerStatusInfo(
+                    settings =>
+                    {
+                        settings.Name = "schedulerStatusInfo";
+                        settings.Priority = 1;
+                        settings.SchedulerName = "RutaScheduler";
+                    }).GetHtml()
+            </td>
+        </tr>
+    </table>
+}

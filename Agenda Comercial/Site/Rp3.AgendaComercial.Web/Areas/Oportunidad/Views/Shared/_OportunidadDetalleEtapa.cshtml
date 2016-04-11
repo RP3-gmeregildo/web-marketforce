@@ -1,0 +1,166 @@
+﻿@model Rp3.AgendaComercial.Models.Oportunidad.OportunidadEtapa
+
+<div class="stage_content" style="margin-right:10px;">
+    <i class=" fa stage_icon" style="background-color:@Rp3.Web.Mvc.Html.StageExtensions.GetColor(@Model.Orden, @Model.Orden)">
+    </i><strong class="stage_label" style="top:0px">@Model.Orden</strong>
+</div>
+<h4 style="font-weight:bold;">@Model.Oportunidad.Descripcion - @Model.Etapa.Descripcion</h4>
+
+<h4 style="font-weight:bold;color:#1E83B6;margin-top:20px">@Rp3.AgendaComercial.Resources.TitleFor.Tareas.ToUpper()</h4>
+
+<div class="modal-body" style="height:160px">
+
+    @if (Model.OportunidadTareas.Any())
+    {
+        <div class="scrollfx" style="width:100%; height:140px; overflow-x:hidden;overflow-y:auto; ">
+            @using (Html.Rp3BeginTable(htmlAttributes: new { style = "" }))
+            {
+                var count = 1;
+
+                <tbody>
+                    @foreach (var tarea in Model.OportunidadTareas.OrderBy(p => p.Orden))
+                    {
+                        if (tarea.Estado == Rp3.AgendaComercial.Models.Constantes.EstadoTarea.Realizada)
+                        {
+                            <tr idtarea="@tarea.IdTarea">
+                                <td class="selectable-item" style="height:10px;width:30px">@count</td>
+                                <td class="selectable-item" style="height:10px;">@tarea.Tarea.Descripcion</td>
+                                <td class="selectable-item" style="height:10px;width:40px">@tarea.EstadoGeneralValue.Content</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td style="height:10px;width:30px">@count</td>
+                                <td style="height:10px;">@tarea.Tarea.Descripcion</td>
+                                <td style="height:10px;width:40px">@tarea.EstadoGeneralValue.Content</td>
+                            </tr>
+                        }
+
+                        count++;
+                    }
+            </tbody>
+            }
+        </div>
+
+    }
+    else
+    {
+        <div style="margin-left:20px;"><strong>Etapa no tiene Tareas</strong></div>
+    }
+</div>
+
+
+@if (Model.IdEtapaPadre == null)
+{
+    if (Model.OportunidadEtapas.Any())
+    {
+        <h4 style="font-weight:bold;color:#1E83B6">@Rp3.AgendaComercial.Resources.TitleFor.SubEtapas.ToUpper()</h4>
+
+        <div class="modal-body" style="height:160px">
+
+            <div class="block-lines-header margin-5" style="margin-top:-10px">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 style="font-weight:bold;color:#1E83B6">@Rp3.AgendaComercial.Resources.LabelFor.Workflow.ToUpper()</h5>
+                        <table>
+                            <tbody class="content">
+                                @foreach (var etapa in Model.OportunidadEtapas.OrderBy(p => p.Orden))
+                                {
+                                    <tr class="row hov" idsubetapa="@etapa.IdEtapa" style="cursor: pointer;width:300px;height:15px">
+                                        <td>
+                                            <div class="stage_content">
+                                                <i class="fa stage_icon" style="background-color:@Rp3.Web.Mvc.Html.StageExtensions.GetColor(etapa.Orden, etapa.Orden)"></i><strong class="stage_label" style="top:0px">@etapa.Orden</strong>
+                                            </div>
+                                        </td>
+                                        <td width="10px"></td>
+                                        <td width="200px" style="font-weight:bold">@etapa.Etapa.Descripcion</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h5 style="font-weight:bold;color:#1E83B6">@Rp3.AgendaComercial.Resources.LabelFor.Timeline.ToUpper()</h5>
+                        <table>
+                            <tbody class="content">
+                                @{
+                                int diastotal = 0;
+
+                                DateTime? minDate = Model.OportunidadEtapas.Min(p => p.FechaInicio);
+                                DateTime? maxDate = Model.OportunidadEtapas.Max(p => p.FechaFin);
+
+                                if (minDate != null)
+                                {
+                                    if (Model.Estado == Rp3.AgendaComercial.Models.Constantes.EstadoOportunidad.Abierta || maxDate == null)
+                                    {
+                                        diastotal = Convert.ToInt32((DateTime.Now - minDate.Value).TotalDays);
+                                    }
+                                    else
+                                    {
+                                        diastotal = Convert.ToInt32((maxDate.Value - minDate.Value).TotalDays);
+                                    }
+                                }
+                                }
+                                @foreach (var etapa in Model.OportunidadEtapas.OrderBy(p => p.Orden))
+                                {
+                                    int dias = 0;
+
+                                    if (etapa.FechaInicio != null)
+                                    {
+                                        if (etapa.FechaFin != null)
+                                        {
+                                            dias = Convert.ToInt32((etapa.FechaFin.Value - etapa.FechaInicio.Value).TotalDays);
+                                        }
+                                        else
+                                        {
+                                            dias = Convert.ToInt32((DateTime.Now - etapa.FechaInicio.Value).TotalDays);
+                                        }
+                                    }
+
+                                    <tr class="row hov" idsubetapa="@etapa.IdEtapa" style="cursor: pointer;height:15px">
+                                        <td>
+                                            <div class="stage_content">
+                                                <img class="fa" width="20" height="20" style="margin-bottom:2px" src="@Url.ContentApplicationImage(String.Format("{0}timeline.png", etapa.FechaFin != null ? etapa.Orden: 0))" />
+                                            </div>
+                                        </td>
+                                        <td width="10px"></td>
+                                        <td><img width="10" height="25" src="@Url.ContentApplicationImage("flecha.png")" /></td>
+                                        <td width="150px" style="background:#E6E7E7; padding-left:10px;font-weight:bold;margin:5px">
+                                            @if (etapa.FechaInicio != null)
+                                            {
+                                                @etapa.FechaInicio.Value.ToString("dd/MM/yyyy");
+                                            }
+                                            else
+                                            {
+                                                @Rp3.AgendaComercial.Resources.LabelFor.SinIniciar;
+                                            }
+                                        </td>
+                                        <td width="100px" align="right" style="background:#B8B9BC; padding-right:10px; font-weight:bold;margin:5px;color:white">@String.Format("{0} día(s)", dias)</td>
+                                    </tr>
+                                    <tr style="height:3px"><td colspan="3"></td></tr>
+                                }
+                            </tbody>
+                            <tfoot><tr><td colspan="6" align="right" style="font-weight:bold;padding-right:10px;color:#1E83B6"><img class="" style="margin-left:5px;margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("diastranscurridos.png")" /> @String.Format("{0} día(s)", diastotal)</td></tr></tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @*<div style="margin-left:20px;"><strong>Etapa no tiene SubEtapas</strong></div>*@
+
+        <div class="modal-body" style="height:160px">
+        </div>
+    }
+}
+
+@using (Html.Rp3BeginRow(new { style = "margin-top:10px" }))
+{
+    <div class="col-md-12">
+        @Html.Rp3TextAreaFor(model => Model.Observacion, htmlAttributes: new { style = "height:80px" }, readOnly: true)
+    </div>
+}

@@ -1,0 +1,150 @@
+﻿@model Rp3.AgendaComercial.Models.General.View.TareaView
+@{
+    if (ViewBag.EditActividad == null) { ViewBag.EditActividad = false; }
+
+    string tableHeight = "340px";
+}
+<style>
+    #dd > dd-list > .dd3-item .dd3-handle {
+        height: 100%;
+    }
+
+    .dd3-item .dd3-item .dd3-handle {
+        height: 100%;
+    }
+
+    .column2, .column3 {
+        padding-left: 0px;
+    }
+
+    .column4 {
+        margin-left: 0px;
+    }
+
+
+    .dd3-item .dd3-item .column2, .dd3-item .dd3-item .column3, .dd3-item .dd3-item .column4 {
+        padding-left: 20px;
+    }
+
+    .dd3-item .dd3-item .column4 {
+        padding-left: 32px;
+    }
+
+    .descrip {
+        cursor: pointer;
+    }
+
+    .column4 {
+        height: 18px;
+    }
+
+    .truncate-text {
+        height: 18px;
+        overflow: hidden;
+    }
+
+    .dd-item > button {
+        height: auto;
+    }
+
+    .dd {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .tarea-orden {
+        margin-right: 10px;
+        font-weight: bold;
+    }
+
+    .dd-new {
+        background: green;
+    }
+
+    .dd-item > button {
+        display: block;
+        position: relative;
+        cursor: pointer;
+        float: left;
+        width: 25px;
+        height: 20px;
+        margin: 5px 0;
+        padding: 0;
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        border: 0;
+        background: transparent;
+        font-size: 12px;
+        line-height: 1;
+        text-align: center;
+        font-weight: bold;
+    }
+
+        .dd-item > button:before {
+            content: '+';
+            display: block;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            text-indent: 0;
+        }
+
+        .dd-item > button[data-action="collapse"]:before {
+            content: '-';
+        }
+    /*.dd3-content{
+        max-height:36px;
+        overflow:hidden;
+    }*/
+</style>
+
+
+@using (Html.Rp3BeginRow())
+{
+    if (!Model.ReadOnly && ViewBag.EditActividad)
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            @:@Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Nuevo, icon: Icons.New, actionName: "nueva-actividad")
+            @:@Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Opciones, icon: Icons.Adjust, themeType: ElementThemeType.Success, actionName: "nueva-opcion")
+        }
+
+        using (Html.Rp3BeginModal("setOpcionDialog", customWidth: 1200))
+        {
+            <div id="setOpcionDialogContent">
+
+            </div>
+        }
+    }
+
+    if (!Model.ReadOnly && !ViewBag.EditActividad)
+    {
+        tableHeight = "285px";
+
+        @:@Html.Rp3AlertBlock(Rp3.AgendaComercial.Resources.MessageFor.TareaNoEditable, Rp3.Data.MessageType.Warning, Rp3.AgendaComercial.Resources.LabelFor.NoEditable)
+    }
+}
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+    {
+        
+        
+        <div id="content-treelist">
+            <div id="tree-content" style="min-height:@tableHeight; height:@tableHeight; overflow:auto">
+                <div id="tree-actividad" class="dd">
+                    <ol class="dd-list">
+                        @if (Model.Actividades != null)
+                        {
+                            foreach (var parent in Model.Actividades.OrderBy(p => p.Orden))
+                            {
+                                Html.RenderPartial("_ActividadDetalle", parent);
+                            }
+                        }
+                    </ol>
+                </div>
+            </div>
+        </div>
+    }
+}      

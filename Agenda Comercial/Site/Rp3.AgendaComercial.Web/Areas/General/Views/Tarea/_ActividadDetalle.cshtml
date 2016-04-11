@@ -1,0 +1,90 @@
+﻿@model Rp3.AgendaComercial.Models.General.View.TareaActividadView
+@{
+    string level = "";
+    if (Model.Childs != null && Model.Childs.Any())
+    {
+        level = "parent";
+    }
+    else
+    {
+        level = "child";
+    }
+
+    if (ViewBag.EditActividad == null) { ViewBag.EditActividad = false; }
+
+    string onclick = String.Empty;
+    string selectable = String.Empty;
+
+    if (ViewBag.EditActividad)
+    {
+        onclick = "onclick=loadModalDatos({0})";
+        selectable = "selectable-item";
+    }
+}
+<li class="dd-item dd3-item @selectable" data-opt="@{@level}" data-padre="@(Model.IdTareaActividadPadre.HasValue?Model.IdTareaActividadPadre.ToString():"")"
+    data-id="@Model.Index" data-idtarea="@Model.IdTareaActividad" data-id-actividad="@Model.IdTareaActividad"
+    data-descripcion="@Model.Descripcion" data-idtipo="@Model.IdTipoActividad" data-tipo="@Model.TipoActividad" data-valor="@Model.Valor" data-numero="@Model.Limite"
+    data-opciones="@Model.Opciones" data-idorden="@Model.Orden">
+    @if (ViewBag.EditActividad)
+    {
+        <div class="dd-handle dd3-handle"></div>
+    }
+    @*<button data-action="expand">Expand></button>
+        <button data-action="collapse">Collapse</button>*@
+    <div class="dd3-content">
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                <div @String.Format(onclick, @Model.Index)>
+                    <span orden="@Model.Orden" class="tarea-orden" ordenli>
+                        @Model.Orden
+                    </span>
+                    <span class="truncate-text" descripcion>
+                        @Model.Descripcion
+                    </span>
+                </div>
+            }
+
+            if (Model.TipoActividad != Rp3.AgendaComercial.Models.Constantes.TipoActividad.Grupo)
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                {
+                    <div @String.Format(onclick, @Model.Index)>
+                        <span class="column2" tipoactividad>
+                            @Model.TipoActividad
+                        </span>
+                    </div>
+                }
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                {
+                    <div class="truncate-text column3" opciones @String.Format(onclick, @Model.Index)>
+                        @Model.Opciones
+                    </div>
+                }
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+                {
+                    <div class="column4">
+                        @if (ViewBag.EditActividad)
+                        {
+                            @Html.Rp3IconButton(Icons.Remove, size: HtmlElementSize.Mini, themeType: ElementThemeType.Error, htmlAttributes: new { remove_actividad = "", onclick = "removeActividad(" + Model.Index + ")" })
+                        }
+                    </div>
+                }
+            }
+
+        }
+    </div>
+
+    @if (Model.Childs != null && Model.Childs.Any())
+    {
+        <ol class="dd-list">
+            @foreach (var actividad in Model.Childs.OrderBy(p => p.Orden))
+            {
+                Html.RenderPartial("_ActividadDetalle", actividad);
+            }
+        </ol>
+    }
+</li>

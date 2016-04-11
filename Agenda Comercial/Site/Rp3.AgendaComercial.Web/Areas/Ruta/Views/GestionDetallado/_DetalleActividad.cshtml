@@ -1,0 +1,27 @@
+﻿
+
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "detalleactividadform" }))
+{
+    <div id="content_actividades" style="margin-bottom: 10px">
+        @Html.Action("ActividadTreeListPartial", new { idRuta = ViewBag.IdRuta, idAgenda = ViewBag.IdAgenda, idTarea = ViewBag.IdTarea })
+    </div>
+
+    using (Html.Rp3BeginFormActionGroup())
+    {
+        <div class="action_item_content">           
+            <div class="action_item" cancel_button>
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar)
+            </div>
+        </div>
+    }
+}
+
+<script>
+    $(function () {
+        $('[cancel_button] button').click(function (e) {
+            e.preventDefault();
+            closeActividadDialog();
+        });        
+    });
+</script>

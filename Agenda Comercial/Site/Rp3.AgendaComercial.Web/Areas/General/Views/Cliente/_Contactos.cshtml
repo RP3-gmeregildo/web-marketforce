@@ -1,0 +1,21 @@
+﻿@model Rp3.AgendaComercial.Models.General.Cliente
+
+@if (!Model.ReadOnly)
+{
+    @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Nuevo,
+    HtmlElementSize.Default, icon: Icons.Add, actionName: "nuevo",
+    htmlAttributes: new { 
+        agregarcontacto = "",
+        idcliente=Model.IdCliente,
+        titulo=Rp3.AgendaComercial.Resources.LabelFor.Nuevo
+    })   
+}
+
+@using (Html.Rp3BeginModal("setContactoDialog", effect: ModalEffect.FlipHorizontal3D))
+{
+    <div id="setContactoDialogContent"></div>
+}
+
+<div id="content_contactos" class="content_contactos">
+    @{ Html.RenderPartial("_ContactosDetalle", Model.ClienteContactos.Where(p => p.Estado != Rp3.AgendaComercial.Models.Constantes.Estado.Eliminado).ToList()); }
+</div>

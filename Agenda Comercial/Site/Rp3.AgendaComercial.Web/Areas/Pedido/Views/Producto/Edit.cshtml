@@ -1,0 +1,56 @@
+﻿@model Rp3.AgendaComercial.Models.Pedido.Producto
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.CrearProducto;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+
+    Rp3.Web.Mvc.Html.TabCollection tabCollection = (Rp3.Web.Mvc.Html.TabCollection)ViewBag.TabCollection;
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("producto.js", true)
+    @Url.ImportApplicationScript("productofoto.js")
+    @Url.ImportApplicationScript("cropimageproducto.js")
+    @Url.ImportApplicationScript("fancy/jquery.fancybox.pack.js")
+
+    @Url.ImportApplicationScript("tapmodo-jcrop/jquery.Jcrop.min.js")
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("fancy/jquery.fancybox.css", true)
+    @Url.ImportApplicationStyleSheet("tapmodo-jcrop/jquery.Jcrop.min.css", true)
+}
+
+@section ActionTitle{
+    @Html.Rp3ActivityActionButton(ActivityActions.Update, themeType: ElementThemeType.Success, target: "#form-producto")
+}
+
+@{Html.RenderPartial("_ClienteCropImageDialog");}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "form-producto" }))
+{
+    using (Html.Rp3BeginTabContentBox(Rp3.AgendaComercial.Resources.TitleFor.Producto, tabCollection, paddingContent: true))
+    {
+
+        using (Html.Rp3BeginTabPane("tabproducto", active: true))
+        {
+            { Html.RenderPartial("_Producto", Model); }
+        }
+    }
+}
+
+@using (Html.BeginForm("UploadFoto", "Producto",
+                                null,
+                                FormMethod.Post,
+                new
+                {
+                    enctype = "multipart/form-data",
+                    id = "ImgFormCliente",
+                    target = "UploadTargetCliente",
+                    name = "ImgFormCliente"
+                }))
+{
+    <input style="display:none" type="file" name="file" onchange="uploadClienteImage()" />
+}
+

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.General.View.ParametroView>
+
+@foreach (var data in Model)
+{
+    <div style="margin-top: 10px">
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3, htmlAttributes: new { @class = "text-right" }))
+                {
+                    @Html.Rp3Label(labelText: @data.Etiqueta)
+                }
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+                {
+                    switch ((Rp3.AgendaComercial.Models.General.View.ParametroHelper.Tipo)data.Tipo)
+                    {
+                        case Rp3.AgendaComercial.Models.General.View.ParametroHelper.Tipo.Texto:
+                        case Rp3.AgendaComercial.Models.General.View.ParametroHelper.Tipo.TextoNumero:
+                        case Rp3.AgendaComercial.Models.General.View.ParametroHelper.Tipo.NumeroEntero:
+                        case Rp3.AgendaComercial.Models.General.View.ParametroHelper.Tipo.NumeroDecimal:
+                            @Html.Rp3TextBox("parametro" + @data.Name, value: @data.Value, htmlAttributes: new { tipo = @data.Tipo, valor = @data.Name, disabled = "true", maxlength = "100" })
+                            break;
+
+                        case Rp3.AgendaComercial.Models.General.View.ParametroHelper.Tipo.Hora:
+                        @Html.Rp3DropDownListTime("@data.ParametroName", htmlAttributes: new { id = @data.ParametroName, tipo = @data.Tipo, disabled = "true", valor = @data.Name, maxlength = "100" }, interval: 15)
+                            break;
+                    }
+                }
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                {
+                    @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Editar, HtmlElementSize.Mini, icon: Icons.Edit, submit: false,
+                                                                                htmlAttributes: new
+                                                                                {
+                                                                                    id = "edit" + @data.Name,
+                                                                                    onclick = "cambiarEdit(this); return false;",
+                                                                                    valor = @data.Name
+                                                                                })
+
+                    @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Aceptar, HtmlElementSize.Mini, icon: Icons.Check, submit: false,
+                                                                                htmlAttributes: new
+                                                                                {
+                                                                                    id = "accept" + @data.Name,
+                                                                                    onclick = "guardarValor(this); return false;",
+                                                                                    valor = @data.Name,
+                                                                                    style = "display: none;float:left"
+                                                                                })
+
+                    @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, HtmlElementSize.Mini, icon: Icons.Cancel, submit: false,
+                                                                                htmlAttributes: new
+                                                                                {
+                                                                                    id = "cancel" + @data.Name,
+                                                                                    onclick = "cancelarValor(this); return false;",
+                                                                                    valor = @data.Name,
+                                                                                    valorAnterior = @data.Value,
+                                                                                    style = "display: none;float:left"
+                                                                                })
+
+                }
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, htmlAttributes: new { style = "margin-left:0px;margin-right:auto" }))
+                {
+                    @Html.Rp3LabelWidget(@data.Leyenda, LabelWidgetType.Info)
+                }
+            }
+        }
+    </div>
+}
+
+<script>
+    $(function () {
+
+        @foreach (var data in Model)
+        {
+            switch ((Rp3.AgendaComercial.Models.General.View.ParametroHelper.Tipo)data.Tipo)
+            {
+                case Rp3.AgendaComercial.Models.General.View.ParametroHelper.Tipo.Hora:
+                    
+                    <text>
+                        var array = '@data.Value'.split(":");
+                        var date = new Date(1900, 0, 1, array[0], array[1]);
+                        $("#@data.ParametroName").select2('val', rp3GetTicks(date));
+                    </text>
+                    break;
+            }
+        }
+    })
+</script>

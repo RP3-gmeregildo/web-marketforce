@@ -1,0 +1,182 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.Reunion
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+<text>
+
+    @Html.HiddenFor(model => model.IdReunion)
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDatePickerFor(model => model.FechaInicio)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.FechaInicio)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDatePickerFor(model => model.FechaFin)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.FechaFin)
+            }
+        }
+    }
+
+    @if (!Model.ReadOnly)
+    {
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+            {
+
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.HoraInicio))
+                {
+                    @Html.Rp3DropDownListTimeFor(model => model.FechaInicioHora)
+                }
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.HoraInicio))
+                {
+                    @Html.Rp3DropDownListTimeFor(model => model.FechaFinHora)
+                }
+            }
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupTextBoxFor(model => model.Ubicacion)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.Ubicacion)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.EstadoReunion, Rp3.AgendaComercial.Models.Constantes.EstadoReunion.Tabla)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.EstadoReunionGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado)
+            }
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.TipoReunion, Rp3.AgendaComercial.Models.Constantes.TipoReunion.Tabla)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.TipoReunionGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Tipo)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Importancia, Rp3.AgendaComercial.Models.Constantes.Importancia.Tabla)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.ImportanciaGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Importancia)
+            }
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupTextBoxFor(model => model.Asunto)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.Asunto)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupDropDownListFor(model => model.IdAgenteSolicitante, (SelectList)ViewBag.AgentesSelectList, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarAgente })
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.Solicitante.Descripcion)
+            }
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_10))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupTextAreaFor(model => model.Detalle)
+            }
+            else
+            {
+                @Html.Rp3FormGroupTextAreaFor(model => model.Detalle, readOnly: true)
+            }
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_10))
+        {
+            using (@Html.Rp3BeginFormGroupEditor(labelText: Rp3.AgendaComercial.Resources.LabelFor.Asistentes))
+            {
+                @Html.DevExpress().TokenBox(settings =>
+                {
+                    settings.Name = "Asistentes";
+                    settings.Properties.AllowCustomTokens = false;
+                    settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                    //settings.Properties.ShowDropDownOnFocus = ShowDropDownOnFocusMode.Always;
+                    settings.Properties.ItemValueType = typeof(int);
+                    settings.Properties.ValueSeparator = '-';
+                    settings.Properties.ValueField = "IdAgente";
+                    settings.Properties.TextField = "Descripcion";
+                    settings.ReadOnly = Model.ReadOnly;
+                    settings.Properties.NullText = Rp3.AgendaComercial.Resources.LegendFor.AgenteToken;
+                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    settings.Height = System.Web.UI.WebControls.Unit.Pixel(27);
+                }).BindList(ViewBag.Agentes).Bind(Model.Asistentes).GetHtml();
+            }
+        }
+    }
+
+</text>

@@ -1,0 +1,45 @@
+﻿@*@model IEnumerable<Rp3.Data.Models.Security.View.NotificacionEmitida>*@
+
+    @Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "NotificationMonitor", Action = "GridViewIndex" };
+        settings.KeyFieldName = "IdNotificacionEmitida";
+
+        settings.ClientSideEvents.CustomButtonClick = "function(s, e) { executeAction(e.buttonID, s.GetRowKey(e.visibleIndex)); }";
+        settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Visible;
+
+        settings.CustomBindingRouteValuesCollection.Add(
+            GridViewOperationType.Paging,
+            new { Controller = "NotificationMonitor", Action = "GridViewPagingAction" }
+        );
+
+        settings.CustomBindingRouteValuesCollection.Add(
+            GridViewOperationType.Sorting,
+            new { Controller = "NotificationMonitor", Action = "GridViewSortingAction" }
+        );
+
+        settings.CustomBindingRouteValuesCollection.Add(
+            GridViewOperationType.Filtering,
+            new { Controller = "NotificationMonitor", Action = "GridViewFilteringAction" }
+        );
+        
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.Resources.LabelFor.SendDate;
+            column.FieldName = "FechaEnvio";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            column.Width = 180;        
+        });
+
+        settings.Columns.Add("Notificacion", Rp3.Resources.LabelFor.Notification).Width = 200;
+        settings.Columns.Add("Destinatario", Rp3.Resources.LabelFor.To).Width = 350;
+        settings.Columns.Add("Asunto", Rp3.Resources.LabelFor.Subject).Width = 300;
+        settings.Columns.Add("Estado", Rp3.Resources.LabelFor.State).Width = 100;
+    },
+    new List<OptionAction>() {
+         new OptionAction("MONITORNOT", "DETAIL", "SECURITY"),
+         new OptionAction("MONITORNOT", "SEND", "SECURITY")
+    }).BindToCustomData(Model).GetHtml()

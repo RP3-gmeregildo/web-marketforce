@@ -1,0 +1,39 @@
+﻿@using (Html.Rp3BeginModal("modal-permiso-sort", effect: ModalEffect.FlipVertical3D, customWidth: 300, includeOverlay: false))
+{
+    <div id="modal-permiso-sort-content" style="z-index:9999;height:320px;">
+    </div>
+}
+
+@using (Html.Rp3BeginModal("getModalDialogCrear"))
+{
+    <div id="getModalDialogCrearContent" style="margin-top:-15px;height:350px; width:800px; overflow-y:auto; overflow-x:hidden" class="scrollfx"> </div>
+    using (Html.Rp3BeginModalAction())
+    {
+        <div id="footer-create" class="show" actions-modal>
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.CrearPermiso, themeType: ElementThemeType.Success, icon: Icons.Save, allowCloseModal: false, actionName: "viewCreate", customButtonClick: "createPermisoPost();")
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true)
+        </div>
+    }
+}
+
+@using (Html.Rp3BeginModal("modal-permiso-detalle"))
+{
+    <div id="modal-permiso-detalle-content" style="margin-top:-15px; overflow-y:auto; overflow-x:hidden" class="scrollfx">
+    </div>
+
+    using (Html.Rp3BeginModalAction())
+    {
+        <div id="modal-permiso-footer-main" actions-modal>
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Reversar, themeType: ElementThemeType.Error, icon: Icons.Remove, allowCloseModal: false, htmlAttributes: new { id = "modal-permiso-detalle-button-cancelar" })
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Aprobar, themeType: ElementThemeType.Success, icon: Icons.Check, allowCloseModal: false, htmlAttributes: new { id = "modal-permiso-detalle-button-aprobar" })
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Rechazar, themeType: ElementThemeType.Error, icon: Icons.Close, allowCloseModal: false, htmlAttributes: new { id = "modal-permiso-detalle-button-rechazar" })
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true)
+        </div>
+    }
+}
+
+@using (Html.Rp3BeginModal("modal-permiso-agente-search", effect: ModalEffect.FlipVertical3D, customWidth: 500, includeOverlay: false))
+{
+    <div id="modal-permiso-agente-search-content" style="z-index:9999;height:350px;">
+    </div>
+}

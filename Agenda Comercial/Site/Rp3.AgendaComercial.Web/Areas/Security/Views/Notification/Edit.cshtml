@@ -1,0 +1,162 @@
+﻿@model Rp3.Data.Models.Security.Notificacion
+@{
+    this.SetTitle(Rp3.Resources.TitleFor.EditNotification);
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+
+    List<Rp3.Data.Models.Security.RoleBase> roles = (List<Rp3.Data.Models.Security.RoleBase>)ViewBag.Roles;
+    List<Rp3.Data.Models.Security.UserBase> usuarios = (List<Rp3.Data.Models.Security.UserBase>)ViewBag.Usuarios;
+}
+
+@section Imports{
+    @Url.ImportScript("rp3.notification.js", true)
+}
+
+@section ActionTitle{
+    @if (!Model.ReadOnly)
+    {
+        @Html.Rp3ActivityActionButton(ActivityActions.Update, target: "#mainform", themeType: ElementThemeType.Success)
+    }
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "mainform" }))
+{
+    using (Html.Rp3BeginRow()) //new { style = "margin-top:-30px" }
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.Resources.TitleFor.General))
+            {
+
+                <text>
+                    @Html.HiddenFor(model => model.IdNotificacion)
+
+                    @if (Model.ReadOnly)
+                    {
+                        @Html.Rp3FormGroupDisplayFor(model => model.Descripcion, labelText: Rp3.Resources.LabelFor.Notification)
+                        @Html.Rp3FormGroupDisplayFor(model => model.Application.Name, labelText: Rp3.Resources.LabelFor.Application)
+                        @Html.Rp3FormGroupDisplayFor(model => model.EmailTemplate.Description, labelText: Rp3.Resources.LabelFor.Template)
+
+                        @Html.Rp3FormGroupDisplayFor(model => model.Titulo, labelText: Rp3.Resources.LabelFor.Subject)
+                        @Html.Rp3FormGroupDisplayFor(model => model.Leyenda, labelText: Rp3.Resources.LabelFor.Title)
+
+                        @Html.Rp3FormGroupTextAreaFor(model => model.Ocurre, labelText: Rp3.Resources.LabelFor.Occurs, editorHtmlAttributes: new { readOnly = "" })
+                        @Html.Rp3FormGroupTextAreaFor(model => model.Consideracion, labelText: Rp3.Resources.LabelFor.Consideration, editorHtmlAttributes: new { readOnly = "" })
+                        
+                        @Html.Rp3FormGroupTextAreaFor(model => model.Email, labelText: Rp3.Resources.LabelFor.Email, editorHtmlAttributes: new { readOnly = "" })
+
+                        //@Html.Rp3FormGroupDropDownListFor(model => model.ApplicationId, (SelectList)ViewBag.ApplicationsSelectList, labelText: Rp3.Resources.LabelFor.Application, editorHtmlAttributes: new { placeholder = String.Empty })
+                        @Html.Rp3FormGroupDisplayFor(model => model.EstadoGeneralValue.Content, labelText: Rp3.Resources.LabelFor.State)
+                    }
+                    else
+                    {
+                        @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion)
+                        //@Html.Rp3FormGroupDropDownListFor(model => model.ApplicationId, (SelectList)ViewBag.ApplicationsSelectList, labelText: Rp3.Resources.LabelFor.Application, editorHtmlAttributes: new { placeholder = String.Empty })
+                        @Html.Rp3FormGroupDisplayFor(model => model.Application.Name, labelText: Rp3.Resources.LabelFor.Application)
+                        @Html.Rp3FormGroupDisplayFor(model => model.EmailTemplate.Description, labelText: Rp3.Resources.LabelFor.Template)
+
+                        @Html.Rp3FormGroupTextBoxFor(model => model.Titulo, labelText: Rp3.Resources.LabelFor.Subject)
+                        @Html.Rp3FormGroupTextBoxFor(model => model.Leyenda, labelText: Rp3.Resources.LabelFor.Title)
+
+                        @Html.Rp3FormGroupTextAreaFor(model => model.Ocurre, labelText: Rp3.Resources.LabelFor.Occurs, editorHtmlAttributes: new { readOnly = "" })
+                        @Html.Rp3FormGroupTextAreaFor(model => model.Consideracion, labelText: Rp3.Resources.LabelFor.Consideration, editorHtmlAttributes: new { readOnly = "" })
+
+                        @Html.Rp3FormGroupTextAreaFor(model => model.Email, labelText: Rp3.Resources.LabelFor.Email)
+
+                        @*
+                            @Html.Rp3FormGroupTextBoxFor(model => model.Ocurre, labelText: Rp3.Resources.LabelFor.Occurs)
+                            @Html.Rp3FormGroupTextBoxFor(model => model.Consideracion, labelText: Rp3.Resources.LabelFor.Consideration)*@
+
+
+                        @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, 1001)
+                    }
+                </text>
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.Resources.TitleFor.CcRole, paddingContent: false))
+            {
+                using (Html.Rp3BeginDataTable(allowPagination: false, allowSearch: true, allowSort: false, scrollY: "300px", autoWindowHeight: true, sortColumn: 0))
+                {
+                    <thead>
+                        <tr>
+                            <th>@Rp3.Resources.LabelFor.Role</th>
+                            @if (!Model.ReadOnly)
+                            {
+                                <th class="text-center">@Html.Rp3CheckBox("rolecheckall", isChecked: Model.NotificacionRols.Count() > 0)</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var role in roles.OrderBy(p => p.Name))
+                        {
+                            <tr>
+                                <td>@role.Name</td>
+                                @if (!Model.ReadOnly)
+                                {
+                                    <td class="text-center">
+                                        @Html.Rp3CheckBox("roles", isChecked: Model.NotificacionRols.Any(p => p.RoleId == role.RoleId), value: role.Key)
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                }
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.Resources.TitleFor.CcUser, paddingContent: false))
+            {
+                if (!Model.ReadOnly)
+                {
+                    using (Html.Rp3BeginRow())
+                    {
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                        {
+                            @Html.Rp3TextBox("search-table", htmlAttributes: new { id = "userSearch", placeholder = Rp3.Resources.LabelFor.SearchUser })
+                        }
+                    }
+                }
+
+                //using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top: 5px" }))
+                //{
+                    using (Html.Rp3BeginDataTable(allowSort: false, allowPagination: false, allowSearch: true, scrollY: "320px", autoWindowHeight: true, htmlAttributes: new { id = "user" }))
+                    {
+                        <thead>
+                            <tr>
+                                @if (!Model.ReadOnly)
+                                {
+                                    <th style="width:50px"></th>
+                                }
+                                <th>@Rp3.Resources.LabelFor.User</th>
+                                <th>@Rp3.Resources.LabelFor.Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.NotificacionUsuarios.OrderBy(p => p.User.LogonName))
+                            {
+                                <tr>
+                                    <input user name="user" type="hidden" value="@item.UserId">
+                                    @if (!Model.ReadOnly)
+                                    {
+                                        <td userremovebutton class="text-center" style="width:50px">
+                                            @Html.Rp3Button(String.Empty, HtmlElementSize.Mini, submit: false, icon: Icons.Remove)
+                                        </td>
+                                    }
+                                    <td>@item.User.LogonName</td>
+                                    <td>@item.User.Contact.DefaultFullName</td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                //}
+            }
+        }
+    }
+
+}

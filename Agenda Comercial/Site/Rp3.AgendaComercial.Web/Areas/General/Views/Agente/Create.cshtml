@@ -1,0 +1,69 @@
+﻿@model Rp3.AgendaComercial.Models.General.Agente
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.CrearAgente;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("agente.js")
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top:-20px" }))
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Agente))
+            {
+                <div style="height:390px">
+
+                    @Html.HiddenFor(model => model.IdAgente)
+                    @Html.Rp3FormGroupDropDownListFor(model => model.IdUsuario, (SelectList)ViewBag.UsuariosSelectList, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarUsuario })
+                    @using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Nombres))
+                    {
+                        @Html.Rp3TextBox("nombre", readOnly: true)
+                    }
+                    @Html.Rp3FormGroupDropDownListFor(model => model.IdRuta, (SelectList)ViewBag.RutasSelectList, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarRuta })
+                    @Html.Rp3FormGroupDropDownListFor(model => model.IdCargo, (SelectList)ViewBag.CargosSelectList, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarCargo })
+                    @Html.Rp3FormGroupDropDownListFor(model => model.IdSupervisor, (SelectList)ViewBag.SupervisoresSelectList, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarSupervisor })
+                    @Html.Rp3FormGroupDropDownListFor(model => model.IdGrupo, (SelectList)ViewBag.GruposSelectList, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarGrupo })
+                    @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla)
+
+
+                    @Html.Rp3FormActionGroup(ActivityActions.Create)
+                </div>
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_7))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Ubicaciones))
+            {
+                <div id="content_map" class="content_map" style="height:400px;width:100%;">
+
+                    @{ Html.RenderPartial("_UbicacionMapMarker", (List<Rp3.AgendaComercial.Models.General.Ubicacion>)ViewBag.Ubicaciones); }
+
+                </div>
+            }
+        }
+    }
+}
+
+<script>
+    $(function () {
+        $("#IdUsuario").change(function () {
+            rp3Get("/Agente/GetUserName", { userId: $(this).val() }, function (data) {
+                $("#nombre").val(data);
+            });
+        });
+    });
+
+    setTimeout(function () {
+        $('#Estado').select2("enable", false);
+    }, 100);
+</script>

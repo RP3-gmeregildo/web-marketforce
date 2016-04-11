@@ -1,0 +1,61 @@
+﻿@model Rp3.AgendaComercial.Models.Marcacion.Grupo
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.DetalleGrupo;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@using Rp3.AgendaComercial.Models.General;
+
+@section Imports{
+    @Url.ImportApplicationScript("grupo.js")
+
+   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section ActionTitle{
+    
+}
+    
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("mapa.css", true)
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "grupoform" }))
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.LabelFor.Grupo))
+            {
+                @:@{Html.RenderPartial("_Datos", Model);}
+            }
+
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.LabelFor.UbicacionPartidaAgentes))
+            {
+                @:@{ 
+                    
+                    Html.RenderPartial("_SetUbicacionMapCreate", new Ubicacion()
+                    {
+                         MarkerIndex = 1,
+                         Latitud = Model.LatitudPuntoPartida == null || Model.LatitudPuntoPartida == 0 ? @Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLatitud : Model.LatitudPuntoPartida,
+                         Longitud = Model.LongitudPuntoPartida == null || Model.LongitudPuntoPartida == 0 ? @Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLongitud : Model.LongitudPuntoPartida,
+                         ReadOnly = true
+                    }); 
+                }
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_7))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Agentes, paddingContent: true))
+            {
+                @:@{Html.RenderPartial("_Agentes");}
+            }
+        }
+    }
+}
+

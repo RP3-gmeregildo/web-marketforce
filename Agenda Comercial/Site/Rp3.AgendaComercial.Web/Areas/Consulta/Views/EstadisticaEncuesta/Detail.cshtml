@@ -1,0 +1,392 @@
+﻿@model  Rp3.AgendaComercial.Web.Areas.Consulta.Models.EstadisticaEncuestaDetail
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.EstadisticaEncuesta;
+
+    this.SetImportFormElements(true);
+    this.SetImportAdvTables(true);
+    this.SetImportTables(true);
+}
+
+@section BeforeStyleImports{
+    @Url.ImportApplicationStyleSheet("daterangepicker/daterangepicker-bs3.css")
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("daterangepicker/moment.min.js")
+    @Url.ImportApplicationScript("daterangepicker/daterangepicker.js")
+    @Url.ImportApplicationScript("highcharts/highcharts.js")   
+         
+    @Url.ImportApplicationScript("estadisticaencuesta.js", true)
+}
+
+@section ActionTitle{
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Filtros, HtmlElementSize.Default, icon: Icons.Minus, submit: false, actionName: "FILTER", themeType: ElementThemeType.Default)
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Consultar, HtmlElementSize.Default, icon: Icons.Refresh, submit: false, actionName: "SEND", themeType: ElementThemeType.Success)
+        }
+    }
+}
+
+<style>
+    .selected-item {
+        background-color: #328fca;
+        color: white;
+    }
+
+    .selectable-item {
+        cursor: pointer;
+    }
+
+    #actividadestabla_wrapper .dataTables_scroll {
+        height: 440px;
+    }
+
+    .select2-container-multi .select2-choices {
+        min-height: 100px;
+        height: 100px !important;
+        overflow: scroll;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+     body {
+        overflow: hidden;
+    }
+</style>
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "indexForm" }))
+{
+    @Html.HiddenFor(model => model.IdTarea)
+    @Html.HiddenFor(model => model.IdTareaActividad)
+    @Html.HiddenFor(model => model.Tipo)
+
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3, htmlAttributes: new { id = "filterColumn" }))
+    {
+        using (Html.Rp3BeginDataTable(scrollY: "400px", allowPagination: false, allowSort: false, columnAutoWidth: true, htmlAttributes: new { id = "actividadestabla" }))
+        {
+            <thead>
+                <tr>
+                    <th style="display:none"></th>
+                    <th>@Rp3.AgendaComercial.Resources.LabelFor.Preguntas</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Rp3.AgendaComercial.Models.General.TareaActividad actividad in ViewBag.Actividades)
+                {
+                    <tr idtareaactividad="@{@actividad.IdTareaActividad}" tipo="@{@actividad.TipoActividad.Tipo}">
+                        <td style="display:none"></td>
+
+                        @if (actividad.TipoActividad.Tipo != Rp3.AgendaComercial.Models.Constantes.TipoActividad.Grupo)
+                        {
+                            <td class="selectable-item">@actividad.Descripcion</td>
+                        }
+                        else
+                        {
+                            <td><strong>@actividad.Descripcion</strong></td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        }
+    }
+
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_9, htmlAttributes: new { id = "dataColumn" }))
+    {
+        using (Html.Rp3BeginRow(htmlAttributes: new { id = "filterRow", style = "margin-top:-30px;" }))
+        {
+            using (Html.Rp3BeginRow(htmlAttributes: new { style = "" }))
+            {
+                using (Html.Rp3BeginContentBox(title: Model.Descripcion, paddingContent: false))
+                {
+                    using (Html.Rp3BeginRow(htmlAttributes: new { }))
+                    {
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                        {
+                            using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Desde, labelSize: HtmlColumnSize.Size_3))
+                            {
+                                @Html.Rp3TextBox("FechaVigenciaDesde", Model.FechaVigenciaDesde.ToDefaultDateFormat(), readOnly: true)
+                            }
+                        }
+
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                        {
+                            using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Hasta, labelSize: HtmlColumnSize.Size_3))
+                            {
+                                @Html.Rp3TextBox("FechaVigenciaHasta", Model.FechaVigenciaHasta.ToDefaultDateFormat(), readOnly: true)
+                            }
+                        }
+
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+                        {
+                            using (Html.Rp3BeginFormGroupEditor(labelText: Rp3.AgendaComercial.Resources.LabelFor.Vigente, labelSize: HtmlColumnSize.Size_7))
+                            {
+                                @Html.Rp3DisableCheckBoxFor(p => p.Vigente)
+                            }
+                        }
+
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+                        {
+                            @Html.Rp3FormGroupDisplayFor(p => p.NumeroGestiones, labelSize: HtmlColumnSize.Size_6)
+                        }
+
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+                        {
+                            @Html.Rp3FormGroupDisplayFor(p => p.NumeroClientes, labelSize: HtmlColumnSize.Size_6)
+                        }
+
+                    }
+
+                }
+            }
+
+            using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top:-40px;" }))
+            {
+                using (Html.Rp3BeginContentBox(title: Rp3.AgendaComercial.Resources.LabelFor.Filtros, paddingContent: false))
+                {
+                    using (Html.Rp3BeginRow(htmlAttributes: new { }))
+                    {
+                        <label class="control-label" style="width:83px; float:left;margin-left:15px" for="">Fechas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <div class="row" style="float:left;width:265px;margin-left:15px;margin-top:-2px;height:40px;">
+                            <div id="reportrange" class="pull-left form-control daterange" style=" height:48px">
+                                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                <span style="height:100%"></span> <b @*class="caret"*@ style="height: 100%; display: inline-block;vertical-align: middle;"></b>
+                            </div>
+                        </div>
+                    }
+
+                    using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top:20px" }))
+                    {
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+                        {
+                            <div class="select2-cover">
+                                @Html.Rp3FormGroupDropDownList(new MultiSelectList(ViewBag.Zonas, "IdZona", "Descripcion"), labelText: Rp3.AgendaComercial.Resources.LabelFor.Zona, labelSize: HtmlColumnSize.Size_3, name: "zonaselect",
+                                editorHtmlAttributes: new { style = "height:90px", zonas = "", multiple = "", placeholder = @Rp3.AgendaComercial.Resources.LegendFor.TextZona })
+                            </div>
+                        }
+
+
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+                        {
+                            <div class="select2-cover">
+                                @Html.Rp3FormGroupDropDownList(new MultiSelectList(ViewBag.Canales, "IdCanal", "Descripcion"), labelText: Rp3.AgendaComercial.Resources.LabelFor.Canal, labelSize: HtmlColumnSize.Size_3, name: "canalselect",
+                            editorHtmlAttributes: new { style = "height:100px", canales = "", multiple = "", placeholder = @Rp3.AgendaComercial.Resources.LegendFor.TextCanal })
+                            </div>
+                        }
+
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+                        {
+                            <div class="select2-cover">
+                                @Html.Rp3FormGroupDropDownList(new MultiSelectList(ViewBag.Agentes, "IdAgente", "Descripcion"), labelText: Rp3.AgendaComercial.Resources.LabelFor.Agente, labelSize: HtmlColumnSize.Size_3, name: "agenteselect",
+                                 editorHtmlAttributes: new { style = "height:90px", agentes = "", multiple = "", placeholder = @Rp3.AgendaComercial.Resources.LegendFor.Agente })
+                            </div>
+                        }
+
+                    }
+                    //ADDED BY JUCARDE 2015.08.18
+                    using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top:20px" }))
+                    {
+
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+                        {
+                            <div class="select2-cover">
+                                @Html.Rp3FormGroupDropDownList(new MultiSelectList(ViewBag.TipoClientes, "IdTipoCliente", "Descripcion"), labelText: Rp3.AgendaComercial.Resources.LabelFor.TipoCliente, name: "tipoClientesselect", labelSize: HtmlColumnSize.Size_3,
+                                 editorHtmlAttributes: new { style = "height:90px", tipoclientes = "", multiple = "", placeholder = @Rp3.AgendaComercial.Resources.LegendFor.TextTipoCliente })
+                            </div>
+                        }
+
+
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+                        {
+                            <div class="select2-cover">
+                                @Html.Rp3FormGroupDropDownList(new MultiSelectList(ViewBag.Clientes, "IdCliente", "NombresCompletos"), labelText: Rp3.AgendaComercial.Resources.LabelFor.Cliente, name: "clienteselect", labelSize: HtmlColumnSize.Size_3,
+                                 editorHtmlAttributes: new { style = "height:90px", clientes = "", multiple = "", placeholder = @Rp3.AgendaComercial.Resources.LegendFor.Cliente })
+                            </div>
+                        }
+
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+                        {
+                            <div class="select2-cover">
+                                @Html.Rp3FormGroupDropDownList(new MultiSelectList(ViewBag.ClientesContactos, "Key", "NombresCompletos"), labelText: Rp3.AgendaComercial.Resources.LabelFor.Contacto, name: "clientecontactoselect", labelSize: HtmlColumnSize.Size_3,
+                                 editorHtmlAttributes: new { style = "height:90px", clientescontactos = "", multiple = "", placeholder = @Rp3.AgendaComercial.Resources.LegendFor.ClienteContacto })
+                            </div>
+                        }
+
+                    }
+
+                    using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top:20px" }))
+                    {
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+                        {
+                            <div class="select2-cover">
+                                @Html.Rp3FormGroupDropDownList(new MultiSelectList(ViewBag.RazonesSociales, "RazonSocial", "RazonSocial"), labelText: Rp3.AgendaComercial.Resources.LabelFor.RazonSocial, labelSize: HtmlColumnSize.Size_3, name: "razonsocialselect",
+                                editorHtmlAttributes: new { style = "height:90px", razonessociales = "", multiple = "", placeholder = @Rp3.AgendaComercial.Resources.LegendFor.RazonSocial })
+                            </div>
+                        }
+                    }
+                }
+            }
+        }
+
+        using (Html.Rp3BeginRow(htmlAttributes: new { id = "dataRow" }))
+        {
+            <div id="content-panel" style="height:450px">
+                <div id="content-data">
+
+                </div>
+            </div>
+        }
+    }
+}
+
+
+<script>
+
+    var currentFechaInicial = null;
+    var currentFechaFinal = null;
+
+    rp3DataTableAjustsColumns('actividadestabla');
+
+    function consultar() {
+        var idTarea = parseInt($('#IdTarea').val());
+        var idTareaActividad = parseInt($('#IdTareaActividad').val());
+        var tipo = $('#Tipo').val();
+
+        var idZona = String(ConvToStr($("[zonas]").val()));
+        var idTipoCliente = String(ConvToStr($("[tipoclientes]").val()));
+        var idCanal = String(ConvToStr($("[canales]").val()));
+
+        var idAgente = String(ConvToStr($("[agentes]").val()));
+        var idCliente = String(ConvToStr($("[clientes]").val()));
+        var idClienteContacto = String(ConvToStr($("[clientescontactos]").val()));
+        var razonSocial = String(ConvToStr($("[razonessociales]").val()));
+
+        var fechaInicio = (new Date(currentFechaInicial).getTime() * 10000) + 621355968000000000;
+        var fechaFin = (new Date(currentFechaFinal).getTime() * 10000) + 621355968000000000;
+
+        if (tipo == "T" || tipo == "F" || tipo == "N") {
+            showFilters(false);
+            rp3ShowLoadingPanel('#content-panel');
+            rp3Get("/Consulta/EstadisticaEncuesta/GetDataText", {
+                IdTarea: idTarea, IdTareaActividad: idTareaActividad,
+                FechaInicio: fechaInicio, FechaFin: fechaFin,
+                IdZona: idZona, IdTipoCliente: idTipoCliente, IdCanal: idCanal,
+                IdAgente: idAgente, IdCliente: idCliente,
+                IdClienteContacto: idClienteContacto, RazonSocial: razonSocial
+            }, function (data) {
+                $("#content-data").html(data);
+                rp3HideLoadingPanel('#content-panel');
+            });
+        } else if (tipo == "C" || tipo == "V") {
+            showFilters(false);
+            rp3ShowLoadingPanel('#content-panel');
+            rp3Get("/Consulta/EstadisticaEncuesta/GetDataCheck", {
+                IdTarea: idTarea, IdTareaActividad: idTareaActividad,
+                FechaInicio: fechaInicio, FechaFin: fechaFin,
+                IdZona: idZona, IdTipoCliente: idTipoCliente, IdCanal: idCanal,
+                IdAgente: idAgente, IdCliente: idCliente,
+                IdClienteContacto: idClienteContacto, RazonSocial: razonSocial
+            }, function (data) {
+                $("#content-data").html(data);
+                rp3HideLoadingPanel('#content-panel');
+            });
+        } else if (tipo == "S" || tipo == "M") {
+            showFilters(false);
+            rp3ShowLoadingPanel('#content-panel');
+            rp3Get("/Consulta/EstadisticaEncuesta/GetDataSelect", {
+                IdTarea: idTarea, IdTareaActividad: idTareaActividad,
+                FechaInicio: fechaInicio, FechaFin: fechaFin,
+                IdZona: idZona, IdTipoCliente: idTipoCliente, IdCanal: idCanal,
+                IdAgente: idAgente, IdCliente: idCliente,
+                IdClienteContacto: idClienteContacto, RazonSocial: razonSocial
+            }, function (data) {
+                $("#content-data").html(data);
+                rp3HideLoadingPanel('#content-panel');
+            });
+        } else {
+            rp3ShowLoadingPanel('#content-panel');
+            showFilters(true);
+            $("#content-data").html('');
+            rp3HideLoadingPanel('#content-panel');
+        }        
+    };
+
+    function showFilters(visible)
+    {
+        var filterrow = $('#filterRow');
+        var i = $('button[action="FILTER"]').children("i");
+        var datarow = $('#dataRow');
+
+        if (visible) {
+            i.removeClass('fa fa-plus');
+            i.addClass('fa fa-minus');
+            filterrow.slideDown('fast');
+
+            datarow.slideUp('fast');
+        }
+        else {
+            i.removeClass('fa fa-minus');
+            i.addClass('fa fa-plus');
+            filterrow.slideUp('fast');
+
+            datarow.slideDown('fast');
+        }
+
+        setTimeout(function () {
+            rp3DataTableAjustsColumns('actividadestabla');
+        }, 200);
+    }
+
+    $(function () {
+
+        $('button[action="SEND"]').click(function (e) {
+            e.preventDefault();
+            consultar();
+        });
+
+        $('button[action="FILTER"]').click(function (e) {
+            e.preventDefault();
+
+            var filterrow = $('#filterRow');
+            var visible = filterrow.is(':visible');
+
+            showFilters(!visible);
+        });
+
+        $("#actividadestabla tr td").click(function () {
+
+            var selectable = $(this).hasClass("selectable-item");
+
+            if (selectable) {
+
+                var remover = $(this).hasClass("selected-item");
+
+                if (!remover) {
+                    $("#actividadestabla_wrapper tr td").removeClass("selected-item");
+                    $(this).addClass("selected-item");
+
+                    var idTareaActividad = $(this).parent().attr("idTareaActividad");
+                    var tipo = $(this).parent().attr("tipo");
+
+                    $('#IdTareaActividad').val(idTareaActividad);
+                    $('#Tipo').val(tipo);
+                }
+                else {
+                    $("#actividadestabla_wrapper tr td").removeClass("selected-item");
+                    $('#IdTareaActividad').val('');
+                    $('#Tipo').val('');
+                }
+
+                consultar();
+            }
+        });
+    });
+
+</script>

@@ -1,0 +1,36 @@
+﻿@model Rp3.Web.Mvc.Application.Security.Models.CreateUser
+@{
+    this.SetTitle(Rp3.Resources.TitleFor.CreateUser);
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+}
+@section ActionTitle{
+    @Html.Rp3ActivityActionButton(ActivityActions.Create, target: "#mainform")
+}
+
+@using(Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+{
+    using(Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginContentBox(Rp3.Resources.TitleFor.CreateUser))
+        {
+            using (Html.Rp3BeginForm(htmlAttributes: new { id = "mainform" }))
+            {
+            <text>
+            @Html.Rp3FormGroupTextBoxFor(model => model.Names)
+            @Html.Rp3FormGroupTextBoxFor(model => model.LastNames)
+            @Html.Rp3FormGroupTextBoxFor(model => model.Email)
+            @Html.Rp3FormGroupTextBoxFor(model => model.PhoneNumber)
+            @Html.Rp3FormGroupTextBoxFor(model => model.LogonName)
+            @Html.Rp3FormGroupPasswordFor(model => model.Password)
+            @Html.Rp3FormGroupPasswordFor(model => model.ConfirmPassword)
+            @Html.Rp3FormGroupDropDownListFor(model => model.RoleId, (SelectList)ViewBag.RoleSelectList)
+            @if(Rp3.Configuration.Rp3ConfigurationSection.Current.Authentication.AuthenticationType == Rp3.Configuration.AuthenticationElement.AuthenticationTypes.ActiveDirectory)
+            {
+                @:@Html.Rp3FormGroupCheckBoxFor(model => model.ActiveDirectoryEnabled)
+            }
+            </text>
+            }
+        }
+    }
+}

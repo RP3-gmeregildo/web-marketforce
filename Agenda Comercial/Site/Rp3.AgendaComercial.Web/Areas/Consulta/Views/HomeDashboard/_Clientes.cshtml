@@ -1,0 +1,46 @@
+﻿@model List<Rp3.AgendaComercial.Models.Ruta.View.AgendaListado>
+
+<h6 style="margin-top:0px; margin-bottom:3px">@Rp3.AgendaComercial.Resources.LabelFor.Hoy</h6>
+
+<div class="datapanellist" style="height:200px;overflow:auto">
+
+    @if (Model.Count > 0)
+    {
+        using (Html.Rp3BeginTable())
+        {
+            <tbody class="content">
+                @foreach (var app in Model)
+                {
+                    <tr class="row  hov">
+                        <td class="col-sm-1 text-center" style="width:20px"><div id="icon_location"><strong>@app.MarkerIndex</strong></div></td>
+                        <td class="col-sm-1" style="width:20px"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage(app.OrigenImageUrl)" /></td>
+                        <td class="col-sm-2" style="width:20px">
+                            @if (!string.IsNullOrEmpty(app.PathMin))
+                            {
+                                <img src="@Url.Content(app.PathMin)" class="profile-avatar img-circle" style="width:32px; border: 2px solid;">
+                            }
+                            else
+                            {
+                                <img src="@Url.Content("~/Content/AgendaComercial/img/DefaultPerson.jpg")" class="profile-avatar img-circle" style="width:32px; border: 2px solid;">
+                            }
+                        </td>
+                        <td class="col-md-4"><i class="fa fa-male" />@app.ClienteContacto</td>
+                        <td class="col-md-3"><i class="fa fa-calendar"></i>@app.fechaInicio.ToString("dd/MM/yyyy")  <i class="fa fa-clock-o"></i>@app.fechaInicio.ToString("HH:mm")-@app.fechaFin.ToString("HH:mm")</td>
+                        <td class="col-md-1" style="width:20px"><i class="fa round-corner" style="background-color:@app.Color; width:15px; height:15px;"></i>@*@app.EstadoAgenda*@</td>
+                        <td class="col-md-4"><i class="fa fa-home"></i>@app.Direccion</td>
+                    </tr>
+                }
+            </tbody>
+        }
+    }
+    else
+    {
+        <div class="" style="margin-bottom:50px;">
+            <tbody class="content">
+                <tr class="row  hov" style="cursor: pointer;">
+                    <td class="col-sm-12"><h4>No hay Registros a Mostrar</h4></td>
+                </tr>
+            </tbody>
+        </div>
+    }
+</div>

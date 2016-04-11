@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Rp3.Data.Models.Security.RoleBase>
+
+    @Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "Role", Action = "GridViewIndex" };
+        settings.KeyFieldName = "RoleId";
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.Resources.LabelFor.Role;
+            column.FieldName = "Name";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;            
+        });
+
+        settings.Columns.Add("Active", Rp3.Resources.LabelFor.Active, MVCxGridViewColumnType.CheckBox).Width = 70;
+    },
+    new List<OptionAction>() {
+        new OptionAction("ROLE", "DETAIL", "SECURITY"),
+        new OptionAction("ROLE", "EDIT", "SECURITY"),
+        new OptionAction("ROLE", "DELETE", "SECURITY"),
+    }).Bind(Model).GetHtml()

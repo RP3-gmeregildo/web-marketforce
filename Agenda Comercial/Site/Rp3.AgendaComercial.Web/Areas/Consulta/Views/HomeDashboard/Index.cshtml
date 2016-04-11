@@ -1,0 +1,151 @@
+﻿@{
+    this.SetTitle(Rp3.AgendaComercial.Resources.TitleFor.Dashboard);
+    this.SetImportTables(true);
+}
+
+@section ScriptImports{
+    @Url.ImportApplicationScript("highcharts/highcharts.js")
+    @Url.ImportApplicationScript("highcharts/highcharts-more.js")
+    @Url.ImportApplicationScript("homedashboard.js", true)
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section BeforeStyleImports{
+    @Url.ImportApplicationStyleSheet("daterangepicker/daterangepicker-bs3.css")
+    @Url.ImportApplicationStyleSheet("mapa.css", true)
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("daterangepicker/moment.min.js")
+    @Url.ImportApplicationScript("daterangepicker/daterangepicker.js")
+}
+
+@section MainTitle{
+   @{Html.RenderPartial("_CargoRol");}
+}
+
+@section ActionTitle{
+
+    <div style="float:right">
+        <div class="row" style="float:right;width:252px;margin-right:2px;margin-left:15px;margin-top:-2px;margin-bottom:10px;height:40px;">
+            <div id="reportrange" class="pull-left form-control daterange" style=" height:48px;">
+                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                <span style="height:100%"></span> <b style="height: 100%; display: inline-block;vertical-align: middle;"></b>
+            </div>
+        </div>
+    </div>
+
+    <div id="backbutton" style="float:right">
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Regresar, HtmlElementSize.Default, htmlAttributes: new { style = "margin-top:3px" }, icon: Icons.Reply, submit: false, actionName: "BACK", themeType: ElementThemeType.Default)
+    </div>
+
+    <h5 id="labelagente" style="float:right">
+        @Html.Rp3LabelWidget(Rp3.AgendaComercial.Resources.LabelFor.Agente, LabelWidgetType.Info)
+    </h5>
+}
+
+<div id="expand-container" style="display:none;width:100%;position: relative;">
+    <div style="cursor:pointer;position:absolute;right:10px;top:5px;z-index:10;" onclick="colapsePanel();"><i class="fa fa-compress" style="font-size:20px"></i></div>
+    <div id="expand-content">
+    </div>
+</div>
+
+<div id="main-content">
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            using (Html.Rp3BeginContentBox(paddingContent: false))
+            {
+                <div style="float:right;cursor:pointer;position:relative" onclick="expandPanel('#gestion-chart-content');"><i class="fa fa-expand"></i></div>
+
+                <div id="gestion-chart-content-container">
+                    <div id="gestion-chart-content" class="datapanel" style="height:205px;overflow:hidden;">
+
+                    </div>
+                </div>
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            using (Html.Rp3BeginContentBox(paddingContent: false))
+            {
+                <div id="efectividad-chart-content" class="datapanel" style="height:205px;overflow:hidden">
+
+                </div>
+            }
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            using (Html.Rp3BeginContentBox(paddingContent: false))
+            {
+                <div style="float:right;cursor:pointer;position:relative" onclick="expandPanel('#agente-list-content');"><i class="fa fa-expand"></i></div>
+                <div id="agente-list-content-container">
+                    <div id="agente-list-content" class="datapanel" style="height:205px;margin-left:5px;overflow:hidden">
+
+                    </div>
+                </div>
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            using (Html.Rp3BeginContentBox(paddingContent: false))
+            {
+                <div id="mainmap-content" class="datapanel" style="height:205px;overflow:hidden">
+                    <div style="float:right;cursor:pointer;" onclick="expandPanel('#map-content');"><i class=" fa fa-expand"></i></div>
+                    <h6 style="margin-top:0px; margin-bottom:3px">@Rp3.AgendaComercial.Resources.LabelFor.Hoy</h6>
+
+                    @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12, paddingContent: false, htmlAttributes: new { id = "mapcol" }))
+                    {
+                        <div id="map-content-container">
+                            <div id="map-content" class="datapanelmap" style="height:195px;">
+
+                            </div>
+                        </div>
+                    }
+
+                    @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1, paddingContent: false, htmlAttributes: new { id = "mapbuttoncol" }))
+                    {
+                        <div class="btn-group-vertical" style="float:right;width:40px;margin-top:0px;margin-left:1px;margin-right:1px">
+                            @Html.Rp3Button("", actionName: "show-ruta", iconClass: "fa fa-map-marker", includeText: false)
+                            @Html.Rp3Button("", actionName: "show-recorrido", iconClass: "fa fa-road", themeType: ElementThemeType.Default)
+                        </div>
+                    }
+                </div>
+            }
+        }
+    }
+</div>
+
+<style>
+    /*.pull-right {
+        float: none !important;
+    }*/
+
+    .block-flat {
+        padding: 10px 10px;
+    }
+
+    /*body {
+        overflow: hidden;
+    }*/
+</style>
+
+<script>
+
+    originalcurrentIdAgente = @ViewBag.IdAgente;
+
+    @if(ViewBag.EsSupervidor){
+        <text>
+    esSupervisor = true;
+    </text>
+    }
+
+</script>

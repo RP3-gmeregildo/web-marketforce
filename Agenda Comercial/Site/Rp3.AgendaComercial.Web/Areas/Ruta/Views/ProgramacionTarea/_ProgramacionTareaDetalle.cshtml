@@ -1,0 +1,31 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.ProgramacionTarea
+@{
+    List<Rp3.AgendaComercial.Models.General.Tarea> tareas = (List<Rp3.AgendaComercial.Models.General.Tarea>)ViewBag.Tareas;
+}
+
+@using (Html.Rp3BeginDataTable(scrollY: "250", functionsPageTop: false, allowPagination: false, allowSearch: false, allowSort: false))
+{
+    <thead>
+        <tr>
+            <th>@Rp3.AgendaComercial.Resources.LabelFor.Tarea</th>
+            @if (!Model.ReadOnly)
+            {
+                <th>@Html.Rp3CheckBox("tareacheckall", isChecked: Model.ProgramacionTareaDetalles.Count() > 0)</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tarea in tareas.OrderBy(p => p.Descripcion))
+        {
+            <tr>
+                <td>@tarea.Descripcion</td>
+                @if (!Model.ReadOnly)
+                {
+                    <td class="text-center">
+                        @Html.Rp3CheckBox("tareas", isChecked: Model.ProgramacionTareaDetalles.Any(p => p.IdTarea == tarea.IdTarea), value: tarea.Key)
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+}

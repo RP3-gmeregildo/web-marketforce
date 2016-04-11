@@ -1,0 +1,33 @@
+﻿@model Rp3.AgendaComercial.Models.General.View.ZonaModel
+@{
+    List<Rp3.Data.Models.General.GeopoliticalStructure> ciudades = (List<Rp3.Data.Models.General.GeopoliticalStructure>)ViewBag.Ciudades;
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+    {
+
+        <div class="form-group" id="zoneGroup" style="height:400px; margin-left:10px">
+        @if (ViewBag.ChosenZones != null)
+        {
+            <input type="hidden" value="@ViewBag.Parents" id="groupsIds" name="groupsIds" />
+            foreach (var item in ViewBag.ChosenZones)
+            {
+                <div class="form-group">
+                    @Html.Label((string)item.label, new { @class = "col-sm-6", style = "text-align: left !important; margin-left: 10px" })
+                    @if(ViewBag.ReadOnly)
+                    {
+                        @Html.ListBox(((string)item.Id.ToString()) + "Select", (MultiSelectList)item.lista, new { id = item.Id.ToString() + "Select", @class = "col-sm-10 controls", style = "margin-left: 10px", @disabled = "disabled" });
+                    }
+                    else
+                    {
+                        @Html.ListBox(((string)item.Id.ToString()) + "Select", (MultiSelectList)item.lista, new { id = item.Id.ToString() + "Select", @class = "col-sm-10 controls", style = "margin-left: 10px" });
+                    }
+                    
+                </div>
+            }
+        }
+        </div>
+    }
+}

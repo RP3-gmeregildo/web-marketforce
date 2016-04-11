@@ -1,0 +1,350 @@
+﻿@model List<Rp3.AgendaComercial.Models.General.ClienteDireccion>
+@{
+    if (ViewBag.ReadOnly == null) { ViewBag.ReadOnly = false; }
+
+    if (ViewBag.CampoObligatorio == null)
+    {
+        ViewBag.CampoObligatorio = new List<ParametroClienteCampo>();
+    }
+}
+
+@using Rp3.AgendaComercial.Models.General;
+@using Rp3.AgendaComercial.Models;
+
+<div id="direccionDetalle">
+
+    @if (Model.Count > 0)
+    {
+        foreach (var item in Model.OrderBy(p => p.TipoDireccionGeneralValue.Reference01))
+        {
+            int index = Model.IndexOf(item);
+
+            using (Html.Rp3BeginContentBox(item.TipoDireccionGeneralValue.Content, Icons.Circle))
+            {
+                using (Html.Rp3BeginForm())
+                {
+                    using (Html.Rp3BeginRow())
+                    {
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_8))
+                        {
+                            <text>
+                                <div direccionitem id="direccioncontent@{@item.IdClienteDireccion}">
+
+                                    <div markerindexicon="@Model[index].MarkerIndex"></div>
+
+                                    @Html.HiddenFor(model => Model[index].IdClienteDireccion, new { iddireccion = "" })
+                                    @Html.HiddenFor(model => Model[index].TipoDireccion, new { tipodireccion = "" })
+                                    @Html.HiddenFor(model => Model[index].MarkerIndex, new { markerindex = "" })
+
+                                    @Html.HiddenFor(model => Model[index].Latitud, new { latitud = "" })
+                                    @Html.HiddenFor(model => Model[index].Longitud, new { longitud = "" })
+
+                                    @using (Html.Rp3BeginRow())
+                                    {
+                                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                                        {
+                                            if (ViewBag.ReadOnly)
+                                            {
+                                                @Html.Rp3FormGroupDisplayFor(model => Model[index].Direccion)
+                                            }
+                                            else
+                                            {
+                                                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Direccion;
+
+                                                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Dir" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                                                {
+                                                    labelText = String.Format("{0}*", labelText);
+                                                }
+
+                                                @Html.Rp3FormGroupTextBoxFor(model => Model[index].Direccion, labelText: labelText, editorHtmlAttributes: new { direccion = "" })
+                                            }
+                                        }
+
+                                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                                        {
+                                            if (ViewBag.ReadOnly)
+                                            {
+                                                @Html.Rp3FormGroupDisplayFor(model => Model[index].Descripcion)
+                                            }
+                                            else
+                                            {
+                                                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Descripcion;
+
+                                                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "DirDesc" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                                                {
+                                                    labelText = String.Format("{0}*", labelText);
+                                                }
+
+                                                @Html.Rp3FormGroupTextBoxFor(model => Model[index].Descripcion, labelText: labelText, editorHtmlAttributes: new { descripcion = "" })
+                                            }
+                                        }
+                                    }
+
+                                    @using (Html.Rp3BeginRow())
+                                    {
+                                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                                        {
+                                            if (ViewBag.ReadOnly)
+                                            {
+                                                @Html.Rp3FormGroupDisplayFor(model => Model[index].Referencia)
+                                            }
+                                            else
+                                            {
+                                                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Referencia;
+
+                                                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Ref" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                                                {
+                                                    labelText = String.Format("{0}*", labelText);
+                                                }
+
+                                                @Html.Rp3FormGroupTextBoxFor(model => Model[index].Referencia, labelText: labelText, editorHtmlAttributes: new { referencia = "" })
+                                            }
+                                        }
+
+                                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                                        {
+                                            if (ViewBag.ReadOnly)
+                                            {
+                                                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.AplicaRuta))
+                                                {
+                                                    @Html.Rp3DisableCheckBoxFor(model => Model[index].AplicaRuta)
+                                                }
+                                            }
+                                            else
+                                            {
+                                                @Html.Rp3FormGroupCheckBoxFor(model => Model[index].AplicaRuta, editorHtmlAttributes: new { aplicaruta = "" })
+                                            }
+                                        }
+                                    }
+
+                                    @using (Html.Rp3BeginRow())
+                                    {
+                                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                                        {
+                                            if (ViewBag.ReadOnly)
+                                            {
+                                                @Html.Rp3FormGroupDisplayFor(model => Model[index].Ciudad.FullName, labelText: Rp3.AgendaComercial.Resources.LabelFor.CiudadPoblacion)
+                                            }
+                                            else
+                                            {
+                                                if (Model[index].IdCiudad == null)
+                                                {
+                                                    string labelText = Rp3.AgendaComercial.Resources.LabelFor.CiudadPoblacion;
+
+                                                    if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "CiuPar" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                                                    {
+                                                        labelText = String.Format("{0}*", labelText);
+                                                    }
+
+                                                    using (Html.Rp3BeginFormGroupEditor(labelText: labelText))
+                                                    {
+                                                        @Html.Rp3RemoteGeopoliticalStructureFor(model => Model[index].IdCiudad, new { idciudad = "" })
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    @Html.HiddenFor(model => Model[index].IdCiudad, new { idciudad = "" })
+                                                    @Html.Rp3FormGroupDisplayFor(model => Model[index].Ciudad.FullName, labelText: Rp3.AgendaComercial.Resources.LabelFor.CiudadPoblacion, displayHtmlAttributes: new { idciudad = "" })
+                                                }
+                                            }
+                                        }
+
+                                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                                        {
+                                            if (ViewBag.ReadOnly)
+                                            {
+                                                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.EsPrincipal))
+                                                {
+                                                    @Html.Rp3DisableCheckBoxFor(model => Model[index].EsPrincipal)
+                                                }
+                                            }
+                                            else
+                                            {
+                                                @Html.Rp3FormGroupCheckBoxFor(model => Model[index].EsPrincipal, editorHtmlAttributes: new { esprincipal = "" })
+                                            }
+                                        }
+                                    }
+
+                                    @using (Html.Rp3BeginRow())
+                                    {
+                                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                                        {
+                                            if (ViewBag.ReadOnly)
+                                            {
+                                                @Html.Rp3FormGroupDisplayFor(model => Model[index].Telefono1)
+                                            }
+                                            else
+                                            {
+                                                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Telefono;
+
+                                                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "DirTelf1" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                                                {
+                                                    labelText = String.Format("{0}*", labelText);
+                                                }
+
+                                                @Html.Rp3FormGroupTextBoxFor(model => Model[index].Telefono1, labelText: labelText, editorHtmlAttributes: new { telefono1 = "" })
+                                            }
+                                        }
+
+                                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                                        {
+                                            if (ViewBag.ReadOnly)
+                                            {
+                                                @Html.Rp3FormGroupDisplayFor(model => Model[index].Telefono2)
+                                            }
+                                            else
+                                            {
+                                                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Telefono;
+
+                                                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "DirTelf2" && p.IdGrupo == Constantes.GrupoClienteCampo.Direccion).Any())
+                                                {
+                                                    labelText = String.Format("{0}*", labelText);
+                                                }
+
+                                                @Html.Rp3FormGroupTextBoxFor(model => Model[index].Telefono2, labelText: labelText, editorHtmlAttributes: new { telefono2 = "" })
+                                            }
+                                        }
+                                    }
+
+                                    @*@using (Html.Rp3BeginRow())
+                                        {
+                                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                                            {
+                                                @Html.Rp3FormGroupDisplayFor(model => Model[index].EstadoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado)
+                                            }
+                                        }*@
+
+
+                                    @*@using (Html.Rp3BeginRow())
+                                        {
+                                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                                            {
+                                                @Html.Rp3FormGroupDisplayFor(model => Model[index].Latitud)
+                                            }
+
+                                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                                            {
+                                                @Html.Rp3FormGroupDisplayFor(model => Model[index].Longitud)
+                                            }
+                                        }*@
+
+                                    @if (!ViewBag.ReadOnly)
+                                    {
+                                        using (Html.Rp3BeginRow())
+                                        {
+                                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, false))
+                                            {
+                                                using (Html.Rp3BeginFormActionGroup())
+                                                {
+                                                    <div class="action_item_content">
+                                                        @*@Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Editar, HtmlElementSize.Default, icon: Icons.Edit, submit: false, actionName: "editar",
+                                                            htmlAttributes: new { editardireccion = "", idcliente = item.IdCliente, idclientedireccion = item.IdClienteDireccion, titulo = Rp3.AgendaComercial.Resources.LabelFor.Editar })*@
+
+                                                        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Ubicacion, HtmlElementSize.Default, icon: Icons.MapMarker, themeType: ElementThemeType.Success, submit: false, actionName: "ubicacion",
+                                                htmlAttributes: new
+                                                {
+                                                    ubicacion = "",
+                                                    idcliente = item.IdCliente,
+                                                    idclientedireccion = item.IdClienteDireccion,
+                                                    markerindex = item.MarkerIndex,
+                                                    markerstart = item.MarkerStart,
+                                                    markerzindex = item.MarkerZIndex,
+                                                    latitud = item.Latitud == null ? -1 : item.Latitud,
+                                                    longitud = item.Longitud == null ? -1 : item.Longitud,
+                                                    titulo = item.Etiqueta
+                                                })
+
+                                                        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Eliminar, HtmlElementSize.Default, icon: Icons.Remove, themeType: ElementThemeType.Error, submit: false, actionName: "eliminar",
+                                                htmlAttributes: new
+                                                {
+                                                    eliminardireccion = "",
+                                                    idcliente = item.IdCliente,
+                                                    idclientedireccion = item.IdClienteDireccion,
+                                                    mensaje = "¿Está seguro que desea continuar?",//Rp3.AgendaComercial.Resources.MessageFor.ConfirmarEliminar,
+                                                    titulo = "La Dirección actual será removida de todos los Lotes, Rutas y Agendas programadas."//Rp3.AgendaComercial.Resources.MessageFor.EliminarDireccionSeleccionada
+                                                })
+                                                    </div>
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Ubicacion, HtmlElementSize.Default, icon: Icons.MapMarker, submit: false, actionName: "ubicacion",
+                                                htmlAttributes: new
+                                                {
+                                                    style = "display:none",
+                                                    ubicacion = "",
+                                                    idcliente = item.IdCliente,
+                                                    idclientedireccion = item.IdClienteDireccion,
+                                                    markerindex = item.MarkerIndex,
+                                                    markerstart = item.MarkerStart,
+                                                    markerzindex = item.MarkerZIndex,
+                                                    latitud = item.Latitud == null ? -1 : item.Latitud,
+                                                    longitud = item.Longitud == null ? -1 : item.Longitud,
+                                                    titulo = item.Etiqueta
+                                                })
+                                    }
+
+                                </div>
+                            </text>
+                        }
+
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+                        {
+                            <div id="contentmap_viewMap@{@item.IdClienteDireccion}">
+                            </div>
+                        }
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        <h4 style="margin-top:20px">@Rp3.AgendaComercial.Resources.MessageFor.NoExistenDirecciones</h4>
+    }
+
+</div>
+@Url.ImportValidateUnobtrusiveScript()
+
+<script>
+    $(function () {
+
+        $('#direccionDetalle input[type=checkbox]').rp3CheckBox();
+
+        $('#direccionDetalle select:not([rp3-custom])').rp3SelectBox();
+        $('#direccionDetalle input[select-geopolitical]').rp3RemoteGeopoliticalStructureBox();
+
+        $("#content_direcciones .md-trigger").rp3Modal();
+
+        $('#content_direcciones [markerindexicon]').each(function (i, val) {
+            var markerIndex = $(val).attr('markerindexicon');
+
+            var item = $(val).parents('[widget-box]').children('.title-block').find('.icon');
+
+            item.html('<div id="icon_location" style=\"float:left; margin-top:-2px; margin-right:5px;\"><strong>' + markerIndex + '</strong></div>')
+        });
+
+        triggerEvents();
+
+        @foreach (var item in Model)
+        {
+            string latitud = "null";  
+            string longitud = "null";
+
+            if (item.Latitud != null) { 
+                latitud = item.Latitud.ToString();
+            }
+
+            if (item.Longitud != null) { 
+                longitud = item.Longitud.ToString();
+            }
+            
+            <text>
+            refreshMap(@item.IdCliente, @item.IdClienteDireccion, @latitud, @longitud, @item.MarkerIndex, '@Html.Raw(item.Titulo)');
+            </text>
+        }
+    });
+
+</script>

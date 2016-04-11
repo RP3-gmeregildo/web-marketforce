@@ -1,0 +1,13 @@
+﻿@model Rp3.AgendaComercial.Web.Ruta.AgendaConsulta
+
+<div id="model-content-general" style="min-height:500px;position:relative;"></div>
+<div id="model-content-tareas" style="position:relative;"></div>
+<div id="model-content-editar" style="position:relative;"></div>
+
+
+<script>
+    $(function () {
+        var model = @Html.Raw(Json.Encode(Model.ModalParam));
+        init_Modal(model[0].idRuta,model[0].idAgenda);
+    });
+</script>

@@ -1,0 +1,50 @@
+﻿<link rel="shortcut icon" type="image/x-icon" href="@Url.ContentApplicationImage("favicon.ico")" />
+<link rel="icon" type="image/png" href="@Url.ContentApplicationImage("favicon.png")" />
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Raleway:100' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+
+@*<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Base/css/jquery-ui.css")" />*@
+
+<!-- Bootstrap core CSS -->
+<link href="@Url.Content("~/Content/Base/js/bootstrap/dist/css/bootstrap.css")" rel="stylesheet" />
+<link rel="stylesheet" href="@Url.Content("~/Content/Base/fonts/font-awesome-4/css/font-awesome.min.css")">
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="@Url.ContentVersion("~/Content/Base/js/jquery.gritter/css/jquery.gritter.css")" />
+
+<link rel="stylesheet" type="text/css" href="@Url.ContentVersion("~/Content/Base/js/jquery.nanoscroller/nanoscroller.css")" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Base/js/bootstrap.switch/bootstrap-switch.css")" />
+<link rel="stylesheet" type="text/css" href="@Url.ContentVersion("~/Content/Base/js/waitme/waitMe.css")" />
+
+@*<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Base/js/bootstrap.slider/css/slider.css")" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Base/js/intro.js/introjs.css")" />*@
+
+
+@if (this.ImportFormElements() || this.ImportTables())
+{
+    <text>    
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Base/js/jquery.select2/select2.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Base/js/bootstrap.datetimepicker/css/bootstrap-datetimepicker.min.css")" />
+
+    <link href="@Url.Content("~/Content/Base/js/jquery.icheck/skins/square/blue.css")" rel="stylesheet"/>
+    </text>    
+}
+
+@if (this.ImportTables())
+{
+    <link href="@Url.Content("~/Content/Base/js/jquery.datatables/bootstrap-adapter/css/datatables.css")" rel="stylesheet" />     
+}
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Base/js/jquery.niftymodals/css/component.css")" />
+<!-- Custom styles for this template -->
+
+<link href="@Url.ContentVersion("~/Content/Base/css/style.css")" rel="stylesheet" />
+
+@*@Url.ImportStyleSheet("rp3.css")
+@Url.ImportStyleSheet("rp3.grey.css", false, "skin-color")
+@Url.ImportStyleSheet("rp3-ext.css")*@

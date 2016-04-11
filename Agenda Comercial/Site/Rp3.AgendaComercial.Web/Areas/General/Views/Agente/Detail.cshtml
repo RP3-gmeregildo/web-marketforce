@@ -1,0 +1,46 @@
+﻿@model Rp3.AgendaComercial.Models.General.Agente
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.DetalleAgente;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top:-20px" }))
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Agente))
+            {
+                <div style="height:390px">
+                    @Html.HiddenFor(model => model.IdAgente)
+                    @Html.Rp3FormGroupDisplayFor(model => model.Descripcion)
+                    @Html.Rp3FormGroupDisplayFor(model => model.Usuario.DescriptionName, labelText: Rp3.AgendaComercial.Resources.LabelFor.Usuario)
+                    @Html.Rp3FormGroupDisplayFor(model => model.Ruta.Descripcion)
+                    @Html.Rp3FormGroupDisplayFor(model => model.Cargo.Descripcion)
+                    @Html.Rp3FormGroupDisplayFor(model => model.Supervisor.Descripcion)
+                    @Html.Rp3FormGroupDisplayFor(model => model.Grupo.Descripcion)
+                    @Html.Rp3FormGroupDisplayFor(model => model.EstadoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado)
+                </div>
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_7))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Ubicaciones))
+            {
+                <div id="content_map" class="content_map" style="height:400px;width:100%;">
+
+                    @{ Html.RenderPartial("_UbicacionMapMarker", (List<Rp3.AgendaComercial.Models.General.Ubicacion>)ViewBag.Ubicaciones); }
+
+                </div>
+            }
+        }
+    }
+}

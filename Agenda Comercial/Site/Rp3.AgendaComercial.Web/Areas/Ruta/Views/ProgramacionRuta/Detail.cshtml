@@ -1,0 +1,38 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.ProgramacionRuta
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.DetalleProgramacionRuta;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("programacionruta.js", true)
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.ProgramacionRuta))
+            {
+                @:@{Html.RenderPartial("_Datos", Model);}
+                }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_7))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Ubicaciones))
+            {
+                <div id="content_map" class="content_map">
+
+                    @{ Html.RenderPartial("_UbicacionMapMarker", (List<Rp3.AgendaComercial.Models.General.Ubicacion>)ViewBag.Ubicaciones); }
+
+                </div>
+            }
+        }
+    }
+}

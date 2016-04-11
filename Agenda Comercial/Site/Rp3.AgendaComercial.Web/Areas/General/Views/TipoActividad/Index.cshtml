@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.General.TipoActividad>
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.TipoActividades;
+    this.SetImportAdvTables(true);
+}
+
+@section ActionTitle{
+    @Html.Rp3OptionActivityButton("TIPOACTIVIDAD", "NEW", HtmlElementSize.Default, includeText: true, applicationId: "AGENDACOMERCIAL")
+}
+
+@using(Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{ 
+    @Html.Partial("_GridViewIndex", Model)
+}

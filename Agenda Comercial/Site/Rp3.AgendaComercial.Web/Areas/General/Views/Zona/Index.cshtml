@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.General.Zona>
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.Zonas;
+
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportAdvTables(true);
+}
+
+@section ActionTitle{
+    @*@Html.Rp3OptionActivityButton("ZONA", "NEW", HtmlElementSize.Default, includeText: true, applicationId: "AGENDACOMERCIAL")*@
+
+    @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Nuevo, HtmlElementSize.Default, icon: Icons.Add, actionName: "NEW")
+
+    @Html.Rp3ActionButton(Rp3.AgendaComercial.Resources.LabelFor.Excel, "ExportToXls", "Zona", new { Area = "General" }, themeType: ElementThemeType.Default, icon: Icons.File)
+    @Html.Rp3ActionButton(Rp3.AgendaComercial.Resources.LabelFor.Pdf, "ExportToPdf", "Zona", new { Area = "General" }, themeType: ElementThemeType.Default, icon: Icons.File)
+}
+
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{
+    @Html.Partial("_GridViewIndex", Model)
+}
+
+@using (Html.Rp3BeginModal("newZonaDialog", effect: ModalEffect.FlipHorizontal3D, customWidth: 400))
+{
+    <div id="newZonaDialogContent"></div>
+}
+
+<script>
+
+    $(function () {
+        $('button[action="NEW"]').click(function (e) {
+            e.preventDefault();
+
+            createDialog();
+        });
+    });
+
+    function createDialog() {
+        rp3Get("/General/Zona/Create", null, function (data) {
+            $("#newZonaDialogContent").html(data);
+            rp3ModalShow("newZonaDialog");
+        });
+    };
+
+    function postNewZona() {
+        if ($('#createZonaform').valid()) {
+            rp3Post("/General/Zona/Create", $('#createZonaform').serialize(), function (data) {
+
+                rp3ModalHide("newZonaDialog");
+
+                if (!data.HasError) {
+                    window.location.href = RP3_ROOT_PATH + "/General/Zona/Edit?id=" + data.IdZona;
+                }
+
+                rp3NotifyAsPopup(data.Messages);
+            });
+        }
+    };
+</script>

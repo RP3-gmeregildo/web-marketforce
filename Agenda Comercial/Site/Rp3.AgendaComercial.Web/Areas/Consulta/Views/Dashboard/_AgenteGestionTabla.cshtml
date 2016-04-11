@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.Consulta.View.DashboardAgenteCategoriaCliente>
+
+
+    @using (Html.Rp3BeginDataTable(htmlAttributes: new { id = ViewBag.Name, agente_table="", norow=!Model.Any() }, allowPagination: false, scrollY: "185px", scrollX: true, columnAutoWidth: false, leftColumns: 1))
+    {
+        <thead>
+            <tr>
+                @*<th style="min-width:150px">@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>*@
+                <th style="min-width:200px">@Rp3.AgendaComercial.Resources.LabelFor.Cliente</th>
+                <th style="min-width:100px">@Rp3.AgendaComercial.Resources.LabelFor.Estado</th>
+                <th style="min-width:200px">@Rp3.AgendaComercial.Resources.LabelFor.Fecha</th>
+                <th style="min-width:200px">@Rp3.AgendaComercial.Resources.LabelFor.FechaGestion</th>
+                <th style="min-width:100px">@Rp3.AgendaComercial.Resources.LabelFor.IndicadorDuracionVisitaPromedio</th>
+        </tr>
+    </thead>
+        <tbody>
+            @foreach (var agente in Model.OrderBy(p=>p.Cliente))
+            {
+                <tr>
+                    @*<td>
+                        @agente.Agente
+                    </td>*@
+                    <td> 
+                        @agente.Cliente
+                    </td>
+                    <td>
+                        @agente.EstadoAgendaDescripcion
+                    </td>
+                    <td>
+                        @string.Format("{0:dd/MMM/yyyy HH:mm} - {1:HH:mm}", agente.FechaInicio, agente.FechaFin)
+                    </td>
+                    <td>
+                        @string.Format("{0:dd/MMM/yyyy HH:mm} - {1:HH:mm}", agente.FechaInicioGestion, agente.FechaFinGestion)
+                    </td>
+                    <td class="text-right">
+                        @agente.DuracionPromedio
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }

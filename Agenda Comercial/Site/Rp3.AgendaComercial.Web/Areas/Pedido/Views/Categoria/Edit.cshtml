@@ -1,0 +1,28 @@
+﻿@model Rp3.AgendaComercial.Models.Pedido.Categoria
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.EditarCategoria;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Categoria))
+            {
+                <text>
+                    @Html.HiddenFor(model => model.IdCategoria)
+                    @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion)
+                    @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla)
+                </text>
+
+                @Html.Rp3FormActionGroup(ActivityActions.Update)
+            }
+        }
+    }
+}

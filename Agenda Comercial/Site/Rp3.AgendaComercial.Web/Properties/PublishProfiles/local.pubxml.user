@@ -1,0 +1,2478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Este archivo es utilizado por el proceso de paquete/publicación de nuestro proyecto Web. Puede personalizar el comportamiento de este proceso
+editando este archivo MSBuild. Para conocer más acerca de esto, visite http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\inetpub\wwwroot\AgendaComercial</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="Areas/Consulta/Views/AgenteReporteGestion/Index.cshtml">
+      <publishTime>12/12/2015 09:34:28</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/ClienteRuta/Index.cshtml">
+      <publishTime>03/23/2015 09:59:19</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/ClienteRuta/_RutaDetalle.cshtml">
+      <publishTime>03/31/2015 16:05:24</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/Dashboard/Index.cshtml">
+      <publishTime>06/22/2015 10:38:52</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/Dashboard/_AgenteDetalleCategoriaClientes.cshtml">
+      <publishTime>03/23/2015 09:59:19</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/Dashboard/_AgenteDetallePrincipal.cshtml">
+      <publishTime>03/23/2015 09:59:19</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/Dashboard/_AgenteGestionTabla.cshtml">
+      <publishTime>03/23/2015 09:59:19</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/Dashboard/_Principal.cshtml">
+      <publishTime>03/23/2015 09:59:19</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/Dashboard/_ResumenGestionAgente.cshtml">
+      <publishTime>03/23/2015 09:59:19</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/Dashboard/_ResumenGestionChart.cshtml">
+      <publishTime>04/08/2015 16:13:10</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/EstadisticaEncuesta/Detail.cshtml">
+      <publishTime>12/01/2015 15:49:35</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/EstadisticaEncuesta/Index.cshtml">
+      <publishTime>03/11/2015 01:27:32</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/EstadisticaEncuesta/_ActividadCheck.cshtml">
+      <publishTime>07/20/2015 17:03:52</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/EstadisticaEncuesta/_ActividadSelect.cshtml">
+      <publishTime>03/12/2015 14:57:12</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/EstadisticaEncuesta/_ActividadText.cshtml">
+      <publishTime>03/11/2015 01:27:32</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/EstadisticaEncuesta/_GridViewIndex.cshtml">
+      <publishTime>03/11/2015 01:27:32</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/Geocerca/Index.cshtml">
+      <publishTime>05/19/2015 10:33:16</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/Geocerca/_UbicacionMapMarkerAllFences.cshtml">
+      <publishTime>05/19/2015 10:33:16</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/Geocerca/_Zona.cshtml">
+      <publishTime>05/25/2015 12:05:07</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/HomeDashboard/Index.cshtml">
+      <publishTime>06/22/2015 10:38:52</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/HomeDashboard/_Agentes.cshtml">
+      <publishTime>04/21/2015 10:02:32</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/HomeDashboard/_Clientes.cshtml">
+      <publishTime>04/08/2015 16:13:10</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/HomeDashboard/_EfectividadChart.cshtml">
+      <publishTime>04/08/2015 16:13:10</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/HomeDashboard/_GestionChart.cshtml">
+      <publishTime>04/08/2015 16:13:10</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/Shared/_Layout.cshtml">
+      <publishTime>02/11/2015 10:29:59</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/web.config">
+      <publishTime>02/11/2015 10:29:59</publishTime>
+    </File>
+    <File Include="Areas/Consulta/Views/_ViewStart.cshtml">
+      <publishTime>02/11/2015 10:29:59</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Agente/Create.cshtml">
+      <publishTime>06/09/2015 12:29:38</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Agente/Delete.cshtml">
+      <publishTime>06/09/2015 12:29:38</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Agente/Detail.cshtml">
+      <publishTime>06/09/2015 12:29:38</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Agente/Edit.cshtml">
+      <publishTime>06/09/2015 12:29:38</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Agente/Index.cshtml">
+      <publishTime>07/16/2015 18:50:13</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Agente/_GridViewIndex.cshtml">
+      <publishTime>06/09/2015 12:29:38</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Calendario/Create.cshtml">
+      <publishTime>03/23/2015 09:59:20</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Calendario/Delete.cshtml">
+      <publishTime>03/27/2015 15:11:13</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Calendario/Detail.cshtml">
+      <publishTime>03/27/2015 15:11:14</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Calendario/Edit.cshtml">
+      <publishTime>03/23/2015 09:59:20</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Calendario/Index.cshtml">
+      <publishTime>07/16/2015 18:50:13</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Calendario/_DiasLaborales.cshtml">
+      <publishTime>03/23/2015 09:59:20</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Calendario/_DiasNoLaborables.cshtml">
+      <publishTime>03/27/2015 15:11:13</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Calendario/_GridViewIndex.cshtml">
+      <publishTime>03/27/2015 15:11:14</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Canal/Create.cshtml">
+      <publishTime>03/17/2015 09:10:28</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Canal/Delete.cshtml">
+      <publishTime>03/05/2015 16:11:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Canal/Detail.cshtml">
+      <publishTime>02/11/2015 10:30:02</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Canal/Edit.cshtml">
+      <publishTime>03/05/2015 16:11:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Canal/Index.cshtml">
+      <publishTime>07/16/2015 18:50:13</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Canal/_GridViewIndex.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cargo/Create.cshtml">
+      <publishTime>06/09/2015 12:29:38</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cargo/Delete.cshtml">
+      <publishTime>03/05/2015 16:11:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cargo/Detail.cshtml">
+      <publishTime>02/11/2015 10:30:02</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cargo/Edit.cshtml">
+      <publishTime>02/11/2015 10:30:02</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cargo/Index.cshtml">
+      <publishTime>07/16/2015 18:50:13</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cargo/_GridViewIndex.cshtml">
+      <publishTime>07/08/2015 09:34:00</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/Create.cshtml">
+      <publishTime>07/30/2015 11:36:09</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/Delete.cshtml">
+      <publishTime>05/25/2015 12:05:08</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/Detail.cshtml">
+      <publishTime>05/25/2015 12:05:08</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/Edit.cshtml">
+      <publishTime>07/30/2015 11:36:06</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/Index.cshtml">
+      <publishTime>07/16/2015 18:50:13</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_ClienteCropImageDialog.cshtml">
+      <publishTime>07/30/2015 11:36:06</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_Contactos.cshtml">
+      <publishTime>03/05/2015 16:11:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_ContactosDetalle.cshtml">
+      <publishTime>05/31/2015 18:30:18</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_DatosGenerales.cshtml">
+      <publishTime>05/11/2015 00:30:25</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_Direcciones.cshtml">
+      <publishTime>05/07/2015 09:52:59</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_DireccionesDetalle.cshtml">
+      <publishTime>07/20/2015 17:03:54</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_Estadistica.cshtml">
+      <publishTime>05/25/2015 12:05:07</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_Foto.cshtml">
+      <publishTime>02/11/2015 10:30:03</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_GridViewIndex.cshtml">
+      <publishTime>07/08/2015 09:34:00</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_LoteRuta.cshtml">
+      <publishTime>05/07/2015 09:52:59</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_SetContacto.cshtml">
+      <publishTime>05/11/2015 00:30:25</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_SetDireccion.cshtml">
+      <publishTime>05/11/2015 00:30:25</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_SetFoto.cshtml">
+      <publishTime>02/11/2015 10:30:03</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_SetFotoContacto.cshtml">
+      <publishTime>02/11/2015 10:30:03</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_SetUbicacion.cshtml">
+      <publishTime>05/07/2015 09:53:00</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Cliente/_SetUbicacionMapCreate.cshtml">
+      <publishTime>05/14/2015 14:58:39</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Parametros/Edit.cshtml">
+      <publishTime>03/24/2015 09:31:23</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Parametros/_ParametrosGenerales.cshtml">
+      <publishTime>03/27/2015 15:11:14</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Parametros/_ParametrosUbicacion.cshtml">
+      <publishTime>03/24/2015 09:31:23</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Parametros/_SetUbicacion.cshtml">
+      <publishTime>03/27/2015 15:11:14</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Region/Create.cshtml">
+      <publishTime>03/17/2015 09:10:28</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Region/Delete.cshtml">
+      <publishTime>02/11/2015 10:30:03</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Region/Detail.cshtml">
+      <publishTime>02/11/2015 10:30:03</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Region/Edit.cshtml">
+      <publishTime>02/11/2015 10:30:03</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Region/Index.cshtml">
+      <publishTime>07/16/2015 18:50:13</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Region/_GridViewIndex.cshtml">
+      <publishTime>02/11/2015 10:30:03</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/Configurator.cshtml">
+      <publishTime>02/11/2015 10:30:04</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/Create.cshtml">
+      <publishTime>03/17/2015 09:10:28</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/Delete.cshtml">
+      <publishTime>05/18/2015 09:43:58</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/Detail.cshtml">
+      <publishTime>05/18/2015 09:43:58</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/Edit.cshtml">
+      <publishTime>05/18/2015 09:43:58</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/Index.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/_ActividadDetalle.cshtml">
+      <publishTime>11/12/2015 11:55:42</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/_ActividadTreeListPartial.cshtml">
+      <publishTime>02/11/2015 10:30:04</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/_Create.cshtml">
+      <publishTime>04/21/2015 10:02:32</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/_Datos.cshtml">
+      <publishTime>02/11/2015 10:30:04</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/_GridViewIndex.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/_SetOpciones.cshtml">
+      <publishTime>03/05/2015 16:11:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/_TabActividad.cshtml">
+      <publishTime>03/05/2015 16:11:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/_TabDato.cshtml">
+      <publishTime>05/18/2015 09:43:57</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/_TabExistente.cshtml">
+      <publishTime>04/21/2015 10:02:32</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/_TabGestion.cshtml">
+      <publishTime>04/21/2015 10:02:32</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/_TabNuevo.cshtml">
+      <publishTime>04/21/2015 10:02:32</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/_TabRuta.cshtml">
+      <publishTime>11/16/2015 18:24:46</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Tarea/_VerDatos.cshtml">
+      <publishTime>11/12/2015 11:06:58</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoActividad/Create.cshtml">
+      <publishTime>03/17/2015 09:10:28</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoActividad/Delete.cshtml">
+      <publishTime>02/11/2015 10:30:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoActividad/Detail.cshtml">
+      <publishTime>02/11/2015 10:30:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoActividad/Edit.cshtml">
+      <publishTime>02/11/2015 10:30:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoActividad/Index.cshtml">
+      <publishTime>02/11/2015 10:30:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoActividad/_Datos.cshtml">
+      <publishTime>02/11/2015 10:30:04</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoActividad/_GridViewIndex.cshtml">
+      <publishTime>02/11/2015 10:30:04</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoActividad/_Opciones.cshtml">
+      <publishTime>05/18/2015 09:43:58</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoCartera/Create.cshtml">
+      <publishTime>03/17/2015 09:10:28</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoCartera/Delete.cshtml">
+      <publishTime>02/11/2015 10:30:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoCartera/Detail.cshtml">
+      <publishTime>02/11/2015 10:30:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoCartera/Edit.cshtml">
+      <publishTime>02/11/2015 10:30:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoCartera/Index.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoCartera/_GridViewIndex.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoCliente/Create.cshtml">
+      <publishTime>03/17/2015 09:10:28</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoCliente/Delete.cshtml">
+      <publishTime>03/05/2015 16:11:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoCliente/Detail.cshtml">
+      <publishTime>02/11/2015 10:30:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoCliente/Edit.cshtml">
+      <publishTime>03/05/2015 16:11:05</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoCliente/Index.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/General/Views/TipoCliente/_GridViewIndex.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Web.config">
+      <publishTime>02/11/2015 10:30:01</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Zona/Create.cshtml">
+      <publishTime>03/17/2015 09:10:28</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Zona/Delete.cshtml">
+      <publishTime>05/11/2015 00:30:25</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Zona/Detail.cshtml">
+      <publishTime>05/11/2015 00:30:25</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Zona/Edit.cshtml">
+      <publishTime>05/25/2015 12:05:08</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Zona/Index.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Zona/_Create.cshtml">
+      <publishTime>05/07/2015 09:53:00</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Zona/_Edit.cshtml">
+      <publishTime>05/25/2015 12:05:08</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Zona/_GridViewIndex.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Zona/_SetUbicacion.cshtml">
+      <publishTime>02/25/2015 03:14:37</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Zona/_SetUbicacionMap.cshtml">
+      <publishTime>02/25/2015 03:13:09</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Zona/_UbicacionZona.cshtml">
+      <publishTime>02/26/2015 18:57:38</publishTime>
+    </File>
+    <File Include="Areas/General/Views/Zona/_ZonaDetalle.cshtml">
+      <publishTime>02/26/2015 18:57:38</publishTime>
+    </File>
+    <File Include="Areas/General/Views/_ViewStart.cshtml">
+      <publishTime>02/11/2015 10:30:01</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/AnalisisAgente/Index.cshtml">
+      <publishTime>06/22/2015 10:38:51</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/AnalisisAgente/_Agentes.cshtml">
+      <publishTime>07/30/2015 11:36:06</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/AnalisisAgente/_Chart.cshtml">
+      <publishTime>06/22/2015 10:38:51</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/AnalisisAgente/_DetalleAgentes.cshtml">
+      <publishTime>07/30/2015 11:36:06</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Grupo/Create.cshtml">
+      <publishTime>06/09/2015 12:29:38</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Grupo/Delete.cshtml">
+      <publishTime>06/12/2015 11:25:43</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Grupo/Detail.cshtml">
+      <publishTime>06/09/2015 12:29:38</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Grupo/Edit.cshtml">
+      <publishTime>06/09/2015 12:29:39</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Grupo/Index.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Grupo/_Agentes.cshtml">
+      <publishTime>06/09/2015 12:29:38</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Grupo/_Datos.cshtml">
+      <publishTime>11/04/2015 12:01:38</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Grupo/_GridViewIndex.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Grupo/_SeleccionAgente.cshtml">
+      <publishTime>06/11/2015 11:05:53</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Grupo/_SetUbicacionMapCreate.cshtml">
+      <publishTime>06/09/2015 12:29:38</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Justificacion/Index.cshtml">
+      <publishTime>06/22/2015 10:38:51</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Justificacion/_PermisoLista.cshtml">
+      <publishTime>06/22/2015 10:38:51</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Justificacion/_PermisoListaDetalle.cshtml">
+      <publishTime>06/18/2015 09:26:30</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Marcacion/Index.cshtml">
+      <publishTime>08/27/2015 15:08:50</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Marcacion/_Agentes.cshtml">
+      <publishTime>08/27/2015 15:08:43</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Marcacion/_PermisoListaDetalle.cshtml">
+      <publishTime>03/08/2015 14:31:36</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Marcacion/_UbicacionMapMarkerAgente.cshtml">
+      <publishTime>03/08/2015 14:31:36</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/PermisoPrevio/Index.cshtml">
+      <publishTime>06/22/2015 10:38:52</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/PermisoPrevio/_PermisoLista.cshtml">
+      <publishTime>06/18/2015 09:26:29</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/PermisoPrevio/_PermisoListaDetalle.cshtml">
+      <publishTime>06/18/2015 09:26:30</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Shared/_PermisoDetalleContent.cshtml">
+      <publishTime>06/17/2015 11:47:49</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Shared/_PermisoEdit.cshtml">
+      <publishTime>06/25/2015 18:14:23</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Shared/_SeleccionAgente.cshtml">
+      <publishTime>06/12/2015 11:25:43</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/Shared/_SeleccionSort.cshtml">
+      <publishTime>06/18/2015 09:26:30</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/web.config">
+      <publishTime>06/09/2015 12:29:38</publishTime>
+    </File>
+    <File Include="Areas/Marcacion/Views/_ViewStart.cshtml">
+      <publishTime>06/09/2015 12:29:38</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Etapa/Create.cshtml">
+      <publishTime>09/21/2015 16:15:47</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Etapa/Delete.cshtml">
+      <publishTime>09/21/2015 12:12:54</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Etapa/Detail.cshtml">
+      <publishTime>09/22/2015 12:11:18</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Etapa/Edit.cshtml">
+      <publishTime>09/22/2015 12:11:21</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Etapa/Index.cshtml">
+      <publishTime>09/21/2015 11:33:35</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Etapa/_Etapas.cshtml">
+      <publishTime>11/27/2015 13:07:30</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Etapa/_GridViewIndex.cshtml">
+      <publishTime>09/21/2015 11:16:45</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Etapa/_SeleccionTarea.cshtml">
+      <publishTime>05/25/2015 12:05:08</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Etapa/_VerDatos.cshtml">
+      <publishTime>11/26/2015 17:08:24</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Oportunidad/Index.cshtml">
+      <publishTime>05/12/2015 09:31:02</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Oportunidad/SeleccionAgente.cshtml">
+      <publishTime>05/26/2015 14:48:09</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Oportunidad/_OportunidadLista.cshtml">
+      <publishTime>07/08/2015 09:34:00</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Oportunidad/_OportunidadListaDetalle.cshtml">
+      <publishTime>02/06/2015 15:41:33</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Oportunidad/_SeleccionSort.cshtml">
+      <publishTime>01/06/2015 15:40:45</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Oportunidad/_SetUbicacion.cshtml">
+      <publishTime>07/30/2015 11:36:07</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Oportunidad/_UbicacionMapMarkerExpand.cshtml">
+      <publishTime>07/30/2015 11:36:07</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Shared/_OportunidadDetalleBitacora.cshtml">
+      <publishTime>09/14/2015 13:04:36</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Shared/_OportunidadDetalleEtapa.cshtml">
+      <publishTime>01/06/2015 15:40:44</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Shared/_OportunidadDetalleGestion.cshtml">
+      <publishTime>09/22/2015 12:21:46</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Shared/_OportunidadDetalleGestionContent.cshtml">
+      <publishTime>09/14/2015 12:46:15</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Shared/_OportunidadDetalleInfo.cshtml">
+      <publishTime>09/14/2015 13:00:57</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/Shared/_OportunidadDetalleTarea.cshtml">
+      <publishTime>07/08/2015 18:48:34</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/web.config">
+      <publishTime>05/14/2015 14:58:38</publishTime>
+    </File>
+    <File Include="Areas/Oportunidad/Views/_ViewStart.cshtml">
+      <publishTime>05/18/2015 09:43:58</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Categoria/Create.cshtml">
+      <publishTime>10/30/2015 11:55:29</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Categoria/Delete.cshtml">
+      <publishTime>10/30/2015 11:55:52</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Categoria/Detail.cshtml">
+      <publishTime>10/30/2015 11:55:51</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Categoria/Edit.cshtml">
+      <publishTime>10/30/2015 11:55:50</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Categoria/Index.cshtml">
+      <publishTime>10/29/2015 12:23:11</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Categoria/_GridViewIndex.cshtml">
+      <publishTime>10/29/2015 12:32:54</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Pedido/Create.cshtml">
+      <publishTime>10/11/2015 17:44:07</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Pedido/Delete.cshtml">
+      <publishTime>10/11/2015 17:44:07</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Pedido/Detail.cshtml">
+      <publishTime>10/22/2015 17:33:53</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Pedido/Edit.cshtml">
+      <publishTime>10/11/2015 17:44:07</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Pedido/Index.cshtml">
+      <publishTime>10/15/2015 16:21:45</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Pedido/_GridViewIndex.cshtml">
+      <publishTime>10/22/2015 17:06:31</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Pedido/_GridViewIndexDetalle.cshtml">
+      <publishTime>10/15/2015 14:02:09</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Producto/Create.cshtml">
+      <publishTime>10/16/2015 12:27:32</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Producto/Delete.cshtml">
+      <publishTime>10/11/2015 17:42:08</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Producto/Detail.cshtml">
+      <publishTime>10/13/2015 15:11:28</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Producto/Edit.cshtml">
+      <publishTime>10/16/2015 12:22:52</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Producto/Index.cshtml">
+      <publishTime>10/15/2015 16:25:27</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Producto/_ClienteCropImageDialog.cshtml">
+      <publishTime>10/16/2015 12:10:49</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Producto/_Descuentos.cshtml">
+      <publishTime>10/12/2015 11:04:40</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Producto/_GridViewIndex.cshtml">
+      <publishTime>06/11/2015 15:47:39</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Producto/_Producto.cshtml">
+      <publishTime>10/30/2015 15:49:30</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/Producto/_SetFoto.cshtml">
+      <publishTime>10/16/2015 11:11:47</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/SubCategoria/Create.cshtml">
+      <publishTime>10/30/2015 11:14:41</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/SubCategoria/Delete.cshtml">
+      <publishTime>10/30/2015 11:56:24</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/SubCategoria/Detail.cshtml">
+      <publishTime>10/30/2015 11:56:22</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/SubCategoria/Edit.cshtml">
+      <publishTime>10/30/2015 11:56:38</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/SubCategoria/Index.cshtml">
+      <publishTime>10/30/2015 11:09:01</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/SubCategoria/_GridViewIndex.cshtml">
+      <publishTime>10/30/2015 12:16:07</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/web.config">
+      <publishTime>10/11/2015 17:39:19</publishTime>
+    </File>
+    <File Include="Areas/Pedido/Views/_ViewStart.cshtml">
+      <publishTime>10/11/2015 17:39:19</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/Index.cshtml">
+      <publishTime>08/28/2015 10:15:10</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/SeleccionAgente.cshtml">
+      <publishTime>03/10/2015 14:42:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/_AgendaCalendario.cshtml">
+      <publishTime>03/05/2015 16:11:06</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/_AgendaCalendarioNavigator.cshtml">
+      <publishTime>03/23/2015 09:59:20</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/_AgendaLista.cshtml">
+      <publishTime>07/08/2015 09:34:00</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/_AgendaListaDetalle.cshtml">
+      <publishTime>07/20/2015 17:03:52</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/_AgendaPhotoBook.cshtml">
+      <publishTime>07/08/2015 09:34:00</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/_AgendaPhotoBookDetalle.cshtml">
+      <publishTime>07/08/2015 09:34:00</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/_Create.cshtml">
+      <publishTime>05/11/2015 00:30:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/_SeleccionCliente.cshtml">
+      <publishTime>05/25/2015 12:05:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/_SeleccionSort.cshtml">
+      <publishTime>02/06/2015 15:41:33</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/_UbicacionMapMarkerExpand.cshtml">
+      <publishTime>08/28/2015 10:15:10</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/_Update.cshtml">
+      <publishTime>03/31/2015 16:05:24</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/_VerDatos.cshtml">
+      <publishTime>05/11/2015 00:30:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/_VerPanel.cshtml">
+      <publishTime>05/11/2015 00:30:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda/_VerTareas.cshtml">
+      <publishTime>11/12/2015 17:51:50</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda2/Index.cshtml">
+      <publishTime>02/11/2015 10:30:07</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda2/_AgendaSchedulerPartial.cshtml">
+      <publishTime>02/11/2015 10:30:07</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda2/_AppointmentFormPartial.cshtml">
+      <publishTime>02/11/2015 10:30:07</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda2/_ClientePartial.cshtml">
+      <publishTime>02/11/2015 10:30:07</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Agenda2/_ContactoPartial.cshtml">
+      <publishTime>02/11/2015 10:30:07</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/GestionDetallado/Index.cshtml">
+      <publishTime>02/11/2015 10:30:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/GestionDetallado/_ActividadTreeListPartial.cshtml">
+      <publishTime>02/11/2015 10:30:07</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/GestionDetallado/_DetalleActividad.cshtml">
+      <publishTime>02/11/2015 10:30:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/GestionDetallado/_DetalleTarea.cshtml">
+      <publishTime>02/11/2015 10:30:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/GestionDetallado/_Gestiones.cshtml">
+      <publishTime>02/11/2015 10:30:07</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/GestionResumido/Index.cshtml">
+      <publishTime>02/11/2015 10:30:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/GestionResumido/_ChartTarea.cshtml">
+      <publishTime>02/11/2015 10:30:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/GestionResumido/_ChartVisita.cshtml">
+      <publishTime>02/11/2015 10:30:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/GestionResumido/_ResumenEstado.cshtml">
+      <publishTime>02/11/2015 10:30:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/InformeParada/Index.cshtml">
+      <publishTime>12/12/2015 09:34:29</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/InformeParada/_Agentes.cshtml">
+      <publishTime>08/27/2015 15:08:43</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/InformeParada/_Chart.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Lote/Create.cshtml">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Lote/Delete.cshtml">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Lote/Detail.cshtml">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Lote/Edit.cshtml">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Lote/Index.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Lote/Process.cshtml">
+      <publishTime>02/11/2015 10:30:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Lote/_Datos.cshtml">
+      <publishTime>05/11/2015 00:30:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Lote/_Datos_OLD.cshtml">
+      <publishTime>02/11/2015 10:30:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Lote/_GridViewIndex.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Lote/_LoteDetalle.cshtml">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Memo/Create.cshtml">
+      <publishTime>03/17/2015 09:10:29</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Memo/Delete.cshtml">
+      <publishTime>02/11/2015 10:30:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Memo/Detail.cshtml">
+      <publishTime>02/11/2015 10:30:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Memo/Edit.cshtml">
+      <publishTime>02/11/2015 10:30:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Memo/Index.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Memo/_Datos.cshtml">
+      <publishTime>02/11/2015 10:30:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Memo/_GridViewIndex.cshtml">
+      <publishTime>02/11/2015 10:30:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Memo/_MemoDestinatario.cshtml">
+      <publishTime>02/11/2015 10:30:08</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/NotificacionAgente/Index.cshtml">
+      <publishTime>07/08/2015 18:48:35</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/NotificacionAgente/_Agente.cshtml">
+      <publishTime>07/08/2015 18:48:34</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionRuta/Configurator.cshtml">
+      <publishTime>03/23/2015 09:59:20</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionRuta/Create.cshtml">
+      <publishTime>03/27/2015 15:11:14</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionRuta/Delete.cshtml">
+      <publishTime>03/27/2015 15:11:14</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionRuta/Detail.cshtml">
+      <publishTime>03/27/2015 15:11:14</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionRuta/Edit.cshtml">
+      <publishTime>03/27/2015 15:11:14</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionRuta/Index.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionRuta/Process.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionRuta/_AppointmentFormPartial.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionRuta/_Datos.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionRuta/_GridViewIndex.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionRuta/_ProgramacionRutaDetalle.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionRuta/_RutaSchedulerPartial.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionTarea/Create.cshtml">
+      <publishTime>03/17/2015 09:10:29</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionTarea/Delete.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionTarea/Detail.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionTarea/Edit.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionTarea/Index.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionTarea/_Datos.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionTarea/_GridViewIndex.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionTarea/_ProgramacionTareaDetalle.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ProgramacionTarea/_ProgramacionTareaRuta.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ReasignacionCliente/Index.cshtml">
+      <publishTime>07/20/2015 17:03:53</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ReasignacionCliente/_RutaDestinoDetalle.cshtml">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/ReasignacionCliente/_RutaOrigenDetalle.cshtml">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/RecorridoAgente/Index.cshtml">
+      <publishTime>08/27/2015 15:08:43</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/RecorridoAgente/_Fechas.cshtml">
+      <publishTime>08/27/2015 15:08:44</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/RecorridoAgente/_Map.cshtml">
+      <publishTime>05/14/2015 14:58:39</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Reunion/Create.cshtml">
+      <publishTime>03/17/2015 09:10:29</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Reunion/Delete.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Reunion/Detail.cshtml">
+      <publishTime>02/11/2015 10:30:10</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Reunion/Edit.cshtml">
+      <publishTime>02/11/2015 10:30:10</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Reunion/Index.cshtml">
+      <publishTime>02/11/2015 10:30:10</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Reunion/_Datos.cshtml">
+      <publishTime>02/11/2015 10:30:09</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Reunion/_GridViewIndex.cshtml">
+      <publishTime>02/11/2015 10:30:10</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/Create.cshtml">
+      <publishTime>03/23/2015 09:59:21</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/Delete.cshtml">
+      <publishTime>03/27/2015 15:11:14</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/Detail.cshtml">
+      <publishTime>03/27/2015 15:11:14</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/Edit.cshtml">
+      <publishTime>03/27/2015 15:11:14</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/Index.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/Process.cshtml">
+      <publishTime>02/11/2015 10:30:10</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/Reassign.cshtml">
+      <publishTime>03/05/2015 16:11:07</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/Schedule.cshtml">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/_Datos.cshtml">
+      <publishTime>03/12/2015 14:57:11</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/_GridViewIndex.cshtml">
+      <publishTime>07/16/2015 18:50:14</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/_ProgramacionesClientes.cshtml">
+      <publishTime>03/23/2015 09:59:20</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/_ProgramacionRuta.cshtml">
+      <publishTime>03/23/2015 09:59:21</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/_RutaDetalle.cshtml">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/_RutaExcluir.cshtml">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/_RutaIncluir.cshtml">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/_RutaLote.cshtml">
+      <publishTime>02/11/2015 10:30:10</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Ruta/_SetProgramacion.cshtml">
+      <publishTime>12/04/2015 17:59:17</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Shared/_AgendaDetalleGestion.cshtml">
+      <publishTime>05/11/2015 13:04:22</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Shared/_AgendaDetalleGestionContent.cshtml">
+      <publishTime>05/11/2015 12:59:27</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/UbicacionAgente/Index.cshtml">
+      <publishTime>07/08/2015 09:34:01</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/UbicacionAgente/_Agente.cshtml">
+      <publishTime>03/27/2015 15:11:14</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/UbicacionAgente/_Notificacion.cshtml">
+      <publishTime>03/08/2015 14:31:37</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/UbicacionAgente/_UbicacionMapMarkerAgente.cshtml">
+      <publishTime>09/16/2015 11:19:02</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/Web.config">
+      <publishTime>02/11/2015 10:30:07</publishTime>
+    </File>
+    <File Include="Areas/Ruta/Views/_ViewStart.cshtml">
+      <publishTime>02/11/2015 10:30:07</publishTime>
+    </File>
+    <File Include="bin/ActionMailer.Net.dll">
+      <publishTime>05/19/2013 20:20:04</publishTime>
+    </File>
+    <File Include="bin/ActionMailer.Net.Mvc.dll">
+      <publishTime>05/19/2013 20:20:04</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Dashboard.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:09:05</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Dashboard.v14.1.Web.resources.dll">
+      <publishTime>11/28/2014 15:09:05</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Data.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:09:05</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.DataAccess.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:09:09</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Office.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:11:59</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.PivotGrid.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Printing.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:11:59</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.RichEdit.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:06</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Sparkline.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:12:02</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Spreadsheet.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:07</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Utils.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:04</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Web.ASPxHtmlEditor.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:08:01</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Web.ASPxScheduler.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:08:02</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Web.ASPxSpellChecker.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:08:03</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Web.ASPxSpreadsheet.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:02</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Web.ASPxTreeList.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:09:02</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Web.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:08:01</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Xpo.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:10</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.XtraCharts.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:11</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.XtraGauges.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:04</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.XtraGauges.v14.1.Presets.resources.dll">
+      <publishTime>11/28/2014 15:18:04</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.XtraPivotGrid.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.XtraReports.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.XtraReports.v14.1.Web.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.XtraScheduler.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:06</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Charts.v14.1.Core.dll">
+      <publishTime>11/28/2014 15:12:10</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Dashboard.v14.1.Core.dll">
+      <publishTime>11/28/2014 15:09:05</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Dashboard.v14.1.Web.dll">
+      <publishTime>11/28/2014 15:09:05</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Dashboard.v14.1.Web.Mvc5.dll">
+      <publishTime>11/28/2014 15:09:05</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Data.v14.1.dll">
+      <publishTime>11/28/2014 15:09:05</publishTime>
+    </File>
+    <File Include="bin/DevExpress.DataAccess.v14.1.dll">
+      <publishTime>11/28/2014 15:09:09</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Office.v14.1.Core.dll">
+      <publishTime>11/28/2014 15:11:59</publishTime>
+    </File>
+    <File Include="bin/DevExpress.PivotGrid.v14.1.Core.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Printing.v14.1.Core.dll">
+      <publishTime>11/28/2014 15:11:59</publishTime>
+    </File>
+    <File Include="bin/DevExpress.RichEdit.v14.1.Core.dll">
+      <publishTime>11/28/2014 15:18:06</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Sparkline.v14.1.Core.dll">
+      <publishTime>11/28/2014 15:12:02</publishTime>
+    </File>
+    <File Include="bin/DevExpress.SpellChecker.v14.1.Core.dll">
+      <publishTime>11/28/2014 15:12:02</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Spreadsheet.v14.1.Core.dll">
+      <publishTime>11/28/2014 15:18:07</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Utils.v14.1.dll">
+      <publishTime>11/28/2014 15:12:04</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Web.ASPxGauges.v14.1.dll">
+      <publishTime>11/28/2014 15:08:01</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Web.ASPxHtmlEditor.v14.1.dll">
+      <publishTime>11/28/2014 15:08:01</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Web.ASPxPivotGrid.v14.1.dll">
+      <publishTime>11/28/2014 15:08:02</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Web.ASPxScheduler.v14.1.dll">
+      <publishTime>11/28/2014 15:08:02</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Web.ASPxSpellChecker.v14.1.dll">
+      <publishTime>11/28/2014 15:09:02</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Web.ASPxSpreadsheet.v14.1.dll">
+      <publishTime>11/28/2014 15:12:02</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Web.ASPxThemes.v14.1.dll">
+      <publishTime>11/28/2014 15:09:02</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Web.ASPxTreeList.v14.1.dll">
+      <publishTime>11/28/2014 15:09:02</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Web.Mvc5.v14.1.dll">
+      <publishTime>11/28/2014 15:11:59</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Web.v14.1.dll">
+      <publishTime>11/28/2014 15:08:01</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Xpo.v14.1.dll">
+      <publishTime>11/28/2014 15:12:10</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Xpo.v14.1.Web.dll">
+      <publishTime>11/28/2014 15:12:10</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraCharts.v14.1.dll">
+      <publishTime>11/28/2014 15:12:11</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraCharts.v14.1.Web.dll">
+      <publishTime>11/28/2014 15:08:01</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraGauges.v14.1.Core.dll">
+      <publishTime>11/28/2014 15:18:04</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraGauges.v14.1.Presets.dll">
+      <publishTime>11/28/2014 15:18:04</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraPivotGrid.v14.1.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraReports.v14.1.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraReports.v14.1.Web.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraScheduler.v14.1.Core.dll">
+      <publishTime>11/28/2014 15:18:06</publishTime>
+    </File>
+    <File Include="bin/DropDownList_Optgroup.dll">
+      <publishTime>04/25/2014 11:51:52</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>02/11/2015 10:28:21</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Dashboard.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:09:05</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Dashboard.v14.1.Web.resources.dll">
+      <publishTime>11/28/2014 15:09:05</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Data.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:09:06</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.DataAccess.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:09:09</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Office.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:11:59</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.PivotGrid.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Printing.v14.1.Core.resources.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.RichEdit.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:06</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Sparkline.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:12:02</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Spreadsheet.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:08</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Utils.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:05</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Web.ASPxHtmlEditor.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:08:01</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Web.ASPxScheduler.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:08:02</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Web.ASPxSpellChecker.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:09:02</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Web.ASPxSpreadsheet.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:03</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Web.ASPxTreeList.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:09:02</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Web.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:08:02</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Xpo.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:10</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.XtraCharts.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:11</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.XtraGauges.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:04</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.XtraGauges.v14.1.Presets.resources.dll">
+      <publishTime>11/28/2014 15:18:04</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.XtraPivotGrid.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.XtraReports.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.XtraReports.v14.1.Web.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.XtraScheduler.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:07</publishTime>
+    </File>
+    <File Include="bin/es/EntityFramework.resources.dll">
+      <publishTime>01/12/2015 12:45:26</publishTime>
+    </File>
+    <File Include="bin/es/System.Net.Http.Formatting.resources.dll">
+      <publishTime>02/11/2015 10:29:27</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Helpers.resources.dll">
+      <publishTime>02/11/2015 10:29:37</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Http.resources.dll">
+      <publishTime>02/11/2015 10:29:31</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Http.WebHost.resources.dll">
+      <publishTime>02/11/2015 10:29:33</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Mvc.resources.dll">
+      <publishTime>02/11/2015 10:29:18</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Razor.resources.dll">
+      <publishTime>02/11/2015 10:29:23</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.WebPages.Deployment.resources.dll">
+      <publishTime>02/11/2015 10:29:37</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.WebPages.Razor.resources.dll">
+      <publishTime>02/11/2015 10:29:38</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.WebPages.resources.dll">
+      <publishTime>02/11/2015 10:29:38</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Dashboard.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:09:05</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Dashboard.v14.1.Web.resources.dll">
+      <publishTime>11/28/2014 15:09:05</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Data.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:09:06</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.DataAccess.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:09:09</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Office.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:11:59</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.PivotGrid.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Printing.v14.1.Core.resources.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.RichEdit.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:06</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Sparkline.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:12:02</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Spreadsheet.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:08</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Utils.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:05</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Web.ASPxHtmlEditor.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:08:01</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Web.ASPxScheduler.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:08:03</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Web.ASPxSpellChecker.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:09:02</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Web.ASPxSpreadsheet.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:03</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Web.ASPxTreeList.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:09:02</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Web.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:08:02</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Xpo.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:10</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.XtraCharts.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:11</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.XtraGauges.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:04</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.XtraGauges.v14.1.Presets.resources.dll">
+      <publishTime>11/28/2014 15:18:04</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.XtraPivotGrid.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.XtraReports.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.XtraReports.v14.1.Web.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.XtraScheduler.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:07</publishTime>
+    </File>
+    <File Include="bin/key">
+      <publishTime>03/03/2015 17:24:06</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationServer.Common.dll">
+      <publishTime>02/11/2015 10:29:55</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationServer.Http.dll">
+      <publishTime>02/11/2015 10:29:56</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationServer.HttpEnhancements.dll">
+      <publishTime>02/11/2015 10:29:57</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationServer.Serialization.dll">
+      <publishTime>02/11/2015 10:29:56</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationServer.ServiceModel.dll">
+      <publishTime>02/11/2015 10:29:57</publishTime>
+    </File>
+    <File Include="bin/Microsoft.QueryComposition.dll">
+      <publishTime>02/11/2015 10:29:58</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Runtime.Serialization.Json.dll">
+      <publishTime>02/11/2015 10:29:17</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ServiceModel.Web.jQuery.dll">
+      <publishTime>02/11/2015 10:29:17</publishTime>
+    </File>
+    <File Include="bin/Microsoft.SqlServer.DTSRuntimeWrap.dll">
+      <publishTime>02/21/2014 05:27:32</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>02/11/2015 10:29:43</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Samples.ImageOptimizationFramework.dll">
+      <publishTime>02/13/2013 11:15:08</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Samples.SpriteHelper.dll">
+      <publishTime>02/05/2011 12:25:18</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>11/27/2014 18:05:38</publishTime>
+    </File>
+    <File Include="bin/Rp3.AgendaComercial.Models.dll">
+      <publishTime>12/12/2015 10:49:58</publishTime>
+    </File>
+    <File Include="bin/Rp3.AgendaComercial.Process.exe">
+      <publishTime>12/12/2015 10:49:58</publishTime>
+    </File>
+    <File Include="bin/Rp3.AgendaComercial.Resources.dll">
+      <publishTime>12/12/2015 10:49:57</publishTime>
+    </File>
+    <File Include="bin/Rp3.AgendaComercial.Web.dll">
+      <publishTime>12/12/2015 10:50:01</publishTime>
+    </File>
+    <File Include="bin/Rp3.Common.dll">
+      <publishTime>06/08/2015 10:41:32</publishTime>
+    </File>
+    <File Include="bin/Rp3.Core.dll">
+      <publishTime>08/19/2015 10:27:32</publishTime>
+    </File>
+    <File Include="bin/Rp3.Resources.dll">
+      <publishTime>06/08/2015 10:41:33</publishTime>
+    </File>
+    <File Include="bin/Rp3.Security.dll">
+      <publishTime>06/08/2015 10:41:34</publishTime>
+    </File>
+    <File Include="bin/Rp3.Web.dll">
+      <publishTime>06/08/2015 10:43:40</publishTime>
+    </File>
+    <File Include="bin/Rp3.Web.Mvc.Application.Base.dll">
+      <publishTime>06/08/2015 10:43:43</publishTime>
+    </File>
+    <File Include="bin/Rp3.Web.Mvc.dll">
+      <publishTime>06/08/2015 10:43:41</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Dashboard.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:09:05</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Dashboard.v14.1.Web.resources.dll">
+      <publishTime>11/28/2014 15:09:05</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Data.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:09:06</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.DataAccess.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:09:09</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Office.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:11:59</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.PivotGrid.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Printing.v14.1.Core.resources.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.RichEdit.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:06</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Sparkline.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:12:02</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Spreadsheet.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:08</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Utils.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:05</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Web.ASPxHtmlEditor.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:08:01</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Web.ASPxScheduler.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:08:03</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Web.ASPxSpellChecker.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:09:02</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Web.ASPxSpreadsheet.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:03</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Web.ASPxTreeList.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:09:02</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Web.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:08:02</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Xpo.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:10</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.XtraCharts.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:12:11</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.XtraGauges.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:04</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.XtraGauges.v14.1.Presets.resources.dll">
+      <publishTime>11/28/2014 15:18:04</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.XtraPivotGrid.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.XtraReports.v14.1.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.XtraReports.v14.1.Web.resources.dll">
+      <publishTime>11/28/2014 15:18:05</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.XtraScheduler.v14.1.Core.resources.dll">
+      <publishTime>11/28/2014 15:18:07</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>02/11/2015 10:29:28</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>02/11/2015 10:29:37</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>02/11/2015 10:29:34</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>02/11/2015 10:29:35</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>02/11/2015 10:29:22</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>02/11/2015 10:29:25</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>02/11/2015 10:29:36</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>02/11/2015 10:29:38</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>02/11/2015 10:29:37</publishTime>
+    </File>
+    <File Include="bin/ThoughtWorks.QRCode.dll">
+      <publishTime>08/06/2007 12:14:02</publishTime>
+    </File>
+    <File Include="bin/zxing.dll">
+      <publishTime>04/01/2014 16:01:59</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/agenda.css">
+      <publishTime>05/18/2015 19:34:10</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/cliente.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/daterangepicker/daterangepicker-bs3.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/datetimepicker/bootstrap-datetimepicker.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/datetimepicker/bootstrap-datetimepicker.min.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/dialog.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/etapa.css">
+      <publishTime>05/25/2015 12:05:08</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/fancy/blank.gif">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/fancy/fancybox_buttons.png">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/fancy/fancybox_loading.gif">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/fancy/fancybox_sprite.png">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/fancy/jquery.fancybox-buttons.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/fancy/jquery.fancybox-thumbs.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/fancy/jquery.fancybox.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/fullcalendar/fullcalendar.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/fullcalendar/fullcalendar.print.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/fullcalendar/style.css">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/lote.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/mapa.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/oportunidad.css">
+      <publishTime>05/26/2015 14:48:09</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/perfect_scroller/perfect-scrollbar.min.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/permiso.css">
+      <publishTime>06/11/2015 11:05:54</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/programacion-ruta.css">
+      <publishTime>02/27/2015 10:18:43</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/rate.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/recorrido.css">
+      <publishTime>05/11/2015 00:30:26</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/select/bootstrap-select.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/select/bootstrap-select.css.map">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/select/bootstrap-select.min.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/tapmodo-jcrop/Jcrop.gif">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/tapmodo-jcrop/jquery.Jcrop.css">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/tapmodo-jcrop/jquery.Jcrop.min.css">
+      <publishTime>02/11/2015 10:30:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/timepicker/jquery.timepicker.css">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/treetable/jquery.treetable.css">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/treetable/jquery.treetable.theme.default.css">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/treetable/screen.css">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/css/ubicacion-agentes.css">
+      <publishTime>05/14/2015 14:58:39</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/0timeline.png">
+      <publishTime>05/31/2015 22:45:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/1timeline.png">
+      <publishTime>05/31/2015 22:45:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/2timeline.png">
+      <publishTime>05/31/2015 22:45:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/3timeline.png">
+      <publishTime>05/31/2015 22:45:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/4timeline.png">
+      <publishTime>05/31/2015 22:45:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/5timeline.png">
+      <publishTime>05/31/2015 22:45:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/agenda-auto.png">
+      <publishTime>04/08/2015 16:13:10</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/agenda-movil.png">
+      <publishTime>05/11/2015 00:30:26</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/agenda-web.png">
+      <publishTime>04/08/2015 16:13:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/agentes.png">
+      <publishTime>05/26/2015 14:48:09</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/blue-flag.png">
+      <publishTime>05/26/2015 14:48:09</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/clientes.png">
+      <publishTime>05/26/2015 14:48:09</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/default.jpg">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/DefaultPerson.jpg">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/default_b.jpg">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/diasinactivos.png">
+      <publishTime>05/31/2015 22:45:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/diastranscurridos.png">
+      <publishTime>05/31/2015 22:45:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/efectividad.png">
+      <publishTime>05/11/2015 00:30:26</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/favicon.ico">
+      <publishTime>05/11/2015 00:30:26</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/favicon.png">
+      <publishTime>05/11/2015 00:30:26</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/fecha-fin.png">
+      <publishTime>06/18/2015 09:26:30</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/fecha-inicio.png">
+      <publishTime>06/18/2015 09:26:29</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/flecha.png">
+      <publishTime>05/31/2015 22:45:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/gray-flag.png">
+      <publishTime>05/26/2015 14:48:09</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/green-flag.png">
+      <publishTime>05/26/2015 14:48:09</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/grupo.png">
+      <publishTime>06/18/2015 09:26:29</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/hora-fin.png">
+      <publishTime>06/18/2015 09:26:29</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/hora-inicio.png">
+      <publishTime>06/18/2015 09:26:29</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/importe.png">
+      <publishTime>05/31/2015 22:45:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/loading.gif">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/logo-for-smartview.png">
+      <publishTime>05/11/2015 00:30:26</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/logo.png">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/motivo.png">
+      <publishTime>06/18/2015 09:26:29</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/obs-superv.png">
+      <publishTime>06/18/2015 09:26:30</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/observ.png">
+      <publishTime>06/18/2015 09:26:30</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/oportunidad.png">
+      <publishTime>05/31/2015 22:45:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/probabilidad.png">
+      <publishTime>05/31/2015 22:45:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/red-flag.png">
+      <publishTime>05/26/2015 14:48:09</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/small-loading.gif">
+      <publishTime>03/23/2015 09:59:21</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/cancel-off.png">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/cancel-on.png">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/icon_location.png">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/icon_location_mini.png">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/icon_location_small.png">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/map_naranja.png">
+      <publishTime>05/08/2015 15:35:28</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/map_position.png">
+      <publishTime>05/08/2015 15:35:28</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/map_rojo.png">
+      <publishTime>05/08/2015 15:35:28</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/map_verde.png">
+      <publishTime>05/08/2015 15:35:28</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/marker-cliente-blue-warning.png">
+      <publishTime>05/11/2015 00:30:26</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/marker-cliente-blue.png">
+      <publishTime>05/11/2015 00:30:26</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/marker-cliente-red-warning.png">
+      <publishTime>05/11/2015 00:30:26</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/marker-cliente-red.png">
+      <publishTime>05/11/2015 00:30:26</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/markerend.png">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/markerpoint.png">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/markerstart.png">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/markeruser.png">
+      <publishTime>05/11/2015 00:30:26</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/markervisit.png">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/sprite_numbers_location.png">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/sprite_numbers_location_naranja.png">
+      <publishTime>05/08/2015 17:07:10</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/sprite_numbers_location_rojo.png">
+      <publishTime>05/08/2015 17:06:26</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/sprite_numbers_location_verde.png">
+      <publishTime>05/08/2015 17:08:49</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/style/sprite_star.png">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/supervisor.png">
+      <publishTime>06/18/2015 09:26:30</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/tipo.png">
+      <publishTime>06/18/2015 09:26:30</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/img/total.png">
+      <publishTime>05/11/2015 00:30:26</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/agenda/agendadetalle.js">
+      <publishTime>05/11/2015 13:04:21</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/agenda/calendario.js">
+      <publishTime>07/08/2015 09:34:01</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/agente.js">
+      <publishTime>03/23/2015 09:59:21</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/analisisagente.js">
+      <publishTime>10/23/2015 17:40:08</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/calendario.js">
+      <publishTime>03/27/2015 15:11:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/canal.js">
+      <publishTime>03/05/2015 16:11:07</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/cliente.js">
+      <publishTime>05/25/2015 12:05:08</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/clientefoto.js">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/clienteindex.js">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/clienteruta.js">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/configurarruta.js">
+      <publishTime>02/11/2015 10:30:12</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/cropimage.js">
+      <publishTime>02/11/2015 10:30:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/cropimageproducto.js">
+      <publishTime>10/16/2015 11:38:01</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/daterangepicker/daterangepicker.js">
+      <publishTime>03/05/2015 16:11:07</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/daterangepicker/es.js">
+      <publishTime>02/11/2015 10:30:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/daterangepicker/general.js">
+      <publishTime>02/11/2015 10:30:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/daterangepicker/moment.min.js">
+      <publishTime>03/05/2015 16:11:07</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/bootstrap-datetimepicker.js">
+      <publishTime>02/11/2015 10:30:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/bootstrap-datetimepicker.min.js">
+      <publishTime>02/11/2015 10:30:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/date.js">
+      <publishTime>02/25/2015 13:06:31</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.bg.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.ca.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.cs.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.da.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.de.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.el.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.es.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.fi.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.fr.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.he.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.hr.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.hu.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.id.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.is.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.it.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.ja.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.kr.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.lt.js">
+      <publishTime>02/11/2015 10:30:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.lv.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.ms.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.nb.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.nl.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.no.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.pl.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.pt-BR.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.pt.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.ro.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.rs-latin.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.rs.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.ru.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.sk.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.sl.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.sv.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.sw.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.th.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.tr.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.ua.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.uk.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/datetimepicker/locales/bootstrap-datetimepicker.zh-TW.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/dotdot/jquery.dotdotdot.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/dotdot/jquery.dotdotdot.min.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/estadisticaencuesta.js">
+      <publishTime>03/11/2015 01:27:32</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/etapa.js">
+      <publishTime>11/27/2015 12:14:30</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/exportexcel.js">
+      <publishTime>10/23/2015 17:40:10</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fancy/helpers/jquery.fancybox-buttons.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fancy/helpers/jquery.fancybox-media.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fancy/helpers/jquery.fancybox-thumbs.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fancy/jquery.fancybox.js">
+      <publishTime>02/11/2015 10:30:16</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fancy/jquery.fancybox.pack.js">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fancybox/blank.gif">
+      <publishTime>02/11/2015 10:30:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fancybox/fancybox_loading%402x.gif">
+      <publishTime>02/11/2015 10:30:16</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fancybox/fancybox_loading.gif">
+      <publishTime>02/11/2015 10:30:16</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fancybox/fancybox_overlay.png">
+      <publishTime>02/11/2015 10:30:16</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fancybox/fancybox_sprite%402x.png">
+      <publishTime>02/11/2015 10:30:16</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fancybox/fancybox_sprite.png">
+      <publishTime>02/11/2015 10:30:16</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fancybox/jquery.fancybox.css">
+      <publishTime>02/11/2015 10:30:16</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fancybox/jquery.fancybox.js">
+      <publishTime>02/11/2015 10:30:16</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fancybox/jquery.mousewheel-3.0.6.pack.js">
+      <publishTime>02/11/2015 10:30:16</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fullcalendar/bootbox.min.js">
+      <publishTime>02/11/2015 10:30:17</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fullcalendar/calendar.js">
+      <publishTime>02/11/2015 10:30:16</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fullcalendar/fullcalendar.js">
+      <publishTime>02/25/2015 13:06:34</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fullcalendar/fullcalendar.min.js">
+      <publishTime>02/11/2015 10:30:16</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/fullcalendar/gcal.js">
+      <publishTime>02/11/2015 10:30:16</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/geocerca.js">
+      <publishTime>05/19/2015 10:33:16</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/gestiondetallado.js">
+      <publishTime>02/11/2015 10:30:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/grupo.js">
+      <publishTime>06/12/2015 11:25:43</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/highcharts.js">
+      <publishTime>04/08/2015 16:13:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/canvas-tools.js">
+      <publishTime>06/22/2015 10:38:52</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/canvas-tools.src.js">
+      <publishTime>06/22/2015 10:38:52</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/data.js">
+      <publishTime>06/22/2015 10:38:52</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/data.src.js">
+      <publishTime>06/22/2015 10:38:52</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/drilldown.js">
+      <publishTime>06/22/2015 10:38:52</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/drilldown.src.js">
+      <publishTime>06/22/2015 10:38:52</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/exporting.js">
+      <publishTime>06/22/2015 10:38:52</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/exporting.src.js">
+      <publishTime>06/22/2015 10:38:52</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/funnel.js">
+      <publishTime>06/22/2015 10:38:52</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/funnel.src.js">
+      <publishTime>06/22/2015 10:38:53</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/heatmap.js">
+      <publishTime>06/22/2015 10:38:53</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/heatmap.src.js">
+      <publishTime>06/22/2015 10:38:53</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/no-data-to-display.js">
+      <publishTime>06/22/2015 10:38:53</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/no-data-to-display.src.js">
+      <publishTime>06/22/2015 10:38:53</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/solid-gauge.js">
+      <publishTime>06/22/2015 10:38:53</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/modules/solid-gauge.src.js">
+      <publishTime>06/22/2015 10:38:53</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/themes/dark-blue.js">
+      <publishTime>02/11/2015 10:30:16</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/themes/dark-green.js">
+      <publishTime>02/11/2015 10:30:16</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/themes/dark-unica.js">
+      <publishTime>04/08/2015 16:13:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/themes/gray.js">
+      <publishTime>02/11/2015 10:30:17</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/themes/grid-light.js">
+      <publishTime>04/08/2015 16:13:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/themes/grid.js">
+      <publishTime>02/11/2015 10:30:17</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/themes/sand-signika.js">
+      <publishTime>04/08/2015 16:13:11</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/highcharts/themes/skies.js">
+      <publishTime>02/11/2015 10:30:17</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/homedashboard.js">
+      <publishTime>04/21/2015 10:02:33</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/informeparada.js">
+      <publishTime>12/12/2015 09:34:29</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/justificacion.js">
+      <publishTime>07/15/2015 00:00:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/lote/lote.js">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/mapclient.js">
+      <publishTime>02/11/2015 10:30:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/marcacion.js">
+      <publishTime>08/27/2015 15:08:44</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/nestable/jquery.nestable.js">
+      <publishTime>02/11/2015 10:30:17</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/notificacionagente.js">
+      <publishTime>07/08/2015 18:48:35</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/oportunidad/oportunidad.js">
+      <publishTime>05/12/2015 09:56:07</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/parametros.js">
+      <publishTime>03/24/2015 09:31:23</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/perfect_scroller/perfect-scrollbar.min.js">
+      <publishTime>02/11/2015 10:30:17</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/permisoprevio.js">
+      <publishTime>07/15/2015 00:00:15</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/producto.js">
+      <publishTime>10/15/2015 16:25:51</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/productofoto.js">
+      <publishTime>10/16/2015 11:41:02</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/programacionruta.js">
+      <publishTime>12/04/2015 18:25:09</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/programacionrutacalendario.js">
+      <publishTime>03/27/2015 15:11:14</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/programaciontarea.js">
+      <publishTime>02/11/2015 10:30:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/rate.js">
+      <publishTime>02/11/2015 10:30:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/reasignacioncliente.js">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/recorrido.js">
+      <publishTime>08/28/2015 10:15:10</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/ruta/ruta.js">
+      <publishTime>03/31/2015 16:05:25</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/screenshot/canvas-to-blob.js">
+      <publishTime>07/10/2015 09:50:49</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/screenshot/FileSaver.js">
+      <publishTime>07/10/2015 09:50:49</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/screenshot/html2canvas.js">
+      <publishTime>07/10/2015 09:50:50</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/bootstrap-select.js">
+      <publishTime>02/11/2015 10:30:17</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/bootstrap-select.js.map">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/bootstrap-select.min.js">
+      <publishTime>02/11/2015 10:30:17</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-cs_CZ.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-cs_CZ.min.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-de_DE.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-de_DE.min.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-en_US.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-en_US.min.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-es_CL.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-es_CL.min.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-eu.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-eu.min.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-fr_FR.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-fr_FR.min.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-it_IT.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-it_IT.min.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-nl_NL.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-nl_NL.min.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-pl_PL.js">
+      <publishTime>02/11/2015 10:30:18</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-pl_PL.min.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-pt_BR.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-pt_BR.min.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-ro_RO.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-ro_RO.min.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-ru_RU.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-ru_RU.min.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-ua_UA.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-ua_UA.min.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-zh_CN.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-zh_CN.min.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-zh_TW.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/select/i18n/defaults-zh_TW.min.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/tapmodo-jcrop/jquery.color.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/tapmodo-jcrop/jquery.Jcrop.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/tapmodo-jcrop/jquery.Jcrop.min.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/tarea/tarea.js">
+      <publishTime>11/12/2015 12:01:30</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/timepicker/jquery.timepicker.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/tipoactividad.js">
+      <publishTime>02/11/2015 10:30:13</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/tipocliente.js">
+      <publishTime>03/05/2015 16:11:07</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/treetable/jquery.treetable.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/treetable/jquery.ui.core.js">
+      <publishTime>02/11/2015 10:30:20</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/treetable/jquery.ui.draggable.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/treetable/jquery.ui.droppable.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/treetable/jquery.ui.mouse.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/treetable/jquery.ui.widget.js">
+      <publishTime>02/11/2015 10:30:19</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/ubicacionagente.js">
+      <publishTime>09/16/2015 11:19:04</publishTime>
+    </File>
+    <File Include="Content/AgendaComercial/js/zona.js">
+      <publishTime>05/07/2015 09:53:00</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>02/11/2015 10:29:58</publishTime>
+    </File>
+    <File Include="html test.html">
+      <publishTime>05/11/2015 00:30:24</publishTime>
+    </File>
+    <File Include="key">
+      <publishTime>02/11/2015 10:29:58</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>02/11/2015 10:29:58</publishTime>
+    </File>
+    <File Include="Views/Home/Empezar.cshtml">
+      <publishTime>04/21/2015 10:02:33</publishTime>
+    </File>
+    <File Include="Views/Home/Inicio.cshtml">
+      <publishTime>02/11/2015 10:30:22</publishTime>
+    </File>
+    <File Include="Views/Home/NoAgente.cshtml">
+      <publishTime>02/25/2015 13:06:30</publishTime>
+    </File>
+    <File Include="Views/Home/SeleccionRol.cshtml">
+      <publishTime>03/10/2015 14:42:25</publishTime>
+    </File>
+    <File Include="Views/Shared/_CargoRol.cshtml">
+      <publishTime>06/08/2015 12:33:38</publishTime>
+    </File>
+    <File Include="Views/Shared/_CropImageDialog.cshtml">
+      <publishTime>02/11/2015 10:30:21</publishTime>
+    </File>
+    <File Include="Views/Shared/_Scorer.cshtml">
+      <publishTime>02/11/2015 10:30:21</publishTime>
+    </File>
+    <File Include="Views/Shared/_SetUbicacionMap.cshtml">
+      <publishTime>05/11/2015 00:30:26</publishTime>
+    </File>
+    <File Include="Views/Shared/_UbicacionMapMarker.cshtml">
+      <publishTime>03/09/2015 14:52:44</publishTime>
+    </File>
+    <File Include="Views/Shared/_UbicacionMapMarkerClient.cshtml">
+      <publishTime>05/07/2015 09:53:00</publishTime>
+    </File>
+    <File Include="Views/Shared/_UbicacionMapMarkerFences.cshtml">
+      <publishTime>05/25/2015 12:05:08</publishTime>
+    </File>
+    <File Include="Views/Shared/_UbicacionMapMarkerSingle.cshtml">
+      <publishTime>05/07/2015 16:31:01</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>02/11/2015 10:30:21</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>02/11/2015 10:30:21</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>12/12/2015 10:50:03</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

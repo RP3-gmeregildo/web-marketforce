@@ -1,0 +1,46 @@
+﻿@model Rp3.Data.Models.General.GeneralTables
+@{
+    ViewBag.Title = Rp3.Resources.TitleFor.EditGeneralTable;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportScript("rp3.generaltable.js", true)
+}
+
+@section ActionTitle{
+    @Html.Rp3ActivityActionButton(ActivityActions.Update, themeType: ElementThemeType.Success)
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "generaltableform" }))
+{
+    @Html.HiddenFor(p=>p.Id)
+    
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.Resources.LabelFor.GeneralData))
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.Name)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_7))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.Resources.LabelFor.Values, paddingContent: false))
+            {
+                @:@Html.Rp3Button(Rp3.Resources.LabelFor.New, icon: Icons.New, actionName: "new-value")
+                
+                @:@{Html.RenderPartial("_GeneralValues", Model);}
+            }
+        }
+    }
+}
+
+@using (Html.Rp3BeginModal("ModalDialog"))
+{
+    @: @{Html.RenderPartial("_VerDatos"); }
+}

@@ -1,0 +1,31 @@
+﻿<div id="DialogContent" style="margin-top:-15px; overflow-y:auto; overflow-x:hidden">
+    <div style="width:550px; margin-top:30px;">
+        @using (Html.Rp3BeginForm(htmlAttributes: new { id = "modalform" }))
+        {
+            <div></div>
+            using (Html.Rp3BeginRow())
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                {
+                    using (Html.Rp3BeginFormGroupEditor(Rp3.Resources.LabelFor.Code, labelSize: HtmlColumnSize.Size_2))
+                    {
+                        @Html.Rp3TextBox("valueCode");
+                    }
+                    
+                    using (Html.Rp3BeginFormGroupEditor(Rp3.Resources.LabelFor.Name, labelSize: HtmlColumnSize.Size_2))
+                    {
+                        @Html.Rp3TextBox("valueName");
+                    }
+                }
+            }
+        }
+    </div>
+</div>
+
+@using (Html.Rp3BeginModalAction())
+{
+    <div id="footer-main" actions-modal>
+        @Html.Rp3Button(Rp3.Resources.LabelFor.Save, icon: Icons.Edit, allowCloseModal: true, customButtonClick: "editModalDatos()")
+        @Html.Rp3Button(Rp3.Resources.LabelFor.Cancel, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true)
+    </div>
+}

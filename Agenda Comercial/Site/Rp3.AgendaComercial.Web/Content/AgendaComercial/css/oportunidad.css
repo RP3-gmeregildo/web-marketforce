@@ -1,0 +1,64 @@
+﻿.hide {
+    width: 100%;
+    display: none;
+}
+
+.show {
+    width: 100%;
+    display: block;
+}
+
+.showbut {
+    display: block;
+}
+
+.hidebut {
+    display: none;
+}
+
+.myfooter {
+    text-align: right;
+    width: 90%;
+    position: fixed;
+    bottom: 10px;
+}
+
+.tittle-font-size {
+    font-size: 18px;
+    line-height: 30px;
+}
+
+.disableDIV {
+    pointer-events: none;
+    color: #e0d9d9;
+}
+
+#spinner-loading {
+    display: none;
+    margin-top: 10px;
+    width: 32px;
+    height: 32px;
+    background-image: url('../img/small-loading.gif');
+}
+
+
+.fancybox-wrap {
+    z-index: 99999999;
+}
+
+.fancybox-overlay,
+.fancybox-overlay-fixed {
+    z-index: 9999998;
+}
+
+.round-corner {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; /* future proofing */
+    -khtml-border-radius: 5px; /* for old Konqueror browsers */
+}
+
+
+.panel-loading {
+    height: 500px;
+}

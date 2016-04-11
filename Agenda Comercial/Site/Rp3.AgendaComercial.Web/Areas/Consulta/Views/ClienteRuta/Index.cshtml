@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.ClienteRuta;
+
+    this.SetImportFormElements(true);
+    this.SetImportAdvTables(true);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("clienteruta.js", true)
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section ActionTitle{
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Filtros, HtmlElementSize.Default, icon: Icons.Minus, submit: false, actionName: "FILTER", themeType: ElementThemeType.Default)
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Consultar, HtmlElementSize.Default, icon: Icons.Refresh, submit: false, actionName: "SEND", themeType: ElementThemeType.Success)
+        }
+    }
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("mapa.css", true)
+}
+
+
+<style>
+    .selected-item {
+        background-color: #328fca;
+        color: white;
+    }
+
+    .selectable-item {
+        cursor: pointer;
+    }
+
+    /*#rutastabla_wrapper .dataTables_scroll {
+        height: 440px;
+    }*/
+
+    body {
+        overflow: hidden;
+    }
+</style>
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "indexForm" }))
+{
+    <input id="IdRuta" name="IdRuta" type="hidden">
+
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4, htmlAttributes: new { id = "filterColumn" }))
+    {
+        using (Html.Rp3BeginDataTable(scrollY: "400px", allowPagination: false, allowSort: false, columnAutoWidth: true, htmlAttributes: new { id = "rutastabla" }))
+        {
+            <thead>
+                <tr>
+                    <th style="display:none"></th>
+                    <th>@Rp3.AgendaComercial.Resources.LabelFor.Rutas</th>
+                    <th>@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr idruta="-1" descripcion="@Rp3.AgendaComercial.Resources.LabelFor.TodosClientes">
+                    <td style=" display:none"></td>
+                    <td class="selectable-item">@Rp3.AgendaComercial.Resources.LabelFor.TodosClientes</td>
+                    <td class="selectable-item"></td>
+                </tr>
+                <tr idruta="0" descripcion="@Rp3.AgendaComercial.Resources.LabelFor.ClientesSinRuta">
+                    <td style=" display:none"></td>
+                    <td class="selectable-item">@Rp3.AgendaComercial.Resources.LabelFor.ClientesSinRuta</td>
+                    <td class="selectable-item"></td>
+                </tr>
+                @foreach (Rp3.AgendaComercial.Models.Ruta.Ruta ruta in ViewBag.Rutas)
+                {
+                    <tr idruta="@{@ruta.IdRuta}">
+                        <td style="display:none"></td>
+                        <td class="selectable-item">@ruta.Descripcion</td>
+                        <td class="selectable-item">@ruta.Agente</td>
+                    </tr>
+                }
+            </tbody>
+        }
+    }
+
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_8, htmlAttributes: new { id = "dataColumn" }))
+    {
+        using (Html.Rp3BeginRow(htmlAttributes: new { id = "dataRow", style = "margin-left:1px;margin-right:1px" }))
+        {
+            <div id="GridDetalle" style="position:relative; height:490px;overflow: hidden;"></div>
+        }
+    }
+}

@@ -1,0 +1,34 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.UbicacionAgente
+@{
+    List<Rp3.AgendaComercial.Models.General.Agente> agentes = (List<Rp3.AgendaComercial.Models.General.Agente>)ViewBag.Agentes;
+}
+
+@using (Html.Rp3BeginDataTable(scrollY: "445px", autoWindowHeight: true, allowPagination: false, allowSort: false, columnAutoWidth: true, htmlAttributes: new { id = "agentestabla" }))
+{
+    <thead>
+        <tr>
+            <th><div style="width:20px;"></div></th>
+            <th>@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>
+            <th class="text-center">@Html.Rp3CheckBox("agentecheckall", isChecked: Model.Agentes.Count() > 0)</th>
+        </tr> 
+    </thead>
+    <tbody>
+        @foreach (var agente in agentes.OrderBy(p => p.Descripcion))
+        {
+            <tr>
+                <td class="text-center">
+                    <div style="width:20px">
+                        <div id="icon_location">
+                            <strong>@agente.MarkerIndex</strong>
+                        </div>
+                    </div>
+                </td>
+                <td>@agente.Descripcion</td>
+                <td class="text-center">
+                    @Html.Rp3CheckBox("agentes", isChecked: Model.Agentes.Any(p => p.IdAgente == agente.IdAgente), value: agente.Key)
+                </td>
+            </tr>
+        }
+    </tbody>
+}
+

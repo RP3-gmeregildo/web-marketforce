@@ -1,0 +1,96 @@
+@using System.Web.UI.WebControls;
+@{
+    var treeList = Html.DevExpress().TreeList(settings =>
+    {
+        settings.Name = "ActividadTreeList";
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.CallbackRouteValues = new { Controller = "GestionDetallado", Action = "ActividadTreeListPartial", idRuta = ViewBag.IdRuta, idAgenda = ViewBag.IdAgenda, idTarea = ViewBag.IdTarea };
+
+        settings.CommandColumn.Visible = false;
+        settings.AutoGenerateColumns = false;
+
+        settings.KeyFieldName = "IdTareaActividad";
+        settings.ParentFieldName = "IdTareaActividadPadre";
+
+        settings.Columns.Add(
+    column =>
+    {
+        column.FieldName = "Descripcion";
+        column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Actividad;
+        column.Width = System.Web.UI.WebControls.Unit.Percentage(70);
+    }
+);
+        settings.Columns.Add(
+    column =>
+    {
+        column.FieldName = "IdTipoActividad";
+        column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Tipo;
+        column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+
+        column.ColumnType = MVCxTreeListColumnType.ComboBox;
+        var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+        comboBoxProperties.TextField = "Descripcion";
+        comboBoxProperties.ValueField = "IdTipoActividad";
+        comboBoxProperties.ValueType = typeof(int);
+        comboBoxProperties.DataSource = ViewBag.TipoActividadList;
+        column.Visible = false;
+    }
+);
+
+        settings.Columns.Add(
+    column =>
+    {
+        column.FieldName = "TipoActividad.Tipo";        
+        column.Visible = false;
+        column.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+    }
+);
+        settings.Columns.Add(
+    column =>
+    {
+        column.FieldName = "Orden";
+        column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Orden;
+        column.SortIndex = 0;
+        column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        column.Visible = false;
+    }
+);
+        settings.Columns.Add(
+    column =>
+    {
+        column.FieldName = "Opciones";
+        column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Opciones;
+        column.ReadOnly = true;
+        column.EditFormSettings.Visible =  DefaultBoolean.False;
+        column.Width = System.Web.UI.WebControls.Unit.Percentage(30);
+        column.Visible = false;
+    }
+);
+
+        settings.Columns.Add(
+    column =>
+    {
+        column.FieldName = "Resultado";
+        column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Resultado;
+        column.ReadOnly = true;
+        column.EditFormSettings.Visible = DefaultBoolean.False;
+        column.Width = System.Web.UI.WebControls.Unit.Percentage(30);
+    }
+);
+
+        settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+        settings.SettingsBehavior.AllowSort = false;
+        //settings.SettingsBehavior.AllowDragDrop = false;
+        settings.SettingsPager.Visible = true;
+        settings.SettingsBehavior.AutoExpandAllNodes = true;
+        settings.SettingsBehavior.ExpandCollapseAction = TreeListExpandCollapseAction.NodeDblClick;
+        settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;        
+    });
+
+    if (ViewData["EditError"] != null)
+    {
+        treeList.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+
+@treeList.Bind(Model).GetHtml()

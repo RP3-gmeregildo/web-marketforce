@@ -1,0 +1,66 @@
+﻿@model Rp3.AgendaComercial.Models.General.Cliente
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.EliminarCliente;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+
+    Rp3.Web.Mvc.Html.TabCollection tabCollection = (Rp3.Web.Mvc.Html.TabCollection)ViewBag.TabCollection;
+
+    ViewBag.ReadOnly = Model.ReadOnly;
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("rate.css", true)
+    @Url.ImportApplicationStyleSheet("dialog.css", true)
+    @Url.ImportApplicationStyleSheet("mapa.css", true)
+    @Url.ImportApplicationStyleSheet("cliente.css", true)
+}
+
+@section Imports{    
+    @Url.ImportApplicationScript("cliente.js")
+    @*@Url.ImportApplicationScript("mapclient.js")*@
+    @Url.ImportApplicationScript("clientefoto.js")
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section ActionTitle{
+    @Html.Rp3ActivityActionButton(ActivityActions.Delete, themeType: ElementThemeType.Error, target: "#mainform")
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id= "mainform" }))
+{
+    using (Html.Rp3BeginTabContentBox(Rp3.AgendaComercial.Resources.TitleFor.EliminarCliente, tabCollection, paddingContent: true))
+    {
+        @Html.HiddenFor(model => model.IdCliente)
+
+        using (Html.Rp3BeginTabPane("tabdatosgenerales", active: true))
+        {
+            @: @{Html.RenderPartial("_DatosGenerales", Model); }             
+        }
+
+        using (Html.Rp3BeginTabPane("tabdirecciones"))
+        {
+            @: @{Html.RenderPartial("_Direcciones", Model); }
+        }
+
+        using (Html.Rp3BeginTabPane("tabcontactos"))
+        {
+            @: @{Html.RenderPartial("_Contactos", Model); }
+        }
+
+        using (Html.Rp3BeginTabPane("tabloteruta"))
+        {
+            @: @{Html.RenderPartial("_LoteRuta"); }
+        }
+
+        using (Html.Rp3BeginTabPane("tabestadistica"))
+        {
+            @: @{Html.RenderPartial("_Estadistica", Model); }
+        }
+    }
+}
+
+<script>
+    showDependenciaMessage();
+</script>

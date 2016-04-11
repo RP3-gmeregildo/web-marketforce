@@ -1,0 +1,28 @@
+﻿
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_9, htmlAttributes: new { id = "calendarcolumn" }))
+    {
+        using (Html.Rp3BeginContentBox())
+        {
+            <div class="content">
+                <div id='agenda-calendar'></div>
+            </div>
+        }
+    }
+
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3, htmlAttributes: new { style = "width:300px", id = "navigatecolumn" }))
+    {
+        using (Html.Rp3BeginContentBox())
+        {
+            Html.RenderPartial("_AgendaCalendarioNavigator");
+        }
+    }
+}
+
+
+<script>
+    $(function () {
+        init_Calendario();
+    });
+</script>

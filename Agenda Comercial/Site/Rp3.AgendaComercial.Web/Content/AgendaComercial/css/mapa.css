@@ -1,0 +1,15 @@
+﻿#icon_location {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background-image: url(../img/style/icon_location_mini.png);
+    width: 15px;
+    height: 21px;
+    position: relative;
+    float: initial;
+    color: #FFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8px;
+    padding: 4px 4px 4px 4px;
+}
+
+ 

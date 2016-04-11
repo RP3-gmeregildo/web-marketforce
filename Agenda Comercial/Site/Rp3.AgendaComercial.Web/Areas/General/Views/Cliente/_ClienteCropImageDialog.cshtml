@@ -1,0 +1,13 @@
+﻿@using (Html.Rp3BeginModal("cropImageDialog"))
+{
+    <center><img id="cropImage" alt="" /></center>
+    <input type="hidden" id="xcrop" />
+    <input type="hidden" id="ycrop" />
+    <input type="hidden" id="wcrop" />
+    <input type="hidden" id="hcrop" />
+    using(Html.Rp3BeginModalAction())
+    { 
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, allowCloseModal: true, icon: Icons.Cancel, themeType: ElementThemeType.Default)
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Guardar, customButtonClick: "saveClienteImage(); return false;", allowCloseModal: true, icon: Icons.Save)        
+    }
+}

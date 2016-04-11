@@ -1,0 +1,150 @@
+﻿@model Rp3.AgendaComercial.Models.Marcacion.View.PermisoEdit
+
+<h4>@ViewBag.titulo</h4>
+
+<div style="width:550px; margin-top:30px;">
+    @using (Html.Rp3BeginForm(htmlAttributes: new { id = "permisocreateform" }))
+    {
+        @Html.HiddenFor(model => model.IdAgente, htmlAttributes: new { idAgente = "" })
+        @Html.HiddenFor(model => model.IdGrupo, htmlAttributes: new { idGrupo = "" })
+        @Html.HiddenFor(model => model.IdPermiso, htmlAttributes: new { idPermiso = "" })
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Agente, labelSize: HtmlColumnSize.Size_2))
+                {
+                    <div class='input-group'>
+                        <input class="form-control  text-left ui-autocomplete-input" id="searchPermisoTo" name="searchPermisoTo" placeholder="Escriba el nombre de un Agente o Grupo" type="text" value="@Model.AgenteGrupo" autocomplete="off">
+                        <span class="input-group-addon" id="searchPermisoButton" style="cursor:pointer">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </span>
+                    </div>
+                }
+            }
+        }
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Tipo, Rp3.AgendaComercial.Models.Constantes.TipoPermiso.Tabla, labelSize: HtmlColumnSize.Size_4,
+                     labelText: Rp3.AgendaComercial.Resources.LabelFor.Tipo, sortexpression: model => model.Reference02, editorHtmlAttributes: new { tipo = "" });
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Motivo, Rp3.AgendaComercial.Models.Constantes.MotivoPermiso.Tabla, labelSize: HtmlColumnSize.Size_4,
+                     labelText: Rp3.AgendaComercial.Resources.LabelFor.Motivo, sortexpression: model => model.Reference02, editorHtmlAttributes: new { motivo = "" });
+            }
+        }
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.FechaInicio, labelSize: HtmlColumnSize.Size_4))
+                {
+                    <div class='input-group date' startdate1>
+                        <input type='text' class="form-control" id="startdatetxt1" value="@{ if (Model.FechaInicio != null){ @Model.FechaInicio.ToString("dd/MM/yyyy"); } }" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                }
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.FechaFin, labelSize: HtmlColumnSize.Size_4))
+                {
+                    <div class='input-group date' enddate1>
+                        <input type='text' class="form-control" id="enddatetxt1" value="@{ if (Model.FechaFin != null){ @Model.FechaFin.ToString("dd/MM/yyyy"); } }" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                }
+            }
+        }
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.HoraInicio))
+                {
+                    <div class='input-group date' starthour1>
+                        <input type='text' class="form-control" id="starthourtxt2" value="@{ if (Model.FechaInicio != null){ @Model.FechaInicio.ToString("HH:mm"); } }" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time" onclick="removeHeader()"></span>
+                        </span>
+                    </div>
+                }
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.HoraFin))
+                {
+                    <div class='input-group date' endhour1>
+                        <input type='text' class="form-control" id="endhourtxt2" value="@{ if (Model.FechaFin != null){ @Model.FechaFin.ToString("HH:mm"); } }" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time" onclick="removeHeader()"></span>
+                        </span>
+                    </div>
+                }
+            }
+        }
+
+        using (Html.Rp3BeginRow())
+        {
+            //if(!Model.EsPrevio)
+            //{ 
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Observacion, labelSize: HtmlColumnSize.Size_4))
+                {
+                    @Html.Rp3TextAreaFor(model => Model.Observacion, htmlAttributes: new { observacion = "", style = "height:80px" })
+                }
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.ObservacionSupervisor, labelSize: HtmlColumnSize.Size_4))
+                {
+                    @Html.Rp3TextAreaFor(model => Model.ObservacionSupervisor, htmlAttributes: new { observacionsupervisor = "", style = "height:80px" })
+                }
+            }
+            //}
+            //else
+            //{
+            //    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            //    {
+            //        using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Observacion, labelSize: HtmlColumnSize.Size_2))
+            //        {
+            //            @Html.Rp3TextAreaFor(model => Model.Observacion, htmlAttributes: new { observacion = "", style = "height:80px" })
+            //        }
+            //    }
+            //}
+        }
+    }
+
+
+</div>
+
+@*<script>
+    $(function () {
+        init_Modal_Create();
+    });
+</script>*@
+<style>
+    #ui-id-1 {
+        width: 400px;
+    }
+
+    .input-group {
+        margin-bottom: 0px;
+    }
+</style>

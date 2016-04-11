@@ -1,0 +1,34 @@
+﻿@model Rp3.Data.Models.General.GeneralTables
+
+<div style="height:350px">
+    @using (Html.Rp3BeginDataTable(allowSort: false, allowPagination: false, allowSearch: false, sortColumn: 0, htmlAttributes: new { id = "generalvalues" }))
+    {
+        <thead>
+            <tr>
+                @if (!Model.ReadOnly)
+                {
+                    <th style="width:90px"></th>
+                }
+                <th style="width:50px">@Rp3.Resources.LabelFor.Code</th>
+                <th>@Rp3.Resources.LabelFor.Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.GeneralValues)
+            {
+                <tr>
+                    <input type="hidden" name="generalvalues" value="@item.Code" content="@item.Content" generalvalue>
+                    @if (!Model.ReadOnly)
+                    {
+                        <td class="text-center selectable-item" style="width:90px">
+                            @Html.Rp3Button("", HtmlElementSize.Mini, submit: false, icon: Icons.Edit, htmlAttributes: new { editbutton = "" })
+                            @Html.Rp3Button("", HtmlElementSize.Mini, submit: false, icon: Icons.Remove, htmlAttributes: new { removebutton = "" })
+                        </td>
+                    }
+                    <td code>@item.Code</td>
+                    <td content>@item.Content</td>
+                </tr>
+            }
+        </tbody>
+    }
+</div>

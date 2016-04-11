@@ -1,0 +1,10 @@
+﻿@{
+    this.SetTitle(Rp3.AgendaComercial.Resources.TitleFor.EstadisticaEncuesta);
+    this.SetImportAdvTables(true);
+}
+
+
+@using(Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{ 
+    @Html.Action("GridViewIndex")
+}

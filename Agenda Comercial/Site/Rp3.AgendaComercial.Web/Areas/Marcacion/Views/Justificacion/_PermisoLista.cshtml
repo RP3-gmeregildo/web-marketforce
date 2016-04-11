@@ -1,0 +1,60 @@
+﻿@{
+    var d_day = DateTime.Now.Day;
+    var d_weekDay = DateTime.Now.ToString("dddd").First().ToString().ToUpper() + String.Join("", DateTime.Now.ToString("dddd").Skip(1));
+    var d_month = DateTime.Now.ToString("MMMM").First().ToString().ToUpper() + String.Join("", DateTime.Now.ToString("MMMM").Skip(1));
+    var d_ano = DateTime.Now.Year;
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+    {
+        using (Html.Rp3BeginContentBox(paddingContent: false))
+        {
+            <div class="row" style="float:right">
+
+                <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.ObservacionSupervisor</strong></div>
+                <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("obs-superv.png")" /></div>
+
+                <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Observacion</strong></div>
+                <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("observ.png")" /></div>
+
+                <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Estado</strong></div>
+                <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("gray-flag.png")" /></div>
+
+                <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Motivo</strong></div>
+                <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("motivo.png")" /></div>
+
+                <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.HoraFin</strong></div>
+                <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("hora-fin.png")" /></div>
+
+                <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.HoraInicio</strong></div>
+                <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("hora-inicio.png")" /></div>
+
+                <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.FechaFin</strong></div>
+                <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("fecha-fin.png")" /></div>
+
+                <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.FechaInicio</strong></div>
+                <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("fecha-inicio.png")" /></div>
+
+                <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Tipo</strong></div>
+                <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("tipo.png")" /></div>
+
+                <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Grupo</strong></div>
+                <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("grupo.png")" /></div>
+
+                <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Agente</strong></div>
+                <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("agentes.png")" /></div>
+
+            </div>
+
+            <div id="content-listado" style="min-height:300px"></div>
+        }
+    }
+}
+
+<script>
+    $(function () {
+        init_Listado();
+    });
+</script>

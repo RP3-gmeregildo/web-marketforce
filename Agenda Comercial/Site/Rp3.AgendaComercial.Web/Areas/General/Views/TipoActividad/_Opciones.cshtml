@@ -1,0 +1,41 @@
+﻿@model Rp3.AgendaComercial.Models.General.TipoActividad
+@{
+
+}
+
+@if (!Model.ReadOnly)
+{
+    using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.LegendFor.IngreseTextoOpcion, paddingContent: true))
+    {
+        <input id="opcionText" name="opcionText" type="text" class="input_text" style="width:100%" />
+    }
+}
+
+@using (Html.Rp3BeginDataTable(allowSort: false, allowPagination: false, allowSearch: false, htmlAttributes: new { id = "opciones" }))
+{
+    <thead>
+        <tr>
+            @if (!Model.ReadOnly)
+            {
+                <th style="width:50px"></th>
+            }
+            <th>@Rp3.AgendaComercial.Resources.LabelFor.Opcion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TipoActividadOpciones.OrderBy(p => p.Orden))
+        {
+            <tr>
+                <input type="hidden" name="opciones" value="@item.Descripcion" opcion>
+                @if (!Model.ReadOnly)
+                {
+                    <td removebutton class="text-center" style="width:50px">
+                        @Html.Rp3Button("", HtmlElementSize.Small, submit: false, iconClass: "icon-tag")
+                    </td>
+                }
+                <td opcionvalue>@item.Descripcion</td>
+            </tr>
+        }
+    </tbody>
+}
+

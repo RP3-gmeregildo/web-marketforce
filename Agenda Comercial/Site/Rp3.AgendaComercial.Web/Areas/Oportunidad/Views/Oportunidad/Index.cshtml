@@ -1,0 +1,94 @@
+﻿@model Rp3.AgendaComercial.Models.General.View.AgenteView
+@{
+    this.SetTitle(Rp3.AgendaComercial.Resources.TitleFor.Oportunidades);
+    this.SetImportTables(true);
+    this.SetImportFormElements(true);
+}
+
+@section BeforeStyleImports{
+    @Url.ImportApplicationStyleSheet("daterangepicker/daterangepicker-bs3.css")
+    @Url.ImportApplicationStyleSheet("perfect_scroller/perfect-scrollbar.min.css")
+    @Url.ImportApplicationStyleSheet("select/bootstrap-select.css")
+    @Url.ImportApplicationStyleSheet("timepicker/jquery.timepicker.css")
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("oportunidad.css", true)
+    <link rel="stylesheet" type="text/css" href="~/Content/AgendaComercial/js/fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
+}
+
+@section ScriptImports{
+    @Url.ImportApplicationScript("daterangepicker/moment.min.js")
+    @Url.ImportApplicationScript("daterangepicker/daterangepicker.js")
+    @Url.ImportStyleSheet("jquery.treegrid.css")
+    @Url.ImportScript("treegrid/jquery.treegrid.js")
+    @Url.ImportApplicationScript("fancybox/jquery.mousewheel-3.0.6.pack.js")
+    @Url.ImportApplicationScript("fancybox/jquery.fancybox.js?v=2.1.5")
+    @Url.ImportApplicationScript("datetimepicker/date.js")
+    @Url.ImportApplicationScript("timepicker/jquery.timepicker.js")
+
+    @Url.ImportApplicationScript("screenshot/html2canvas.js")
+    @Url.ImportApplicationScript("screenshot/FileSaver.js")
+    @Url.ImportApplicationScript("screenshot/canvas-to-blob.js")
+
+    @Url.ImportApplicationScript("oportunidad/oportunidad.js", true)
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places,geometry&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+
+
+<div class="header" style="float:left;">
+
+</div>
+
+
+
+@section MainTitle{
+    @{Html.RenderPartial("_CargoRol");}
+}
+
+@section ActionTitle{
+
+    @if (ViewBag.EsSupervisor)
+    {
+        if (!ViewBag.TodosMisAgentes)
+        {
+            <button class="btn btn-default btn-lg pull-left" id="elegir-Agente">@Model.Descripcion</button>
+        }
+        else
+        {
+            <button class="btn btn-default btn-lg pull-left" id="elegir-Agente">@Rp3.AgendaComercial.Resources.LabelFor.TodosMisAgentes</button>
+        }
+    }
+    else
+    {
+        <h4 class="pull-left" style="margin-right:10px">
+            @Html.Rp3LabelWidget(@Model.Descripcion, LabelWidgetType.Info)
+        </h4>
+    }
+
+    <div class="header" style="float:left;">
+        @using (Html.Rp3BeginRow())
+        {
+            <div class="btn-group pull-right" style="width:140px;margin-right:20px;margin-left:5px;margin-top:2px">
+                @Html.Rp3DropDownList((IEnumerable<SelectListItem>)ViewBag.Tipos, htmlAttributes: new { style = "width:150px", placeholder = Rp3.AgendaComercial.Resources.LabelFor.Tipo }, name: "tipo")
+            </div>
+            
+            <div class="btn-group pull-right" style="width:140px;margin-right:20px;margin-left:5px;margin-top:2px">
+                @Html.Rp3DropDownList((IEnumerable<SelectListItem>)ViewBag.Estados, htmlAttributes: new { style = "width:150px", placeholder = Rp3.AgendaComercial.Resources.LabelFor.Estado }, name: "estado")
+            </div>
+
+            <div class="btn-group pull-right"  style="width:140px;margin-right:20px;margin-left:30px;margin-top:2px">
+                @Html.Rp3DropDownList((IEnumerable<SelectListItem>)ViewBag.DiasInactividad, htmlAttributes: new { style = "width:150px", placeholder = Rp3.AgendaComercial.Resources.LabelFor.DiasInactividad }, name: "diasInactividad")
+            </div>
+        }
+    </div>
+}
+
+<div id="content-oportunidad" style="min-height:500px;height:500px">
+
+</div>
+
+@{Html.RenderPartial("_OportunidadDetalleGestionContent");}
+

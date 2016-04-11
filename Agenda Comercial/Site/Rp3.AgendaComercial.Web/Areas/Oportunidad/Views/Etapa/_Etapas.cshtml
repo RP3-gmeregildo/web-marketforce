@@ -1,0 +1,87 @@
+﻿@model Rp3.AgendaComercial.Models.Oportunidad.View.EtapaView
+@{
+    string level = String.Empty;
+
+    if (Model.SubEtapas != null && Model.SubEtapas.Any())
+    {
+        level = "parent";
+    }
+    else
+    {
+        level = "child";
+    }
+}
+
+@{
+    string tareadata = String.Empty;
+
+    foreach (var tarea in Model.Tareas){
+        if (!String.IsNullOrEmpty(tareadata)){ 
+            tareadata += "~";
+        }
+
+        tareadata += String.Format("{0}|{1}", tarea.IdTarea, tarea.Descripcion);
+    }
+}
+
+<li class="dd-item dd3-item selectable-item" data-opt="@{@level}" data-padre="@(Model.IdEtapaPadre.HasValue ? Model.IdEtapaPadre.ToString() : " ")"
+    data-id="@Model.IdEtapa" data-descripcion="@Model.Descripcion" data-idorden="@Model.Orden" data-tarea="@tareadata" data-dias="@Model.Dias" data-tipo="@ViewBag.IdOportunidadTipo" data-new="0" data-esvariable="@(Model.EsVariable ? "1" : "0")">
+
+    @if (!ViewBag.ReadOnly)
+    {
+        <div class="dd-handle dd3-handle"></div>
+    }
+
+    <div class="dd3-content">
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_9))
+            {
+                <div class="clickedit">
+                    <span orden="@Model.Orden" class="tarea-orden" ordenli>
+                        @Model.Orden
+                    </span>
+                    <span class="truncate-text" descripcion>
+                        @Model.Descripcion
+                    </span>
+                    <span class="truncate-text" line>
+                        -
+                    </span>
+                    @if (Model.EsVariable)
+                    {
+                        <span class="truncate-text" dias>
+                            Días por definir
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="truncate-text" dias>
+                            @Model.Dias Día(s)
+                        </span>
+                    }
+                </div>
+            }
+
+            if (!@ViewBag.ReadOnly)
+            {
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+                {
+                    <div class="column3">
+                        @Html.Rp3IconButton(Icons.Edit, size: HtmlElementSize.Mini, themeType: ElementThemeType.Primary, htmlAttributes: new { action = "editetapa" })
+                        @Html.Rp3IconButton(Icons.Remove, size: HtmlElementSize.Mini, themeType: ElementThemeType.Error, htmlAttributes: new { action = "removeetapa" })
+                    </div>
+                }
+            }
+        }
+    </div>
+
+    @if (Model.SubEtapas != null && Model.SubEtapas.Any())
+    {
+        <ol class="dd-list">
+            @foreach (var subetapa in Model.SubEtapas.OrderBy(p => p.Orden))
+            {
+                Html.RenderPartial("_Etapas", subetapa);
+            }
+        </ol>
+    }
+</li>

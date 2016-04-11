@@ -1,0 +1,97 @@
+﻿@model List<Rp3.AgendaComercial.Models.Marcacion.View.ReporteMarcacion>
+
+<a class="btn btn-default btn-lg pull-right" id="exportarExcelDetalle"><i class="fa fa-file-o"></i> @Rp3.AgendaComercial.Resources.LabelFor.Exportar</a>
+
+<div id="dvDataDetalle">
+    @using (Html.Rp3BeginDataTable(htmlAttributes: new { id = "agente-detalle-table" }, allowPagination: false,
+    columnAutoWidth: false, sortColumn: 0, scrollY: "450px"))
+    {
+        <thead>
+            <tr>
+                <th class="text-center" style="width:50px">@Rp3.AgendaComercial.Resources.LabelFor.Fecha</th>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Grupo</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.HoraInicioPrimeraJornada</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.Break</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.HoraInicioSegundaJornada</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.HoraFinJornada</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.AtrasosMinutos</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.Permiso</th>
+                <th class="text-center" style="width:80px"><img src="@Url.Content("~/Content/AgendaComercial/img/efectividad.png")" /><span style="display:none">@Rp3.AgendaComercial.Resources.LabelFor.Efectividad</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var agente in Model.OrderBy(p => p.Agente))
+            {
+                string classtext = String.Empty;
+
+                //if (!agente.Ausente)
+                //{
+                //    classtext = "selectable-item";
+                //}
+
+                <tr idagente="@agente.IdAgente" descripcion="@agente.Agente">
+                    <td class="@classtext">@agente.Fecha.ToString("yyyy/MM/dd")</td>
+                    <td class="@classtext">@agente.Agente</td>
+                    <td class="@classtext">@agente.Grupo</td>
+                    <td class="text-center @classtext">@agente.HoraInicioPrimeraJornada</td>
+                    <td class="text-center @classtext">@agente.HoraFinPrimeraJornada</td>
+                    <td class="text-center @classtext">@agente.HoraInicioSegundaJornada</td>
+                    <td class="text-center @classtext">@agente.HoraFinSegundaJornada</td>
+                    <td class="text-center @classtext">
+                        @if (!agente.AplicaMarcacion)
+                        {
+                            @Rp3.AgendaComercial.Resources.LabelFor.NoAplicaMarcacion;
+                        }
+                        else if (agente.Ausente && agente.AplicaMarcacion)
+                        {
+                            @Rp3.AgendaComercial.Resources.LabelFor.Ausente;
+                        }
+                        else
+                        {
+                            @agente.MinutosAtraso;
+                        }
+                    </td>
+                    <td class="text-center @classtext">
+                        @if (agente.PermisoPrevio)
+                        {
+                            @Rp3.AgendaComercial.Resources.LabelFor.Si;
+                        }
+                        else
+                        {
+                            @Rp3.AgendaComercial.Resources.LabelFor.No;
+                        }
+                    </td>
+                    <td align="right">
+                        @if (agente.AplicaMarcacion)
+                        {
+                            <span>@agente.Eficiencia.ToString("n0") %</span><div class="img-circle" style="margin-right:5px; margin-top:2px;float:left;height:15px;width:15px;background-color:@agente.KpiEficienciaColor;"></div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td><strong>@Rp3.AgendaComercial.Resources.LabelFor.Total</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-center"><strong>@Model.Sum(p => p.MinutosAtraso)</strong></td>
+                <td></td>
+                <td align="right"><strong>@ViewBag.Eficiencia.ToString("n0") %</strong> <div class="img-circle" style="margin-right:5px; margin-top:2px;float:left;height:15px;width:15px;background-color:@ViewBag.EficienciaKpiColor;"></div></td>
+            </tr>
+        </tfoot>
+    }
+</div>
+
+<script>
+    $(function () {
+        $("#agente-detalle-table").rp3DataTable();
+        //$("#agente-resumen-table").DataTable({
+        //});
+    });
+</script>

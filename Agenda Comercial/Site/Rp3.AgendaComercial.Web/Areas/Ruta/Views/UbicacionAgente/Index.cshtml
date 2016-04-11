@@ -1,0 +1,104 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.UbicacionAgente
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.UbicacionAgente;
+    this.SetImportTables(true);
+    this.SetImportFormElements(true);
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("ubicacionagente.js")
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places,geometry&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("mapa.css", true)
+    @Url.ImportApplicationStyleSheet("ubicacion-agentes.css", true)
+}
+
+@section ActionTitle{
+    @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+    {
+        @Html.Rp3FormGroupCheckBoxFor(model => model.Radar)
+    }
+    @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+    {
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.ConsultarUbicacionAgentes, icon: Icons.MapMarker, target: "#reportForm")
+    }
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "reportForm" }))
+{
+    @Html.HiddenFor(p => p.Filter1)
+    @Html.HiddenFor(p => p.Filter24)
+    @Html.HiddenFor(p => p.Filter48)
+    @Html.HiddenFor(p => p.FilterMAS)
+
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                @:@{Html.RenderPartial("_Agente", Model); }
+}
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_9))
+        {
+            <div id="content_map" class="content_map" style="height:400px; margin-top:-10px">
+                @{ Html.RenderPartial("_UbicacionMapMarkerAgente", Model.AgenteUbicaciones.Where(p => p.Latitud != null && p.Longitud != null)); }
+            </div>
+
+            <div class="leyend-section">
+                <div class="leyend-icon-name @{if (Model.FilterMAS) { @("filterText") }}" id="textMAS" onclick="filter('MAS');" style="cursor: pointer;">@String.Format("Más de {0} horas", ViewBag.AgenteUbicacion3)</div>
+                <div class="leyend-icon" onclick="filter('MAS');" style="cursor: pointer;"><img width="24" height="24" src="@Url.ContentApplicationImage("style/map_rojo.png")" /></div>
+                <div class="leyend-icon-name @{if(Model.Filter48) { @("filterText") }}" id="text48" onclick=" filter('48');" style="cursor: pointer;">@String.Format("{0} Horas", ViewBag.AgenteUbicacion3)</div>
+                <div class="leyend-icon" onclick="filter('48');" style="cursor: pointer;"><img width="24" height="24" src="@Url.ContentApplicationImage("style/map_naranja.png")" /></div>
+                <div class="leyend-icon-name @{if(Model.Filter24) { @("filterText") }}" id="text24" onclick=" filter('24');" style="cursor: pointer;">@String.Format("{0} Horas", ViewBag.AgenteUbicacion2)</div>
+                <div class="leyend-icon" onclick="filter('24');" style="cursor: pointer;"><img width="24" height="24" src="@Url.ContentApplicationImage("style/map_verde.png")" /></div>
+                <div class="leyend-icon-name @{if(Model.Filter1) { @("filterText") }}" id="text1" onclick=" filter('1');" style="cursor: pointer;">@String.Format("{0} Hora(s)", ViewBag.AgenteUbicacion1)</div>
+                <div class="leyend-icon" onclick="filter('1');" style="cursor: pointer;"><img width="24" height="24" src="@Url.ContentApplicationImage("style/map_position.png")" /></div>
+            </div>
+        }
+    }
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginModal("modal-notificacion", customWidth: 450))
+    {
+        <div id="modal-notificacion-content" style="margin-top:-15px;height:200px; width:300px;"> </div>
+
+        using (Html.Rp3BeginModalAction())
+        {
+            <div actions-modal>
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Enviar, themeType: ElementThemeType.Success, icon: Icons.Reply, allowCloseModal: false, customButtonClick: "notificacionPost();")
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true, customButtonClick: "return;")
+            </div>
+        }
+    }
+}
+
+<style>
+    .filterText {
+        font-weight: bold;
+    }
+</style>
+
+<script>
+
+    $("#content_map").height($(window).height() - 170);
+
+    function resizePage() {
+        $("#content_map").height($(window).height() - 170);
+        google.maps.event.trigger(viewMap, 'resize');
+    }
+
+    $(function () {
+
+        setTimeout(function () {
+            resizePage();
+        }, 500);
+    });
+
+</script>

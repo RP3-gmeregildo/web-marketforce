@@ -1,0 +1,135 @@
+﻿@model Rp3.AgendaComercial.Models.General.Cliente
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.CrearCliente;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+
+    Rp3.Web.Mvc.Html.TabCollection tabCollection = (Rp3.Web.Mvc.Html.TabCollection)ViewBag.TabCollection;
+
+    if (ViewBag.TieneRuta == null) { ViewBag.TieneRuta = false; }
+
+    ViewBag.ReadOnly = Model.ReadOnly;
+}
+
+@{
+    if (ViewBag.CampoObligatorio == null)
+    {
+        ViewBag.CampoObligatorio = new List<ParametroClienteCampo>();
+    }
+}
+
+@using Rp3.AgendaComercial.Models.General;
+@using Rp3.AgendaComercial.Models;
+
+@section Imports{
+    @Url.ImportApplicationScript("cliente.js")
+    @Url.ImportApplicationScript("clientefoto.js")
+    @Url.ImportApplicationScript("cropimage.js")
+    @Url.ImportApplicationScript("fancy/jquery.fancybox.pack.js")
+
+    @Url.ImportApplicationScript("tapmodo-jcrop/jquery.Jcrop.min.js")
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("cliente.css", true)
+    @Url.ImportApplicationStyleSheet("fancy/jquery.fancybox.css", true)
+    @Url.ImportApplicationStyleSheet("tapmodo-jcrop/jquery.Jcrop.min.css", true)
+}
+
+@section ActionTitle{
+    @Html.Rp3ActivityActionButton(ActivityActions.Create, themeType: ElementThemeType.Success)
+}
+
+@{Html.RenderPartial("_ClienteCropImageDialog");}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "mainform" }))
+{
+    <input type="hidden" id="asignarRuta" name="asignarRuta" value="false">
+    <input type="hidden" id="editar" name="editar" value="false">
+
+    using (Html.Rp3BeginTabContentBox(Rp3.AgendaComercial.Resources.TitleFor.CrearCliente, tabCollection, paddingContent: true))
+    {
+        @Html.HiddenFor(model => model.IdCliente)
+
+        using (Html.Rp3BeginTabPane("tabdatosgenerales", active: true))
+        {
+            @: @{ Html.RenderPartial("_DatosGenerales", Model); }
+        }
+    }
+}
+
+@using (Html.BeginForm("UploadFoto", "Cliente",
+                                null,
+                                FormMethod.Post,
+                new
+                {
+                    enctype = "multipart/form-data",
+                    id = "ImgFormCliente",
+                    target = "UploadTargetCliente",
+                    name = "ImgFormCliente"
+                }))
+{
+    <input style="display:none" type="file" name="file" onchange="uploadClienteImage()" />
+}
+
+<script>
+    setTimeout(function () {
+        $('#Estado').select2("enable", false);
+    }, 100);
+
+    $(function () {
+        $('button[action="CREATE"]').click(function (e) {
+            e.preventDefault();
+
+            @if (ViewBag.TieneRuta){
+                
+                <text>
+
+                var nombre = $("#Nombre1").val();
+
+                if (nombre && nombre.length > 0) {
+
+                    rp3DialogConfirmationMessage("¿Desea agregar a este Cliente a su Ruta y continuar editándolo?", "Confirmación", function () {
+
+                        $("#asignarRuta").val("true");
+                        $("#editar").val("true");
+
+                        $('#mainform').submit();
+
+                    }, function () {
+
+                        $("#asignarRuta").val("false");
+                        $("#editar").val("false");
+
+                        $('#mainform').submit();
+
+                      });
+                }
+                else {
+                    $('#mainform').submit();
+                }
+
+            </text>
+            }
+            else {
+                 <text>
+
+                rp3DialogConfirmationMessage("¿Desea continuar editando este Cliente?", "Confirmación", function () {
+                    $("#editar").val("true");
+
+                    $('#mainform').submit();
+                }, function () {
+                    $("#editar").val("false");
+
+                    $('#mainform').submit();
+                });
+
+                
+                </text>
+            }
+        });
+    });
+</script>

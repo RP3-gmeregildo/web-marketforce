@@ -1,0 +1,46 @@
+﻿@model Rp3.AgendaComercial.Models.General.View.ZonaModel
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.EditarZona;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("zona.js")
+    @Url.ImportApplicationScript("fancy/jquery.fancybox.pack.js")
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places,drawing&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("mapa.css", true)
+    @Url.ImportApplicationStyleSheet("fancy/jquery.fancybox.css", true)
+    @Url.ImportApplicationStyleSheet("ubicacion-agentes.css", true)
+}
+
+@section ActionTitle{
+    @Html.Rp3ActivityActionButton(ActivityActions.Modify, themeType: ElementThemeType.Success, target: "#form-zona")
+
+    @Html.Rp3Button("Modificar y Procesar", actionName: "PROCESS", iconClass: "fa fa-gears", themeType: ElementThemeType.Success)
+}
+
+
+@{Html.RenderPartial("_Edit", Model);}
+
+<div id="contentgeocercapoints">
+
+</div>
+
+<script>
+    showModificarMessage();
+
+    $(function () {
+        $('button[action="PROCESS"]').click(function (e) {
+            e.preventDefault();
+
+            $("#process").val("true");
+            $('#form-zona').submit();
+        });
+    });
+</script>

@@ -1,0 +1,29 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.Memo
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.EliminarMemo;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new Script { ExtensionSuite = ExtensionSuite.Editors }
+)
+
+@Html.DevExpress().GetStyleSheets(
+            new StyleSheet { ExtensionSuite = ExtensionSuite.Editors, Theme = "MetropolisBlue" }
+)
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Memo))
+    {
+        @:@{Html.RenderPartial("_Datos", Model);}
+
+
+        @Html.Rp3FormActionGroup(ActivityActions.Delete)
+    }
+
+
+}

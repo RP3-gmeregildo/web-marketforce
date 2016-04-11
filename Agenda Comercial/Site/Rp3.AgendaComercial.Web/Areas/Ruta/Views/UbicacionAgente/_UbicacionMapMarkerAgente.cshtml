@@ -1,0 +1,241 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.Ruta.AgenteUbicacion>
+@using System.Threading;
+@using System.Globalization;
+@using System.Web.Script.Serialization
+@{
+    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+    string mapSelector = "viewMap";
+
+    if (ViewBag.MapSelector != null) { mapSelector = ViewBag.MapSelector; }
+
+    int count = Model.Where(p => p.Latitud != null && p.Longitud != null && p.Longitud != 0 && p.Latitud != 0).Count();
+    int countMarkerIndex = Model.Where(p => p.Latitud != null && p.Longitud != null && p.Longitud != 0 && p.Latitud != 0 && p.MarkerIndex != 0).Count();
+   
+    //ViewBag.MapWidth = "100%";
+    ViewBag.MapHeight = "100%";
+
+   
+    if (ViewBag.TravelMode == null) { ViewBag.TravelMode = "DRIVING"; }
+    if (ViewBag.MapWidth == null) { ViewBag.MapWidth = "100%"; }        
+}
+
+<div style="display:none">
+@foreach (var marker in Model.Where(p => p.Latitud != null && p.Longitud != null && p.Longitud != 0 && p.Latitud != 0))
+{
+    <div id="tip-agente@{@marker.IdAgente}" style="width:230px; padding:10px">
+        <div><img src="@Url.ContentApplicationImage("agentes.png")" height="16" width="16" style="margin-top:10px;float:left"/><h5 style="margin-left:4px; float:left">@marker.Agente.Descripcion</h5></div>
+        <div style="clear:both"><i class="fa fa-calendar"></i> @marker.Fecha.ToString("dd/MM/yyyy HH:mm")</div>
+        <div><i class="fa fa-clock-o"></i> @marker.UltimaConexion</div>
+        <div style="cursor:pointer;color:blue" onclick="openNotificacion(@marker.IdAgente)"><i class="fa fa-comment-o"></i> Enviar notificación</div>
+        <div style="cursor:pointer;color:blue" onclick="openRecorrido(@marker.IdAgente, '@marker.Fecha.ToString("yyyy-MM-d")')"><i class="fa fa-road"></i> Ir al Recorrido</div>
+        <div style="cursor:pointer;color:blue" onclick="openTrazabilidad(@marker.IdAgente, '@marker.Fecha.ToString("yyyy-MM-d")')"><i class="fa fa-flag"></i> Ir al Informe de Trazabilidad</div>
+        <!--#Distancia-->
+    </div>
+}    
+</div>
+
+<script language="javascript" type="text/javascript">
+
+    var googleMapArray = [];
+    var googleMap = null;
+    var bounds = null;
+    var latitud = null;
+    var longitud = null;
+    var directionsService = new google.maps.DirectionsService();
+    var requestArray = [], renderArray = [];
+    var colorBlue = "#335AA8";
+    var colorGreen = "#6FBF56";
+    var colorOrange = "#FF8838";
+    var colorRed = "#BE2026";
+
+    $("#Radar").on('ifChecked', function () {
+        navigator.geolocation.getCurrentPosition(setMap);
+    });
+
+    $("#Radar").on('ifUnchecked', function () { setMap(); });
+
+    function setMap(position)
+    {
+
+        bounds = new google.maps.LatLngBounds();
+        var options = {
+            @if (count > 1)
+        {
+            <text>zoom : 16,</text>
+        }
+        else
+        {
+            <text>zoom : 14,</text>
+        }
+            scrollwheel: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        googleMap = new google.maps.Map($("#@{@mapSelector}")[0], options);
+
+        var infowindow = new google.maps.InfoWindow();
+
+        var image;
+
+        @if (count == 0)
+        {
+            <text>
+        googleMap.setCenter(new google.maps.LatLng(@Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLatitud, @Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLongitud));
+        </text>
+        }
+
+        if(position)
+        {
+            var point_init = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            bounds.extend(point_init);
+
+
+            //Graficar punto de radar
+            image = new google.maps.MarkerImage("@Url.ContentApplicationImage("style/markervisit.png")");
+            var marker_init = new google.maps.Marker({
+                position: point_init,
+                map: googleMap,
+                icon: image,
+                title: '@Html.Raw("Origen")',
+                draggable: false
+            });
+
+            google.maps.event.addListener(marker_init, "click", function () {
+                infowindow.close();
+                infowindow.setContent('<div style="width:80px"><h5>Origen</h5></div>');
+                infowindow.open(googleMap, this);
+            });
+
+        }
+
+        @foreach (var marker in Model.Where(p => p.Latitud != null && p.Longitud != null && p.Longitud != 0 && p.Latitud != 0))
+        {
+        <text>
+
+        var point = new google.maps.LatLng(@marker.Latitud, @marker.Longitud);
+        bounds.extend(point);
+
+        var image, origin, size;
+
+        size = new google.maps.Size(30, 42, "px", "px");
+        origin = new google.maps.Point(@{ @marker.MarkerStart }, 0);
+
+        var colorMark = colorRed;
+        @if (marker.HorasUltimaConexion < ViewBag.AgenteUbicacion1)
+        {
+            <text>
+        colorMark = colorBlue;
+        image = new google.maps.MarkerImage("@Url.Content("~/Content/AgendaComercial/img/style/sprite_numbers_location.png")", size, origin);
+        </text>
+        }
+        else if (marker.HorasUltimaConexion < ViewBag.AgenteUbicacion2)
+        {
+            <text>
+        colorMark = colorGreen;
+        image = new google.maps.MarkerImage("@Url.Content("~/Content/AgendaComercial/img/style/sprite_numbers_location_verde.png")", size, origin);
+        </text>
+        }
+        else if (marker.HorasUltimaConexion < ViewBag.AgenteUbicacion3)
+        {
+            <text>
+        colorMark = colorOrange;
+        image = new google.maps.MarkerImage("@Url.Content("~/Content/AgendaComercial/img/style/sprite_numbers_location_naranja.png")", size, origin);
+        </text>
+        }
+        else
+        {
+            <text>
+        colorMark = colorRed;
+        image = new google.maps.MarkerImage("@Url.Content("~/Content/AgendaComercial/img/style/sprite_numbers_location_rojo.png")", size, origin);
+        </text>
+        }
+
+        var marker = new google.maps.Marker({
+            position: point,
+            map: googleMap,
+            title: '@Html.Raw(marker.Titulo)',
+            animation: google.maps.Animation.DROP,
+            @if (marker.MarkerIndex != 0)
+            {
+                <text>
+            icon: image,
+            </text>
+            }
+            zIndex: @{ @marker.MarkerZIndex } ,
+            draggable: false
+        });
+
+        var distanciaMensaje@{@marker.MarkerIndex} = '';
+        if(position)
+        {
+            var line = new google.maps.Polyline({
+                path: [marker_init.getPosition(), marker.getPosition()],
+                strokeColor: colorMark,
+                strokeOpacity: 1.0,
+                strokeWeight: 5,
+                geodesic: true,
+                map: googleMap
+            });
+
+            var same_point = new google.maps.LatLng(@marker.Latitud, @marker.Longitud);
+            var dist = parseInt(google.maps.geometry.spherical.computeDistanceBetween (marker_init.getPosition(), same_point));
+            dist = dist / 1000;
+
+            distanciaMensaje@{@marker.MarkerIndex} = 'A ' + String(dist.toFixed(2)) + ' kilometro(s)';
+        }
+
+
+        google.maps.event.addListener(marker, "click", function () {
+            infowindow.close();
+            var htmlInsert = $("#tip-agente@{@marker.IdAgente}").html();
+            if(distanciaMensaje@{@marker.MarkerIndex}.length>0)
+                htmlInsert = htmlInsert.replace("<!--#Distancia-->",'<div style="color:#328fca"><i class="fa fa-exclamation-circle"></i> ' + distanciaMensaje@{@marker.MarkerIndex} + '</div>');
+            infowindow.setContent(htmlInsert);
+            infowindow.open(googleMap, this);
+        });
+
+
+        @if (count == 1)
+        {
+            <text>
+    latitud = @marker.Latitud;
+    longitud = @marker.Longitud;
+    </text>
+        }
+
+    </text>
+    }
+
+    setCenter();
+    }
+
+    $(document).ready(function () {
+        setMap();
+    });
+
+    function setCenter()
+    {
+        @if(count==1)
+        {
+             @:googleMap.setCenter(new google.maps.LatLng(latitud, longitud));
+                                                                }
+
+        @if (count > 1)
+        {
+            <text>
+        googleMap.fitBounds(bounds);
+        </text>
+        }
+    };
+
+    function checkResizeMap()
+    {
+        if(googleMap)
+        {
+            setCenter();
+        }
+    };
+
+</script>
+<div id="@{@mapSelector}" style="width: @ViewBag.MapWidth; height: @ViewBag.MapHeight;">
+</div>

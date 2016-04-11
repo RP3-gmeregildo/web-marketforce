@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.Productos;
+    this.SetImportAdvTables(true);
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("producto.js", true)
+}
+
+@section ActionTitle{
+    <a class="btn btn-primary pull-right" id="preview"><i class="fa fa-file-o"></i> @Rp3.AgendaComercial.Resources.LabelFor.Exportar</a>
+    @Html.Rp3OptionActivityButton("PRODUCTOS", "NEW", HtmlElementSize.Default, includeText: true, applicationId: "AGENDACOMERCIAL")
+}
+
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{
+    @Html.Action("GridViewIndex")
+}

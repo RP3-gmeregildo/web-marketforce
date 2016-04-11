@@ -1,0 +1,31 @@
+﻿@{
+    this.SetTitle(Rp3.AgendaComercial.Resources.TitleFor.Dashboard);
+    this.SetImportTables(true);
+}
+
+@section ScriptImports{
+    @Url.ImportApplicationScript("highcharts/highcharts.js")
+}
+
+@section BeforeStyleImports{
+    @Url.ImportApplicationStyleSheet("daterangepicker/daterangepicker-bs3.css")
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("daterangepicker/moment.min.js")
+    @Url.ImportApplicationScript("daterangepicker/daterangepicker.js")
+}
+
+@section ActionTitle{
+    <label class="control-label" style="float:left;margin-left:15px; margin-top:10px" for="">Fechas</label>
+    <div class="row" style="float:left;width:252px;margin-left:15px;margin-top:-2px;height:40px;">
+        <div id="reportrange" class="pull-left form-control daterange" style=" height:48px">
+            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+            <span style="height:100%"></span> <b style="height: 100%; display: inline-block;vertical-align: middle;"></b>
+        </div>
+    </div>
+}
+
+<div id="dashboard-main-content">
+    @{Html.RenderPartial("_Principal");}
+</div> 

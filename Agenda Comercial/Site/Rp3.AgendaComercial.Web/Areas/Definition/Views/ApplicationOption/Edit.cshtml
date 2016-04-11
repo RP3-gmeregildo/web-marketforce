@@ -1,0 +1,76 @@
+﻿@model Rp3.Data.Models.Definition.ApplicationOption
+@{
+    this.SetTitle(Rp3.Resources.TitleFor.EditOption);
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportScript("rp3.applicationoption.js")
+}
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.Resources.TitleFor.EditOption))
+            {
+
+                <text>
+                    @Html.HiddenFor(model => model.ApplicationId)
+                    @Html.HiddenFor(model => model.OptionId)
+                    @Html.Rp3FormGroupDisplayFor(model => model.Name)
+                    @Html.Rp3FormGroupDisplayFor(model => model.Active)
+                    @if (!Model.ReadOnly)
+                    {
+                        @Html.Rp3FormActionGroup(ActivityActions.Update)
+                    }
+                </text>
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            using (Html.Rp3BeginDataTable(functionsPageTop: false, allowPagination: false, allowSearch: false, allowSort: false))
+            {
+                <thead>
+                    <tr>
+                        <th>@Rp3.Resources.LabelFor.Column</th>
+                        @if (!Model.ReadOnly)
+                        {
+                            <th>@Html.Rp3CheckBox("columncheckall", isChecked: Model.ApplicationOptionColumns.Where(p => p.Visible).Count() > 0)</th>
+                        }
+                        else
+                        {
+                            <th></th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var column in Model.ApplicationOptionColumns.OrderBy(p => p.Label))
+                    {
+                        <tr>
+                            <td>@column.Label</td>
+                            @if (!Model.ReadOnly)
+                            {
+                                <td class="text-center">
+                                    @Html.Rp3CheckBox("columns", isChecked: column.Visible, value: column.Key)
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="text-center">
+                                    @Html.Rp3ReadOnlyCheck(column.Visible)
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            }
+        }
+    }
+
+}

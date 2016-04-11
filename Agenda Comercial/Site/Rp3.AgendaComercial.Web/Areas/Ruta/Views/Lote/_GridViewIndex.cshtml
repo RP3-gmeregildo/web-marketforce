@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.Ruta.Lote>
+@{
+    
+}
+@Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "Lote", Action = "GridViewIndex" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.ClientSideEvents.CustomButtonClick = "function(s, e) { document.location= e.buttonID + '?id=' + s.GetRowKey(e.visibleIndex); }";
+        settings.KeyFieldName = "IdLote";
+
+        settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Visible;
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Lote;
+            column.FieldName = "Descripcion";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+            column.Width = 400;     
+        });
+
+        settings.Columns.Add("CantidadClientes", Rp3.AgendaComercial.Resources.LabelFor.Clientes);
+
+        settings.Columns.Add("CanalResumen", Rp3.AgendaComercial.Resources.LabelFor.Canales).Width = 300;
+        settings.Columns.Add("TipoClienteResumen", Rp3.AgendaComercial.Resources.LabelFor.TipoClientes).Width = 300;
+        settings.Columns.Add("ZonaResumen", Rp3.AgendaComercial.Resources.LabelFor.Zonas).Width = 300;
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Calificacion";
+            column.Width = 150;
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.Rp3RenderRate((int)DataBinder.Eval(c.DataItem, "Calificacion"));
+            });
+
+        });
+
+        var colEstado = settings.Columns.Add("EstadoGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Estado);
+        colEstado.Width = 75;
+    },
+    new List<OptionAction>() { 
+        new OptionAction("LOTE", "DETAIL", "AGENDACOMERCIAL"),
+        new OptionAction("LOTE", "EDIT", "AGENDACOMERCIAL"),
+        new OptionAction("LOTE", "DELETE", "AGENDACOMERCIAL"),
+        new OptionAction("LOTE", "PROCESS", "AGENDACOMERCIAL"),
+    }).Bind(Model).GetHtml()

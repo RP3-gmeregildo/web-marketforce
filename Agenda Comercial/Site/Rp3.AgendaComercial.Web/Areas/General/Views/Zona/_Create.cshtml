@@ -1,0 +1,57 @@
+﻿@model Rp3.AgendaComercial.Web.Areas.General.Models.ZonaNew
+@{
+
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "createZonaform" }))
+{
+    <text>
+
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion, labelSize: HtmlColumnSize.Size_3)
+            }
+        }
+
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                @Html.Rp3FormGroupDropDownListFor(model => model.Tipo, (SelectList)ViewBag.TiposSelectList, labelSize: HtmlColumnSize.Size_3)
+            }
+        }
+
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                @Html.Rp3FormGroupDropDownListFor(model => model.IdRegion, (SelectList)ViewBag.RegionesSelectList, labelSize: HtmlColumnSize.Size_3)
+            }
+        }
+
+    </text>
+
+    using (Html.Rp3BeginModalAction())
+    {
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Crear, icon: Icons.Check, actionName: "save")
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, icon: Icons.Cancel, actionName: "cancel", allowCloseModal: true, themeType: ElementThemeType.Default)
+    }
+}
+
+@Url.ImportValidateUnobtrusiveScript()
+
+<script>
+
+    $(function () {
+        $('#createZonaform select').rp3SelectBox();
+
+        $('#newZonaDialog [action="save"]').click(function (e) {
+            e.preventDefault();
+            postNewZona();
+        });
+    });
+
+</script>
+

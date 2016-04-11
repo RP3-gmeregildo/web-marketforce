@@ -1,0 +1,49 @@
+﻿@model List<Rp3.AgendaComercial.Models.Consulta.View.DashboardResumenGestionAgente>
+
+@using (Html.Rp3BeginDataTable(htmlAttributes: new { id = "agente-resumen-table" }, allowPagination: false, scrollY: "130px", columnAutoWidth: false))
+{
+    <thead>
+        <tr>
+            <th class="text-center" style="min-width:20px"></th>
+            <th class="text-center" style="min-width:150px">@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>
+            <th class="text-center" style="min-width:30px"><i class="fa round-corner" style="background-color:#6FBF56; width:15px; height:15px;"></i>@*<div class="img-circle" style="margin-left:auto;margin-right:auto; margin-top:2px;float:none;height:15px;width:15px;background-color:#6FBF56;"></div>*@</th>
+            <th class="text-center" style="min-width:30px"><i class="fa round-corner" style="background-color:#BE2026; width:15px; height:15px;"></i>@*<div class="img-circle" style="margin-left:auto;margin-right:auto; margin-top:2px;float:none;height:15px;width:15px;background-color:#BE2026;"></div>*@</th>
+            <th class="text-center" style="min-width:30px"><i class="fa round-corner" style="background-color:#335AA8; width:15px; height:15px;"></i>@*<div class="img-circle" style="margin-left:auto;margin-right:auto; margin-top:2px;float:none;height:15px;width:15px;background-color:#335AA8;"></div>*@</th>
+            <th class="text-center" style="min-width:30px"><img src="@Url.Content("~/Content/AgendaComercial/img/total.png")" /></th>
+            <th class="text-center" style="min-width:30px"><img src="@Url.Content("~/Content/AgendaComercial/img/efectividad.png")" /></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var agente in Model.OrderBy(p => p.Agente))
+        {
+            <tr idagente="@agente.IdAgente" descripcion="@agente.Agente">
+                <td class="selectable-item text-center" style="width:20px"><div id="icon_location"><strong>@agente.MarkerIndex</strong></div></td>
+                <td class="selectable-item">
+                    @agente.Agente
+                </td>
+                <td class="selectable-item text-right">
+                    @agente.Gestionados
+                </td>
+                <td class="selectable-item text-right">
+                    @agente.NoGestionados
+                </td>
+                <td class="selectable-item text-right">
+                    @agente.Proximos
+                </td>
+                <td class="selectable-item text-right">
+                    @agente.Total
+                </td>
+                <td class="selectable-item text-right">
+                    @agente.Efectividad.ToString("n0")%
+                    <div class="img-circle" style="margin-right:5px; margin-top:2px;float:left;height:15px;width:15px;background-color:@agente.KpiColor;"></div>
+                </td>
+            </tr>
+        }
+    </tbody>
+}
+
+<script>
+    $(function () {
+        $("#agente-resumen-table").rp3DataTable();
+    });
+</script>

@@ -1,0 +1,64 @@
+﻿.content_star_ranking {
+    width: 130px;
+    margin: auto;
+    height: 16px;
+    color: #CCFF00;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.star_all {
+    width: 95px;
+    margin: auto;
+    height: 16px;
+    color: #CCFF00;
+}
+
+.cancel_rate {
+    width: 17px;
+    height: 16px;
+    background: url(../img/style/cancel-off.png);
+    position: relative;
+    float: left;
+}
+
+.cancel_rate:hover {
+    width: 17px;
+    height: 16px;
+    background: url(../img/style/cancel-on.png);
+    position: relative;
+    float: left;
+}
+
+.star_full {
+    width: 17px;
+    height: 16px;
+    background: url(../img/style/sprite_star.png) 0px 16px;
+    position: relative;
+    float: left;
+}
+
+.star_full:hover {
+    width: 17px;
+    height: 16px;
+    background: url(../img/style/sprite_star.png) 0px 33px;
+    position: relative;
+    float: left;
+}
+
+.star_empty {
+    width: 17px;
+    height: 16px;
+    background: url(../img/style/sprite_star.png) 17px 16px;
+    position: relative;
+    float: left;
+}
+
+.star_empty:hover {
+    width: 17px;
+    height: 16px;
+    background: url(../img/style/sprite_star.png) 17px 33px;
+    position: relative;
+    float: left;
+}

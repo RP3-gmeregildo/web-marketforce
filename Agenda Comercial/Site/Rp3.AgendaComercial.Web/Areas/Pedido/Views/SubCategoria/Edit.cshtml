@@ -1,0 +1,29 @@
+﻿@model Rp3.AgendaComercial.Models.Pedido.SubCategoria
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.EditarSubcategoria;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.SubCategoria))
+            {
+                <text>
+                    @Html.HiddenFor(model => model.IdSubCategoria)
+                    @Html.Rp3FormGroupDropDownListFor(model => model.IdCategoria, (SelectList)ViewBag.Categorias, labelText: Rp3.AgendaComercial.Resources.LabelFor.Categoria, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarCategoria })
+                    @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion)
+                    @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla)
+                </text>
+
+                @Html.Rp3FormActionGroup(ActivityActions.Update)
+            }
+        }
+    }
+}

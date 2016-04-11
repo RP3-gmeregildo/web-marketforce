@@ -1,0 +1,29 @@
+﻿@model Rp3.Web.Mvc.Application.Security.Models.DetailUser
+@{
+    ViewBag.Title = Rp3.Resources.TitleFor.DeleteUser;
+    this.SetImportFormElements(true);
+}
+@section ActionTitle{
+    @Html.Rp3ActivityActionButton(ActivityActions.Delete, target: "#mainform", themeType: ElementThemeType.Error)
+}
+
+@using(Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+{
+    using (Html.Rp3BeginContentBox(Rp3.Resources.TitleFor.DeleteUser))
+    {
+        using (Html.Rp3BeginForm(htmlAttributes: new { id = "mainform" }))
+        {
+            <text>                                
+            @Html.HiddenFor(model => model.UserId)
+            @Html.Rp3FormGroupDisplayFor(model => model.Email)
+            @Html.Rp3FormGroupDisplayFor(model => model.LogonName)
+            @Html.Rp3FormGroupDisplayFor(model => model.Names)
+            @Html.Rp3FormGroupDisplayFor(model => model.LastNames)      
+            @Html.Rp3FormGroupDisplayFor(model => model.RoleName)
+            @Html.Rp3FormGroupDisplayFor(model => model.Active)    
+
+              
+            </text>
+        }
+    }
+}

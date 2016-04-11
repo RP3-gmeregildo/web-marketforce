@@ -1,0 +1,95 @@
+﻿@model Rp3.AgendaComercial.Models.Consulta.View.DashboardResumenGestion
+
+<div id="resumen-gestion-chart-container" style="width:100%; height:100%;"></div>
+<script>
+    var chart;
+    $(function () {
+        //$('#resumen-gestion-chart-container').highcharts({
+        chart = new Highcharts.Chart({
+            chart: {
+                type: 'column',
+                renderTo: 'resumen-gestion-chart-container',
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                style: {
+                    display: 'none'
+                }
+            },
+            xAxis: {
+                categories: ['@Html.Raw(Rp3.AgendaComercial.Resources.LabelFor.Gestiones)'],
+                labels: {
+                    useHTML: true,
+                    style: {
+                        paddingTop: '10px'
+                    }
+                }
+            },
+            yAxis: {
+                title: {
+                    text: '@Html.Raw(Rp3.AgendaComercial.Resources.LabelFor.NumeroGestiones)'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: '@{@Rp3.AgendaComercial.Resources.LabelFor.IndicadorGestionados}',
+                color: '#6FBF56',
+                data: [@Model.Gestionados],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    x: 4,
+                    y: 10,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif',
+                        textShadow: '0 0 3px black'
+                    }
+                }
+            }, {
+                name: '@{@Rp3.AgendaComercial.Resources.LabelFor.IndicadorNoGestionados}',
+                color: '#BE2026',
+                data: [@Model.NoGestionados],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    x: 4,
+                    y: 10,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif',
+                        textShadow: '0 0 3px black'
+                    }
+                }
+            }, {
+                name: '@Html.Raw(@Rp3.AgendaComercial.Resources.LabelFor.IndicadorProximos)',
+                color: '#335AA8',
+                data: [@Model.Proximos],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    x: 4,
+                    y: 10,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif',
+                        textShadow: '0 0 3px black'
+                    }
+                }
+            }]
+        });
+    });
+</script>

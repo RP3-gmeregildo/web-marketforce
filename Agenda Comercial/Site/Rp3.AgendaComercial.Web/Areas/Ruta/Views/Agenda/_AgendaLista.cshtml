@@ -1,0 +1,141 @@
+﻿@{
+    var d_day = DateTime.Now.Day;
+    var d_weekDay = DateTime.Now.ToString("dddd").First().ToString().ToUpper() + String.Join("", DateTime.Now.ToString("dddd").Skip(1));
+    var d_month = DateTime.Now.ToString("MMMM").First().ToString().ToUpper() + String.Join("", DateTime.Now.ToString("MMMM").Skip(1));
+    var d_ano = DateTime.Now.Year;
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+    {
+        using (Html.Rp3BeginContentBox())
+        {
+            string placeHolder = Rp3.AgendaComercial.Resources.LabelFor.BuscarEnAgenda;
+
+            if (ViewBag.TodosMisAgentes)
+            {
+                placeHolder = @Rp3.AgendaComercial.Resources.LabelFor.BuscarEnAgendaAgente;
+            }
+
+            <div style="height:50px;">
+                <div class="row" style="float:left;width:500px; margin-top:-10px;">
+                    <div class="col-md-2"> <div class="block-lines-header-box blue-box"><h4 class="text-center">@d_day</h4></div></div>
+                    <div class="col-md-2 pad-10">@d_weekDay  @d_month  @d_ano</div>
+                    <div class="col-md-8 pad-10"><input id="txtbusqueda" type="text" class="form-control input-lg" placeholder="@placeHolder"></div>
+                </div>
+                <div class="row" style="float:left;width:50px;margin-left:20px;margin-top:-2px;height:50px;"><div id="spinner-loading"></div></div>
+                <div class="row" style="float:left;width:300px;margin-left:30px;margin-top:-2px;height:50px;">
+                    <div id="reportrange" class="pull-left form-control daterange" style=" height:48px">
+                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                        <span style="height:100%"></span> <b @*class="caret"*@ style="height: 100%; display: inline-block;vertical-align: middle;"></b>
+                    </div>
+                </div>
+
+                <div class="btn-group pull-right row" style="width:140px;">
+                    @Html.Rp3Button("", actionName: "group-calendar", iconClass: "fa fa-calendar", includeText: false, htmlAttributes: new { title = Rp3.AgendaComercial.Resources.LabelFor.Fecha })
+                    @*@Html.Rp3Button("", actionName: "group-client", iconClass: "fa fa-male", themeType: ElementThemeType.Default)*@
+
+                    <button action="group-client" class="btn btn-default"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("clientes.png")" title="@Rp3.AgendaComercial.Resources.LabelFor.Cliente" /></button>
+
+                    @if (ViewBag.TodosMisAgentes)
+                    {
+                        @*@Html.Rp3Button("", actionName: "group-agent", iconClass: "fa fa-user", themeType: ElementThemeType.Default)*@
+
+                        <button action="group-agent" class="btn btn-default"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("agentes.png")" title="@Rp3.AgendaComercial.Resources.LabelFor.Agente" /></button>
+                    }
+                </div>
+
+                @*<div class="btn-group pull-right row" style="width:50px;">
+                        @Html.Rp3Button("", actionName: "sort-list", iconClass: "fa fa-sort", themeType: ElementThemeType.Default, htmlAttributes: new { title = Rp3.AgendaComercial.Resources.TitleFor.Ordenamiento })
+                    </div>*@
+
+            </div>
+        }
+    }
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+    {
+        using (Html.Rp3BeginContentBox(paddingContent: false))
+        {
+            <div class="row">
+                <div field="direccion" style="float:right">
+                    <div sort-asc onclick="Sort('direccion')" style="display:none;cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-asc"></i></div>
+                    <div sort-desc onclick="Sort('direccion')" style="display:none;cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-desc"></i></div>
+                    <div onclick="Sort('direccion')" style="cursor:pointer;float:left;margin-left:5px;"><i class="fa fa-home"></i></div>
+                    <div onclick="Sort('direccion')" style="cursor:pointer;float:left;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Direccion</strong></div>
+
+                </div>
+                <div field="estado" style="float:right">
+                    <div sort-asc onclick="Sort('estado')" style="display:none;cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-asc"></i></div>
+                    <div sort-desc onclick="Sort('estado')" style="display:none;cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-desc"></i></div>
+                    <div onclick="Sort('estado')" style="cursor:pointer;float:left;margin-left:5px;"><i class="fa fa-circle"></i></div>
+                    <div onclick="Sort('estado')" style="cursor:pointer;float:left;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Estado</strong></div>
+
+                </div>
+
+                <div field="fecha" style="float:right">
+                    <div sort-asc onclick="Sort('fecha')" style="cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-asc"></i></div>
+                    <div sort-desc onclick="Sort('fecha')" style="display:none;cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-desc"></i></div>
+                    <div onclick="Sort('fecha')" style="cursor:pointer;float:left;margin-left:5px;"><i class="fa fa-calendar"></i></div>
+                    <div onclick="Sort('fecha')" style="cursor:pointer;float:left;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Fecha</strong></div>
+
+                </div>
+
+                <div field="cliente" style="float:right">
+                    <div sort-asc onclick="Sort('cliente')" style="display:none;cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-asc"></i></div>
+                    <div sort-desc onclick="Sort('cliente')" style="display:none;cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-desc"></i></div>
+                    <div onclick="Sort('cliente')" style="cursor:pointer;float:left;margin-left:5px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("clientes.png")" /></div>
+                    <div onclick="Sort('cliente')" style="cursor:pointer;float:left;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Cliente</strong></div>
+                </div>
+
+                <div field="agente" style="float:right">
+                    <div sort-asc onclick="Sort('agente')" style="display:none;cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-asc"></i></div>
+                    <div sort-desc onclick="Sort('agente')" style="display:none;cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-desc"></i></div>
+                    <div onclick="Sort('agente')" style="cursor:pointer;float:left;margin-left:5px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("agentes.png")" /></div>
+                    <div onclick="Sort('agente')" style="cursor:pointer;float:left;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Agente</strong></div>
+
+                </div>
+
+                <div field="origen" style="float:right">
+                    <div sort-asc onclick="Sort('origen')" style="display:none;cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-asc"></i></div>
+                    <div sort-desc onclick="Sort('origen')" style="display:none;cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-desc"></i></div>
+                    <img onclick="Sort('origen')" class="" style="cursor:pointer;float:left;margin-left:5px;" width="16" height="16" src="@Url.ContentApplicationImage("agenda-movil.png")" />
+                    <div onclick="Sort('origen')" style="cursor:pointer;float:left;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Movil</strong></div>
+
+                </div>
+
+                <div field="origen" style=" float:right">
+                    <div sort-asc onclick="Sort('origen')" style="display:none;cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-asc"></i></div>
+                    <div sort-desc onclick="Sort('origen')" style="display:none;cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-desc"></i></div>
+                    <img onclick="Sort('origen')" class="" style="cursor:pointer;float:left;margin-left:5px;" width="16" height="16" src="@Url.ContentApplicationImage("agenda-web.png")" />
+                    <div onclick="Sort('origen')" style="cursor:pointer;float:left;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Web</strong></div>
+
+                </div>
+
+                <div field="origen" style="float:right">
+                    <div sort-asc onclick="Sort('origen')" style="display:none;cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-asc"></i></div>
+                    <div sort-desc onclick="Sort('origen')" style="display:none;cursor:pointer;float:left;margin-right:0px;margin-left:10px"><i class="fa fa-sort-desc"></i></div>
+                    <img onclick="Sort('origen')" class="" style="cursor:pointer;float:left;margin-left:5px;" width="16" height="16" src="@Url.ContentApplicationImage("agenda-auto.png")" />
+                    <div onclick="Sort('origen')" style="cursor:pointer;float:left;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Automatica</strong></div>
+                </div>
+
+            </div>
+
+            <div id="content-listado" style="min-height:300px"></div>
+        }
+    }
+}
+
+<script>
+    $(function () {
+        init_Listado();
+    });
+
+    function order() {
+        alert(1);
+    }
+</script>

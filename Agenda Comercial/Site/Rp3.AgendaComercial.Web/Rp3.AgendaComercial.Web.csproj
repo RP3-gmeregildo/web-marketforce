@@ -1,0 +1,1427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{118977D0-F203-4708-8805-E54A2DC99429}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Rp3.AgendaComercial.Web</RootNamespace>
+    <AssemblyName>Rp3.AgendaComercial.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ActionMailer.Net, Version=0.7.4.0, Culture=neutral, PublicKeyToken=e62db3114c02a1c2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lacWeb\ActionMailer.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ActionMailer.Net.Mvc, Version=0.7.4.0, Culture=neutral, PublicKeyToken=e62db3114c02a1c2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lacWeb\ActionMailer.Net.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Dashboard.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Dashboard.v14.1.Web, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Dashboard.v14.1.Web.Mvc5, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.DataAccess.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Office.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.SpellChecker.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Spreadsheet.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxGauges.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxPivotGrid.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxScheduler.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxSpellChecker.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxSpreadsheet.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxThemes.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxTreeList.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.Mvc5.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v14.1.Web, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v14.1.Web, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGauges.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGauges.v14.1.Presets, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Sparkline.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v14.1.Web, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DropDownList_Optgroup, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lacWeb\DropDownList_Optgroup.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lacWeb\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Common">
+      <HintPath>..\packages\WebApi.Core.0.3.0\lib\40\Microsoft.ApplicationServer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Http">
+      <HintPath>..\packages\WebApi.Core.0.3.0\lib\40\Microsoft.ApplicationServer.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.HttpEnhancements">
+      <HintPath>..\packages\WebApi.Enhancements.0.3.0\lib\40\Microsoft.ApplicationServer.HttpEnhancements.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Serialization">
+      <HintPath>..\packages\WebApi.Core.0.3.0\lib\40\Microsoft.ApplicationServer.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.ServiceModel">
+      <HintPath>..\packages\WebApi.Core.0.3.0\lib\40\Microsoft.ApplicationServer.ServiceModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.QueryComposition">
+      <HintPath>..\packages\WebApi.Core.0.3.0\lib\40\Microsoft.QueryComposition.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Runtime.Serialization.Json">
+      <HintPath>..\packages\JsonValue.0.3.0\lib\40\Microsoft.Runtime.Serialization.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ServiceModel.Web.jQuery">
+      <HintPath>..\packages\JsonValue.0.3.0\lib\40\Microsoft.ServiceModel.Web.jQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Samples.ImageOptimizationFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lacWeb\Microsoft.Web.Samples.ImageOptimizationFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Samples.SpriteHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lacWeb\Microsoft.Web.Samples.SpriteHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Rp3.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lacWeb\Rp3.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Rp3.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\Ambiente Desarrollo Web\lacweb\Rp3.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Rp3.Resources, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lacWeb\Rp3.Resources.dll</HintPath>
+    </Reference>
+    <Reference Include="Rp3.Security, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lacWeb\Rp3.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Rp3.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\Ambiente Desarrollo Web\lacweb\Rp3.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Rp3.Web.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\Ambiente Desarrollo Web\lacweb\Rp3.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Rp3.Web.Mvc.Application.Base, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lacWeb\Rp3.Web.Mvc.Application.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="ThoughtWorks.QRCode, Version=1.0.2774.22020, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing, Version=0.14.0.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\zxing.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Areas\Consulta\ConsultaAreaRegistration.cs" />
+    <Compile Include="Areas\Consulta\Controllers\ClienteRutaController.cs" />
+    <Compile Include="Areas\Consulta\Controllers\EstadisticaEncuestaController.cs" />
+    <Compile Include="Areas\Consulta\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Consulta\Controllers\GeocercaController.cs" />
+    <Compile Include="Areas\Consulta\Controllers\AgenteReporteGestionController.cs" />
+    <Compile Include="Areas\Consulta\Controllers\HomeDashboardController.cs" />
+    <Compile Include="Areas\Consulta\Models\DashboardAgenteCategoriaClienteModel.cs" />
+    <Compile Include="Areas\Consulta\Models\DashboardAgenteDetalleParametro.cs" />
+    <Compile Include="Areas\Consulta\Models\Geocerca.cs" />
+    <Compile Include="Areas\General\Controllers\CalendarioController.cs" />
+    <Compile Include="Areas\Consulta\Models\EstadisticaEncuestaDetail.cs" />
+    <Compile Include="Areas\General\Controllers\ParametrosController.cs" />
+    <Compile Include="Areas\General\Models\TareaNew.cs" />
+    <Compile Include="Areas\General\Models\ZonaNew.cs" />
+    <Compile Include="Areas\Marcacion\Controllers\AnalisisAgenteController.cs" />
+    <Compile Include="Areas\Marcacion\Controllers\GrupoController.cs" />
+    <Compile Include="Areas\Marcacion\Controllers\JustificacionController.cs" />
+    <Compile Include="Areas\Marcacion\Controllers\MarcacionController.cs" />
+    <Compile Include="Areas\Marcacion\Controllers\PermisoPrevioController.cs" />
+    <Compile Include="Areas\Marcacion\MarcacionAreaRegistration.cs" />
+    <Compile Include="Areas\Marcacion\Models\ReporteMarcacionView.cs" />
+    <Compile Include="Areas\Oportunidad\Controllers\EtapaController.cs" />
+    <Compile Include="Areas\Oportunidad\Controllers\OportunidadController.cs" />
+    <Compile Include="Areas\Oportunidad\OportunidadAreaRegistration.cs" />
+    <Compile Include="Areas\Oportunidad\Reports\Oportunidad.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Areas\Oportunidad\Reports\Oportunidad.Designer.cs">
+      <DependentUpon>Oportunidad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Pedido\Controllers\CategoriaController.cs" />
+    <Compile Include="Areas\Pedido\Controllers\PedidoController.cs" />
+    <Compile Include="Areas\Pedido\Controllers\ProductoController.cs" />
+    <Compile Include="Areas\Pedido\Controllers\SubCategoriaController.cs" />
+    <Compile Include="Areas\Pedido\Models\ProductoQR.cs" />
+    <Compile Include="Areas\Pedido\PedidoAreaRegistration.cs" />
+    <Compile Include="Areas\Pedido\Reports\Productos.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Areas\Pedido\Reports\Productos.Designer.cs">
+      <DependentUpon>Productos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Ruta\Controllers\AgendaController.cs" />
+    <Compile Include="Areas\General\Controllers\AgenteController.cs" />
+    <Compile Include="Areas\General\Controllers\CanalController.cs" />
+    <Compile Include="Areas\General\Controllers\CargoController.cs" />
+    <Compile Include="Areas\General\Controllers\ClienteController.cs" />
+    <Compile Include="Areas\General\Controllers\RegionController.cs" />
+    <Compile Include="Areas\General\Controllers\TareaController.cs" />
+    <Compile Include="Areas\General\Controllers\TipoActividadController.cs" />
+    <Compile Include="Areas\General\Controllers\TipoCarteraController.cs" />
+    <Compile Include="Areas\General\Controllers\TipoClienteController.cs" />
+    <Compile Include="Areas\General\Controllers\ZonaController.cs" />
+    <Compile Include="Areas\General\GeneralAreaRegistration.cs" />
+    <Compile Include="Areas\Ruta\Controllers\InformeParadaController.cs" />
+    <Compile Include="Areas\Ruta\Controllers\NotificacionAgenteController.cs" />
+    <Compile Include="Areas\Ruta\Controllers\ReasignacionClienteController.cs" />
+    <Compile Include="Areas\Ruta\Controllers\Ruta.ScheduleController.cs" />
+    <Compile Include="Areas\Ruta\Controllers\GestionDetalladoController.cs" />
+    <Compile Include="Areas\Ruta\Controllers\GestionResumidoController.cs" />
+    <Compile Include="Areas\Ruta\Controllers\ProgramacionRutaController.cs" />
+    <Compile Include="Areas\Ruta\Controllers\RecorridoAgenteController.cs" />
+    <Compile Include="Areas\Ruta\Controllers\UbicacionAgenteController.cs" />
+    <Compile Include="Areas\Ruta\Controllers\LoteController.cs" />
+    <Compile Include="Areas\Ruta\Controllers\MemoController.cs" />
+    <Compile Include="Areas\Ruta\Controllers\ReunionController.cs" />
+    <Compile Include="Areas\Ruta\Controllers\RutaController.cs" />
+    <Compile Include="Areas\Ruta\Models\AgendaConsulta.cs" />
+    <Compile Include="Areas\Ruta\Models\AgendaConsulta2.cs" />
+    <Compile Include="Areas\Ruta\Models\GeneraAgenda.cs" />
+    <Compile Include="Areas\Ruta\Models\GestionDetallado.cs" />
+    <Compile Include="Areas\Ruta\Models\GestionResumido.cs" />
+    <Compile Include="Areas\Ruta\Models\InformeParadaView.cs" />
+    <Compile Include="Areas\Ruta\Models\LoteConsulta.cs" />
+    <Compile Include="Areas\Ruta\Models\NotificacionAgente.cs" />
+    <Compile Include="Areas\Ruta\Models\RecorridoAgenteResult.cs" />
+    <Compile Include="Areas\Ruta\Models\RutaConsulta.cs" />
+    <Compile Include="Areas\Ruta\Models\SeleccionAgente.cs" />
+    <Compile Include="Areas\Ruta\Models\UbicacionAgente.cs" />
+    <Compile Include="Areas\Ruta\Models\RecorridoAgente.cs" />
+    <Compile Include="Areas\Ruta\Reports\Agenda.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Areas\Ruta\Reports\Agenda.Designer.cs">
+      <DependentUpon>Agenda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Ruta\Reports\AgenteGestion.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Areas\Ruta\Reports\AgenteGestion.Designer.cs">
+      <DependentUpon>AgenteGestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Ruta\Reports\Trazabilidad.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Areas\Ruta\Reports\Trazabilidad.Designer.cs">
+      <DependentUpon>Trazabilidad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Ruta\RutaAreaRegistration.cs" />
+    <Compile Include="Controllers\AgendaComercialController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Filters\AgenteRequiredAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ApiAgendaComercialController.cs" />
+    <Compile Include="Services\General\Controllers\AgenteController.cs" />
+    <Compile Include="Services\General\Controllers\CanalController.cs" />
+    <Compile Include="Services\General\Controllers\ClienteController.cs" />
+    <Compile Include="Services\General\Controllers\ParametroController.cs" />
+    <Compile Include="Services\General\Controllers\TareaController.cs" />
+    <Compile Include="Services\General\Controllers\TipoClienteController.cs" />
+    <Compile Include="Services\General\Models\Agente.cs" />
+    <Compile Include="Services\General\Models\Calendario.cs" />
+    <Compile Include="Services\General\Models\Parametro.cs" />
+    <Compile Include="Services\General\Models\Ubicacion.cs" />
+    <Compile Include="Services\General\Models\ClienteFoto.cs" />
+    <Compile Include="Services\General\Models\Canal.cs" />
+    <Compile Include="Services\General\Models\Cliente.cs" />
+    <Compile Include="Services\General\Models\ClienteContacto.cs" />
+    <Compile Include="Services\General\Models\ClienteDireccion.cs" />
+    <Compile Include="Services\General\Models\CreateClienteResponse.cs" />
+    <Compile Include="Services\General\Models\Tarea.cs" />
+    <Compile Include="Services\General\Models\TareaActividad.cs" />
+    <Compile Include="Services\General\Models\TareaOpcion.cs" />
+    <Compile Include="Services\General\Models\TipoCliente.cs" />
+    <Compile Include="Services\Marcaciones\Controllers\MarcacionController.cs" />
+    <Compile Include="Services\Marcaciones\Models\Marcacion.cs" />
+    <Compile Include="Services\Oportunidad\Controllers\EtapaController.cs" />
+    <Compile Include="Services\Oportunidad\Controllers\OportunidadController.cs" />
+    <Compile Include="Services\Oportunidad\Models\Etapa.cs" />
+    <Compile Include="Services\Oportunidad\Models\Oportunidad.cs" />
+    <Compile Include="Services\Oportunidad\Models\OportunidadMedia.cs" />
+    <Compile Include="Services\Pedido\Controllers\PedidoController.cs" />
+    <Compile Include="Services\Pedido\Controllers\ProductoController.cs" />
+    <Compile Include="Services\Pedido\Models\Pedido.cs" />
+    <Compile Include="Services\Pedido\Models\Producto.cs" />
+    <Compile Include="Services\Reporte\Controllers\GestionController.cs" />
+    <Compile Include="Services\Ruta\Controllers\AgendaController.cs" />
+    <Compile Include="Services\Ruta\Models\Agenda.cs" />
+    <Compile Include="Services\Ruta\Models\AgendaMedia.cs" />
+    <Compile Include="Services\Ruta\Models\AgendaTareaActividad.cs" />
+    <Compile Include="Services\Ruta\Models\AgendaTareaOpcion.cs" />
+    <Compile Include="Services\Ruta\Models\AgendaTarea.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\AgendaComercial\css\agenda.css" />
+    <Content Include="Content\AgendaComercial\css\cliente.css" />
+    <Content Include="Content\AgendaComercial\css\daterangepicker\daterangepicker-bs3.css" />
+    <Content Include="Content\AgendaComercial\css\datetimepicker\bootstrap-datetimepicker.css" />
+    <Content Include="Content\AgendaComercial\css\datetimepicker\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\AgendaComercial\css\dialog.css" />
+    <Content Include="Content\AgendaComercial\css\etapa.css" />
+    <Content Include="Content\AgendaComercial\css\fancy\blank.gif" />
+    <Content Include="Content\AgendaComercial\css\fancy\fancybox_buttons.png" />
+    <Content Include="Content\AgendaComercial\css\fancy\fancybox_loading.gif" />
+    <Content Include="Content\AgendaComercial\css\fancy\fancybox_sprite.png" />
+    <Content Include="Content\AgendaComercial\css\fancy\jquery.fancybox-buttons.css" />
+    <Content Include="Content\AgendaComercial\css\fancy\jquery.fancybox-thumbs.css" />
+    <Content Include="Content\AgendaComercial\css\fancy\jquery.fancybox.css" />
+    <Content Include="Content\AgendaComercial\css\fullcalendar\fullcalendar.css" />
+    <Content Include="Content\AgendaComercial\css\fullcalendar\fullcalendar.print.css" />
+    <Content Include="Content\AgendaComercial\css\oportunidad.css" />
+    <Content Include="Content\AgendaComercial\css\permiso.css" />
+    <Content Include="Content\AgendaComercial\css\programacion-ruta.css" />
+    <Content Include="Content\AgendaComercial\css\lote.css" />
+    <Content Include="Content\AgendaComercial\css\mapa.css" />
+    <Content Include="Content\AgendaComercial\css\perfect_scroller\perfect-scrollbar.min.css" />
+    <Content Include="Content\AgendaComercial\css\rate.css" />
+    <Content Include="Content\AgendaComercial\css\fullcalendar\style.css" />
+    <Content Include="Content\AgendaComercial\css\recorrido.css" />
+    <Content Include="Content\AgendaComercial\css\select\bootstrap-select.css" />
+    <Content Include="Content\AgendaComercial\css\select\bootstrap-select.min.css" />
+    <Content Include="Content\AgendaComercial\css\tapmodo-jcrop\Jcrop.gif" />
+    <Content Include="Content\AgendaComercial\css\tapmodo-jcrop\jquery.Jcrop.css" />
+    <Content Include="Content\AgendaComercial\css\tapmodo-jcrop\jquery.Jcrop.min.css" />
+    <Content Include="Content\AgendaComercial\css\timepicker\jquery.timepicker.css" />
+    <Content Include="Content\AgendaComercial\css\treetable\jquery.treetable.css" />
+    <Content Include="Content\AgendaComercial\css\treetable\jquery.treetable.theme.default.css" />
+    <Content Include="Content\AgendaComercial\css\treetable\screen.css" />
+    <Content Include="Content\AgendaComercial\css\ubicacion-agentes.css" />
+    <Content Include="Content\AgendaComercial\img\0timeline.png" />
+    <Content Include="Content\AgendaComercial\img\1timeline.png" />
+    <Content Include="Content\AgendaComercial\img\2timeline.png" />
+    <Content Include="Content\AgendaComercial\img\3timeline.png" />
+    <Content Include="Content\AgendaComercial\img\4timeline.png" />
+    <Content Include="Content\AgendaComercial\img\5timeline.png" />
+    <Content Include="Content\AgendaComercial\img\agenda-auto.png" />
+    <Content Include="Content\AgendaComercial\img\agenda-movil.png" />
+    <Content Include="Content\AgendaComercial\img\agenda-web.png" />
+    <Content Include="Content\AgendaComercial\img\agentes.png" />
+    <Content Include="Content\AgendaComercial\img\blue-flag.png" />
+    <Content Include="Content\AgendaComercial\img\clientes.png" />
+    <Content Include="Content\AgendaComercial\img\default.jpg" />
+    <Content Include="Content\AgendaComercial\img\DefaultPerson.jpg" />
+    <Content Include="Content\AgendaComercial\img\default_b.jpg" />
+    <Content Include="Content\AgendaComercial\img\diasinactivos.png" />
+    <Content Include="Content\AgendaComercial\img\diastranscurridos.png" />
+    <Content Include="Content\AgendaComercial\img\favicon.ico" />
+    <Content Include="Content\AgendaComercial\img\favicon.png" />
+    <Content Include="Content\AgendaComercial\img\efectividad.png" />
+    <Content Include="Content\AgendaComercial\img\fecha-fin.png" />
+    <Content Include="Content\AgendaComercial\img\fecha-inicio.png" />
+    <Content Include="Content\AgendaComercial\img\flecha.png" />
+    <Content Include="Content\AgendaComercial\img\gray-flag.png" />
+    <Content Include="Content\AgendaComercial\img\green-flag.png" />
+    <Content Include="Content\AgendaComercial\img\grupo.png" />
+    <Content Include="Content\AgendaComercial\img\hora-fin.png" />
+    <Content Include="Content\AgendaComercial\img\hora-inicio.png" />
+    <Content Include="Content\AgendaComercial\img\importe.png" />
+    <Content Include="Content\AgendaComercial\img\loading.gif" />
+    <Content Include="Content\AgendaComercial\img\logo-for-smartview.png" />
+    <Content Include="Content\AgendaComercial\img\logo.png" />
+    <Content Include="Content\AgendaComercial\img\motivo.png" />
+    <Content Include="Content\AgendaComercial\img\obs-superv.png" />
+    <Content Include="Content\AgendaComercial\img\observ.png" />
+    <Content Include="Content\AgendaComercial\img\oportunidad.png" />
+    <Content Include="Content\AgendaComercial\img\probabilidad.png" />
+    <Content Include="Content\AgendaComercial\img\red-flag.png" />
+    <Content Include="Content\AgendaComercial\img\style\marker-cliente-blue-warning.png" />
+    <Content Include="Content\AgendaComercial\img\style\marker-cliente-blue.png" />
+    <Content Include="Content\AgendaComercial\img\style\marker-cliente-red-warning.png" />
+    <Content Include="Content\AgendaComercial\img\style\marker-cliente-red.png" />
+    <Content Include="Content\AgendaComercial\img\style\map_naranja.png" />
+    <Content Include="Content\AgendaComercial\img\style\map_position.png" />
+    <Content Include="Content\AgendaComercial\img\style\map_rojo.png" />
+    <Content Include="Content\AgendaComercial\img\style\map_verde.png" />
+    <Content Include="Content\AgendaComercial\img\style\markerend.png" />
+    <Content Include="Content\AgendaComercial\img\style\markerpoint.png" />
+    <Content Include="Content\AgendaComercial\img\style\markerstart.png" />
+    <Content Include="Content\AgendaComercial\img\small-loading.gif" />
+    <Content Include="Content\AgendaComercial\img\style\cancel-off.png" />
+    <Content Include="Content\AgendaComercial\img\style\cancel-on.png" />
+    <Content Include="Content\AgendaComercial\img\style\icon_location.png" />
+    <Content Include="Content\AgendaComercial\img\style\icon_location_mini.png" />
+    <Content Include="Content\AgendaComercial\img\style\icon_location_small.png" />
+    <Content Include="Content\AgendaComercial\img\style\markeruser.png" />
+    <Content Include="Content\AgendaComercial\img\style\markervisit.png" />
+    <Content Include="Content\AgendaComercial\img\style\sprite_numbers_location_naranja.png" />
+    <Content Include="Content\AgendaComercial\img\style\sprite_numbers_location_rojo.png" />
+    <Content Include="Content\AgendaComercial\img\style\sprite_numbers_location.png" />
+    <Content Include="Content\AgendaComercial\img\style\sprite_numbers_location_verde.png" />
+    <Content Include="Content\AgendaComercial\img\style\sprite_star.png" />
+    <Content Include="Content\AgendaComercial\img\supervisor.png" />
+    <Content Include="Content\AgendaComercial\img\tipo.png" />
+    <Content Include="Content\AgendaComercial\img\total.png" />
+    <Content Include="Content\AgendaComercial\js\agenda\agendadetalle.js" />
+    <Content Include="Content\AgendaComercial\js\agenda\calendario.js" />
+    <Content Include="Content\AgendaComercial\js\analisisagente.js" />
+    <Content Include="Content\AgendaComercial\js\calendario.js" />
+    <Content Include="Content\AgendaComercial\js\clienteruta.js" />
+    <Content Include="Content\AgendaComercial\js\cropimageproducto.js" />
+    <Content Include="Content\AgendaComercial\js\estadisticaencuesta.js" />
+    <Content Include="Content\AgendaComercial\js\etapa.js" />
+    <Content Include="Content\AgendaComercial\js\exportexcel.js" />
+    <Content Include="Content\AgendaComercial\js\informeparada.js" />
+    <Content Include="Content\AgendaComercial\js\producto.js" />
+    <Content Include="Content\AgendaComercial\js\productofoto.js" />
+    <Content Include="Content\AgendaComercial\js\screenshot\canvas-to-blob.js" />
+    <Content Include="Content\AgendaComercial\js\screenshot\FileSaver.js" />
+    <Content Include="Content\AgendaComercial\js\geocerca.js" />
+    <Content Include="Content\AgendaComercial\js\grupo.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\canvas-tools.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\canvas-tools.src.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\data.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\data.src.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\drilldown.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\drilldown.src.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\exporting.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\exporting.src.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\funnel.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\funnel.src.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\heatmap.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\heatmap.src.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\no-data-to-display.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\no-data-to-display.src.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\solid-gauge.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\modules\solid-gauge.src.js" />
+    <Content Include="Content\AgendaComercial\js\homedashboard.js" />
+    <Content Include="Content\AgendaComercial\js\screenshot\html2canvas.js" />
+    <Content Include="Content\AgendaComercial\js\justificacion.js" />
+    <Content Include="Content\AgendaComercial\js\marcacion.js" />
+    <Content Include="Content\AgendaComercial\js\notificacionagente.js" />
+    <Content Include="Content\AgendaComercial\js\oportunidad\oportunidad.js" />
+    <Content Include="Content\AgendaComercial\js\parametros.js" />
+    <Content Include="Content\AgendaComercial\js\permisoprevio.js" />
+    <Content Include="Content\AgendaComercial\js\programacionrutacalendario.js" />
+    <Content Include="Content\AgendaComercial\js\reasignacioncliente.js" />
+    <Content Include="Content\AgendaComercial\js\recorrido.js" />
+    <Content Include="Content\AgendaComercial\js\tipocliente.js" />
+    <Content Include="Content\AgendaComercial\js\canal.js" />
+    <Content Include="Content\AgendaComercial\js\agente.js" />
+    <Content Include="Content\AgendaComercial\js\cliente.js" />
+    <Content Include="Content\AgendaComercial\js\clientefoto.js" />
+    <Content Include="Content\AgendaComercial\js\clienteindex.js" />
+    <Content Include="Content\AgendaComercial\js\configurarruta.js" />
+    <Content Include="Content\AgendaComercial\js\cropimage.js" />
+    <Content Include="Content\AgendaComercial\js\daterangepicker\daterangepicker.js" />
+    <Content Include="Content\AgendaComercial\js\daterangepicker\es.js" />
+    <Content Include="Content\AgendaComercial\js\daterangepicker\general.js" />
+    <Content Include="Content\AgendaComercial\js\daterangepicker\moment.min.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\bootstrap-datetimepicker.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\bootstrap-datetimepicker.min.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\date.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.bg.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.ca.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.cs.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.da.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.de.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.el.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.es.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.fi.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.fr.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.he.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.hr.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.hu.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.id.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.is.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.it.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.ja.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.kr.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.lt.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.lv.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.ms.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.nb.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.nl.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.no.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.pl.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.pt-BR.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.pt.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.ro.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.rs-latin.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.rs.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.ru.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.sk.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.sl.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.sv.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.sw.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.th.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.tr.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.ua.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.uk.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.zh-CN.js" />
+    <Content Include="Content\AgendaComercial\js\datetimepicker\locales\bootstrap-datetimepicker.zh-TW.js" />
+    <Content Include="Content\AgendaComercial\js\dotdot\jquery.dotdotdot.js" />
+    <Content Include="Content\AgendaComercial\js\dotdot\jquery.dotdotdot.min.js" />
+    <Content Include="Content\AgendaComercial\js\fancybox\blank.gif" />
+    <Content Include="Content\AgendaComercial\js\fancybox\fancybox_loading%402x.gif" />
+    <Content Include="Content\AgendaComercial\js\fancybox\fancybox_loading.gif" />
+    <Content Include="Content\AgendaComercial\js\fancybox\fancybox_overlay.png" />
+    <Content Include="Content\AgendaComercial\js\fancybox\fancybox_sprite%402x.png" />
+    <Content Include="Content\AgendaComercial\js\fancybox\fancybox_sprite.png" />
+    <Content Include="Content\AgendaComercial\js\fancybox\jquery.fancybox.css" />
+    <Content Include="Content\AgendaComercial\js\fancybox\jquery.fancybox.js" />
+    <Content Include="Content\AgendaComercial\js\fancybox\jquery.mousewheel-3.0.6.pack.js" />
+    <Content Include="Content\AgendaComercial\js\fancy\helpers\jquery.fancybox-buttons.js" />
+    <Content Include="Content\AgendaComercial\js\fancy\helpers\jquery.fancybox-media.js" />
+    <Content Include="Content\AgendaComercial\js\fancy\helpers\jquery.fancybox-thumbs.js" />
+    <Content Include="Content\AgendaComercial\js\fancy\jquery.fancybox.js" />
+    <Content Include="Content\AgendaComercial\js\fancy\jquery.fancybox.pack.js" />
+    <Content Include="Content\AgendaComercial\js\fullcalendar\bootbox.min.js" />
+    <Content Include="Content\AgendaComercial\js\fullcalendar\calendar.js" />
+    <Content Include="Content\AgendaComercial\js\fullcalendar\fullcalendar.js" />
+    <Content Include="Content\AgendaComercial\js\fullcalendar\fullcalendar.min.js" />
+    <Content Include="Content\AgendaComercial\js\fullcalendar\gcal.js" />
+    <Content Include="Content\AgendaComercial\js\gestiondetallado.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\highcharts.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\themes\dark-blue.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\themes\dark-green.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\themes\dark-unica.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\themes\gray.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\themes\grid-light.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\themes\grid.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\themes\sand-signika.js" />
+    <Content Include="Content\AgendaComercial\js\highcharts\themes\skies.js" />
+    <Content Include="Content\AgendaComercial\js\lote\lote.js" />
+    <Content Include="Content\AgendaComercial\js\mapclient.js" />
+    <Content Include="Content\AgendaComercial\js\nestable\jquery.nestable.js" />
+    <Content Include="Content\AgendaComercial\js\perfect_scroller\perfect-scrollbar.min.js" />
+    <Content Include="Content\AgendaComercial\js\programacionruta.js" />
+    <Content Include="Content\AgendaComercial\js\programaciontarea.js" />
+    <Content Include="Content\AgendaComercial\js\rate.js" />
+    <Content Include="Content\AgendaComercial\js\ruta\ruta.js" />
+    <Content Include="Content\AgendaComercial\js\select\bootstrap-select.js" />
+    <Content Include="Content\AgendaComercial\js\select\bootstrap-select.min.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-cs_CZ.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-cs_CZ.min.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-de_DE.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-de_DE.min.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-en_US.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-en_US.min.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-es_CL.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-es_CL.min.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-eu.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-eu.min.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-fr_FR.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-fr_FR.min.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-it_IT.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-it_IT.min.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-nl_NL.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-nl_NL.min.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-pl_PL.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-pl_PL.min.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-pt_BR.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-pt_BR.min.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-ro_RO.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-ro_RO.min.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-ru_RU.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-ru_RU.min.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-ua_UA.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-ua_UA.min.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-zh_CN.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-zh_CN.min.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-zh_TW.js" />
+    <Content Include="Content\AgendaComercial\js\select\i18n\defaults-zh_TW.min.js" />
+    <Content Include="Content\AgendaComercial\js\tapmodo-jcrop\jquery.color.js" />
+    <Content Include="Content\AgendaComercial\js\tapmodo-jcrop\jquery.Jcrop.js" />
+    <Content Include="Content\AgendaComercial\js\tapmodo-jcrop\jquery.Jcrop.min.js" />
+    <Content Include="Content\AgendaComercial\js\tarea\tarea.js" />
+    <Content Include="Content\AgendaComercial\js\timepicker\jquery.timepicker.js" />
+    <Content Include="Content\AgendaComercial\js\tipoactividad.js" />
+    <Content Include="Content\AgendaComercial\js\treetable\jquery.treetable.js" />
+    <Content Include="Content\AgendaComercial\js\treetable\jquery.ui.core.js" />
+    <Content Include="Content\AgendaComercial\js\treetable\jquery.ui.draggable.js" />
+    <Content Include="Content\AgendaComercial\js\treetable\jquery.ui.droppable.js" />
+    <Content Include="Content\AgendaComercial\js\treetable\jquery.ui.mouse.js" />
+    <Content Include="Content\AgendaComercial\js\treetable\jquery.ui.widget.js" />
+    <Content Include="Content\AgendaComercial\js\ubicacionagente.js" />
+    <Content Include="Content\AgendaComercial\js\zona.js" />
+    <Content Include="Global.asax" />
+    <Content Include="html test.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\General\Views\Shared\" />
+    <Folder Include="Areas\Oportunidad\Models\" />
+    <Folder Include="Areas\Pedido\Views\Shared\" />
+    <Folder Include="Content\AgendaComercial\img\agenda\" />
+    <Folder Include="Content\AgendaComercial\img\clientes\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Empezar.cshtml" />
+    <Content Include="Views\Home\Inicio.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Cargo\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Cargo\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Cargo\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Cargo\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Cargo\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Canal\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Canal\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Canal\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Canal\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Canal\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Region\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Region\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Region\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Region\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Region\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoCliente\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoCliente\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoCliente\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoCliente\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoCliente\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Zona\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Zona\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Zona\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Zona\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Zona\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoCartera\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoCartera\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoCartera\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoCartera\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoCartera\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Agente\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Agente\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Agente\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Agente\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Agente\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Zona\_ZonaDetalle.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Cliente\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Cliente\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Cliente\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Cliente\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Cliente\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Cliente\_DatosGenerales.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Cliente\_Direcciones.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Scorer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_UbicacionMapMarker.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Cliente\_SetUbicacion.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_SetUbicacionMap.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_UbicacionMapMarkerClient.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Lote\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Lote\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Lote\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Lote\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Lote\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Lote\_Datos_OLD.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Lote\_LoteDetalle.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Ruta\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Ruta\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Ruta\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Ruta\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Ruta\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Ruta\_Datos.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Ruta\_RutaLote.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Ruta\_RutaDetalle.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Lote\Process.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Ruta\Process.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Reunion\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Reunion\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Reunion\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Reunion\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Reunion\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Reunion\_Datos.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Memo\_Datos.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Memo\_MemoDestinatario.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Memo\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Memo\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Memo\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Memo\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Memo\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\RecorridoAgente\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\UbicacionAgente\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\UbicacionAgente\_Agente.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\Ruta\_RutaIncluir.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Tarea\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Tarea\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Tarea\_Datos.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Tarea\Configurator.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Tarea\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Tarea\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Tarea\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Tarea\_ActividadTreeListPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\Tarea\_SetOpciones.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoActividad\_Datos.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoActividad\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoActividad\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoActividad\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoActividad\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoActividad\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\General\Views\TipoActividad\_Opciones.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionTarea\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionTarea\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionTarea\_ProgramacionTareaDetalle.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionTarea\_ProgramacionTareaRuta.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionTarea\_Datos.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionTarea\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionTarea\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionTarea\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionRuta\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionRuta\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionRuta\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionRuta\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionRuta\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionRuta\_Datos.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionRuta\Configurator.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Ruta\Views\ProgramacionRuta\_RutaSchedulerPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="key" />
+    <Content Include="Areas\General\Views\Cliente\_SetDireccion.cshtml" />
+    <Content Include="Areas\General\Views\Cliente\_DireccionesDetalle.cshtml" />
+    <Content Include="Areas\Ruta\Views\ProgramacionRuta\_ProgramacionRutaDetalle.cshtml" />
+    <Content Include="Areas\Ruta\Views\ProgramacionRuta\_AppointmentFormPartial.cshtml" />
+    <Content Include="Areas\Ruta\Views\ProgramacionRuta\Process.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda2\Index.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda2\_AgendaSchedulerPartial.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda2\_AppointmentFormPartial.cshtml" />
+    <Content Include="Areas\General\Views\Cliente\_Foto.cshtml" />
+    <Content Include="Areas\General\Views\Cliente\_SetFoto.cshtml" />
+    <Content Include="Areas\Ruta\Views\GestionDetallado\Index.cshtml" />
+    <Content Include="Areas\Ruta\Views\GestionResumido\Index.cshtml" />
+    <Content Include="Areas\Ruta\Views\GestionDetallado\_DetalleTarea.cshtml" />
+    <Content Include="Areas\Ruta\Views\GestionDetallado\_ActividadTreeListPartial.cshtml" />
+    <Content Include="Areas\Ruta\Views\GestionDetallado\_DetalleActividad.cshtml" />
+    <Content Include="Areas\Ruta\Views\GestionDetallado\_Gestiones.cshtml" />
+    <Content Include="Areas\Ruta\Views\GestionResumido\_ResumenEstado.cshtml" />
+    <Content Include="Areas\Ruta\Views\GestionResumido\_ChartVisita.cshtml" />
+    <Content Include="Areas\Ruta\Views\GestionResumido\_ChartTarea.cshtml" />
+    <Content Include="Areas\General\Views\Cliente\_Contactos.cshtml" />
+    <Content Include="Areas\General\Views\Cliente\_ContactosDetalle.cshtml" />
+    <Content Include="Areas\General\Views\Cliente\_SetContacto.cshtml" />
+    <Content Include="Areas\General\Views\Cliente\_SetFotoContacto.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda2\_ClientePartial.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda2\_ContactoPartial.cshtml" />
+    <Content Include="Areas\General\Views\Cliente\_GridViewIndex.cshtml" />
+    <Content Include="Areas\General\Views\Canal\_GridViewIndex.cshtml" />
+    <Content Include="Areas\General\Views\Cargo\_GridViewIndex.cshtml" />
+    <Content Include="Areas\General\Views\Agente\_GridViewIndex.cshtml" />
+    <Content Include="Areas\General\Views\Region\_GridViewIndex.cshtml" />
+    <Content Include="Areas\General\Views\Tarea\_GridViewIndex.cshtml" />
+    <Content Include="Areas\General\Views\TipoActividad\_GridViewIndex.cshtml" />
+    <Content Include="Areas\General\Views\TipoCartera\_GridViewIndex.cshtml" />
+    <Content Include="Areas\General\Views\TipoCliente\_GridViewIndex.cshtml" />
+    <Content Include="Areas\General\Views\Zona\_GridViewIndex.cshtml" />
+    <Content Include="Areas\Ruta\Views\Lote\_GridViewIndex.cshtml" />
+    <Content Include="Areas\Ruta\Views\Ruta\_GridViewIndex.cshtml" />
+    <Content Include="Areas\Ruta\Views\Reunion\_GridViewIndex.cshtml" />
+    <Content Include="Areas\Ruta\Views\Memo\_GridViewIndex.cshtml" />
+    <Content Include="Areas\Ruta\Views\ProgramacionTarea\_GridViewIndex.cshtml" />
+    <Content Include="Areas\Ruta\Views\ProgramacionRuta\_GridViewIndex.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda\Index.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda\_AgendaCalendarioNavigator.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda\_AgendaLista.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda\_AgendaCalendario.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda\_AgendaListaDetalle.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda\_VerDatos.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda\_VerTareas.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda\_VerPanel.cshtml" />
+    <Content Include="Areas\Ruta\Views\RecorridoAgente\_Fechas.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda\_Update.cshtml" />
+    <Content Include="Content\AgendaComercial\css\select\bootstrap-select.css.map" />
+    <Content Include="Content\AgendaComercial\js\select\bootstrap-select.js.map" />
+    <Content Include="Areas\Ruta\Views\Agenda\_Create.cshtml" />
+    <Content Include="Areas\Ruta\Views\Lote\_Datos.cshtml" />
+    <Content Include="Areas\Ruta\Views\Ruta\_RutaExcluir.cshtml" />
+    <Content Include="Areas\Consulta\Views\web.config" />
+    <Content Include="Areas\Consulta\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Consulta\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Consulta\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Consulta\Views\Dashboard\_ResumenGestionChart.cshtml" />
+    <Content Include="Areas\Consulta\Views\Dashboard\_ResumenGestionAgente.cshtml" />
+    <Content Include="Areas\Consulta\Views\Dashboard\_AgenteDetallePrincipal.cshtml" />
+    <Content Include="Areas\Consulta\Views\Dashboard\_Principal.cshtml" />
+    <Content Include="Areas\Consulta\Views\Dashboard\_AgenteDetalleCategoriaClientes.cshtml" />
+    <Content Include="Areas\Consulta\Views\Dashboard\_AgenteGestionTabla.cshtml" />
+    <Content Include="Areas\General\Views\Tarea\_VerDatos.cshtml" />
+    <Content Include="Areas\General\Views\Tarea\_TabRuta.cshtml" />
+    <Content Include="Areas\General\Views\Tarea\_TabDato.cshtml" />
+    <Content Include="Areas\General\Views\Tarea\_TabActividad.cshtml" />
+    <Content Include="Areas\General\Views\Tarea\_ActividadDetalle.cshtml" />
+    <Content Include="Areas\General\Views\Zona\_UbicacionZona.cshtml" />
+    <Content Include="Areas\General\Views\Zona\_SetUbicacion.cshtml" />
+    <Content Include="Areas\General\Views\Zona\_SetUbicacionMap.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda\SeleccionAgente.cshtml" />
+    <Content Include="Areas\General\Views\Zona\_Edit.cshtml" />
+    <Content Include="Areas\Ruta\Views\Ruta\_ProgramacionesClientes.cshtml" />
+    <Content Include="Areas\Ruta\Views\Ruta\Schedule.cshtml" />
+    <Content Include="Areas\Ruta\Views\Ruta\_ProgramacionRuta.cshtml" />
+    <Content Include="Areas\Ruta\Views\Ruta\_SetProgramacion.cshtml" />
+    <Content Include="Areas\General\Views\Cliente\_LoteRuta.cshtml" />
+    <Content Include="Areas\Ruta\Views\Ruta\Reassign.cshtml" />
+    <Content Include="Areas\General\Views\Calendario\Index.cshtml" />
+    <Content Include="Areas\General\Views\Calendario\_GridViewIndex.cshtml" />
+    <Content Include="Areas\General\Views\Calendario\Create.cshtml" />
+    <Content Include="Areas\General\Views\Calendario\Detail.cshtml" />
+    <Content Include="Areas\General\Views\Calendario\Edit.cshtml" />
+    <Content Include="Areas\General\Views\Calendario\Delete.cshtml" />
+    <Content Include="Areas\General\Views\Calendario\_DiasLaborales.cshtml" />
+    <Content Include="Areas\General\Views\Calendario\_DiasNoLaborables.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda\_AgendaPhotoBook.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda\_AgendaPhotoBookDetalle.cshtml" />
+    <Content Include="Areas\Consulta\Views\EstadisticaEncuesta\Index.cshtml" />
+    <Content Include="Areas\Consulta\Views\EstadisticaEncuesta\_GridViewIndex.cshtml" />
+    <Content Include="Areas\Consulta\Views\EstadisticaEncuesta\Detail.cshtml" />
+    <Content Include="Areas\Consulta\Views\EstadisticaEncuesta\_ActividadText.cshtml" />
+    <Content Include="Areas\Consulta\Views\EstadisticaEncuesta\_ActividadCheck.cshtml" />
+    <Content Include="Areas\Consulta\Views\EstadisticaEncuesta\_ActividadSelect.cshtml" />
+    <Content Include="Areas\Consulta\Views\ClienteRuta\Index.cshtml" />
+    <Content Include="Areas\Consulta\Views\ClienteRuta\_RutaDetalle.cshtml" />
+    <Content Include="Areas\General\Views\Parametros\Edit.cshtml" />
+    <Content Include="Areas\General\Views\Parametros\_ParametrosGenerales.cshtml" />
+    <Content Include="Areas\General\Views\Parametros\_ParametrosUbicacion.cshtml" />
+    <Content Include="Areas\General\Views\Parametros\_SetUbicacion.cshtml" />
+    <Content Include="Areas\Ruta\Views\ReasignacionCliente\Index.cshtml" />
+    <Content Include="Areas\Ruta\Views\ReasignacionCliente\_RutaDestinoDetalle.cshtml" />
+    <Content Include="Areas\Ruta\Views\ReasignacionCliente\_RutaOrigenDetalle.cshtml" />
+    <Content Include="Areas\Consulta\Views\HomeDashboard\Index.cshtml" />
+    <Content Include="Areas\Consulta\Views\HomeDashboard\_GestionChart.cshtml" />
+    <Content Include="Areas\Consulta\Views\HomeDashboard\_EfectividadChart.cshtml" />
+    <Content Include="Areas\Consulta\Views\HomeDashboard\_Clientes.cshtml" />
+    <Content Include="Areas\Consulta\Views\HomeDashboard\_Agentes.cshtml" />
+    <Content Include="Areas\General\Views\Tarea\_Create.cshtml" />
+    <Content Include="Areas\General\Views\Tarea\_TabNuevo.cshtml" />
+    <Content Include="Areas\General\Views\Tarea\_TabExistente.cshtml" />
+    <Content Include="Areas\General\Views\Tarea\_TabGestion.cshtml" />
+    <Content Include="Areas\Ruta\Views\RecorridoAgente\_Map.cshtml" />
+    <Content Include="Areas\Ruta\Views\Shared\_AgendaDetalleGestion.cshtml" />
+    <Content Include="Areas\Ruta\Views\Shared\_AgendaDetalleGestionContent.cshtml" />
+    <Content Include="Areas\General\Views\Zona\_Create.cshtml" />
+    <Content Include="Areas\Ruta\Views\UbicacionAgente\_UbicacionMapMarkerAgente.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda\_SeleccionCliente.cshtml" />
+    <Content Include="Areas\General\Views\Cliente\_SetUbicacionMapCreate.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\web.config" />
+    <Content Include="Areas\Oportunidad\Views\Etapa\Index.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Oportunidad\Index.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Oportunidad\_OportunidadLista.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Oportunidad\_OportunidadListaDetalle.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Shared\_OportunidadDetalleGestionContent.cshtml" />
+    <Content Include="Areas\Consulta\Views\Geocerca\Index.cshtml" />
+    <Content Include="Areas\Consulta\Views\Geocerca\_Zona.cshtml" />
+    <Content Include="Areas\Consulta\Views\Geocerca\_UbicacionMapMarkerAllFences.cshtml" />
+    <Content Include="Areas\General\Views\Cliente\_Estadistica.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Etapa\_SeleccionTarea.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Etapa\_Etapas.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Etapa\_VerDatos.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Oportunidad\SeleccionAgente.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Shared\_OportunidadDetalleGestion.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Shared\_OportunidadDetalleEtapa.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Shared\_OportunidadDetalleTarea.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Shared\_OportunidadDetalleInfo.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Oportunidad\_SeleccionSort.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda\_SeleccionSort.cshtml" />
+    <Content Include="Areas\Marcacion\Views\web.config" />
+    <Content Include="Areas\Marcacion\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Grupo\_GridViewIndex.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Grupo\Index.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Grupo\Create.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Grupo\_Datos.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Grupo\_SetUbicacionMapCreate.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Grupo\_Agentes.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Grupo\_SeleccionAgente.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Grupo\Delete.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Grupo\Detail.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Grupo\Edit.cshtml" />
+    <Content Include="Areas\Marcacion\Views\PermisoPrevio\Index.cshtml" />
+    <Content Include="Areas\Marcacion\Views\PermisoPrevio\_PermisoLista.cshtml" />
+    <Content Include="Areas\Marcacion\Views\PermisoPrevio\_PermisoListaDetalle.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Shared\_PermisoEdit.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Shared\_SeleccionAgente.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Shared\_SeleccionSort.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Shared\_PermisoDetalleContent.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Justificacion\_PermisoLista.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Justificacion\_PermisoListaDetalle.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Justificacion\Index.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Marcacion\Index.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Marcacion\_Agentes.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Marcacion\_UbicacionMapMarkerAgente.cshtml" />
+    <Content Include="Areas\Marcacion\Views\AnalisisAgente\Index.cshtml" />
+    <Content Include="Areas\Marcacion\Views\AnalisisAgente\_Agentes.cshtml" />
+    <Content Include="Areas\Marcacion\Views\AnalisisAgente\_Chart.cshtml" />
+    <Content Include="Areas\Marcacion\Views\AnalisisAgente\_DetalleAgentes.cshtml" />
+    <Content Include="Areas\Marcacion\Views\Marcacion\_PermisoListaDetalle.cshtml" />
+    <Content Include="Areas\Ruta\Views\NotificacionAgente\Index.cshtml" />
+    <Content Include="Areas\Ruta\Views\NotificacionAgente\_Agente.cshtml" />
+    <Content Include="Areas\Ruta\Views\InformeParada\Index.cshtml" />
+    <Content Include="Areas\Ruta\Views\InformeParada\_Agentes.cshtml" />
+    <Content Include="Areas\Ruta\Views\InformeParada\_Chart.cshtml" />
+    <Content Include="Areas\General\Views\Cliente\_ClienteCropImageDialog.cshtml" />
+    <Content Include="Areas\Ruta\Views\Agenda\_UbicacionMapMarkerExpand.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Oportunidad\_UbicacionMapMarkerExpand.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Oportunidad\_SetUbicacion.cshtml" />
+    <Content Include="Areas\Ruta\Views\UbicacionAgente\_Notificacion.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Shared\_OportunidadDetalleBitacora.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Etapa\Edit.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Etapa\_GridViewIndex.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Etapa\Detail.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Etapa\Create.cshtml" />
+    <Content Include="Areas\Oportunidad\Views\Etapa\Delete.cshtml" />
+    <Content Include="Areas\Pedido\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Pedido\Views\web.config" />
+    <Content Include="Areas\Pedido\Views\Producto\Index.cshtml" />
+    <Content Include="Areas\Pedido\Views\Producto\Create.cshtml" />
+    <Content Include="Areas\Pedido\Views\Producto\Delete.cshtml" />
+    <Content Include="Areas\Pedido\Views\Producto\Detail.cshtml" />
+    <Content Include="Areas\Pedido\Views\Producto\Edit.cshtml" />
+    <Content Include="Areas\Pedido\Views\Pedido\Create.cshtml" />
+    <Content Include="Areas\Pedido\Views\Pedido\Delete.cshtml" />
+    <Content Include="Areas\Pedido\Views\Pedido\Detail.cshtml" />
+    <Content Include="Areas\Pedido\Views\Pedido\Edit.cshtml" />
+    <Content Include="Areas\Pedido\Views\Pedido\Index.cshtml" />
+    <Content Include="Areas\Pedido\Views\Producto\_GridViewIndex.cshtml" />
+    <Content Include="Areas\Pedido\Views\Producto\_Producto.cshtml" />
+    <Content Include="Areas\Pedido\Views\Producto\_Descuentos.cshtml" />
+    <Content Include="Areas\Pedido\Views\Producto\_SetFoto.cshtml" />
+    <Content Include="Areas\Pedido\Views\Pedido\_GridViewIndex.cshtml" />
+    <Content Include="Areas\Pedido\Views\Pedido\_GridViewIndexDetalle.cshtml" />
+    <Content Include="Areas\Pedido\Views\Producto\_ClienteCropImageDialog.cshtml" />
+    <Content Include="Areas\Pedido\Views\Categoria\_GridViewIndex.cshtml" />
+    <Content Include="Areas\Pedido\Views\Categoria\Create.cshtml" />
+    <Content Include="Areas\Pedido\Views\Categoria\Delete.cshtml" />
+    <Content Include="Areas\Pedido\Views\Categoria\Detail.cshtml" />
+    <Content Include="Areas\Pedido\Views\Categoria\Edit.cshtml" />
+    <Content Include="Areas\Pedido\Views\Categoria\Index.cshtml" />
+    <Content Include="Areas\Pedido\Views\SubCategoria\_GridViewIndex.cshtml" />
+    <Content Include="Areas\Pedido\Views\SubCategoria\Create.cshtml" />
+    <Content Include="Areas\Pedido\Views\SubCategoria\Delete.cshtml" />
+    <Content Include="Areas\Pedido\Views\SubCategoria\Detail.cshtml" />
+    <Content Include="Areas\Pedido\Views\SubCategoria\Edit.cshtml" />
+    <Content Include="Areas\Pedido\Views\SubCategoria\Index.cshtml" />
+    <Content Include="Areas\Consulta\Views\AgenteReporteGestion\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\AgendaComercial.pubxml" />
+    <None Include="Properties\PublishProfiles\local.pubxml" />
+    <Content Include="Views\Shared\_CropImageDialog.cshtml" />
+    <Content Include="Views\Home\SeleccionRol.cshtml" />
+    <Content Include="Views\Home\NoAgente.cshtml" />
+    <Content Include="Views\Shared\_UbicacionMapMarkerSingle.cshtml" />
+    <Content Include="Views\Shared\_UbicacionMapMarkerFences.cshtml" />
+    <Content Include="Views\Shared\_CargoRol.cshtml" />
+    <None Include="Properties\PublishProfiles\market.force.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Models\Rp3.AgendaComercial.Models\Rp3.AgendaComercial.Models.csproj">
+      <Project>{161673a1-b3cc-490e-a320-022182f12e51}</Project>
+      <Name>Rp3.AgendaComercial.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\Rp3.AgendaComercial.Resources\Rp3.AgendaComercial.Resources.csproj">
+      <Project>{308a9b32-f2b8-486f-bfef-85f0d459ec19}</Project>
+      <Name>Rp3.AgendaComercial.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rp3.AgendaComercial.Process\Rp3.AgendaComercial.Process.csproj">
+      <Project>{f8a259c6-be30-4790-ac6d-808994677f08}</Project>
+      <Name>Rp3.AgendaComercial.Process</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\Oportunidad\Reports\Oportunidad.resx">
+      <DependentUpon>Oportunidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Pedido\Reports\Productos.resx">
+      <DependentUpon>Productos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Ruta\Reports\Agenda.resx">
+      <DependentUpon>Agenda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Ruta\Reports\AgenteGestion.resx">
+      <DependentUpon>AgenteGestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Ruta\Reports\Trazabilidad.resx">
+      <DependentUpon>Trazabilidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>55042</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:55042/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

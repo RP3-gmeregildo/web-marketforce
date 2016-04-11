@@ -1,0 +1,13 @@
+﻿@model Rp3.Web.Mvc.Application.Security.Models.Login
+<form id="loginform" action="@Url.Action("LogIn", "Account")" method="post">
+    <p>@Rp3.Resources.LegendFor.UserAndPasswordRequest</p>    
+    @Html.Rp3HelpTextBoxFor(model => model.LogonName, "icon-user", htmlAttributes: new { placeholder = Rp3.Resources.LabelFor.LogonName, width =  })
+    @Html.Rp3HelpPasswordFor(model => model.Password, "icon-lock", htmlAttributes: new { placeholder = Rp3.Resources.LabelFor.Password })
+    <div class="form-actions clearfix">                 
+        <div class="pull-right">
+            <a href="#recoverform" class="flip-link to-recover grey">@Rp3.Resources.LegendFor.ForgotPassword</a>
+        </div> 
+        sadsaxsadcsadsadxsadcsfsdfasdfsdafdsfsdfsdaf   
+        @Html.Rp3TextButton(Rp3.Resources.LabelFor.Login, blockButton: true, submit: true)
+    </div>
+</form>

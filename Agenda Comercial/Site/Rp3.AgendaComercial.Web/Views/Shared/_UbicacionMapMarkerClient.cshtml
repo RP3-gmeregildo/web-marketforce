@@ -1,0 +1,29 @@
+﻿@using System.Threading;
+@using System.Globalization;
+@using System.Web.Script.Serialization
+@{
+    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+    string mapSelectorClient = "viewMapClient";
+    ViewBag.MapWidthClient = "100%";
+    ViewBag.MapHeightClient = "300px";
+
+    if (ViewBag.InitMapa == null)
+    {
+        ViewBag.InitMapa = false;
+    }
+
+    if (ViewBag.MapSelectorClient != null)
+    {
+        mapSelectorClient = ViewBag.MapSelectorClient;
+    }
+}
+
+<script language="javascript" type="text/javascript">
+    @if (ViewBag.InitMapa)
+    {
+        <text>
+            initMapaClient();
+        </text>
+    }
+</script>
+<div id="@{@mapSelectorClient}" style="width: @ViewBag.MapWidthClient; height: @ViewBag.MapHeightClient;"></div>

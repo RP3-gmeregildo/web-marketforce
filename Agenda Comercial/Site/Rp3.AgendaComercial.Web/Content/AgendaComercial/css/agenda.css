@@ -1,0 +1,83 @@
+/*.pendiente-color
+{color:#335aa8;}
+
+.reprogramada-color
+{color:#439ed8;}
+
+.realizada-color
+{color:#6fbf56;}
+
+.norealizada-color
+{color:#be2026;}
+
+.ejecucion-color
+{color:#edd938;}
+
+.take-picture
+{ width:100%;
+height:100px;
+background-color:#CCC;
+padding:25px 10px 10px 10px; 
+text-align:center;
+font-size:bold;
+font-size:20px;}*/
+
+.hide {
+    width: 100%;
+    display: none;
+}
+
+.show {
+    width: 100%;
+    display: block;
+}
+
+.showbut {
+    display: block;
+}
+
+.hidebut {
+    display: none;
+}
+
+.myfooter {
+    text-align: right;
+    width: 90%;
+    position: fixed;
+    bottom: 10px;
+}
+
+.tittle-font-size {
+    font-size: 18px;
+    line-height: 30px;
+}
+
+.disableDIV {
+    pointer-events: none;
+    color: #e0d9d9;
+}
+
+#spinner-loading {
+    display: none;
+    margin-top:10px;
+    width: 32px;
+    height: 32px;
+    background-image: url('../img/small-loading.gif');
+}
+
+
+    .fancybox-wrap {
+        z-index: 99999999;
+    }
+
+    .fancybox-overlay,
+    .fancybox-overlay-fixed {
+        z-index: 9999998;
+    }
+
+    .round-corner {
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px; /* future proofing */
+        -khtml-border-radius: 5px; /* for old Konqueror browsers */
+    }

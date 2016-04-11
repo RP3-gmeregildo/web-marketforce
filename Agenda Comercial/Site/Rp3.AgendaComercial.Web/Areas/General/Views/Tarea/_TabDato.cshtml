@@ -1,0 +1,85 @@
+﻿@model Rp3.AgendaComercial.Models.General.View.TareaView
+@{
+
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+    {
+        if (!Model.ReadOnly)
+        {
+            @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion, labelSize: HtmlColumnSize.Size_3)
+        }
+        else
+        {
+            @Html.Rp3FormGroupDisplayFor(model => model.Descripcion, labelSize: HtmlColumnSize.Size_3)
+        }
+    }
+
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+    {
+        if (!Model.ReadOnly && (bool)ViewBag.IsNew)
+        {
+            @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.TipoTarea, Rp3.AgendaComercial.Models.Constantes.TipoTarea.Tabla, labelText: Rp3.AgendaComercial.Resources.LabelFor.Tipo, labelSize: HtmlColumnSize.Size_3)
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.TipoTarea)
+            @Html.Rp3FormGroupDisplayFor(model => model.TipoTareaDescripcion, labelText: Rp3.AgendaComercial.Resources.LabelFor.Tipo, labelSize: HtmlColumnSize.Size_3)
+        }
+    }
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+    {
+        if (!Model.ReadOnly)
+        {
+            @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla, labelSize: HtmlColumnSize.Size_3)
+        }
+        else
+        {
+            @Html.Rp3FormGroupDisplayFor(model => model.EstadoDescripcion, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado, labelSize: HtmlColumnSize.Size_3)
+        }
+    }
+}
+
+
+@using (Html.Rp3BeginRow(new { style = "margin-top: 15px" }))
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+    {
+        if (!Model.ReadOnly && Model.TipoTarea != Rp3.AgendaComercial.Models.Constantes.TipoTarea.CheckListOportunidad)
+        {
+            @Html.Rp3FormGroupDatePickerFor(model => model.FechaVigenciaDesde, labelSize: HtmlColumnSize.Size_3)
+        }
+        else
+        {
+            @Html.Rp3FormGroupDisplayFor(model => model.FechaVigenciaDesde, labelSize: HtmlColumnSize.Size_3)
+        }
+    }
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+    {
+        if (!Model.ReadOnly && Model.TipoTarea != Rp3.AgendaComercial.Models.Constantes.TipoTarea.CheckListOportunidad)
+        {
+            @Html.Rp3FormGroupDatePickerFor(model => model.FechaVigenciaHasta, labelSize: HtmlColumnSize.Size_3)
+        }
+        else
+        {
+            @Html.Rp3FormGroupDisplayFor(model => model.FechaVigenciaHasta, labelSize: HtmlColumnSize.Size_3)
+        }
+    }
+
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+    {
+        if (!Model.ReadOnly && Model.TipoTarea != Rp3.AgendaComercial.Models.Constantes.TipoTarea.CheckListOportunidad)
+        {
+            @Html.Rp3FormGroupCheckBoxFor(model => model.EsVigenciaIndefinida, labelSize: HtmlColumnSize.Size_3)
+        }
+        else
+        {
+            using (Html.Rp3BeginFormGroupEditor(labelText: Rp3.AgendaComercial.Resources.LabelFor.EsIndefinida, labelSize: HtmlColumnSize.Size_3))
+            {
+                @Html.Rp3DisableCheckBoxFor(model => model.EsVigenciaIndefinida)
+            }
+        }
+    }
+}

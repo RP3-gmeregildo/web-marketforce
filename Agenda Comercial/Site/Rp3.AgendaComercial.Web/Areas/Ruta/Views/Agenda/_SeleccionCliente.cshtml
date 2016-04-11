@@ -1,0 +1,39 @@
+﻿@model List<Rp3.AgendaComercial.Models.General.View.ClienteContactoSearchText>
+@{
+
+}
+
+<div id="searchcliente_content_dialog_form">
+
+    @using (Html.Rp3BeginDataTable(scrollY: "350px", allowSort: false, allowPagination: false, allowSearch: true, sortColumn:0, htmlAttributes: new { id = "searchclientetable" }))
+    {
+        <thead>
+            <tr>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Clientes</th>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.UltimaGestion</th>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.TiempoInactividad</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cliente in Model)
+            {
+                <tr class="selectable-item">
+                    <td idcliente="@cliente.IdCliente" idcontacto="@cliente.IdContacto" descripcion="@cliente.DescriptionName">@cliente.DescriptionName</td>
+                    <td>@if(cliente.FechaUtimaVisita != null) {
+                            @cliente.FechaUtimaVisita.Value.ToString("dd/mm/yyyy")
+                    }</td>
+                    <td>@cliente.TiempoInactividadText</td>
+                </tr>
+            }
+        </tbody>
+    }
+
+    @*@using (Html.Rp3BeginModalAction())
+    {
+        <div id="footer-main" actions-modal>
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Seleccionar, icon: Icons.Save, themeType: ElementThemeType.Success, htmlAttributes: new { save_button = "" })
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true)
+        </div>
+    }*@
+
+</div>

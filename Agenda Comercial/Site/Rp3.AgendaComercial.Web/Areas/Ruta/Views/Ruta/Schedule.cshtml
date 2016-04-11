@@ -1,0 +1,162 @@
+﻿@*@model List<Rp3.AgendaComercial.Models.Ruta.View.ClienteProgramacion>*@
+@{
+    this.SetImportFormElements(true);
+    this.SetTitle(Rp3.AgendaComercial.Resources.TitleFor.ProgramacionRuta);
+    this.SetImportTables(true);
+
+    Rp3.AgendaComercial.Models.Ruta.Ruta ruta = (Rp3.AgendaComercial.Models.Ruta.Ruta)ViewBag.Ruta;
+
+    Rp3.Web.Mvc.Html.TabCollection tabCollection = (Rp3.Web.Mvc.Html.TabCollection)ViewBag.TabCollection;
+}
+
+@section BeforeStyleImports{
+    @Url.ImportApplicationStyleSheet("fullcalendar/fullcalendar.css")
+    <link href="~/Content/AgendaComercial/css/fullcalendar/fullcalendar.print.css" rel="stylesheet" media="print" />
+    @Url.ImportApplicationStyleSheet("perfect_scroller/perfect-scrollbar.min.css")
+
+    @Url.ImportApplicationStyleSheet("programacion-ruta.css", true)
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("fullcalendar/fullcalendar.js")
+    @Url.ImportApplicationScript("fullcalendar/calendar.js")
+
+    @Url.ImportApplicationScript("programacionruta.js", true)
+    @Url.ImportApplicationScript("programacionrutacalendario.js", true)
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section ActionTitle{
+    @Html.Rp3Button("", actionName: "process", iconClass: "fa fa-gears", themeType: ElementThemeType.Default)
+}
+
+@using (Html.Rp3BeginRow(new { id = "rowBody" }))
+{
+    <input id="IdRuta" name="IdRuta" value="@ViewBag.IdRuta" type="hidden" />
+
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+    {
+        using (Html.Rp3BeginTabContentBox(Rp3.AgendaComercial.Resources.TitleFor.Programacion, tabCollection, paddingContent: true))
+        {
+            using (Html.Rp3BeginTabPane("tabprogramacion", active: true))
+            {
+                using (Html.Rp3BeginRow())
+                {
+                    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                    {
+                        //{ Html.RenderPartial("_ProgramacionesClientes", Model); }
+                        using (Html.Rp3BeginRow())
+                        {
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+                            {
+                                @Html.Rp3DropDownList((IEnumerable<SelectListItem>)ViewBag.Canales, htmlAttributes: new { style = "width:290px;margin-right:20px;margin-bottom:2px", placeholder = Rp3.AgendaComercial.Resources.LabelFor.Canal }, name: "canal")
+                            }
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+                            {
+                                @Html.Rp3DropDownList((IEnumerable<SelectListItem>)ViewBag.TiposClientes, htmlAttributes: new { style = "width:290px;margin-right:20px;margin-bottom:2px", placeholder = Rp3.AgendaComercial.Resources.LabelFor.TipoCliente }, name: "tipocliente")
+                            }
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+                            {
+                                @Html.Rp3DropDownList((IEnumerable<SelectListItem>)ViewBag.Lotes, htmlAttributes: new { style = "width:290px;margin-right:20px;margin-bottom:2px", placeholder = Rp3.AgendaComercial.Resources.LabelFor.Lotes }, name: "lote")
+                            }
+
+                        }
+
+                        <div id="GridDetalle" style="height:385px;"></div>
+
+                        using (Html.Rp3BeginModal("setProgramacionDialog", effect: ModalEffect.FlipVertical3D, customWidth: 850, includeOverlay: true))
+                        {
+                            <div id="setProgramacionDialogContent">
+                            </div>
+    
+                            using (Html.Rp3BeginModalAction())
+                            {
+                                @Html.Rp3Button(Rp3.Resources.LabelFor.Accept, icon: Icons.Save, htmlAttributes: new { id = "saveProgramacion" })
+                                @Html.Rp3Button(Rp3.Resources.LabelFor.Cancel, icon: Icons.Close, themeType: ElementThemeType.Default, allowCloseModal: true, htmlAttributes: new { id = "cancelProgramacion" })
+                            }
+                        }
+                    }
+                }
+            }
+
+            using (Html.Rp3BeginTabPane("tabvistaprevia"))
+            {
+                using (Html.Rp3BeginRow())
+                {
+                    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, htmlAttributes: new { id = "calendarcolumn" }))
+                    {
+                        <div class="content">
+                            <div id='agenda-calendar'></div>
+                        </div>
+                    }
+
+                    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6, htmlAttributes: new { id = "mapcolumn" }))
+                    {
+                        <div id="visibleScroll">
+                            <h3>@Rp3.AgendaComercial.Resources.LabelFor.Ruta del <span id="fechaRuta">@Rp3.AgendaComercial.Resources.LabelFor.Fecha</span></h3>
+                            <div id="content_map" class="content_map" style="height:400px">
+
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        }
+    }
+}
+
+<style>
+    .content_map {
+    }
+</style>
+
+
+
+<script>
+    MESSAGE_SIN_INICIO = "@Rp3.AgendaComercial.Resources.ErrorMessageValidation.SinFechaInicio";
+    MESSAGE_SIN_FIN = "@Rp3.AgendaComercial.Resources.ErrorMessageValidation.SinFechaFin";
+    MESSAGE_FIN_INICIO = "@Rp3.AgendaComercial.Resources.ErrorMessageValidation.InicioMayorFin";
+    MESSAGE_SIN_DIAS = "@Rp3.AgendaComercial.Resources.ErrorMessageValidation.SinDias";
+
+    var firstLoad = false;
+    var changed = false;
+    var offset;
+
+    $(function () {
+
+        $(window).scroll(function () {
+            if (firstLoad) {
+                var marginTop = $(window).scrollTop();
+
+                if (marginTop < offset - 50)
+                    marginTop = 0;
+                else if (marginTop > offset - 130)
+                    marginTop = marginTop - 130;
+
+                $("#visibleScroll").stop().animate({ "marginTop": marginTop }, "slow");
+
+            }
+        });
+
+        $('[data-toggle="tab"][href="#tabvistaprevia"]').click(function () {
+            if (!firstLoad) {
+                setTimeout(function () {
+                    init_Calendario();
+                    firstLoad = true;
+
+                    offset = $("#visibleScroll").offset().top;
+                }, 100);
+            }
+            else {
+                if (changed) {
+                    //setTimeout(function () {
+                    refreshCalendar();
+                    changed = false;
+                    //}, 100);
+
+                }
+            }
+        });
+    });
+</script>

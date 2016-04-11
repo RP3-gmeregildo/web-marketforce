@@ -1,0 +1,171 @@
+﻿@model Rp3.AgendaComercial.Models.Pedido.Producto
+<div style="margin-top: 10px"></div>
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            if (ViewBag.ReadOnly == false)
+            {
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Agregar, HtmlElementSize.Small, icon: Icons.Plus, submit: false,
+                                                                htmlAttributes: new
+                                                                {
+                                                                    onclick = "agregarDia(); return false;"
+                                                                })
+            }
+        }
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+
+        }
+    }
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+    {
+        using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Tipo))
+        {
+            @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.TipoDescuento, Rp3.AgendaComercial.Models.Constantes.TipoDescuento.Tabla)
+        }
+    }
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+    {
+        <div id="group-descuento">
+            @foreach (var data in Model.Descuentos)
+            {
+                <div id="descuento_@data.IdDescuento" descuento>
+                    @using (Html.Rp3BeginRow())
+                    {
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                        {
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                            {
+                                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Desde))
+                                {
+                                    if (ViewBag.ReadOnly == false)
+                                    {
+                                        @Html.Rp3NumericTextBox("descuento_inf_" + @data.IdDescuento, value: @data.LimiteInferior)
+                                    }
+                                    else
+                                    {
+                                        @Html.Rp3NumericTextBox("descuento_inf_" + @data.IdDescuento, value: @data.LimiteInferior, htmlAttributes: new { disabled = ViewBag.ReadOnly })
+                                    }
+                                }
+                            }
+
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                            {
+                                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Hasta))
+                                {
+                                    if (ViewBag.ReadOnly == false)
+                                    {
+                                        @Html.Rp3NumericTextBox("descuento_sup_" + @data.IdDescuento, value: @data.LimiteSuperior)
+                                    }
+                                    else
+                                    {
+                                        @Html.Rp3NumericTextBox("descuento_sup_" + @data.IdDescuento, value: @data.LimiteSuperior, htmlAttributes: new { disabled = ViewBag.ReadOnly })
+                                    }
+                                }
+                            }
+
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                            {
+                                @Html.Rp3Label(labelText: Rp3.AgendaComercial.Resources.LabelFor.Descuento)
+                            }
+
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                            {
+                                if (ViewBag.ReadOnly == false)
+                                {
+                                    @Html.Rp3NumericTextBox("valor_" + @data.IdDescuento, value: @data.Valor)
+                                }
+                                else
+                                {
+                                    @Html.Rp3NumericTextBox("valor_" + @data.IdDescuento, value: @data.Valor, htmlAttributes: new { disabled = ViewBag.ReadOnly })
+                                }
+                            }
+
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+                            {
+                                if (ViewBag.ReadOnly == false)
+                                {
+                                    @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Eliminar, HtmlElementSize.Mini, icon: Icons.Minus, submit: false,
+                                                                                htmlAttributes: new
+                                                                                {
+                                                                                    onclick = "removerDescuento(this); return false;",
+                                                                                    idDescuento = "_" + @data.IdDescuento
+                                                                                })
+                                }
+                            }
+                        }
+                    }
+                </div>
+            }
+        </div>
+    }
+}
+
+<div id="each-dia" style="display:none;">
+    @using (Html.Rp3BeginRow(new { style = "margin-top:10px" }))
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Fecha))
+                {
+                    @Html.Rp3TextBox("nolaboral")
+                }
+            }
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+            {
+                @Html.Rp3Label(labelText: Rp3.AgendaComercial.Resources.LabelFor.TodosLosAños)
+            }
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+            {
+                <div id="esteAnioDiv"></div>
+            }
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+            {
+                @Html.Rp3Label(labelText: Rp3.AgendaComercial.Resources.LabelFor.EsDiaParcial)
+            }
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+            {
+                <div id="esDiaParcialDiv"></div>
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Desde))
+                {
+                    @Html.Rp3TextBox("nolabInicio")
+                }
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Hasta))
+                {
+                    @Html.Rp3TextBox("nolabFin")
+                }
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+            {
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Eliminar, HtmlElementSize.Mini, icon: Icons.Minus, submit: false,
+                            htmlAttributes: new
+                            {
+                                id = "elimButton",
+                                onclick = "removerDia(this); return false;"
+                            })
+            }
+        }
+    }
+</div>

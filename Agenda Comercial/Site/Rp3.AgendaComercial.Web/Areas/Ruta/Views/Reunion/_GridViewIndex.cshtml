@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.Ruta.Reunion>
+@{
+    
+}
+
+@Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "Reunion", Action = "GridViewIndex" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.ClientSideEvents.CustomButtonClick = "function(s, e) { document.location= e.buttonID + '?id=' + s.GetRowKey(e.visibleIndex); }";
+        settings.KeyFieldName = "IdReunion";
+
+        settings.Columns.Add("Asunto", Rp3.AgendaComercial.Resources.LabelFor.Asunto);
+
+        settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+        
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.FechaInicio;
+            column.FieldName = "FechaInicio";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            column.PropertiesEdit.DisplayFormatString = "g";
+            column.Width = 150;
+        });
+
+        var colFechaFin = settings.Columns.Add("FechaFin", Rp3.AgendaComercial.Resources.LabelFor.FechaFin);
+        colFechaFin.PropertiesEdit.DisplayFormatString = "g";
+        colFechaFin.Width = 150;
+        
+        settings.Columns.Add("Solicitante.Descripcion", Rp3.AgendaComercial.Resources.LabelFor.Solicitante);
+        settings.Columns.Add("Ubicacion", Rp3.AgendaComercial.Resources.LabelFor.Ubicacion);
+        settings.Columns.Add("EstadoReunionGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Estado);
+        settings.Columns.Add("TipoReunionGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Tipo);
+        settings.Columns.Add("ImportanciaGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Importancia);
+    },
+    new List<OptionAction>() { 
+        new OptionAction("REUNION", "DETAIL", "AGENDACOMERCIAL"),
+        new OptionAction("REUNION", "EDIT", "AGENDACOMERCIAL"),
+        new OptionAction("REUNION", "DELETE", "AGENDACOMERCIAL"),
+    }).Bind(Model).GetHtml()

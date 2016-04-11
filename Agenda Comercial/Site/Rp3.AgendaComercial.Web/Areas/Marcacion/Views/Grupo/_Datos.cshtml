@@ -1,0 +1,67 @@
+﻿@model Rp3.AgendaComercial.Models.Marcacion.Grupo
+@{
+
+}
+
+
+<text>
+
+    @Html.HiddenFor(model => model.IdGrupo)
+    @Html.HiddenFor(model => model.LongitudPuntoPartida)
+    @Html.HiddenFor(model => model.LatitudPuntoPartida)
+
+    @if (!Model.ReadOnly)
+    {
+        @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion)
+    }
+    else
+    {
+        @Html.Rp3FormGroupDisplayFor(model => model.Descripcion)
+    }
+
+    @if (!Model.ReadOnly)
+    {
+       @Html.Rp3FormGroupDropDownListFor(model => model.IdCalendario, (SelectList)ViewBag.CalendariosSelectList, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarCalendario })
+    }
+    else
+    {
+        @Html.Rp3FormGroupDisplayFor(model => model.Calendario.Descripcion, labelText: Rp3.AgendaComercial.Resources.LabelFor.Calendario)
+    }
+
+    @if (!Model.ReadOnly)
+    {
+        @Html.Rp3FormGroupCheckBoxFor(model => model.AplicaMarcacion)
+    }
+    else
+    {
+        @Html.Rp3FormGroupDisplayFor(model => model.AplicaMarcacion)
+    }
+
+    @if (!Model.ReadOnly)
+    {
+        @Html.Rp3FormGroupCheckBoxFor(model => model.AplicaBreak)
+    }
+    else
+    {
+        @Html.Rp3FormGroupDisplayFor(model => model.AplicaBreak)
+    }
+
+    @if (!Model.ReadOnly)
+    {
+        @Html.Rp3FormGroupCheckBoxFor(model => model.TieneUbicacion)
+    }
+    else
+    {
+        @Html.Rp3FormGroupDisplayFor(model => model.TieneUbicacion)
+    }
+
+    @if (!Model.ReadOnly)
+    {
+        @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla)
+    }
+    else
+    {
+        @Html.Rp3FormGroupDisplayFor(model => model.EstadoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado)
+    }
+
+</text>

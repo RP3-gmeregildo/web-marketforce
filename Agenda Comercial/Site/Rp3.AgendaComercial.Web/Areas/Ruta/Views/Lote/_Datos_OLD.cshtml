@@ -1,0 +1,137 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.Lote
+@{
+
+}
+
+@Html.HiddenFor(model => model.IdLote)
+@Html.HiddenFor(model => model.Calificacion)
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+    {
+        if (!Model.ReadOnly)
+        {
+            @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion, labelSize: HtmlColumnSize.Size_2)
+        }
+        else
+        {
+            @Html.Rp3FormGroupDisplayFor(model => model.Descripcion, labelSize: HtmlColumnSize.Size_2)
+        }
+    }
+
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+    {
+        if (!Model.ReadOnly)
+        {
+            using (Html.Rp3BeginFormGroupEditor(labelText: Rp3.AgendaComercial.Resources.LabelFor.Calificacion, labelSize: HtmlColumnSize.Size_3))
+            {
+                Html.RenderPartial("_Scorer", new Rp3.Models.Scorer(Model.Calificacion, target: "Calificacion", readOnly: false));
+            }
+        }
+        else
+        {
+            using (Html.Rp3BeginFormGroupEditor(labelText: Rp3.AgendaComercial.Resources.LabelFor.Calificacion, labelSize: HtmlColumnSize.Size_3))
+            {
+                Html.RenderPartial("_Scorer", new Rp3.Models.Scorer(Model.Calificacion));
+            }
+        }
+    }
+
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+    {
+        if (!Model.ReadOnly)
+        {
+            @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla, labelSize: HtmlColumnSize.Size_3)
+        }
+        else
+        {
+            @Html.Rp3FormGroupDisplayFor(model => model.EstadoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado, labelSize: HtmlColumnSize.Size_3)
+        }
+    }
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+    {
+        using (@Html.Rp3BeginFormGroupEditor(labelText: Rp3.AgendaComercial.Resources.LabelFor.Zona, labelSize: HtmlColumnSize.Size_2))
+        {
+            @Html.DevExpress().TokenBox(settings =>
+            {
+                settings.Name = "Zonas";
+                settings.Properties.AllowCustomTokens = false;
+                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                //settings.Properties.ShowDropDownOnFocus = ShowDropDownOnFocusMode.Always;
+                settings.Properties.ItemValueType = typeof(int);
+                settings.Properties.ValueSeparator = '-';
+                settings.Properties.ValueField = "IdZona";
+                settings.Properties.TextField = "Descripcion";
+                settings.ReadOnly = Model.ReadOnly;
+                settings.Properties.NullText = Model.ReadOnly ? "" : Rp3.AgendaComercial.Resources.LegendFor.ZonaToken;
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                settings.Height = System.Web.UI.WebControls.Unit.Pixel(27);
+                settings.Properties.ClientSideEvents.GotFocus = "SelectedId()";
+            }).BindList(ViewBag.Zonas).Bind(Model.Zonas).GetHtml();
+        }
+    }    
+    
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+    {
+        using (@Html.Rp3BeginFormGroupEditor(labelText: Rp3.AgendaComercial.Resources.LabelFor.TipoCliente, labelSize: HtmlColumnSize.Size_3))
+        {
+            @Html.DevExpress().TokenBox(settings =>
+            {
+                settings.Name = "TipoClientes";
+                settings.Properties.AllowCustomTokens = false;
+                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                //settings.Properties.ShowDropDownOnFocus = ShowDropDownOnFocusMode.Always;
+                settings.Properties.ItemValueType = typeof(int);
+                settings.Properties.ValueSeparator = '-';
+                settings.Properties.ValueField = "IdTipoCliente";
+                settings.Properties.TextField = "Descripcion";
+                settings.ReadOnly = Model.ReadOnly;
+                settings.Properties.NullText = Model.ReadOnly ? "" : Rp3.AgendaComercial.Resources.LegendFor.TipoClienteToken;
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                settings.Height = System.Web.UI.WebControls.Unit.Pixel(27);
+            }).BindList(ViewBag.TipoClientes).Bind(Model.TipoClientes).GetHtml();
+        }
+    }
+
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+    {
+        using (@Html.Rp3BeginFormGroupEditor(labelText: Rp3.AgendaComercial.Resources.LabelFor.Canal, labelSize: HtmlColumnSize.Size_3))
+        {
+            @Html.DevExpress().TokenBox(settings =>
+            {
+                settings.Name = "Canales";
+                settings.Properties.AllowCustomTokens = false;
+                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                //settings.Properties.ShowDropDownOnFocus = ShowDropDownOnFocusMode.Always;
+                settings.Properties.ItemValueType = typeof(int);
+                settings.Properties.ValueSeparator = '-';
+                settings.Properties.ValueField = "IdCanal";
+                settings.Properties.TextField = "Descripcion";
+                settings.ReadOnly = Model.ReadOnly;
+                settings.Properties.NullText = Model.ReadOnly ? "" : Rp3.AgendaComercial.Resources.LegendFor.CanalToken;
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                settings.Height = System.Web.UI.WebControls.Unit.Pixel(27);
+            }).BindList(ViewBag.Canales).Bind(Model.Canales).GetHtml();
+        }
+    }
+}
+<span>ViewBag.Zonas</span><span>ViewBag.Zonas</span>
+
+<script>
+
+    $(function () {
+        
+        
+
+    });
+    function SelectedId() {
+        alert('works');
+    };
+    
+
+</script>

@@ -1,0 +1,55 @@
+﻿@model List<Rp3.AgendaComercial.Models.Marcacion.View.AnalisisAgente>
+
+<div id="dvData">
+    @using (Html.Rp3BeginDataTable(htmlAttributes: new { id = "agente-resumen-table" }, allowPagination: false,
+    columnAutoWidth: false, sortColumn: 1, autoWindowHeight: true))
+    {
+        <thead>
+            <tr>
+                <th></th>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Grupo</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.AtrasosMinutos</th>
+                <th class="text-center" style="width:80px">@Rp3.AgendaComercial.Resources.LabelFor.Ausencias</th>
+                <th class="text-center" style="width:80px"><img src="@Url.Content("~/Content/AgendaComercial/img/efectividad.png")" /><span style="display:none">@Rp3.AgendaComercial.Resources.LabelFor.Efectividad</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var agente in Model.OrderBy(p => p.Agente))
+            {
+                string classtext = "selectable-item";
+
+                <tr idagente="@agente.IdAgente" descripcion="@agente.Agente" asistencias="@agente.AsistenciasATiempo" ausencias="@agente.Ausencias" atrasos="@agente.Atrasos">
+                    <td align="center">@Html.Rp3Button(String.Empty, HtmlElementSize.Mini, icon: Icons.Eye, themeType: ElementThemeType.Success, submit: false, htmlAttributes: new { detailbutton = agente.IdAgente })</td>
+                    <td class="@classtext">@agente.Agente</td>
+                    <td class="@classtext">@agente.Grupo</td>
+                    <td class="text-center @classtext">@agente.MinutosAtraso</td>
+                    <td class="text-center @classtext">@agente.Ausencias</td>
+                    <td class="@classtext" align="right"><span>@agente.Eficiencia.ToString("n0") %</span><div class="img-circle" style="margin-right:5px; margin-top:2px;float:left;height:15px;width:15px;background-color:@agente.KpiEficienciaColor;"></div></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td align="center">@Html.Rp3Button(String.Empty, HtmlElementSize.Mini, icon: Icons.Eye, themeType: ElementThemeType.Success, submit: false, htmlAttributes: new { detailbutton = "" })</td>
+                <td><strong>@Rp3.AgendaComercial.Resources.LabelFor.Total</strong></td>
+                <td></td>
+                <td class="text-center"><strong>@Model.Sum(p => p.MinutosAtraso)</strong></td>
+                <td class="text-center"><strong>@Model.Sum(p => p.Ausencias)</strong></td>
+                <td align="right"><strong>@ViewBag.Eficiencia.ToString("n0") %</strong> <div class="img-circle" style="margin-right:5px; margin-top:2px;float:left;height:15px;width:15px;background-color:@ViewBag.EficienciaKpiColor;"></div></td>
+            </tr>
+        </tfoot>
+    }
+
+</div>
+
+
+    <script>
+        $(function () {
+            $("#agente-resumen-table").rp3DataTable();
+
+            $('#Asistencias').val(@Model.Sum(p => p.AsistenciasATiempo));
+            $('#Ausencias').val(@Model.Sum(p => p.Ausencias));
+            $('#Atrasos').val(@Model.Sum(p => p.Atrasos));
+        });
+    </script>

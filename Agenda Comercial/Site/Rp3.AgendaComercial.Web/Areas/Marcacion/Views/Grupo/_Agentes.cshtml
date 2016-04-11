@@ -1,0 +1,40 @@
+﻿@if (!Model.ReadOnly)
+{
+    <div class='input-group'>
+        <input class="form-control  text-left ui-autocomplete-input" id="agenteText" name="agenteText" placeholder="@Rp3.AgendaComercial.Resources.LabelFor.EscribaAgente" type="text" value="" autocomplete="off">
+        <span class="input-group-addon" id="searchAgenteButton" style="cursor:pointer">
+            <span class="glyphicon glyphicon-search"></span>
+        </span>
+    </div>
+}
+
+<div style="height:550px">
+    @using (Html.Rp3BeginDataTable(allowSort: false, allowPagination: false, allowSearch: false, sortColumn: 0, htmlAttributes: new { id = "agentes" }))
+    {
+        <thead>
+            <tr>
+                @if (!Model.ReadOnly)
+            {
+            <th style="width:50px"></th>
+            }
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>
+            </tr>
+        </thead>
+    <tbody>
+        @foreach (var item in ((List<Rp3.AgendaComercial.Models.General.Agente>)ViewBag.Agentes).OrderBy(p => p.Descripcion))
+        {
+            <tr>
+                <input type="hidden" name="agentes" value="@item.IdAgente" agente>
+                @if (!Model.ReadOnly)
+                {
+                    <td removebutton class="text-center selectable-item" style="width:50px">
+                        @Html.Rp3Button("", HtmlElementSize.Mini, submit: false, icon: Icons.Remove)
+                    </td>
+                }
+                <td agentedescripcion>@item.Descripcion</td>
+            </tr>
+        }
+    </tbody>
+    }
+</div>
+

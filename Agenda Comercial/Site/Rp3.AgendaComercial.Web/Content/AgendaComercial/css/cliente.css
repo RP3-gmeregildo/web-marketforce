@@ -1,0 +1,55 @@
+﻿#icon_location_direccion {   
+    margin-left:10px;
+    background-image: url(../img/style/icon_location_small.png);
+    width: 19px;
+    height: 26px;        
+    color: #FFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    padding: 4px 4px 4px 4px;
+    text-align: center;
+    display: inline-block;
+}
+
+.label_direccion{
+    display: inline-block;
+    margin: 10px 10px 10px 10px;
+    min-width: 300px;
+}
+
+.edit_foto
+{
+    position:absolute;
+    height:16px;
+    width:16px;
+    z-index:10;
+    background:url(../img/style/icons_edit.png) 0px 16px;
+    background-color: white;
+}
+
+.delete_foto
+{
+    position:absolute;
+    margin-left:18px;
+    height:16px;
+    width:16px;
+    z-index:10;
+    background:url(../img/style/icons_edit.png) 64px 80px;
+    background-color: white;
+}
+
+.img_Foto_Content
+{
+	width: 95px;
+	height: auto;
+	margin: auto;
+}
+
+.img_Foto_Border
+{
+	width:105px;
+	height:105px;
+	padding:4px 4px 4px 4px;
+	background-color:#FFFFFF;
+	border:1px solid #CCC;
+}

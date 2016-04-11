@@ -1,0 +1,82 @@
+﻿@Url.ImportScript("jquery.min.js")
+@Url.ImportScript("jquery.gritter/js/jquery.gritter.js")
+@Url.ImportScript("jquery.nanoscroller/jquery.nanoscroller.js")
+
+@Url.ImportScript("jquery.ui/jquery-ui.min.js")
+@Url.ImportScript("bootstrap.switch/bootstrap-switch.min.js")
+
+
+@if (this.ImportFormElements() || this.ImportTables())
+{
+    <text>
+        @Url.ImportScript("bootstrap.datetimepicker/js/bootstrap-datetimepicker.min.js")
+        @Url.ImportScript("bootstrap.datetimepicker/js/locales/bootstrap-datetimepicker.es.js")
+        @Url.ImportScript("jquery.select2/select2.min.js")
+        @Url.ImportScript("jquery.icheck/icheck.min.js")
+
+
+        @Url.ImportScript("rp3/rp3numeric.js", true)
+        @Url.ImportScript("rp3/rp3datetime.js", true)        
+        
+        @Url.ImportScript("waitme/waitMe.js")
+    </text>
+}
+
+@if (this.ImportTables())
+{
+    <text>
+        @Url.ImportScript("jquery.datatables/jquery.datatables.js")
+        @Url.ImportScript("jquery.datatables/dataTables.fixedColumns.js")
+        @Url.ImportScript("jquery.datatables/dataTables.fixedHeader.js")
+    </text>
+}
+
+
+
+@Url.ImportScript("skycons/skycons.js")
+@Url.ImportScript("bootstrap.slider/js/bootstrap-slider.js")
+
+
+@Url.ImportScript("jquery.niftymodals/js/jquery.modalEffects.js")
+
+
+
+@*@Url.ImportScript("behaviour/general.js")*@
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        //initialize the javascript
+        App.init();
+    });
+</script>
+
+@Url.ImportScript("bootstrap/dist/js/bootstrap.min.js")
+
+@if (this.ImportFormValidations())
+{
+    <text>
+        @Url.ImportScript("jquery.validate.min.js")
+        @Url.ImportScript("jquery.validate.unobtrusive.min.js")
+    </text>
+}
+
+@if (this.ImportAdvTables())
+{
+    @Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.GridView }
+    )
+
+    @Html.DevExpress().GetStyleSheets(
+                new StyleSheet
+                {
+                    ExtensionSuite = ExtensionSuite.GridView,
+                    Theme = "MetropolisBlue"
+                })
+}
+@Url.ImportScript("rp3/rp3modernizer.js", true)
+@Url.ImportScript("rp3/rp3core.js", true)
+@Url.ImportScript("rp3/rp3ui.js", true)
+
+@{Html.RenderPartial("_InitVar");}

@@ -1,0 +1,46 @@
+﻿@{
+    Rp3.Data.Models.Security.RoleApplicationOptionActivity RoleApplicationOptionActivity = ViewBag.RoleApplicationOptionActivity;      
+}
+
+<ol class="breadcrumb">
+    <li>
+        <a href="@Url.Content("~" + Rp3.Configuration.Rp3ConfigurationSection.Current.HomeRedirect.Url)" title="@Rp3.Resources.LabelFor.Home">@*<i class="icon-home"></i>*@@Rp3.Resources.LabelFor.Home</a>
+    </li>
+    @if (RoleApplicationOptionActivity != null)
+    {
+        ApplicationOptionActivity initialActivity = null;
+        if (!RoleApplicationOptionActivity.ApplicationOptionActivity.ApplicationOption.ShowActivitiesInSideBar)
+        {
+            initialActivity = RoleApplicationOptionActivity.ApplicationOptionActivity.ApplicationOption.InitialApplicationOptionActivity;
+        }
+
+        if (initialActivity != null && initialActivity.ActivityId != RoleApplicationOptionActivity.ApplicationOptionActivity.ActivityId)
+        {
+            if (RoleApplicationOptionActivity.ApplicationOptionActivity.ApplicationOption.ParentOption != null)
+            {
+                <li><a href="@Url.Action(initialActivity)">@RoleApplicationOptionActivity.ApplicationOptionActivity.ApplicationOption.ParentOption.Name</a></li>
+            }
+
+            <li><a href="@Url.Action(initialActivity)">@RoleApplicationOptionActivity.ApplicationOptionActivity.ApplicationOption.Name</a></li>
+        }
+        else
+        {
+            if (RoleApplicationOptionActivity.ApplicationOptionActivity.ApplicationOption.ParentOption != null)
+            {
+                <li><a href="@Url.RequestContext.HttpContext.Request.Url.PathAndQuery">@RoleApplicationOptionActivity.ApplicationOptionActivity.ApplicationOption.ParentOption.Name</a></li>
+            }
+
+            <li>
+                <a href="@Url.RequestContext.HttpContext.Request.Url.PathAndQuery">
+                    @RoleApplicationOptionActivity.ApplicationOptionActivity.ApplicationOption.Name
+                </a>
+            </li>
+        }
+
+        <li><a href="@Url.RequestContext.HttpContext.Request.Url.PathAndQuery" class="current">@RoleApplicationOptionActivity.ApplicationOptionActivity.Activity.Name</a></li>
+    }
+    else
+    {
+        <li><a href="@Url.RequestContext.HttpContext.Request.Url.PathAndQuery" class="current">@ViewBag.Title</a></li>
+    }
+</ol>

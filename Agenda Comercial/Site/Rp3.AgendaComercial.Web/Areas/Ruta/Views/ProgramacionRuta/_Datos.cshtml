@@ -1,0 +1,112 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.ProgramacionRuta
+@{
+
+}
+
+<text>
+
+    @Html.HiddenFor(model => model.IdProgramacionRuta)
+
+    @using (Html.Rp3BeginRow())
+    {
+
+        if (!Model.ReadOnly)
+        {
+            @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion)
+        }
+        else
+        {
+            @Html.Rp3FormGroupDisplayFor(model => model.Descripcion)
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        if (!Model.ReadOnly)
+        {
+            @Html.Rp3FormGroupDropDownListFor(model => model.IdRuta, (SelectList)ViewBag.RutasSelectList, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarRuta })
+        }
+        else
+        {
+            @Html.Rp3FormGroupDisplayFor(model => model.Ruta.Descripcion)
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupCheckBoxFor(model => model.EsAbierta)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.EsAbierta)
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            if (!Model.ReadOnly)
+            {
+                @Html.Rp3FormGroupCheckBoxFor(model => model.EsIndefinida)
+            }
+            else
+            {
+                @Html.Rp3FormGroupDisplayFor(model => model.EsIndefinida)
+            }
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+
+        if (!Model.ReadOnly)
+        {
+            @Html.Rp3FormGroupDatePickerFor(model => model.FechaInicio)
+        }
+        else
+        {
+            @Html.Rp3FormGroupDisplayFor(model => model.FechaInicio)
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        if (!Model.ReadOnly)
+        {
+            @Html.Rp3FormGroupDatePickerFor(model => model.FechaFin)
+        }
+        else
+        {
+            @Html.Rp3FormGroupDisplayFor(model => model.FechaFin)
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+
+        if (!Model.ReadOnly)
+        {
+            @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Duracion, Rp3.AgendaComercial.Models.Constantes.Duracion.Tabla)
+        }
+        else
+        {
+            @Html.Rp3FormGroupDisplayFor(model => model.DuracionGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado)
+        }
+    }
+
+    @using (Html.Rp3BeginRow())
+    {
+        if (!Model.ReadOnly)
+        {
+            @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla)
+        }
+        else
+        {
+            @Html.Rp3FormGroupDisplayFor(model => model.EstadoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado)
+        }
+    }
+
+</text>

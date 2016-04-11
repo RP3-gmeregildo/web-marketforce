@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.Pedido.Pedido>
+@{
+
+}
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            @Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "Pedido", Action = "GridViewIndex" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.KeyFieldName = "IdPedido";
+
+        var colNumero = settings.Columns.Add("IdPedido", Rp3.AgendaComercial.Resources.LabelFor.Codigo);
+        
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Cliente;
+            column.FieldName = "Cliente.NombresCompletos";
+        });
+
+        var colValor = settings.Columns.Add("ValorTotal", Rp3.AgendaComercial.Resources.LabelFor.Valor);
+        var colItems = settings.Columns.Add("TotalItems", Rp3.AgendaComercial.Resources.LabelFor.Items);
+        var colFecha = settings.Columns.Add("FecIng", Rp3.AgendaComercial.Resources.LabelFor.Fecha);
+        var colEstado = settings.Columns.Add("EstadoGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Estado);
+        var colAgente = settings.Columns.Add("Agente.Descripcion", Rp3.AgendaComercial.Resources.LabelFor.Agente);
+
+        colNumero.Width = 50;
+        colEstado.Width = 75;
+        colAgente.Width = 150;
+        colValor.Width = 75;
+        colValor.PropertiesEdit.DisplayFormatString = "C2";
+        colItems.Width = 75;
+        colFecha.Width = 175;
+        colFecha.SortOrder = 0;
+        colFecha.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+    },
+    new List<OptionAction>() {
+        new OptionAction("PEDIDO", "DETAIL", "AGENDACOMERCIAL"),
+    }).Bind(Model).GetHtml()
+
+        }
+    }
+}

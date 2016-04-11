@@ -1,0 +1,64 @@
+﻿@model  Rp3.Web.Mvc.Application.Security.Models.NotificationMonitorIndex
+@{
+    ViewBag.Title = Rp3.Resources.TitleFor.NotificationMonitor;
+
+    this.SetImportFormElements(true);
+    this.SetImportAdvTables(true);
+}
+
+@section ActionTitle{
+    @Html.Rp3Button(Rp3.Resources.LabelFor.Query, HtmlElementSize.Default, themeType: ElementThemeType.Success, icon: Icons.Refresh, submit: false, target: "#indexForm", actionName: "SEND")
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "indexForm" }))
+{
+    using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-left:10px" }))
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+        {
+            @Html.Rp3FormGroupDropDownListFor(model => model.IdNotificacion, (SelectList)ViewBag.NotificacionesSelectList, editorHtmlAttributes: new { placeholder = Rp3.Resources.LabelFor.SelectNotification }, labelSize: HtmlColumnSize.Size_3)
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+        {
+            @Html.Rp3FormGroupDropDownListFor(model => model.Estado, (SelectList)ViewBag.EstadosSelectList, editorHtmlAttributes: new { placeholder = Rp3.Resources.LabelFor.SelectState }, labelSize: HtmlColumnSize.Size_3)
+        }
+    }
+}
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{
+    @Html.Action("GridViewIndex")
+}
+
+
+@using (Html.Rp3BeginModal("bodyDialog", customWidth: 750))
+{
+    <div id="bodyDialogContent" style="overflow:auto;height:500px">
+    </div>
+}
+
+<script>
+
+    function executeAction(action, idNotificacionEmitida) {
+        if (action.endsWith("Detail"))
+            showBodyHtml(idNotificacionEmitida);
+        else
+            sendMail(idNotificacionEmitida);
+    }
+
+    function showBodyHtml(idNotificacionEmitida) {
+        rp3Get("/Security/NotificationMonitor/MailBody", { idNotificacionEmitida: idNotificacionEmitida }, function (data) {
+            $("#bodyDialogContent").html(data);
+            rp3ModalShow("bodyDialog");
+        });
+    };
+
+    function sendMail(idNotificacionEmitida) {
+        rp3DialogConfirmationMessage("", "¿Está seguro que desea reenviar esta notificación?", function () {
+            rp3Post("/Security/NotificationMonitor/SendMail", { idNotificacionEmitida: idNotificacionEmitida }, function (data) {
+                rp3NotifyAsPopup(data.Messages);
+            });
+        });
+    };
+</script>

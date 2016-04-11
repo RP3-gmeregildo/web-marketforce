@@ -1,0 +1,28 @@
+﻿<form id="registerform" action="@Url.Action("Register", "Security")" method="post">
+    <p>Enter information required to register:</p>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="icon-user"></i></span>
+        <input class="form-control" type="text" placeholder="Enter Username" />
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="icon-lock"></i></span>
+        <input class="form-control" type="password" placeholder="Choose Password" />
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="icon-lock"></i></span>
+        <input class="form-control" type="password" placeholder="Confirm password" />
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="icon-envelope"></i></span>
+        <input class="form-control" type="text" placeholder="Enter E-mail address" />
+    </div>
+    <div class="form-actions clearfix">
+        <div class="pull-left">
+            <a href="#loginform" class="grey flip-link to-login">Click to login</a>
+        </div>
+        <div class="pull-right">
+            <a href="#recoverform" class="grey flip-link to-recover">Lost password?</a>
+        </div>
+        <input type="submit" class="btn btn-block btn-success" value="Register" />
+    </div>
+</form>

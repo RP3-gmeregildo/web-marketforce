@@ -1,0 +1,29 @@
+﻿@model Rp3.Models.Scorer
+
+@{ int starIndex = 1; }
+<center>
+    <div class="content_star_ranking">
+        @if (!Model.ReadOnly)
+        {
+            <div id="cancel_rate" class="cancel_rate"></div>
+        }
+        <div id="stars" class="star_all" target="@Model.Target">
+            @if (Model.ReadOnly)
+            {
+                <strong style="color:transparent">@Model.Score</strong>
+            }
+            @while (starIndex <= 5)
+            {
+                if (starIndex <= (Model.Score ?? 0))
+                {
+                    <div id="star@{ @starIndex }" class="star_full"></div>
+                }
+                else
+                {
+                    <div id="star@{ @starIndex }" class="star_empty"></div>
+                }
+                starIndex++;
+            }
+        </div>
+    </div>
+</center>

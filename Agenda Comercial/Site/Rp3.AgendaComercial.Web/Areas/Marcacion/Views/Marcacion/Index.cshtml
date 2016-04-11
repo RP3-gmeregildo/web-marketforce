@@ -1,0 +1,129 @@
+﻿@model Rp3.AgendaComercial.Web.Areas.Marcacion.Models.ReporteMarcacionView
+@{
+    this.SetTitle(Rp3.AgendaComercial.Resources.TitleFor.ReporteMarcacion);
+    this.SetImportTables(true);
+}
+
+
+@section MainTitle{
+    @{Html.RenderPartial("_CargoRol");}
+}
+
+@section ActionTitle{
+
+    <a class="btn btn-default btn-lg pull-left" id="exportarExcel"><i class="fa fa-file-o"></i> @Rp3.AgendaComercial.Resources.LabelFor.Exportar</a>
+
+    <div class="pull-left" style="margin-right:30px">
+        @Html.Rp3FormGroupDatePickerFor(model => model.Fecha, labelSize: HtmlColumnSize.Size_4)
+    </div>
+   
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("mapa.css", true)
+    @Url.ImportApplicationStyleSheet("ubicacion-agentes.css", true)
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("marcacion.js", true)
+    @Url.ImportApplicationScript("exportexcel.js", true)
+}
+
+@section ScriptImports{
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places,geometry&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+<div id="main-content" style="min-width:400px">
+    @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+    {
+        <div id="agente-content-container" style="min-width:400px">
+
+        </div>
+    }
+</div>
+
+@using (Html.Rp3BeginModal("modal-detalle-map", effect: ModalEffect.FlipVertical3D, customWidth: 1200, includeOverlay: true))
+{
+    <table>
+        <tr>
+            <td style="padding-right:30px">
+                <h4 id="model-detalle-titulo"></h4>
+            </td>
+            <td style ="padding-right:10px">
+                <div class="leyend-icon-name"><div style="cursor:pointer;color:blue" onclick="openNotificacion()"><b><i class="fa fa-comments-o"></i> Enviar notificación</b></div></div>
+            </td>
+            <td>
+                <div class="leyend-icon-name"><div style="cursor:pointer;color:blue" onclick="openTrazabilidad()"><i class="fa fa-flag"></i> Ir al Informe de Trazabilidad</div></div>
+            </td>
+        </tr>
+    </table>
+
+    <h5 id="model-detalle-direccion-marcacion"></h5>
+    
+
+    <div id="modal-detalle-map-content" style="z-index:9999;height:320px;">
+    </div>
+
+    <div class="row" style="float:left;margin-left:-4px;margin-top:5px">
+
+        <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.ObservacionSupervisor</strong></div>
+        <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("obs-superv.png")" /></div>
+
+        <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Observacion</strong></div>
+        <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("observ.png")" /></div>
+
+        <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Estado</strong></div>
+        <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("gray-flag.png")" /></div>
+
+        <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Motivo</strong></div>
+        <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("motivo.png")" /></div>
+
+        <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.HoraFin</strong></div>
+        <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("hora-fin.png")" /></div>
+
+        <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.HoraInicio</strong></div>
+        <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("hora-inicio.png")" /></div>
+
+        <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.FechaFin</strong></div>
+        <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("fecha-fin.png")" /></div>
+
+        <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.FechaInicio</strong></div>
+        <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("fecha-inicio.png")" /></div>
+
+        <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Tipo</strong></div>
+        <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("tipo.png")" /></div>
+
+        <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Grupo</strong></div>
+        <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("grupo.png")" /></div>
+
+        <div style="float:right;margin-left:3px;"><strong>@Rp3.AgendaComercial.Resources.LabelFor.Agente</strong></div>
+        <div style="float:right;margin-left:10px;"><img class="" style="margin-right:3px;margin-top:-2px" width="16" height="16" src="@Url.ContentApplicationImage("agentes.png")" /></div>
+
+    </div>
+
+    <div id="modal-detalle-permiso-content" style="z-index:9999;height:170px;padding-top:5px;padding-left:10px;padding-right:10px;overflow-y:auto;overflow-x:hidden;width:100%">
+    </div>
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginModal("modal-notificacion", customWidth: 450))
+    {
+        <div id="modal-notificacion-content" style="margin-top:-15px;height:200px; width:300px;"> </div>
+
+        using (Html.Rp3BeginModalAction())
+        {
+            <div actions-modal>
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Enviar, themeType: ElementThemeType.Success, icon: Icons.Reply, allowCloseModal: false, customButtonClick: "notificacionPost();")
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true, customButtonClick: "return;")
+            </div>
+        }
+    }
+}
+
+<style>
+    /*.modal-header {
+        min-height:4px;
+        padding: 4px; 
+    }*/
+</style>

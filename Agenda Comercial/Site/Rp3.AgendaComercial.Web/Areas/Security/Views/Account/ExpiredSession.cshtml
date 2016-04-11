@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = Rp3.Resources.MessageFor.ExpiredSessionTitle;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+}
+
+@Html.Rp3AlertBlock(Rp3.Resources.MessageFor.ExpiredSession, Rp3.Data.MessageType.Warning, Rp3.Resources.MessageFor.ExpiredSessionTitle, false)
+
+@if (!Rp3.Web.Mvc.Session.IsLogged)
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            @:@{Html.RenderPartial("_InnerLogin");}
+        }
+    }
+}
+
+

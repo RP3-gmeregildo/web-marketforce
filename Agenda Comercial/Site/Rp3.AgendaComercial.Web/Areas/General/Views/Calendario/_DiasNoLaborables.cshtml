@@ -1,0 +1,193 @@
+﻿@model Rp3.AgendaComercial.Models.General.Calendario
+
+<div style="margin-top: 10px"></div>
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            if (ViewBag.ReadOnly == false)
+            {
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Agregar, HtmlElementSize.Small, icon: Icons.Plus, submit: false,
+                                                                htmlAttributes: new
+                                                                {
+                                                                    onclick = "agregarDia(); return false;"
+                                                                })
+            }
+        }
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+
+        }
+    }
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+    {
+        <div id="group-dias">
+            @foreach (var data in Model.DiasNoLaborables)
+            {
+                <div id="dia_@data.IdDiaNoLaborable" dianolaborable>
+                    @using (Html.Rp3BeginRow())
+                    {
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                        {
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                            {
+                                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Fecha))
+                                {
+                                    if (ViewBag.ReadOnly == false)
+                                    {
+                                        @Html.Rp3TextBox("nolaboral_" + @data.IdDiaNoLaborable, value: @data.Fecha.ToDefaultDateFormat(), htmlAttributes: new { fecha = "" })
+                                    }
+                                    else
+                                    {
+                                        @Html.Rp3TextBox("nolaboral_" + @data.IdDiaNoLaborable, value: @data.Fecha.ToDefaultDateFormat(), htmlAttributes: new { fecha = "", disabled = ViewBag.ReadOnly })
+                                    }
+                                }
+                            }
+
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+                            {
+                                @Html.Rp3Label(labelText: Rp3.AgendaComercial.Resources.LabelFor.TodosLosAños)
+                            }
+
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+                            {
+                                if (ViewBag.ReadOnly == false)
+                                {
+                                    @Html.Rp3CheckBox("esteAnio_" + @data.IdDiaNoLaborable, isChecked: @data.EsteAño)
+                                }
+                                else
+                                {
+                                    @Html.Rp3CheckBox("esteAnio_" + @data.IdDiaNoLaborable, isChecked: @data.EsteAño, htmlAttributes: new { disabled = ViewBag.ReadOnly })
+                                }
+                            }
+
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+                            {
+                                @Html.Rp3Label(labelText: Rp3.AgendaComercial.Resources.LabelFor.EsDiaParcial)
+                            }
+
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+                            {
+                                if (ViewBag.ReadOnly == false)
+                                {
+                                    @Html.Rp3CheckBox("esDiaParcial_" + @data.IdDiaNoLaborable, isChecked: @data.DiaParcial, htmlAttributes: new { esdiaparcial = "" })
+                                }
+                                else
+                                {
+                                    @Html.Rp3CheckBox("esDiaParcial_" + @data.IdDiaNoLaborable, isChecked: @data.DiaParcial, htmlAttributes: new { esdiaparcial = "", disabled = ViewBag.ReadOnly })
+                                }
+                            }
+
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                            {
+                                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Desde))
+                                {
+                                    if (!ViewBag.ReadOnly && @data.DiaParcial)
+                                    {
+                                        @Html.Rp3TextBox("nolabInicio_" + @data.IdDiaNoLaborable, @data.HoraInicio, htmlAttributes: new { hora = "" })
+                                    }
+                                    else
+                                    {
+                                        @Html.Rp3TextBox("nolabInicio_" + @data.IdDiaNoLaborable, @data.HoraInicio, htmlAttributes: new { hora = "", disabled = ViewBag.ReadOnly })
+                                    }
+                                }
+                            }
+
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                            {
+                                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Hasta))
+                                {
+                                    if (!ViewBag.ReadOnly && @data.DiaParcial)
+                                    {
+                                        @Html.Rp3TextBox("nolabFin_" + @data.IdDiaNoLaborable, @data.HoraFin, htmlAttributes: new { hora = "" })
+                                    }
+                                    else
+                                    {
+                                        @Html.Rp3TextBox("nolabFin_" + @data.IdDiaNoLaborable, @data.HoraFin, htmlAttributes: new { hora = "", disabled = ViewBag.ReadOnly })
+                                    }
+                                }
+                            }
+
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+                            {
+                                if (ViewBag.ReadOnly == false)
+                                {
+                                    @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Eliminar, HtmlElementSize.Mini, icon: Icons.Minus, submit: false,
+                                                                                htmlAttributes: new
+                                                                                {
+                                                                                    onclick = "removerDia(this); return false;",
+                                                                                    idDia = "_" + @data.IdDiaNoLaborable
+                                                                                })
+                                }
+                            }
+                        }
+                    }
+                </div>
+            }
+        </div>
+    }
+}
+
+<div id="each-dia" style="display:none;">
+    @using (Html.Rp3BeginRow(new { style = "margin-top:10px" }))
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Fecha))
+                {
+                    @Html.Rp3TextBox("nolaboral")
+                }
+            }
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+            {
+                @Html.Rp3Label(labelText: Rp3.AgendaComercial.Resources.LabelFor.TodosLosAños)
+            }
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+            {
+                <div id="esteAnioDiv"></div>
+            }
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+            {
+                @Html.Rp3Label(labelText: Rp3.AgendaComercial.Resources.LabelFor.EsDiaParcial)
+            }
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+            {
+                <div id="esDiaParcialDiv"></div>
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Desde))
+                {
+                    @Html.Rp3TextBox("nolabInicio")
+                }
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Hasta))
+                {
+                    @Html.Rp3TextBox("nolabFin")
+                }
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_1))
+            {
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Eliminar, HtmlElementSize.Mini, icon: Icons.Minus, submit: false,
+                            htmlAttributes: new
+                            {
+                                id = "elimButton",
+                                onclick = "removerDia(this); return false;"
+                            })
+            }
+        }
+    }
+</div>

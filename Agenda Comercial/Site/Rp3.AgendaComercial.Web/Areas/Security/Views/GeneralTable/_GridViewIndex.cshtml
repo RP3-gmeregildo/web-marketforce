@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Rp3.Data.Models.General.GeneralTables>
+
+    @Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "GeneralTable", Action = "GridViewIndex" };
+        settings.KeyFieldName = "Id";
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.Resources.LabelFor.Name;
+            column.FieldName = "Name";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;            
+        });
+    },
+    new List<OptionAction>() {
+        new OptionAction("GENERALTABLE", "DETAIL", "SECURITY"),
+        new OptionAction("GENERALTABLE", "EDIT", "SECURITY"),
+    }).Bind(Model).GetHtml()

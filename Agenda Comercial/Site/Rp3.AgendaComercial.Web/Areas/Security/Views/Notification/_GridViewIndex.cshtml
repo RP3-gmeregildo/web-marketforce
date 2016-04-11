@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Rp3.Data.Models.Security.Notificacion>
+
+    @Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "Notification", Action = "GridViewIndex" };
+        settings.KeyFieldName = "IdNotificacion";
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.Resources.LabelFor.Notification;
+            column.FieldName = "Descripcion";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;            
+        });
+
+        settings.Columns.Add("Application.Name", Rp3.Resources.LabelFor.Application);
+        settings.Columns.Add("Ocurre", Rp3.Resources.LabelFor.Occurs);
+        settings.Columns.Add("Consideracion", Rp3.Resources.LabelFor.Consideration);
+        
+        settings.Columns.Add("Email", Rp3.Resources.LabelFor.Email);
+
+        settings.Columns.Add("EstadoGeneralValue.Content", Rp3.Resources.LabelFor.State);
+    },
+    new List<OptionAction>() {
+        new OptionAction("NOTIFICATION", "DETAIL", "SECURITY"),
+        new OptionAction("NOTIFICATION", "EDIT", "SECURITY"),
+    }).Bind(Model).GetHtml()

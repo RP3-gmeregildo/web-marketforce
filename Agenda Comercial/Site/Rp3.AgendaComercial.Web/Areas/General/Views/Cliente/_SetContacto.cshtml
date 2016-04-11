@@ -1,0 +1,143 @@
+﻿@model Rp3.AgendaComercial.Models.General.ClienteContacto
+@{
+    if (ViewBag.CampoObligatorio == null)
+    {
+        ViewBag.CampoObligatorio = new List<ParametroClienteCampo>();
+    }
+}
+
+@using Rp3.AgendaComercial.Models.General;
+@using Rp3.AgendaComercial.Models;
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "setcontactoform" }))
+{
+    <text>
+
+        @Html.HiddenFor(model => model.IdCliente)
+        @Html.HiddenFor(model => model.IdClienteContacto)
+
+
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Nombres;
+
+                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "NomCont" && p.IdGrupo == Constantes.GrupoClienteCampo.Contacto).Any())
+                {
+                    labelText = String.Format("{0}*", labelText);
+                }
+                
+                @Html.Rp3FormGroupTextBoxFor(model => model.Nombre, labelText: labelText)
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Apellidos;
+
+                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "ApeCont" && p.IdGrupo == Constantes.GrupoClienteCampo.Contacto).Any())
+                {
+                    labelText = String.Format("{0}*", labelText);
+                }
+                
+                @Html.Rp3FormGroupTextBoxFor(model => model.Apellido, labelText: labelText)
+            }
+        }
+
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Direccion;
+
+                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "DirCont" && p.IdGrupo == Constantes.GrupoClienteCampo.Contacto).Any())
+                {
+                    labelText = String.Format("{0}*", labelText);
+                }
+                
+                @Html.Rp3FormGroupDropDownListFor(model => model.IdClienteDireccion, 
+                (SelectList)ViewBag.DireccionesSelectList, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarDireccion },
+                labelSize: HtmlColumnSize.Size_2, labelText: labelText)
+            }
+        }
+
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Cargo;
+
+                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "CargoCont" && p.IdGrupo == Constantes.GrupoClienteCampo.Contacto).Any())
+                {
+                    labelText = String.Format("{0}*", labelText);
+                }
+                
+                @Html.Rp3FormGroupTextBoxFor(model => model.Cargo, labelText: labelText)
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                string labelText = Rp3.AgendaComercial.Resources.LabelFor.CorreoElectronico;
+
+                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "CorreoCont" && p.IdGrupo == Constantes.GrupoClienteCampo.Contacto).Any())
+                {
+                    labelText = String.Format("{0}*", labelText);
+                }
+                
+                @Html.Rp3FormGroupTextBoxFor(model => model.CorreoElectronico, labelText: labelText)
+            }
+        }
+
+        @using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Telefono;
+
+                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Telf1Cont" && p.IdGrupo == Constantes.GrupoClienteCampo.Contacto).Any())
+                {
+                    labelText = String.Format("{0}*", labelText);
+                }
+                
+                @Html.Rp3FormGroupTextBoxFor(model => model.Telefono1, labelText: labelText)
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                string labelText = Rp3.AgendaComercial.Resources.LabelFor.Telefono;
+
+                if (((List<ParametroClienteCampo>)ViewBag.CampoObligatorio).Where(p => p.IdCampo == "Telf2Cont" && p.IdGrupo == Constantes.GrupoClienteCampo.Contacto).Any())
+                {
+                    labelText = String.Format("{0}*", labelText);
+                }
+                
+                @Html.Rp3FormGroupTextBoxFor(model => model.Telefono2, labelText: labelText)
+            }
+        }
+
+
+    </text>
+
+    using (Html.Rp3BeginModalAction())
+    {        
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Guardar, icon: Icons.Check, actionName: "save")
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, icon: Icons.Cancel, actionName: "cancel", allowCloseModal: true, themeType: ElementThemeType.Default)   
+    }
+}
+
+@Url.ImportValidateUnobtrusiveScript()
+
+<script>
+
+    $(function () {
+        //$('#setcontactoform input[type=checkbox]').rp3CheckBox();
+
+        $('#setcontactoform select').rp3SelectBox();
+
+        $('#setContactoDialog [action="save"]').click(function (e) {
+            e.preventDefault();
+            postSetContacto(@Model.IdCliente);
+        });        
+    });
+
+</script>

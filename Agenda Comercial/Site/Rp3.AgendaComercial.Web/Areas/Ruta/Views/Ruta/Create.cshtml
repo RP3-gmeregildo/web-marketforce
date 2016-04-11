@@ -1,0 +1,93 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.Ruta
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.CrearRuta;
+    this.SetImportTables(true);
+}
+
+
+@section Imports{
+    @Url.ImportApplicationScript("ruta/ruta.js", true)
+    @*@Url.ImportApplicationScript("ruta.js")*@  
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script> 
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("rate.css", true)
+    @Url.ImportApplicationStyleSheet("mapa.css", true)
+}
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new Script { ExtensionSuite = ExtensionSuite.Editors }
+)
+
+@Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Editors, Theme = "MetropolisBlue" }
+)
+
+@section ActionTitle{
+    @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Consultar, themeType: ElementThemeType.Primary, icon: Icons.Refresh, customButtonClick: "refreshDetalle()")
+    @Html.Rp3ActivityActionButton(ActivityActions.Create, themeType: ElementThemeType.Success)
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "rutaForm" }))
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            using (Html.Rp3BeginContentBox())
+            {
+                @: @{ Html.RenderPartial("_Datos", Model); }
+            }
+        }
+    }
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            using (Html.Rp3BeginContentBox())
+            {
+                <div style="position:relative; height:275px;">
+                    @using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.IncluirCliente, labelSize: HtmlColumnSize.Size_2))
+                    {
+                        @:@Html.Rp3TextBox("rutaIncluirSearch", htmlAttributes: new { id = "rutaIncluirSearch", placeholder = @Rp3.AgendaComercial.Resources.LegendFor.ClienteToken })
+                    }
+                    @{ Html.RenderPartial("_RutaIncluir", Model); }
+                </div>
+            }
+        }
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            using (Html.Rp3BeginContentBox())
+            {
+                <div style="position:relative; height:275px;">
+                    @using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.ExcluirCliente, labelSize: HtmlColumnSize.Size_2))
+                    {
+                        @:@Html.Rp3TextBox("rutaExcluirSearch", htmlAttributes: new { id = "rutaExcluirSearch", placeholder = @Rp3.AgendaComercial.Resources.LegendFor.ClienteToken })
+                    }
+                    @{ Html.RenderPartial("_RutaExcluir", Model); }
+                </div>
+            }
+        }
+    }
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12, htmlAttributes: new { style = "margin-top:-30px" }))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.DetalleRutaCliente))
+            {
+                <div id="GridDetalle" style="position:relative; height:470px;"></div>
+            }
+        }
+    }
+}
+<script>
+    $(function () {
+        initCreate();
+        //loadDetalleGrid(0);
+    });
+
+    setTimeout(function () {
+        $('#Estado').select2("enable", false);
+    }, 100);
+</script>

@@ -1,0 +1,86 @@
+﻿@model Rp3.AgendaComercial.Web.Ruta.GestionDetalladoConsulta
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.GestionDetallado;
+    this.SetImportTables(true);
+}
+
+@Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList }
+)
+
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new Script { ExtensionSuite = ExtensionSuite.TreeList }
+)
+
+@Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList, Theme = "Moderno" }
+)
+
+@section Imports{
+    @Url.ImportApplicationScript("gestiondetallado.js")
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("mapa.css", true)
+}
+
+@section ActionTitle{
+    @Html.Rp3FormActionGroup(ActivityActions.Send)
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginForm(htmlAttributes: new { id = "reportForm" }))
+    {
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+            {
+                @Html.Rp3FormGroupDropDownListFor(model => model.IdRuta, (SelectList)ViewBag.RutasSelectList, editorHtmlAttributes: new { placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarRuta }, labelSize: HtmlElementSize.Small)
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+            {
+                @Html.Rp3FormGroupDatePickerFor(model => model.FechaInicioCalendario, labelSize: HtmlElementSize.Small)
+            }
+
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+            {
+                @Html.Rp3FormGroupDatePickerFor(model => model.FechaFinCalendario, labelSize: HtmlElementSize.Small)
+            }
+        }
+
+    }
+
+}
+
+@using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top:10px" }))
+{
+    if (Model.IdRuta != null)
+    {
+        <div id="detalleTareaDialog" style="display:none">  </div>
+        <div id="detalleActividadDialog" style="display:none">  </div>
+
+        { Html.RenderPartial("_Gestiones", Model); }
+
+        @*using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Ubicaciones))
+            {
+                <div id="content_map" class="content_map">
+                    @{ Html.RenderPartial("_UbicacionMapMarker", Model.Gestiones.Where(p => p.Latitud != null && p.Longitud != null)); }
+                </div>
+            }*@
+    }
+}
+
+<script>
+    $(function () {
+        $('input[action="SEND"]').click(function () {
+            $('#reportForm').submit();
+        });
+    });
+
+</script>

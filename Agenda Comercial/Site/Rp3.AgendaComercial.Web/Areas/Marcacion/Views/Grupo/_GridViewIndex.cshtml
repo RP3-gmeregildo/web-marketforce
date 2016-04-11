@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.Marcacion.Grupo>
+@{
+
+}
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            @Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndex";
+        settings.CallbackRouteValues = new { Controller = "Grupo", Action = "GridViewIndex" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.KeyFieldName = "IdGrupo";
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Grupo;
+            column.FieldName = "Descripcion";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        });
+
+        var colCalendario = settings.Columns.Add("Calendario.Descripcion", Rp3.AgendaComercial.Resources.LabelFor.Calendario);
+        
+        var colAplica = settings.Columns.Add("AplicaMarcacion", Rp3.AgendaComercial.Resources.LabelFor.AplicaMarcacion, MVCxGridViewColumnType.CheckBox);
+        colAplica.Width = 120;
+        
+        var colEstado = settings.Columns.Add("EstadoGeneralValue.Content", Rp3.AgendaComercial.Resources.LabelFor.Estado);
+        colEstado.Width = 75;
+    },
+    new List<OptionAction>() {
+        new OptionAction("GRUPO", "DETAIL", "AGENDACOMERCIAL"),
+        new OptionAction("GRUPO", "EDIT", "AGENDACOMERCIAL"),
+        new OptionAction("GRUPO", "DELETE", "AGENDACOMERCIAL"),
+    }).Bind(Model).GetHtml()
+
+        }
+    }
+}

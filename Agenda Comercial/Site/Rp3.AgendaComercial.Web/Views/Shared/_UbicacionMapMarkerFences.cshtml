@@ -1,0 +1,327 @@
+﻿@model Rp3.AgendaComercial.Models.General.View.ZonaModel
+
+@using System.Threading;
+@using System.Globalization;
+@using System.Web.Script.Serialization
+
+@{
+    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+    string mapSelector = "viewMapFences";
+
+    ViewBag.MapWidth = "100%";
+
+    if (ViewBag.MapSelector != null) { mapSelector = ViewBag.MapSelector; }
+    if (ViewBag.MapHeight == null) { ViewBag.MapHeight = "400px"; }
+    if (ViewBag.ReadOnly == null) { ViewBag.ReadOnly = false; }
+}
+
+<script language="javascript" type="text/javascript">
+    var googleMap@{@mapSelector} = null;
+    var selectedShape;
+    var sharpeArray = [];
+
+    Array.prototype.remove = function(value) {
+        var idx = this.indexOf(value);
+        if (idx != -1) {
+            return this.splice(idx, 1); // The second parameter is the number of elements to remove.
+        }
+        return false;
+    }
+
+    function clearSelection() {
+        if (selectedShape) {
+            selectedShape.setEditable(false);
+            selectedShape = null;
+        }
+    }
+
+    function setSelection(shape) {
+        clearSelection();
+        selectedShape = shape;
+        shape.setEditable(true);
+    }
+
+    function deleteSelectedShape() {
+        if (selectedShape) {
+            sharpeArray.remove(selectedShape);
+            selectedShape.setMap(null);
+
+            setFenceContent();
+        }
+    }
+
+    $(document).ready(function () {
+
+        var bounds = new google.maps.LatLngBounds();
+        var infowindow = new google.maps.InfoWindow();
+
+        var options = {
+            zoom : 16,
+            scrollwheel: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: new google.maps.LatLng(@Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLatitud, @Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLongitud),
+        };
+
+        googleMap@{@mapSelector} = new google.maps.Map($("#@{@mapSelector}")[0], options);
+
+        @if (Model.ZonaClienteGeocercas != null)
+        {
+            foreach (var marker in Model.ZonaClienteGeocercas)
+            {
+                 <text>
+        var point = new google.maps.LatLng(@marker.ClienteDireccion.Latitud, @marker.ClienteDireccion.Longitud);
+
+        var marker = new google.maps.Marker({
+            position: point,
+            map: googleMap@{@mapSelector},
+            title: '@Html.Raw(@marker.ClienteDireccion.EtiquetaCliente)',
+            draggable: false
+        });
+
+        google.maps.event.addListener(marker, "click", function () {
+            infowindow.close();
+            infowindow.setContent('<div style="width:250px"><strong>@{ @marker.ClienteDireccion.EtiquetaCliente }</strong><br>');
+            infowindow.open(googleMap@{@mapSelector}, this);
+        });
+
+        </text>
+            }
+        }
+
+        sharpeArray = [];
+
+        @foreach(var zona in Model.ZonaOther)
+        {
+            foreach (var group in zona.ZonaGeocercas.OrderBy(p => p.IdZonaGrupoGeocerca).Select(p => p.IdZonaGrupoGeocerca).Distinct())
+            {
+                <text>
+
+                var polygonCoords = [
+                    @foreach (var point in zona.ZonaGeocercas.Where(p => p.IdZonaGrupoGeocerca == group).OrderBy(p => p.Posicion))
+                {
+                        <text>
+                            new google.maps.LatLng(@point.Latitud, @point.Longitud),
+                        </text>
+            }
+        ];
+
+            var polygon@{@zona.IdZona}_@{@group} = new google.maps.Polygon({
+                paths: polygonCoords,
+                strokeWeight: 0,
+                fillOpacity: 0.45,
+                fillColor: '#5858FA',
+                editable: false
+            });
+
+            polygon@{@zona.IdZona}_@{@group}.setMap(googleMap@{@mapSelector});
+
+        </text>
+    }
+    }
+
+        @foreach(var group in Model.ZonaGeocercas.OrderBy(p=>p.IdZonaGrupoGeocerca).Select(p=>p.IdZonaGrupoGeocerca).Distinct())
+        {
+            <text>
+
+        var polygonCoords = [
+            @foreach(var point in Model.ZonaGeocercas.Where(p=>p.IdZonaGrupoGeocerca == group).OrderBy(p=>p.Posicion))
+                    {
+                        <text>
+                    new google.maps.LatLng(@point.Latitud, @point.Longitud),
+                </text>
+                     }
+        ];
+
+        @foreach(var point in Model.ZonaGeocercas.Where(p=>p.IdZonaGrupoGeocerca == group).OrderBy(p=>p.Posicion))
+            {
+                <text>
+        bounds.extend(new google.maps.LatLng(@point.Latitud, @point.Longitud));
+        </text>
+            }
+
+        var polygon@{@group} = new google.maps.Polygon({
+            paths: polygonCoords,
+            strokeWeight: 0,
+            fillOpacity: 0.45,
+            fillColor: '#8A0808',
+            editable: false
+        });
+
+        polygon@{@group}.setMap(googleMap@{@mapSelector});
+
+        google.maps.event.addListener(polygon@{@group}, 'click', function() {
+            setSelection(polygon@{@group});
+        });
+
+        google.maps.event.addListener(polygon@{@group}.getPath(), 'set_at', function() {
+            setFenceContent();
+        });
+
+        google.maps.event.addListener(polygon@{@group}.getPath(), 'insert_at', function() {
+            setFenceContent();
+        });
+
+        sharpeArray.push(polygon@{@group});
+
+        </text>
+        }
+
+        @if (Model.ZonaGeocercas.Count > 0)
+        {
+            <text>
+        googleMap@{@mapSelector}.fitBounds(bounds);
+        </text>
+        }
+
+        setFenceContent();
+
+        var polyOptions = {
+            strokeWeight: 0,
+            fillOpacity: 0.45,
+            fillColor: '#8A0808',
+            editable: true
+        };
+
+        var drawingManager = new google.maps.drawing.DrawingManager({
+            drawingMode: google.maps.drawing.OverlayType.POLYGON,
+            drawingControl: true,
+            drawingControlOptions: {
+                position: google.maps.ControlPosition.TOP_CENTER,
+                drawingModes: [
+                  //google.maps.drawing.OverlayType.MARKER,
+                  //google.maps.drawing.OverlayType.CIRCLE,
+                  google.maps.drawing.OverlayType.POLYGON,
+                  //google.maps.drawing.OverlayType.POLYLINE,
+                  //google.maps.drawing.OverlayType.RECTANGLE
+                ]
+            },
+            markerOptions: {
+                //icon: 'images/beachflag.png'
+                draggable: true
+            },
+            polygonOptions: polyOptions
+        });
+
+        drawingManager.setMap(googleMap@{@mapSelector});
+
+        google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
+            if (e.type != google.maps.drawing.OverlayType.MARKER) {
+                // Switch back to non-drawing mode after drawing a shape.
+                drawingManager.setDrawingMode(null);
+
+                // Add an event listener that selects the newly-drawn shape when the user
+                // mouses down on it.
+                var newShape = e.overlay;
+                newShape.type = e.type;
+
+                google.maps.event.addListener(newShape, 'click', function() {
+                    setSelection(newShape);
+                });
+
+                google.maps.event.addListener(newShape.getPath(), 'set_at', function() {
+                    setFenceContent();
+                });
+
+                google.maps.event.addListener(newShape.getPath(), 'insert_at', function() {
+                    setFenceContent();
+                });
+
+                setSelection(newShape);
+
+                sharpeArray.push(newShape);
+
+                setFenceContent();
+            }
+        });
+
+        @if (!ViewBag.ReadOnly)
+        {
+            <text>
+
+            var input = document.getElementById('searchTextField');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+
+            autocomplete.bindTo('bounds', googleMap@{@mapSelector});
+
+            google.maps.event.addDomListener(input, 'keydown', function(e) {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                }
+            });
+
+            google.maps.event.addListener(autocomplete, 'place_changed', function() { changeTextSearch(); });
+
+            </text>
+        }
+
+        function changeTextSearch() {
+
+            var place = autocomplete.getPlace();
+
+            if(!place)
+            {
+                input.className = 'notfound';
+                return;
+            }
+
+            if (!place.geometry) {
+                // Inform the user that the place was not found and return.
+                input.className = 'notfound';
+                return;
+            }
+
+            // If the place has a geometry, then present it on a map.
+            if (place.geometry.viewport) {
+                googleMap@{@mapSelector}.fitBounds(place.geometry.viewport);
+            } else {
+                googleMap@{@mapSelector}.setCenter(place.geometry.location);
+                googleMap@{@mapSelector}.setZoom(15);  // Why 17? Because it looks good.
+            }
+        }
+
+        // Clear the current selection when the drawing mode is changed, or when the
+        // map is clicked.
+        google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
+        google.maps.event.addListener(googleMap@{@mapSelector}, 'click', clearSelection);
+
+        //var deleteButton = $('button[action="Remove"]');
+
+         @if (!ViewBag.ReadOnly)
+         {
+             <text>
+        google.maps.event.addDomListener(document.getElementById('delete-button'), 'click', deleteSelectedShape);
+            </text>
+        }
+    });
+
+        function setFenceContent(){
+            var fences = '';
+
+            sharpeArray.forEach(function(item, i){
+                var points = [];
+
+                item.getPath().forEach(
+                    function(latLng) {
+                        points.push(latLng.toString());
+                    });
+
+                fences += '<input name="geogroup" type="hidden" value="' + points.join('|') + '"/>';
+            });
+
+            $('#contentgeocercapoints').html('');
+            $('#contentgeocercapoints').html(fences);
+        }
+
+</script>
+
+<div class="row">
+    @if (!ViewBag.ReadOnly)
+    {
+        <input id="searchTextField" type="text" size="107" style="float:left;width:60%;margin-top:5px;margin-left:15px">
+        <div style="float:left">
+            @Html.Rp3Button("Eliminar Seleccionada", HtmlElementSize.Small, icon: Icons.Remove, themeType: ElementThemeType.Error, actionName: "Remove", customButtonClick: "return false;",
+                             htmlAttributes: new { id = "delete-button" })
+        </div>
+    }
+</div>
+<div id="@{@mapSelector}" style="width: @ViewBag.MapWidth; height: @ViewBag.MapHeight;" />

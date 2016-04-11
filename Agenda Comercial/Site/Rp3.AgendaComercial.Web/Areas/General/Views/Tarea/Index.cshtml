@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.General.Tarea>
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.Tareas;
+
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportAdvTables(true);
+}
+
+@section ActionTitle{
+    @*@Html.Rp3OptionActivityButton("TAREA", "NEW", HtmlElementSize.Default, includeText: true, applicationId: "AGENDACOMERCIAL")*@
+    @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Nuevo, HtmlElementSize.Default, icon: Icons.Add, actionName: "NEW")
+
+    @Html.Rp3ActionButton(Rp3.AgendaComercial.Resources.LabelFor.Excel, "ExportToXls", "Tarea", new { Area = "General" }, themeType: ElementThemeType.Default, icon: Icons.File)
+    @Html.Rp3ActionButton(Rp3.AgendaComercial.Resources.LabelFor.Pdf, "ExportToPdf", "Tarea", new { Area = "General" }, themeType: ElementThemeType.Default, icon: Icons.File)
+}
+
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{
+    @Html.Partial("_GridViewIndex", Model)
+}
+
+
+@using (Html.Rp3BeginModal("newTareaDialog", effect: ModalEffect.FlipHorizontal3D, customWidth: 400))
+{
+    <div id="newTareaDialogContent"></div>
+}
+
+<script>
+
+    $(function () {
+        $('button[action="NEW"]').click(function (e) {
+            e.preventDefault();
+
+            createDialog();
+        });
+    });
+
+    function createDialog() {
+        rp3Get("/General/Tarea/Create", null, function (data) {
+            $("#newTareaDialogContent").html(data);
+            rp3ModalShow("newTareaDialog");
+        });
+    };
+
+    function postNewTarea() {
+        if ($('#createTareaform').valid()) {
+            rp3Post("/General/Tarea/Create", $('#createTareaform').serialize(), function (data) {
+                rp3ModalHide("newTareaDialog");
+
+                if (!data.HasError) {
+                    window.location.href = RP3_ROOT_PATH + "/General/Tarea/Edit?id=" + data.IdTarea;
+                }
+
+                rp3NotifyAsPopup(data.Messages);
+            });
+        }
+    };
+</script>

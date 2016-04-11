@@ -1,0 +1,38 @@
+﻿@model Rp3.AgendaComercial.Models.General.TipoCliente
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.EliminarTipoCliente;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("tipocliente.js")
+}
+
+
+
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+        {
+            using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.TipoCliente))
+            {
+                <text>
+                    @Html.HiddenFor(model => model.IdTipoCliente)
+                    @Html.Rp3FormGroupDisplayFor(model => model.Descripcion)
+                    @Html.Rp3FormGroupDisplayFor(model => model.EstadoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado)
+                </text>
+
+                @Html.Rp3FormActionGroup(ActivityActions.Delete)
+            }
+        }
+    }
+}
+
+<script>
+    showDependenciaMessage();
+</script>

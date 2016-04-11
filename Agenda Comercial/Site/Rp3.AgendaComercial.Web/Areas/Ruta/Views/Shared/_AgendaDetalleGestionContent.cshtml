@@ -1,0 +1,61 @@
+﻿@{
+    if(ViewBag.TodosMisAgentes==null)
+    {
+        ViewBag.TodosMisAgentes = false;
+    }
+    if (ViewBag.EsSupervisor == null)
+    {
+        ViewBag.EsSupervisor = false;
+    }
+}
+
+@using (Html.Rp3BeginModal("modal-agenda-sort", effect: ModalEffect.FlipVertical3D, customWidth: 300, includeOverlay: false))
+{
+    <div id="modal-agenda-sort-content" style="z-index:9999;height:220px;">
+    </div>
+}
+
+@using (Html.Rp3BeginModal("modal-agenda-detalle"))
+{
+    <div id="modal-agenda-detalle-content" style="margin-top:-15px; overflow-y:auto; overflow-x:hidden;background-color:white" class="scrollfx">
+        <div id="modal-agenda-content-general" style="min-height:500px;position:relative;"></div>
+        <div id="modal-agenda-content-tareas" style="position:relative;"></div>
+        <div id="modal-agenda-content-editar" style="position:relative;"></div>
+    </div>
+
+    using (Html.Rp3BeginModalAction())
+    {
+        <div id="modal-agenda-footer-main" actions-modal>
+
+            @Html.Rp3Button("Imprimir", themeType: ElementThemeType.Default, iconClass: "fa fa-print", allowCloseModal: false, htmlAttributes: new { id = "modal-agenda-detalle-button-capturar" })
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.VerPedido, themeType: ElementThemeType.Primary, icon: Icons.Eye, allowCloseModal: false, htmlAttributes: new { id = "modal-agenda-detalle-button-pedido" })
+
+            @if (!ViewBag.TodosMisAgentes)
+            {
+                if (ViewBag.EsSupervisor)
+                {
+                    @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Eliminar, themeType: ElementThemeType.Error, icon: Icons.Remove, allowCloseModal: false, htmlAttributes: new { id = "modal-agenda-detalle-button-eliminar" })
+                }
+
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Editar, icon: Icons.Edit, allowCloseModal: false, /*actionName: "viewEdit",*/ htmlAttributes: new { id = "modal-agenda-detalle-button-editar" })
+            }
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true)
+        </div>
+        <div id="modal-agenda-footer-update" actions-modal>
+            @if (!ViewBag.TodosMisAgentes)
+            {
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.EditarAgenda, icon: Icons.Save, allowCloseModal: false, actionName: "viewUpdate", htmlAttributes: new { id = "modal-agenda-detalle-button-editar-post" })
+            }
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true)
+        </div>
+        <div id="modal-agenda-footer-back" actions-modal>
+            @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Regresar, themeType: ElementThemeType.Default, icon: Icons.Reply, allowCloseModal: false, htmlAttributes: new { id = "modal-agenda-detalle-button-back" })
+        </div>
+    }
+}
+
+@using (Html.Rp3BeginModal("modal-agenda-detalle-map", effect: ModalEffect.FlipVertical3D, customWidth: 1200, includeOverlay: false))
+{
+    <div id="modal-agenda-detalle-map-content" style="z-index:9999;height:550px;">
+    </div>
+}

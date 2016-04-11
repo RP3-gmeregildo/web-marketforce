@@ -1,0 +1,36 @@
+﻿@model Rp3.AgendaComercial.Models.General.Cliente
+@{
+    //List<Rp3.Data.Models.General.GeopoliticalStructure> ciudades = (List<Rp3.Data.Models.General.GeopoliticalStructure>)ViewBag.Ciudades;
+}
+
+@if (!Model.ReadOnly)
+{
+    <div agregardireccion idcliente="@Model.IdCliente" titulo="@Rp3.AgendaComercial.Resources.LabelFor.Nuevo" style="width:30px">
+        @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Nuevo, HtmlElementSize.Default, submit: false, icon: Icons.Add, actionName: "nuevo")
+    </div>
+}
+
+@using (Html.Rp3BeginModal("setDireccionDialog", customWidth: 900, includeOverlay: false))
+{
+    <div id="setDireccionDialogContent">
+    </div>
+}
+
+<div id="content_direcciones" class="content_direcciones">
+    @{ Html.RenderPartial("_DireccionesDetalle", Model.ClienteDirecciones.Where(p => p.Estado != Rp3.AgendaComercial.Models.Constantes.Estado.Eliminado).ToList()); }
+</div>
+
+@using (Html.Rp3BeginModal("setUbicacionDialog", effect: ModalEffect.FlipVertical3D, customWidth: 850, includeOverlay: false))
+{
+    <div id="setUbicacionDialogContent">
+    </div>
+}
+
+@Html.Rp3ModalOverlay()
+
+@*@using (Html.Rp3BeginContentBox(Rp3.AgendaComercial.Resources.TitleFor.Ubicaciones))
+{
+    <div id="content_mapClient" class="content_mapClient">
+        @{ Html.RenderPartial("_UbicacionMapMarkerClient"); }
+    </div>
+}*@

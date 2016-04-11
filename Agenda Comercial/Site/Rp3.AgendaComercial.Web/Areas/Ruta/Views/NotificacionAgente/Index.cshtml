@@ -1,0 +1,38 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.NotificacionAgente
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.EnvioNotificacion;
+    this.SetImportTables(true);
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("notificacionagente.js")
+}
+
+
+@section ActionTitle{
+
+    @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Enviar, icon: Icons.Reply, target: "#reportForm")
+}
+
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "reportForm" }))
+{
+    using (Html.Rp3BeginRow())
+    {
+        
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            { 
+                @:@{Html.RenderPartial("_Agente", Model); }                
+            }
+        }
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+        {
+            @Html.Rp3FormGroupTextBoxFor(model => model.Titulo, labelSize: HtmlColumnSize.Size_1, editorHtmlAttributes: new { placeHolder = "Escriba el título de la notificación" })
+    
+            @Html.Rp3FormGroupTextAreaFor(model => model.Mensaje, labelSize: HtmlColumnSize.Size_1, editorHtmlAttributes: new { style = "height:200px", placeHolder = "Escriba el detalle de la notificación" })
+        }
+    }
+}

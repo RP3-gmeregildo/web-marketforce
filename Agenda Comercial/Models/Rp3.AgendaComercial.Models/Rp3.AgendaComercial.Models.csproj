@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{161673A1-B3CC-490E-A320-022182F12E51}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Rp3.AgendaComercial.Models</RootNamespace>
+    <AssemblyName>Rp3.AgendaComercial.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\Site\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\Site\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Rp3.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\Ambiente Desarrollo Web\lacweb\Rp3.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Rp3.Resources">
+      <HintPath>..\..\..\..\lacWeb\Rp3.Resources.dll</HintPath>
+    </Reference>
+    <Reference Include="Rp3.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\Ambiente Desarrollo Web\lacweb\Rp3.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Rp3.Web.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\Ambiente Desarrollo Web\lacweb\Rp3.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Site\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constantes.cs" />
+    <Compile Include="Consulta\Dashboard.cs" />
+    <Compile Include="Consulta\EstadisticaEncuesta.cs" />
+    <Compile Include="DAL\Context.cs" />
+    <Compile Include="DAL\ContextService.cs" />
+    <Compile Include="DAL\Repositories\AgendaRepository.cs" />
+    <Compile Include="DAL\Repositories\AgenteRepository.cs" />
+    <Compile Include="DAL\Repositories\ClienteRepository.cs" />
+    <Compile Include="DAL\Repositories\AgenteUbicacionRepository.cs" />
+    <Compile Include="DAL\Repositories\GrupoRepository.cs" />
+    <Compile Include="DAL\Repositories\OportunidadRepository.cs" />
+    <Compile Include="DAL\Repositories\EtapaRepository.cs" />
+    <Compile Include="DAL\Repositories\ParametroRepository.cs" />
+    <Compile Include="DAL\Repositories\PedidoRepository.cs" />
+    <Compile Include="DAL\Repositories\PermisoRepository.cs" />
+    <Compile Include="DAL\Repositories\ReporteRepository.cs" />
+    <Compile Include="DAL\Repositories\LoteRepository.cs" />
+    <Compile Include="DAL\Repositories\RutaRepository.cs" />
+    <Compile Include="DAL\Repositories\TareaRepository.cs" />
+    <Compile Include="DAL\Repositories\CanalRepository.cs" />
+    <Compile Include="DAL\Repositories\TipoClienteRepository.cs" />
+    <Compile Include="DAL\Repositories\ZonaRepository.cs" />
+    <Compile Include="General\Agente.cs" />
+    <Compile Include="General\Calendario.cs" />
+    <Compile Include="General\ClienteContacto.cs" />
+    <Compile Include="General\ClienteDato.cs" />
+    <Compile Include="General\DiaLaboral.cs" />
+    <Compile Include="General\DiasNoLaborable.cs" />
+    <Compile Include="General\Frecuencia.cs" />
+    <Compile Include="General\Parametro.cs" />
+    <Compile Include="General\ParametroClienteCampo.cs" />
+    <Compile Include="General\Process.cs" />
+    <Compile Include="General\ProcessLog.cs" />
+    <Compile Include="General\ProcessStep.cs" />
+    <Compile Include="General\TareaClienteActualizacion.cs" />
+    <Compile Include="General\TareaClienteActualizacionCampo.cs" />
+    <Compile Include="General\TareaRutaAplica.cs" />
+    <Compile Include="General\View\ActualizacionCliente.cs" />
+    <Compile Include="General\View\ClienteContactoSearchText.cs" />
+    <Compile Include="General\View\ClienteView.cs" />
+    <Compile Include="General\View\AgenteView.cs" />
+    <Compile Include="General\View\ParametroHelper.cs" />
+    <Compile Include="General\View\ParametroView.cs" />
+    <Compile Include="General\View\TareaResumenView.cs" />
+    <Compile Include="General\View\ZonaView.cs" />
+    <Compile Include="General\ZonaClienteGeocerca.cs" />
+    <Compile Include="General\ZonaGeocerca.cs" />
+    <Compile Include="Marcacion\Grupo.cs" />
+    <Compile Include="Marcacion\Marcacion.cs" />
+    <Compile Include="Marcacion\Permiso.cs" />
+    <Compile Include="Marcacion\View\AnalisisAgente.cs" />
+    <Compile Include="Marcacion\View\PermisoListado.cs" />
+    <Compile Include="Marcacion\View\ReporteMarcacion.cs" />
+    <Compile Include="Oportunidad\Etapa.cs" />
+    <Compile Include="Oportunidad\EtapaTarea.cs" />
+    <Compile Include="Oportunidad\Oportunidad.cs" />
+    <Compile Include="Oportunidad\OportunidadBitacora.cs" />
+    <Compile Include="Oportunidad\OportunidadContacto.cs" />
+    <Compile Include="Oportunidad\OportunidadEtapa.cs" />
+    <Compile Include="Oportunidad\OportunidadMedia.cs" />
+    <Compile Include="Oportunidad\OportunidadResponsable.cs" />
+    <Compile Include="Oportunidad\OportunidadTarea.cs" />
+    <Compile Include="Oportunidad\OportunidadTareaActividad.cs" />
+    <Compile Include="Oportunidad\OportunidadTipo.cs" />
+    <Compile Include="Oportunidad\View\EtapaView.cs" />
+    <Compile Include="Oportunidad\View\OportunidadListado.cs" />
+    <Compile Include="Pedido\Categoria.cs" />
+    <Compile Include="Pedido\Descuento.cs" />
+    <Compile Include="Pedido\Pedido.cs" />
+    <Compile Include="Pedido\PedidoDetalle.cs" />
+    <Compile Include="Pedido\Producto.cs" />
+    <Compile Include="Pedido\SubCategoria.cs" />
+    <Compile Include="Process\Executor.cs" />
+    <Compile Include="Process\Routes.cs" />
+    <Compile Include="Process\Ruta.cs" />
+    <Compile Include="Ruta\AgendaMedia.cs" />
+    <Compile Include="Ruta\AgendaTarea.cs" />
+    <Compile Include="General\Canal.cs" />
+    <Compile Include="General\Cargo.cs" />
+    <Compile Include="General\Cliente.cs" />
+    <Compile Include="General\ClienteDireccion.cs" />
+    <Compile Include="General\Tarea.cs" />
+    <Compile Include="General\TareaActividad.cs" />
+    <Compile Include="General\TipoActividad.cs" />
+    <Compile Include="General\TipoActividadOpcion.cs" />
+    <Compile Include="General\View\ClienteBusqueda.cs" />
+    <Compile Include="General\View\Ubicacion.cs" />
+    <Compile Include="Ruta\Agenda.cs" />
+    <Compile Include="Ruta\AgendaTareaActividad.cs" />
+    <Compile Include="Ruta\AgenteUbicacion.cs" />
+    <Compile Include="Ruta\AgenteUltimaUbicacion.cs" />
+    <Compile Include="Ruta\InformeTrazabilidad.cs" />
+    <Compile Include="Ruta\ProgramacionRutaTarea.cs" />
+    <Compile Include="Ruta\View\Agenda.cs" />
+    <Compile Include="Ruta\View\ClienteProgramacion.cs" />
+    <Compile Include="Ruta\View\Lote.cs" />
+    <Compile Include="Ruta\View\ResumenGestionAgente.cs" />
+    <Compile Include="Ruta\View\Appointment.cs" />
+    <Compile Include="Ruta\Lote.cs" />
+    <Compile Include="General\Region.cs" />
+    <Compile Include="General\TipoCartera.cs" />
+    <Compile Include="General\TipoCliente.cs" />
+    <Compile Include="General\Zona.cs" />
+    <Compile Include="General\ZonaDetalle.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ruta\LoteCanal.cs" />
+    <Compile Include="Ruta\LoteDetalle.cs" />
+    <Compile Include="Ruta\LoteTipoCliente.cs" />
+    <Compile Include="Ruta\LoteZona.cs" />
+    <Compile Include="Ruta\Memo.cs" />
+    <Compile Include="Ruta\MemoDestinatario.cs" />
+    <Compile Include="Ruta\ProgramacionRuta.cs" />
+    <Compile Include="Ruta\ProgramacionRutaDetalle.cs" />
+    <Compile Include="Ruta\Reunion.cs" />
+    <Compile Include="Ruta\ReunionAsistente.cs" />
+    <Compile Include="Ruta\Ruta.cs" />
+    <Compile Include="Ruta\RutaExcluir.cs" />
+    <Compile Include="Ruta\RutaIncluir.cs" />
+    <Compile Include="Ruta\RutaDetalle.cs" />
+    <Compile Include="Ruta\RutaLote.cs" />
+    <Compile Include="Ruta\View\Ruta.cs" />
+    <Compile Include="General\View\Tarea.cs" />
+    <Compile Include="Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Resources\Rp3.AgendaComercial.Resources\Rp3.AgendaComercial.Resources.csproj">
+      <Project>{308a9b32-f2b8-486f-bfef-85f0d459ec19}</Project>
+      <Name>Rp3.AgendaComercial.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pedido\View\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

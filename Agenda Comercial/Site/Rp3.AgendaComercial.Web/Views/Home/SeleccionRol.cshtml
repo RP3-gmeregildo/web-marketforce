@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.SeleccionRol;
+    this.SetImportFormElements(true);
+
+    string[] opt = ViewBag.opt;
+    var data = Rp3.AgendaComercial.Models.General.View.AgenteCargoRol.Agente.ToSelectList();
+    var roles = data.Where(u => opt.Contains(u.Value));
+
+    var seleccionRol = roles.OrderBy(p => p.Value).FirstOrDefault();
+}
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{
+    @:@Html.Rp3AlertBlock(Rp3.AgendaComercial.Resources.LegendFor.SeleccioneRol, Rp3.Data.MessageType.Information, "Bienvenido")
+}
+
+@using (Html.Rp3BeginForm())
+{
+    using (Html.Rp3BeginRow())
+    {
+        
+
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+        {
+            using (Html.Rp3BeginContentBox(paddingContent: false))
+            {
+                using (Html.Rp3BeginRow())
+                {
+                    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                    {
+                        @Html.Rp3FormGroupDropDownList(roles, editorHtmlAttributes: new { value = "2" }, name: "rol", labelText: "Rol", labelSize: HtmlColumnSize.Size_2)
+                    }
+                }
+                
+                using (Html.Rp3BeginRow())
+                {
+                    using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                    {
+                        @Html.Rp3FormActionGroup(HtmlColumnSize.Size_5, ActivityActions.Send)
+                    }
+                }
+            }
+        }
+    }
+}
+
+<script>
+
+    @if (seleccionRol != null)
+    {
+        <text>
+            $("#rol").val('@seleccionRol.Value');
+        </text>
+    }
+
+</script>
+

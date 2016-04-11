@@ -1,0 +1,28 @@
+﻿@model List<Rp3.AgendaComercial.Models.General.Agente>
+@{
+
+}
+
+<div id="searchagente_content_dialog_form">
+
+    @using (Html.Rp3BeginDataTable(scrollY: "350px", allowSort: false, allowPagination: false, allowSearch: true, sortColumn: 0, htmlAttributes: new { id = "searchagentetable" }))
+    {
+        <thead>
+            <tr>
+                <th>@Rp3.AgendaComercial.Resources.LabelFor.Agente</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var agente in Model.OrderBy(p=>p.Descripcion))
+            {
+                <tr class="selectable-item">
+                    <td idAgente="@agente.IdAgente" descripcion="@agente.Descripcion">@agente.Descripcion</td>
+            </tr>
+            }
+        </tbody>
+    }
+</div>
+
+
+
+

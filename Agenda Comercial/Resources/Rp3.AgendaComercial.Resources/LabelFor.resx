@@ -1,0 +1,1092 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Aceptar" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="Actividad" xml:space="preserve">
+    <value>Actividad</value>
+  </data>
+  <data name="ActividadEconomica" xml:space="preserve">
+    <value>Actividad Económica</value>
+  </data>
+  <data name="Actualizar" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="Agente" xml:space="preserve">
+    <value>Agente</value>
+  </data>
+  <data name="Apellido1" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="Apellido2" xml:space="preserve">
+    <value>Segundo Apellido</value>
+  </data>
+  <data name="Apellidos" xml:space="preserve">
+    <value>Apellidos</value>
+  </data>
+  <data name="AplicarTodas" xml:space="preserve">
+    <value>AplicarTodas</value>
+  </data>
+  <data name="AplicaRuta" xml:space="preserve">
+    <value>Aplica Ruta</value>
+  </data>
+  <data name="Asistentes" xml:space="preserve">
+    <value>Asistentes</value>
+  </data>
+  <data name="Asunto" xml:space="preserve">
+    <value>Asunto</value>
+  </data>
+  <data name="Busqueda" xml:space="preserve">
+    <value>Búsqueda</value>
+  </data>
+  <data name="Calificacion" xml:space="preserve">
+    <value>Calificación</value>
+  </data>
+  <data name="Canal" xml:space="preserve">
+    <value>Canal</value>
+  </data>
+  <data name="Cancelar" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Cantidad" xml:space="preserve">
+    <value>Cantidad</value>
+  </data>
+  <data name="Cargo" xml:space="preserve">
+    <value>Cargo</value>
+  </data>
+  <data name="Ciudad" xml:space="preserve">
+    <value>Ciudad</value>
+  </data>
+  <data name="Cliente" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="Consultar" xml:space="preserve">
+    <value>Consultar</value>
+  </data>
+  <data name="ConsultarUbicacionAgentes" xml:space="preserve">
+    <value>Consultar</value>
+  </data>
+  <data name="Contacto" xml:space="preserve">
+    <value>Contacto</value>
+  </data>
+  <data name="CorreoElectronico" xml:space="preserve">
+    <value>Correo</value>
+  </data>
+  <data name="CrearAgenda" xml:space="preserve">
+    <value>Nueva Visita</value>
+  </data>
+  <data name="DashboardVerMas" xml:space="preserve">
+    <value>Ver Más</value>
+  </data>
+  <data name="Descripcion" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="Destinatarios" xml:space="preserve">
+    <value>Destinatarios</value>
+  </data>
+  <data name="Detalle" xml:space="preserve">
+    <value>Detalle</value>
+  </data>
+  <data name="Dia" xml:space="preserve">
+    <value>Día</value>
+  </data>
+  <data name="Direccion" xml:space="preserve">
+    <value>Dirección</value>
+  </data>
+  <data name="Duracion" xml:space="preserve">
+    <value>Duración</value>
+  </data>
+  <data name="Editar" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="EditarAgenda" xml:space="preserve">
+    <value>Cambiar Visita</value>
+  </data>
+  <data name="Eliminar" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="EsAbierta" xml:space="preserve">
+    <value>Es Abierta</value>
+  </data>
+  <data name="EsAdministrador" xml:space="preserve">
+    <value>Es Administrador</value>
+  </data>
+  <data name="EsIndefinida" xml:space="preserve">
+    <value>Es Indefinida</value>
+  </data>
+  <data name="EsPrincipal" xml:space="preserve">
+    <value>Principal</value>
+  </data>
+  <data name="EsSupervisor" xml:space="preserve">
+    <value>Es Supervisor</value>
+  </data>
+  <data name="Establecer" xml:space="preserve">
+    <value>Establecer</value>
+  </data>
+  <data name="Estado" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="EstadoAgenda" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EstadoAgendaNoRealizado" xml:space="preserve">
+    <value>No Visitado</value>
+  </data>
+  <data name="EstadoAgendaPendiente" xml:space="preserve">
+    <value>Pendiente</value>
+  </data>
+  <data name="EstadoAgendaRealizado" xml:space="preserve">
+    <value>Visitado</value>
+  </data>
+  <data name="EstadoAgendaReprogramado" xml:space="preserve">
+    <value>Reprogramado</value>
+  </data>
+  <data name="EstadoCivil" xml:space="preserve">
+    <value>Estado Civil</value>
+  </data>
+  <data name="ExcluirCliente" xml:space="preserve">
+    <value>Excluir Cliente(s)</value>
+  </data>
+  <data name="Fecha" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="FechaFin" xml:space="preserve">
+    <value>Fin</value>
+  </data>
+  <data name="FechaFinGestion" xml:space="preserve">
+    <value>Fin Gestión</value>
+  </data>
+  <data name="FechaGestion" xml:space="preserve">
+    <value>Fecha Gestión</value>
+  </data>
+  <data name="FechaInicio" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="FechaInicioGestion" xml:space="preserve">
+    <value>Inicio Gestión</value>
+  </data>
+  <data name="FechaNacimiento" xml:space="preserve">
+    <value>Fecha de Nacimiento</value>
+  </data>
+  <data name="Fin" xml:space="preserve">
+    <value>Fin</value>
+  </data>
+  <data name="Frecuencia" xml:space="preserve">
+    <value>Frecuencia</value>
+  </data>
+  <data name="Genero" xml:space="preserve">
+    <value>Género</value>
+  </data>
+  <data name="Gestiones" xml:space="preserve">
+    <value>Gestiones</value>
+  </data>
+  <data name="Guardar" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="HoraFin" xml:space="preserve">
+    <value>Hora Fin</value>
+  </data>
+  <data name="HoraInicio" xml:space="preserve">
+    <value>Hora Inicio</value>
+  </data>
+  <data name="Hoy" xml:space="preserve">
+    <value>Hoy</value>
+  </data>
+  <data name="Identificacion" xml:space="preserve">
+    <value>Identificación</value>
+  </data>
+  <data name="Importancia" xml:space="preserve">
+    <value>Importancia</value>
+  </data>
+  <data name="IncluirCliente" xml:space="preserve">
+    <value>Incluir Cliente(s)</value>
+  </data>
+  <data name="IncluirClientes" xml:space="preserve">
+    <value>Clientes</value>
+  </data>
+  <data name="IndicadorDuracionVisitaPromedio" xml:space="preserve">
+    <value>Duración Promedio</value>
+  </data>
+  <data name="IndicadorGestionados" xml:space="preserve">
+    <value>Visitados</value>
+  </data>
+  <data name="IndicadorNoGestionados" xml:space="preserve">
+    <value>No Visitados</value>
+  </data>
+  <data name="IndicadorProximos" xml:space="preserve">
+    <value>Próximos</value>
+  </data>
+  <data name="IndicadorTotalGestiones" xml:space="preserve">
+    <value>Total Visitas</value>
+  </data>
+  <data name="Inicio" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="InicioActividad" xml:space="preserve">
+    <value>Inicio de Actividades</value>
+  </data>
+  <data name="Latitud" xml:space="preserve">
+    <value>Latitud</value>
+  </data>
+  <data name="LineaTiempo" xml:space="preserve">
+    <value>Línea de Tiempo</value>
+  </data>
+  <data name="Longitud" xml:space="preserve">
+    <value>Longitud</value>
+  </data>
+  <data name="Lote" xml:space="preserve">
+    <value>Lote</value>
+  </data>
+  <data name="Maniana" xml:space="preserve">
+    <value>Mañana</value>
+  </data>
+  <data name="Memo" xml:space="preserve">
+    <value>Memo</value>
+  </data>
+  <data name="Mes" xml:space="preserve">
+    <value>Mes</value>
+  </data>
+  <data name="Nombre1" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="Nombre2" xml:space="preserve">
+    <value>Segundo Nombre</value>
+  </data>
+  <data name="Nombres" xml:space="preserve">
+    <value>Nombres</value>
+  </data>
+  <data name="Nuevo" xml:space="preserve">
+    <value>Nuevo</value>
+  </data>
+  <data name="NumeroGestiones" xml:space="preserve">
+    <value>Número de Visitas</value>
+  </data>
+  <data name="Observacion" xml:space="preserve">
+    <value>Observación</value>
+  </data>
+  <data name="Opcion" xml:space="preserve">
+    <value>Opción</value>
+  </data>
+  <data name="Opciones" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="Orden" xml:space="preserve">
+    <value>Orden</value>
+  </data>
+  <data name="PaginaWeb" xml:space="preserve">
+    <value>Página Web</value>
+  </data>
+  <data name="Programacion" xml:space="preserve">
+    <value>Programación</value>
+  </data>
+  <data name="ProgramacionRuta" xml:space="preserve">
+    <value>Programación de Rutas</value>
+  </data>
+  <data name="ProgramacionTarea" xml:space="preserve">
+    <value>Programación de Tareas</value>
+  </data>
+  <data name="Provincia" xml:space="preserve">
+    <value>Provincia</value>
+  </data>
+  <data name="RazonSocial" xml:space="preserve">
+    <value>Razón Social</value>
+  </data>
+  <data name="Referencia" xml:space="preserve">
+    <value>Referencia</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Región</value>
+  </data>
+  <data name="Regresar" xml:space="preserve">
+    <value>Regresar</value>
+  </data>
+  <data name="Remitente" xml:space="preserve">
+    <value>Remitente</value>
+  </data>
+  <data name="Remover" xml:space="preserve">
+    <value>Remover</value>
+  </data>
+  <data name="RepresentanteLegal" xml:space="preserve">
+    <value>Representante Legal</value>
+  </data>
+  <data name="RepresentateLegalIdentificacion" xml:space="preserve">
+    <value>Cédula Repr. Legal</value>
+  </data>
+  <data name="Resultado" xml:space="preserve">
+    <value>Resultado</value>
+  </data>
+  <data name="Reunion" xml:space="preserve">
+    <value>Reunión</value>
+  </data>
+  <data name="Ruta" xml:space="preserve">
+    <value>Ruta</value>
+  </data>
+  <data name="SeleccionarAgente" xml:space="preserve">
+    <value>Seleccione un Agente</value>
+  </data>
+  <data name="SeleccionarCanal" xml:space="preserve">
+    <value>Seleccione un Canal</value>
+  </data>
+  <data name="SeleccionarCargo" xml:space="preserve">
+    <value>Seleccione un Cargo</value>
+  </data>
+  <data name="SeleccionarCiudad" xml:space="preserve">
+    <value>Seleccione una Ciudad</value>
+  </data>
+  <data name="SeleccionarDireccion" xml:space="preserve">
+    <value>Seleccione una Dirección</value>
+  </data>
+  <data name="SeleccionarRegion" xml:space="preserve">
+    <value>Seleccione una Región</value>
+  </data>
+  <data name="SeleccionarRuta" xml:space="preserve">
+    <value>Seleccione una Ruta</value>
+  </data>
+  <data name="SeleccionarSupervisor" xml:space="preserve">
+    <value>Seleccione un Supervisor</value>
+  </data>
+  <data name="SeleccionarTipoCliente" xml:space="preserve">
+    <value>Seleccione un Tipo de Cliente</value>
+  </data>
+  <data name="SeleccionarTipoIdentificacion" xml:space="preserve">
+    <value>Seleccione un Tipo de Identificación</value>
+  </data>
+  <data name="SeleccionarUsuario" xml:space="preserve">
+    <value>Seleccione un Usuario</value>
+  </data>
+  <data name="Semana" xml:space="preserve">
+    <value>Semana</value>
+  </data>
+  <data name="SemanaLaboral" xml:space="preserve">
+    <value>Semana Laboral</value>
+  </data>
+  <data name="Solicitante" xml:space="preserve">
+    <value>Solicitante</value>
+  </data>
+  <data name="Supervisor" xml:space="preserve">
+    <value>Supervisor</value>
+  </data>
+  <data name="Tarea" xml:space="preserve">
+    <value>Tarea</value>
+  </data>
+  <data name="Tareas" xml:space="preserve">
+    <value>Tareas</value>
+  </data>
+  <data name="Telefono" xml:space="preserve">
+    <value>Teléfono</value>
+  </data>
+  <data name="Texto" xml:space="preserve">
+    <value>Texto</value>
+  </data>
+  <data name="Tipo" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="TipoActividad" xml:space="preserve">
+    <value>Tipo de Actividad</value>
+  </data>
+  <data name="TipoCartera" xml:space="preserve">
+    <value>Tipo de Cartera</value>
+  </data>
+  <data name="TipoCliente" xml:space="preserve">
+    <value>Tipo de Cliente</value>
+  </data>
+  <data name="TipoDireccion" xml:space="preserve">
+    <value>Tipo de Dirección</value>
+  </data>
+  <data name="TipoIdentificacion" xml:space="preserve">
+    <value>Tipo de Identificación</value>
+  </data>
+  <data name="TipoPersona" xml:space="preserve">
+    <value>Tipo de Persona</value>
+  </data>
+  <data name="TipoTarea" xml:space="preserve">
+    <value>Tipo Tarea</value>
+  </data>
+  <data name="Titulo" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="Ubicacion" xml:space="preserve">
+    <value>Ubicación</value>
+  </data>
+  <data name="Usuario" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
+  <data name="VigenciaDesde" xml:space="preserve">
+    <value>Vigente desde</value>
+  </data>
+  <data name="VigenciaHasta" xml:space="preserve">
+    <value>Vigente Hasta</value>
+  </data>
+  <data name="VigenciaIndefinida" xml:space="preserve">
+    <value>Indefinida</value>
+  </data>
+  <data name="Zona" xml:space="preserve">
+    <value>Zona</value>
+  </data>
+  <data name="Pais" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="Agregar" xml:space="preserve">
+    <value>Agregar</value>
+  </data>
+  <data name="Movilizacion" xml:space="preserve">
+    <value>Movilización</value>
+  </data>
+  <data name="Desde" xml:space="preserve">
+    <value>Desde</value>
+  </data>
+  <data name="Hasta" xml:space="preserve">
+    <value>Hasta</value>
+  </data>
+  <data name="AplicaTodasLasRutas" xml:space="preserve">
+    <value>Aplica Todas las Rutas</value>
+  </data>
+  <data name="NoEditable" xml:space="preserve">
+    <value>No Editable</value>
+  </data>
+  <data name="Ocurrencia" xml:space="preserve">
+    <value>Ocurre cada</value>
+  </data>
+  <data name="TieneFechaFin" xml:space="preserve">
+    <value>Tiene Fin</value>
+  </data>
+  <data name="El" xml:space="preserve">
+    <value>El</value>
+  </data>
+  <data name="AgregarAZona" xml:space="preserve">
+    <value>Agregar a Zona</value>
+  </data>
+  <data name="ZonaDetalle" xml:space="preserve">
+    <value>Detalle de la Zona</value>
+  </data>
+  <data name="ZonaTiempoMovilizacion" xml:space="preserve">
+    <value>Movilización Promedio</value>
+  </data>
+  <data name="CrearOpciones" xml:space="preserve">
+    <value>Crear Opciones</value>
+  </data>
+  <data name="SeleccionarMotivoReprogramacion" xml:space="preserve">
+    <value>Seleccione un Motivo de Reprogramación</value>
+  </data>
+  <data name="Calendario" xml:space="preserve">
+    <value>Calendario</value>
+  </data>
+  <data name="Motivo" xml:space="preserve">
+    <value>Motivo</value>
+  </data>
+  <data name="Reasignar" xml:space="preserve">
+    <value>Reasignar</value>
+  </data>
+  <data name="HorasJornadaLaboral" xml:space="preserve">
+    <value>Horas Laborables</value>
+  </data>
+  <data name="EsJornada2" xml:space="preserve">
+    <value>Tiene 2 Jornadas?</value>
+  </data>
+  <data name="EsLaboral" xml:space="preserve">
+    <value>Laboral</value>
+  </data>
+  <data name="Jornada1" xml:space="preserve">
+    <value>Primera Jornada</value>
+  </data>
+  <data name="Jornada2" xml:space="preserve">
+    <value>Segunda Jornada</value>
+  </data>
+  <data name="EsteAnio" xml:space="preserve">
+    <value>Aplica en cualquier año</value>
+  </data>
+  <data name="EsDefault" xml:space="preserve">
+    <value>Es Predeterminado</value>
+  </data>
+  <data name="NumClientes" xml:space="preserve">
+    <value># Clientes</value>
+  </data>
+  <data name="NumPreguntas" xml:space="preserve">
+    <value># Preguntas</value>
+  </data>
+  <data name="PrimeraGestion" xml:space="preserve">
+    <value>Primera Gestión</value>
+  </data>
+  <data name="UltimaGestion" xml:space="preserve">
+    <value>Última Gestión</value>
+  </data>
+  <data name="Vigente" xml:space="preserve">
+    <value>Vigente</value>
+  </data>
+  <data name="NumGestiones" xml:space="preserve">
+    <value># Gestiones</value>
+  </data>
+  <data name="Filtros" xml:space="preserve">
+    <value>Filtros</value>
+  </data>
+  <data name="NumRepuestas" xml:space="preserve">
+    <value># de Respuestas</value>
+  </data>
+  <data name="Respuestas" xml:space="preserve">
+    <value>Respuestas</value>
+  </data>
+  <data name="Preguntas" xml:space="preserve">
+    <value>Preguntas</value>
+  </data>
+  <data name="SeleccionarCalendario" xml:space="preserve">
+    <value>Seleccione un Calendario</value>
+  </data>
+  <data name="Rutas" xml:space="preserve">
+    <value>Rutas</value>
+  </data>
+  <data name="IntervaloMinutos" xml:space="preserve">
+    <value>Intervalo de Minutos en Tracking</value>
+  </data>
+  <data name="PrefijoTelefonico" xml:space="preserve">
+    <value>Prefijo Telefónico</value>
+  </data>
+  <data name="TiempoRutaDefault" xml:space="preserve">
+    <value>Tiempo de Movilización Default</value>
+  </data>
+  <data name="HoraFinTracking" xml:space="preserve">
+    <value>Hora de Fin de Tracking</value>
+  </data>
+  <data name="HoraInicioTracking" xml:space="preserve">
+    <value>Hora de Inicio de Tracking</value>
+  </data>
+  <data name="RouteDistance" xml:space="preserve">
+    <value>Distancia Mínima entre Trackings</value>
+  </data>
+  <data name="VisitDistance" xml:space="preserve">
+    <value>Distancia Mínima entre Visitas</value>
+  </data>
+  <data name="ClientesSinRuta" xml:space="preserve">
+    <value>Clientes sin Ruta</value>
+  </data>
+  <data name="TodosClientes" xml:space="preserve">
+    <value>Todos los Clientes</value>
+  </data>
+  <data name="SinEspecificar" xml:space="preserve">
+    <value>(Sin Especificar)</value>
+  </data>
+  <data name="NecesarioMotivoReprogramacion" xml:space="preserve">
+    <value>Solo es necesario cuando reprograma la Visita</value>
+  </data>
+  <data name="UbicacionMatriz" xml:space="preserve">
+    <value>Ubicación Matriz</value>
+  </data>
+  <data name="EsDiaParcial" xml:space="preserve">
+    <value>Es Día Parcial</value>
+  </data>
+  <data name="TodosLosAños" xml:space="preserve">
+    <value>Todos los años</value>
+  </data>
+  <data name="TodosMisAgentes" xml:space="preserve">
+    <value>Todos mis Agentes</value>
+  </data>
+  <data name="AgregarVisita" xml:space="preserve">
+    <value>(+) Visita</value>
+  </data>
+  <data name="BuscarEnAgenda" xml:space="preserve">
+    <value>Buscar por: Cliente, Dirección, Cargo e Identificación</value>
+  </data>
+  <data name="BuscarEnAgendaAgente" xml:space="preserve">
+    <value>Buscar por: Cliente, Agente, Dirección, Cargo e Identificación</value>
+  </data>
+  <data name="Automatica" xml:space="preserve">
+    <value>Automática</value>
+  </data>
+  <data name="Movil" xml:space="preserve">
+    <value>Móvil</value>
+  </data>
+  <data name="Web" xml:space="preserve">
+    <value>Web</value>
+  </data>
+  <data name="Paginas" xml:space="preserve">
+    <value>Páginas</value>
+  </data>
+  <data name="Registros" xml:space="preserve">
+    <value>Registros</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Efectividad" xml:space="preserve">
+    <value>Efectividad</value>
+  </data>
+  <data name="PermitirCreacionClientes" xml:space="preserve">
+    <value>Permitir la creación de nuevos clientes</value>
+  </data>
+  <data name="Persona" xml:space="preserve">
+    <value>Persona</value>
+  </data>
+  <data name="PersonaJuridica" xml:space="preserve">
+    <value>Persona Jurídica</value>
+  </data>
+  <data name="PersonaNatural" xml:space="preserve">
+    <value>Persona Natural</value>
+  </data>
+  <data name="Campo" xml:space="preserve">
+    <value>Campo</value>
+  </data>
+  <data name="ActualizarClienteEnCadaVisita" xml:space="preserve">
+    <value>Actualizar los datos de los clientes en cada visita</value>
+  </data>
+  <data name="ActualizarClienteEnVisitaSoloSiFaltanDatos" xml:space="preserve">
+    <value>Actualizar los datos de los clientes en la visita, solo si no están completos</value>
+  </data>
+  <data name="PermitirModificacionClientes" xml:space="preserve">
+    <value>Permitir modificar la información de los clientes</value>
+  </data>
+  <data name="Crear" xml:space="preserve">
+    <value>Crear</value>
+  </data>
+  <data name="DatosEditar" xml:space="preserve">
+    <value>Datos que se podrán editar</value>
+  </data>
+  <data name="TipoTareaAsignada" xml:space="preserve">
+    <value>Tareas de este tipo ya asignadas a la ruta</value>
+  </data>
+  <data name="ExisteTareaTipoTodasRutas" xml:space="preserve">
+    <value>Ya existe una tarea de este tipo asignada a una o más rutas, por ende no se permite asignar a todas las Rutas</value>
+  </data>
+  <data name="TareasYaAsignadas" xml:space="preserve">
+    <value>Tareas ya asignadas</value>
+  </data>
+  <data name="CiudadPoblacion" xml:space="preserve">
+    <value>Ciudad / Población</value>
+  </data>
+  <data name="AgenteUltimaVisita" xml:space="preserve">
+    <value>Agente Últ. Visita</value>
+  </data>
+  <data name="FechaUltimaVisita" xml:space="preserve">
+    <value>Últ. Visita</value>
+  </data>
+  <data name="IndiceActividad" xml:space="preserve">
+    <value>Indice Actividad</value>
+  </data>
+  <data name="TiempoInactividad" xml:space="preserve">
+    <value>Tiempo Inactividad</value>
+  </data>
+  <data name="Geocerca" xml:space="preserve">
+    <value>Geocerca</value>
+  </data>
+  <data name="IncluirRecorrido" xml:space="preserve">
+    <value>Recorrido</value>
+  </data>
+  <data name="IncluirGestion" xml:space="preserve">
+    <value>Gestión</value>
+  </data>
+  <data name="RecorridoAlerta" xml:space="preserve">
+    <value>Alerta</value>
+  </data>
+  <data name="RecorridoCheckPoint" xml:space="preserve">
+    <value>Ubicación Reportada</value>
+  </data>
+  <data name="Canales" xml:space="preserve">
+    <value>Canales</value>
+  </data>
+  <data name="Clientes" xml:space="preserve">
+    <value>Clientes</value>
+  </data>
+  <data name="Lotes" xml:space="preserve">
+    <value>Lotes</value>
+  </data>
+  <data name="TipoClientes" xml:space="preserve">
+    <value>Tipos Cliente</value>
+  </data>
+  <data name="Zonas" xml:space="preserve">
+    <value>Zonas</value>
+  </data>
+  <data name="Dias" xml:space="preserve">
+    <value>día(s)</value>
+  </data>
+  <data name="Seleccionar" xml:space="preserve">
+    <value>Seleccionar</value>
+  </data>
+  <data name="IndiceActividad1" xml:space="preserve">
+    <value>Indice Actividad 30</value>
+  </data>
+  <data name="IndiceActividad2" xml:space="preserve">
+    <value>Indice Actividad 90</value>
+  </data>
+  <data name="Etapa" xml:space="preserve">
+    <value>Etapa</value>
+  </data>
+  <data name="BuscarOportunidades" xml:space="preserve">
+    <value>Buscar por: Nombre, Dirección, Etapa y Agente</value>
+  </data>
+  <data name="Oportunidad" xml:space="preserve">
+    <value>Oportunidad</value>
+  </data>
+  <data name="Probabilidad" xml:space="preserve">
+    <value>Probabilidad</value>
+  </data>
+  <data name="Importe" xml:space="preserve">
+    <value>Importe</value>
+  </data>
+  <data name="Prospecto" xml:space="preserve">
+    <value>Prospecto</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Actual</value>
+  </data>
+  <data name="Otras" xml:space="preserve">
+    <value>Otras</value>
+  </data>
+  <data name="UnaHora" xml:space="preserve">
+    <value>1 Hora</value>
+  </data>
+  <data name="Estadisticas" xml:space="preserve">
+    <value>Estadísticas</value>
+  </data>
+  <data name="Timeline" xml:space="preserve">
+    <value>Timeline</value>
+  </data>
+  <data name="Workflow" xml:space="preserve">
+    <value>Workflow</value>
+  </data>
+  <data name="SinIniciar" xml:space="preserve">
+    <value>Sin iniciar</value>
+  </data>
+  <data name="DiasInactividad" xml:space="preserve">
+    <value>Días Inactividad</value>
+  </data>
+  <data name="DiasTranscurridos" xml:space="preserve">
+    <value>Días Transcurridos</value>
+  </data>
+  <data name="Listado" xml:space="preserve">
+    <value>Listado</value>
+  </data>
+  <data name="Rol" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="Grupo" xml:space="preserve">
+    <value>Grupo</value>
+  </data>
+  <data name="AplicaMarcacion" xml:space="preserve">
+    <value>Aplica Marcación</value>
+  </data>
+  <data name="UbicacionPartidaAgentes" xml:space="preserve">
+    <value>Ubicación de Marcación</value>
+  </data>
+  <data name="EscribaAgente" xml:space="preserve">
+    <value>Escriba el nombre del Agente</value>
+  </data>
+  <data name="SeleccionarGrupo" xml:space="preserve">
+    <value>Seleccione un Grupo</value>
+  </data>
+  <data name="AgregarPermiso" xml:space="preserve">
+    <value>(+) Permiso</value>
+  </data>
+  <data name="CrearPermiso" xml:space="preserve">
+    <value>Nuevo Permiso</value>
+  </data>
+  <data name="Cerrar" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="AgenteGrupo" xml:space="preserve">
+    <value>Agente o Grupo</value>
+  </data>
+  <data name="Aprobar" xml:space="preserve">
+    <value>Aprobar</value>
+  </data>
+  <data name="Rechazar" xml:space="preserve">
+    <value>Rechazar</value>
+  </data>
+  <data name="Anular" xml:space="preserve">
+    <value>Anular</value>
+  </data>
+  <data name="AtrasosMinutos" xml:space="preserve">
+    <value>Atrasos (min.)</value>
+  </data>
+  <data name="Break" xml:space="preserve">
+    <value>Break</value>
+  </data>
+  <data name="EficienciaPorcentaje" xml:space="preserve">
+    <value>% Eficiencia</value>
+  </data>
+  <data name="HoraFinJornada" xml:space="preserve">
+    <value>Fin Jornada</value>
+  </data>
+  <data name="HoraInicioPrimeraJornada" xml:space="preserve">
+    <value>1era Jornada</value>
+  </data>
+  <data name="HoraInicioSegundaJornada" xml:space="preserve">
+    <value>2da Jornada</value>
+  </data>
+  <data name="PermisoPrevio" xml:space="preserve">
+    <value>Permiso Previo</value>
+  </data>
+  <data name="Ausente" xml:space="preserve">
+    <value>Ausente</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Si" xml:space="preserve">
+    <value>Si</value>
+  </data>
+  <data name="ObservacionSupervisor" xml:space="preserve">
+    <value>Observación Supervisor</value>
+  </data>
+  <data name="NoAplicaMarcacion" xml:space="preserve">
+    <value>No aplica marcación</value>
+  </data>
+  <data name="Permiso" xml:space="preserve">
+    <value>Permiso</value>
+  </data>
+  <data name="Ausencias" xml:space="preserve">
+    <value>Ausencias</value>
+  </data>
+  <data name="Atrasos" xml:space="preserve">
+    <value>Atrasos</value>
+  </data>
+  <data name="Todos" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="Asistencias" xml:space="preserve">
+    <value>Asistencias</value>
+  </data>
+  <data name="Reversar" xml:space="preserve">
+    <value>Reversar</value>
+  </data>
+  <data name="Exportar" xml:space="preserve">
+    <value>Exportar</value>
+  </data>
+  <data name="Mensaje" xml:space="preserve">
+    <value>Mensaje</value>
+  </data>
+  <data name="Enviar" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="LugarMarcacion" xml:space="preserve">
+    <value>Lugar de Marcación</value>
+  </data>
+  <data name="LugarPlanificado" xml:space="preserve">
+    <value>Lugar Planificado</value>
+  </data>
+  <data name="Capturar" xml:space="preserve">
+    <value>Capturar</value>
+  </data>
+  <data name="Kms" xml:space="preserve">
+    <value>Kms</value>
+  </data>
+  <data name="TiempoDetenido" xml:space="preserve">
+    <value>Tiempo Detenido</value>
+  </data>
+  <data name="TiempoRecorrido" xml:space="preserve">
+    <value>Tiempo Movimiento</value>
+  </data>
+  <data name="HoraPrimerReporte" xml:space="preserve">
+    <value>Hora Primer Reporte</value>
+  </data>
+  <data name="HoraUltimoReporte" xml:space="preserve">
+    <value>Hora Último Reporte</value>
+  </data>
+  <data name="Paradas" xml:space="preserve">
+    <value># de Paradas</value>
+  </data>
+  <data name="TimpoMinimoParada" xml:space="preserve">
+    <value>Tiempo Mínimo Parada</value>
+  </data>
+  <data name="Detenido" xml:space="preserve">
+    <value>Detenido</value>
+  </data>
+  <data name="EnMovimiento" xml:space="preserve">
+    <value>En Movimiento</value>
+  </data>
+  <data name="Tiempo" xml:space="preserve">
+    <value>Tiempo</value>
+  </data>
+  <data name="Minutos" xml:space="preserve">
+    <value>Minutos</value>
+  </data>
+  <data name="Excel" xml:space="preserve">
+    <value>Excel</value>
+  </data>
+  <data name="Pdf" xml:space="preserve">
+    <value>Pdf</value>
+  </data>
+  <data name="Movimiento" xml:space="preserve">
+    <value>Movimiento</value>
+  </data>
+  <data name="Gestion" xml:space="preserve">
+    <value>Gestión</value>
+  </data>
+  <data name="DuracionDias" xml:space="preserve">
+    <value>Días</value>
+  </data>
+  <data name="Precio" xml:space="preserve">
+    <value>Precio</value>
+  </data>
+  <data name="CodigoExterno" xml:space="preserve">
+    <value>Código Externo</value>
+  </data>
+  <data name="Descuento" xml:space="preserve">
+    <value>Descuento</value>
+  </data>
+  <data name="Valor" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="Codigo" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="FechaUltimaModificacion" xml:space="preserve">
+    <value>Fecha Ult. Modificación</value>
+  </data>
+  <data name="ValorTotal" xml:space="preserve">
+    <value>Valor Total</value>
+  </data>
+  <data name="ValorUnitario" xml:space="preserve">
+    <value>Valor Unitario</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value># Items</value>
+  </data>
+  <data name="TieneUbicacion" xml:space="preserve">
+    <value>Aplica Ubicación</value>
+  </data>
+  <data name="Categoria" xml:space="preserve">
+    <value>Categoría</value>
+  </data>
+  <data name="CrearCategoria" xml:space="preserve">
+    <value>Crear Categoría</value>
+  </data>
+  <data name="SeleccionarCategoria" xml:space="preserve">
+    <value>Seleccionar Categoría</value>
+  </data>
+  <data name="SubCategoria" xml:space="preserve">
+    <value>Subcategoría</value>
+  </data>
+  <data name="AplicaBreak" xml:space="preserve">
+    <value>Aplica Ubicación en Break</value>
+  </data>
+  <data name="VerPedido" xml:space="preserve">
+    <value>Ver Pedido</value>
+  </data>
+  <data name="Limite" xml:space="preserve">
+    <value>Límite</value>
+  </data>
+  <data name="EsVariable" xml:space="preserve">
+    <value>Los días de esta etapa se definiran al crear la oportunidad?</value>
+  </data>
+  <data name="ReporteGestion" xml:space="preserve">
+    <value>Reporte de Gestión</value>
+  </data>
+  <data name="MostrarFotos" xml:space="preserve">
+    <value>Mostrar Fotos</value>
+  </data>
+</root>

@@ -1,0 +1,155 @@
+﻿@model Rp3.AgendaComercial.Web.Areas.Ruta.Models.InformeParadaView
+@{
+    this.SetTitle(Rp3.AgendaComercial.Resources.TitleFor.InformeParada);
+    this.SetImportTables(true);
+
+    Rp3.Web.Mvc.Html.TabCollection tabCollection = (Rp3.Web.Mvc.Html.TabCollection)ViewBag.TabCollection;
+
+}
+
+@section MainTitle{
+    @{Html.RenderPartial("_CargoRol");}
+}
+
+@section ActionTitle{
+
+    @*<a class="btn btn-default btn-lg pull-left" id="exportarExcel"><i class="fa fa-file-o"></i> @Rp3.AgendaComercial.Resources.LabelFor.Exportar</a>*@
+
+    <a class="btn btn-default btn-lg pull-left" id="reportegestion"><i class="fa fa-print"></i> @Rp3.AgendaComercial.Resources.LabelFor.ReporteGestion</a>
+
+    <a class="btn btn-default btn-lg pull-left" id="preview"><i class="fa fa-file-o"></i> @Rp3.AgendaComercial.Resources.LabelFor.Exportar</a>
+
+    <div class="pull-left" style="margin-right:5px; margin-left:20px;margin-top:3px">
+        @Html.Rp3DropDownList((IEnumerable<SelectListItem>)ViewBag.Agentes, htmlAttributes: new { style = "width:200px", placeholder = Rp3.AgendaComercial.Resources.LabelFor.SeleccionarAgente }, name: "agente")
+    </div>
+
+    <div style="float:right">
+        <div class="row" style="float:right;width:270px;margin-right:2px;margin-left:15px;margin-top:3px;margin-bottom:10px;height:25px;">
+            <div id="reportrange" class="pull-left form-control daterange" style=" height:34px;">
+                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                <span style="height:100%"></span> <b style="height: 100%; display: inline-block;vertical-align: middle;"></b>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="pull-left" style="margin-right:30px">
+            @Html.Rp3FormGroupDatePickerFor(model => model.Fecha, labelSize: HtmlColumnSize.Size_4)
+        </div>*@
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("highcharts/highcharts.js")
+    @Url.ImportApplicationScript("highcharts/highcharts-more.js")
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+
+    @Url.ImportApplicationScript("informeparada.js", true)
+    @Url.ImportApplicationScript("exportexcel.js", true)
+
+    @Url.ImportApplicationScript("daterangepicker/moment.min.js")
+    @Url.ImportApplicationScript("daterangepicker/daterangepicker.js")
+
+}
+
+@section BeforeStyleImports{
+    @Url.ImportApplicationStyleSheet("daterangepicker/daterangepicker-bs3.css")
+    @Url.ImportApplicationStyleSheet("mapa.css", true)
+}
+
+@{
+    //using (Html.Rp3BeginTabContentBox("Uno", tabCollection, paddingContent: false))
+    //{
+
+        //using (Html.Rp3BeginTabPane("tabtabla", active: true))
+        //{
+
+
+            using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-left:10px; margin-right:10px;" }))
+            {
+                               
+                @Html.HiddenFor(m => m.FechaByAgente)
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+                {
+                    @Html.Rp3FormGroupDisplayFor(model => model.TiempoDetenido, labelSize: HtmlColumnSize.Size_6)
+                }
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+                {
+                    @Html.Rp3FormGroupDisplayFor(model => model.TiempoRecorrido, labelSize: HtmlColumnSize.Size_6)
+                }
+
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+                {
+                    @:&nbsp;
+                }
+
+                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                {
+                    <div style="float:right;"><div style="cursor:pointer;color:blue" onclick="openNotificacion()"><i class="fa fa-comments-o"></i> Enviar notificación</div></div>
+                    if (string.IsNullOrEmpty(Model.FechaByAgente))
+                    {
+                        <div style="float:right; width:50px;">&nbsp;</div>
+                        <div style="float:right;"><div style="cursor:pointer;color:blue" onclick="openRecorrido()"><i class="fa fa-road"></i> Ir al Recorrido</div></div>
+                    }
+
+                    @*<a class="btn btn-default btn-xs pull-right" id="sendnotificacion" style="color:blue;"><i class="fa fa-comments-o" style="color:blue;"></i> Enviar notificación</a>
+                        <a class="btn btn-default btn-xs pull-right" id="gotorecorrido" style="color:blue;"><i class="fa fa-road" style="color:blue;"></i> Ir al recorrido</a>*@
+                }
+            }
+
+            using (Html.Rp3BeginRow(htmlAttributes: new { style = "margin-top:10px; margin-left:10px; margin-right:10px;" }))
+            {
+                <div id="main-content" style="min-width:400px;margin-top:5px">
+                    @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_8))
+                    {
+                        <div id="agente-content-container" style="min-width:400px">
+
+                        </div>
+                    }
+
+                    @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_4))
+                    {
+                        <div id="char-content-container" style="min-width:400px">
+
+                        </div>
+                    }
+                </div>
+
+            }
+
+        //}
+
+        //using (Html.Rp3BeginTabPane("tabtimeline"))
+        //{
+
+
+        //}
+
+    //}
+}
+
+
+@using (Html.Rp3BeginModal("modal-detalle-map", effect: ModalEffect.FlipVertical3D, customWidth: 1200, includeOverlay: true))
+{
+    <h4 id="model-detalle-titulo"></h4>
+
+    <div id="modal-detalle-map-content" style="z-index:9999;height:550px;">
+    </div>
+}
+
+@using (Html.Rp3BeginRow())
+{
+    using (Html.Rp3BeginModal("modal-notificacion", customWidth: 450))
+    {
+        <div id="modal-notificacion-content" style="margin-top:-15px;height:200px; width:300px;"> </div>
+
+        using (Html.Rp3BeginModalAction())
+        {
+            <div actions-modal>
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Enviar, themeType: ElementThemeType.Success, icon: Icons.Reply, allowCloseModal: false, customButtonClick: "notificacionPost();")
+                @Html.Rp3Button(Rp3.AgendaComercial.Resources.LabelFor.Cancelar, themeType: ElementThemeType.Default, icon: Icons.Cancel, allowCloseModal: true, customButtonClick: "return;")
+            </div>
+        }
+    }
+}

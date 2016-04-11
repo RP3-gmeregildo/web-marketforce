@@ -1,0 +1,154 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.ProgramacionRuta
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "form-programacion" }))
+{
+    using (Html.Rp3BeginRow())
+    {
+        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+        {
+            <div id="block_error"></div>
+            <div style="margin-top:5px;">
+                <text>
+                    @Html.HiddenFor(model => model.IdProgramacionRuta)
+                    @Html.HiddenFor(model => model.IdRuta)
+                    @Html.HiddenFor(model => model.IdCliente)
+                    @Html.HiddenFor(model => model.IdClienteDireccion)
+                    @using (Html.Rp3BeginRow())
+                    {
+                        using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+                        {
+                            @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Patron, Rp3.AgendaComercial.Models.Constantes.PatronProgramacion.Tabla, labelSize: HtmlColumnSize.Size_3, editorHtmlAttributes: new { @onchange = "changeOcurrency(this);" })
+                        }
+
+                        <div id="diarioDiv" style="display:@ViewBag.DiarioDisplay">
+                            @*@using (Html.Rp3BeginRow())
+                                {*@
+                            @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+                            {
+
+                                @Html.Rp3FormGroupDropDownListFor(model => model.Frecuencia, (IList<SelectListItem>)ViewBag.ItemsDias, Rp3.AgendaComercial.Resources.LabelFor.Ocurrencia, labelSize: HtmlColumnSize.Size_3)
+
+                            }
+                            @*}*@
+                        </div>
+
+                        <div id="semanalDivCol" style="display:@ViewBag.SemanalDisplay">
+                            @*@using (Html.Rp3BeginRow())
+                                {*@
+                            @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+                            {
+                                @Html.Rp3FormGroupDropDownListFor(model => model.Frecuencia, (IList<SelectListItem>)ViewBag.ItemsSemanal, Rp3.AgendaComercial.Resources.LabelFor.Ocurrencia, labelSize: HtmlColumnSize.Size_3)
+                            }
+                            @*}*@
+                        </div>
+
+                    }
+
+                    <div id="semanalDivRow" style="display:@ViewBag.SemanalDisplay;margin-left:37px">
+
+                        @using (Html.Rp3BeginRow())
+                        {
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                            {
+                                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Dia, labelSize: HtmlColumnSize.Size_1))
+                                {
+                                    @Html.ListBox("diasSemanaSelect", (MultiSelectList)ViewBag.ItemsDiasSemana, new { style = "height:80px;max-height:80px", id = "diasSemanaSelect" })
+                                }
+                            }
+                        }
+                    </div>
+                    <div id="mensualDiv" style="display:@ViewBag.MensualDisplay">
+                        <div id="mensualDivDia" style="">
+                            @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                            {
+                                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                                {
+                                    @Html.Rp3FormGroupRadioButtonFor(model => model.TipoMensual, 1, editorHtmlAttributes: new { id = "TipoMensual1", @onchange = "showMensualDia(this);", style = "margin-top: 10px" }, labelText: Rp3.AgendaComercial.Resources.LabelFor.Dia, labelSize: HtmlColumnSize.Size_6)
+                                }
+                                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+                                {
+                                    @Html.Rp3FormGroupDropDownListFor(model => model.DiaMes, (IEnumerable<SelectListItem>)ViewBag.ItemsDiasMes, labelText: "", labelSize: HtmlColumnSize.Size_1);
+                                }
+                                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+                                {
+                                    @Html.Rp3FormGroupDropDownListFor(model => model.Frecuencia, (IEnumerable<SelectListItem>)ViewBag.ItemsNumeroMeses, labelText: "", labelSize: HtmlColumnSize.Size_1);
+                                }
+                            }
+                        </div>
+
+                        <div id="mensualDivEl" style="">
+                            @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                            {
+                                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_2))
+                                {
+                                    @Html.Rp3FormGroupRadioButtonFor(model => model.TipoMensual, 2, editorHtmlAttributes: new { id = "TipoMensual2", @onchange = "showMensualDia(this);", style = "margin-top: 10px" }, labelText: Rp3.AgendaComercial.Resources.LabelFor.El, labelSize: HtmlColumnSize.Size_6)
+                                }
+                                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+                                {
+                                    @Html.Rp3FormGroupDropDownListFor(model => model.Semana, (IEnumerable<SelectListItem>)ViewBag.ItemsDiasEl, labelText: "", labelSize: HtmlColumnSize.Size_1);
+                                }
+                                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+                                {
+                                    @Html.Rp3FormGroupDropDownListFor(model => model.diaString, (IEnumerable<SelectListItem>)ViewBag.ItemsDiasMensual, labelText: "", labelSize: HtmlColumnSize.Size_1);
+                                }
+                                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_3))
+                                {
+                                    @Html.Rp3FormGroupDropDownListFor(model => model.Frecuencia, (IEnumerable<SelectListItem>)ViewBag.ItemsNumeroMeses, labelText: "", labelSize: HtmlColumnSize.Size_1);
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div style="">
+                        @using (Html.Rp3BeginRow())
+                        {
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+                            {
+                                @Html.Rp3FormGroupDatePickerFor(model => model.FechaInicio, labelText: Rp3.AgendaComercial.Resources.LabelFor.FechaInicio, labelSize: HtmlColumnSize.Size_3)
+                            }
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+                            {
+                                @Html.Rp3FormGroupDatePickerFor(model => model.FechaFin, labelText: Rp3.AgendaComercial.Resources.LabelFor.FechaFin, labelSize: HtmlColumnSize.Size_3)
+                            }
+                        }
+                        @using (Html.Rp3BeginRow())
+                        {
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+                            {
+                                @Html.Rp3FormGroupCheckBoxFor(model => model.ConFechaFin, labelText: Rp3.AgendaComercial.Resources.LabelFor.TieneFechaFin, labelSize: HtmlColumnSize.Size_3, editorHtmlAttributes: new { @onchange = "setFechaFin(this);" })
+                            }
+
+                            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_6))
+                            {
+                                @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.DuracionVisita, Rp3.AgendaComercial.Models.Constantes.Duracion.Tabla, labelSize: HtmlColumnSize.Size_3,
+                                     labelText: Rp3.AgendaComercial.Resources.LabelFor.Duracion, sortexpression: model => model.Reference02);
+                            }
+                        }
+                        <div style="margin-left:37px">
+
+                            @using (Html.Rp3BeginRow())
+                            {
+                                using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+                                {
+                                    using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Tareas, labelSize: HtmlColumnSize.Size_1))
+                                    {
+                                        @Html.ListBox("tareasSelect", (MultiSelectList)ViewBag.ItemsTareas, new { style = "height:80px;max-height:80px", id = "tareasSelect" })
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </text>
+            </div>
+        }
+    }
+}
+
+<style>
+ .select2-container-multi .select2-choices {
+        min-height:80px;
+         height:80px !important;
+        overflow: scroll;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+ </style>

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.General.View.ParametroView>
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.EditarParametros;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+
+    Rp3.Web.Mvc.Html.TabCollection tabCollection = (Rp3.Web.Mvc.Html.TabCollection)ViewBag.TabCollection;
+}
+
+@section Imports{
+    @Url.ImportApplicationScript("mapclient.js", true)
+    @Url.ImportApplicationScript("parametros.js", true)
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=@System.Threading.Thread.CurrentThread.CurrentUICulture.Name"></script>
+}
+
+@section StyleImports{
+    @Url.ImportApplicationStyleSheet("mapa.css", true)
+}
+
+@using (Html.Rp3BeginForm(htmlAttributes: new { id = "mainform" }))
+{
+
+    using (Html.Rp3BeginTabContentBox(Rp3.AgendaComercial.Resources.TitleFor.EditarParametros, tabCollection, paddingContent: true))
+    {
+
+        using (Html.Rp3BeginTabPane("tabgenerales", active: true))
+        {
+            @: @{Html.RenderPartial("_ParametrosGenerales", Model); }
+        }
+
+        using (Html.Rp3BeginTabPane("tabubicaciones"))
+        {
+
+            @: @{Html.RenderPartial("_ParametrosUbicacion", (Rp3.AgendaComercial.Models.General.Ubicacion)ViewBag.Ubicacion); }
+        }
+    }
+
+}

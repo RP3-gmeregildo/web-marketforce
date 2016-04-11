@@ -1,0 +1,76 @@
+﻿@model List<Rp3.AgendaComercial.Web.Ruta.ResumenEstado>
+@{
+    ChartControlSettings settings = new ChartControlSettings();
+    settings.Name = "chartVisita";
+    settings.BorderOptions.Visibility = DefaultBoolean.False;
+    settings.Height = 280;
+    settings.Width = 500;
+    settings.Legend.AlignmentHorizontal = LegendAlignmentHorizontal.RightOutside;
+
+    Series series = new Series("Estado", DevExpress.XtraCharts.ViewType.Pie);
+    series.LabelsVisibility = DefaultBoolean.True;
+    ((PieSeriesLabel)series.Label).Position = PieSeriesLabelPosition.Inside;
+    series.Label.TextPattern = "{A}: {VP:P0}";
+
+    series.ArgumentDataMember = "EstadoAgendaContent";
+    series.ValueDataMembers[0] = "Cantidad";
+    settings.Series.Add(series);
+    settings.BoundDataChanged = (s, e) =>
+    {
+        MVCxChartControl chart = (MVCxChartControl)s;
+        PieSeriesViewBase view = (PieSeriesViewBase)chart.Series[0].View;
+        //if (options.ExplodePoint != null)
+        //{
+        //    SeriesPoint explodedPoint = null;
+        //    foreach (SeriesPoint point in chart.Series[0].Points)
+        //    {
+        //        if (point.Argument == options.ExplodePoint)
+        //        {
+        //            explodedPoint = point;
+        //            break;
+        //        }
+        //    }
+        //    if (explodedPoint != null)
+        //    {
+        //        view.ExplodedPoints.Add(explodedPoint);
+        //    }
+        //}
+        //else
+        //{
+        //    view.ExplodeMode = options.ExplodeMode;
+        //}
+    };
+    SimpleDiagram3D diagram = settings.Diagram as SimpleDiagram3D;
+    if (diagram != null)
+    {
+        diagram.RotationType = RotationType.UseAngles;
+        diagram.RotationOrder = RotationOrder.ZXY;
+        diagram.RotationAngleX = -35;
+        diagram.RotationAngleZ = 15;
+    }
+    else
+    {
+        series.Label.TextColor = System.Drawing.Color.White;
+        series.Label.BackColor = System.Drawing.Color.Transparent;
+        series.Label.Font = new System.Drawing.Font("Tahoma", 8, System.Drawing.FontStyle.Bold);
+        series.Label.LineVisibility = DefaultBoolean.True;
+        series.Label.Border.Visibility = DefaultBoolean.False;
+    }
+    series.Label.Antialiasing = true;
+
+    settings.Titles.Add(new ChartTitle()
+    {
+        Font = new System.Drawing.Font("Tahoma", 18),
+        Text = Rp3.AgendaComercial.Resources.LabelFor.Estado
+    });
+    settings.Titles.Add(new ChartTitle()
+    {
+        Alignment = System.Drawing.StringAlignment.Far,
+        Dock = ChartTitleDockStyle.Bottom,
+        Font = new System.Drawing.Font("Tahoma", 8),
+        TextColor = System.Drawing.Color.Gray,
+        Text = "www.rp3.com.ec"
+    });
+    
+    @Html.DevExpress().Chart(settings).Bind(Model).GetHtml()
+}

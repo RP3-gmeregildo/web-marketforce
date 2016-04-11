@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.Ruta.Ruta>
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.Rutas;
+}
+
+@section ActionTitle{
+    @Html.Rp3OptionActivityButton("RUTA", "NEW", HtmlElementSize.Default, includeText: true, applicationId: "AGENDACOMERCIAL")
+
+    @Html.Rp3ActionButton(Rp3.AgendaComercial.Resources.LabelFor.Excel, "ExportToXls", "Ruta", new { Area = "Ruta" }, themeType: ElementThemeType.Default, icon: Icons.File)
+    @Html.Rp3ActionButton(Rp3.AgendaComercial.Resources.LabelFor.Pdf, "ExportToPdf", "Ruta", new { Area = "Ruta" }, themeType: ElementThemeType.Default, icon: Icons.File)
+}
+
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+
+@Html.DevExpress().GetStyleSheets(
+            new StyleSheet { ExtensionSuite = ExtensionSuite.GridView, Theme = "MetropolisBlue" }
+)
+
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{
+
+        @Html.Partial("_GridViewIndex", Model)
+}

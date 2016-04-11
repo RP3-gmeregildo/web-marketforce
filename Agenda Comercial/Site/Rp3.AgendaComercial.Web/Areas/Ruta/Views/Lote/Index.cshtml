@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.Ruta.Lote>
+@{
+    ViewBag.Title = Rp3.AgendaComercial.Resources.TitleFor.Lotes;
+    this.SetImportAdvTables(true);    
+}
+
+@section ActionTitle{
+    @Html.Rp3OptionActivityButton("LOTE", "NEW", HtmlElementSize.Default, includeText: true, applicationId: "AGENDACOMERCIAL")
+
+@Html.Rp3ActionButton(Rp3.AgendaComercial.Resources.LabelFor.Excel, "ExportToXls", "Lote", new { Area = "Ruta" }, themeType: ElementThemeType.Default, icon: Icons.File)
+@Html.Rp3ActionButton(Rp3.AgendaComercial.Resources.LabelFor.Pdf, "ExportToPdf", "Lote", new { Area = "Ruta" }, themeType: ElementThemeType.Default, icon: Icons.File)
+}
+
+
+    @using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+    {
+            @Html.Partial("_GridViewIndex", Model)        
+    }
+    

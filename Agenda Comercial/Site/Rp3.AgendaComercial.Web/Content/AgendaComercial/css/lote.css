@@ -1,0 +1,6 @@
+﻿
+div.select2-cover{
+    max-height:150px;
+    overflow-y: auto;
+    overflow-x:hidden;
+}

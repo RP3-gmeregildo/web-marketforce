@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8" />
+
+    @RenderSection("BeforeStyleImports", false)
+
+    @{Html.RenderPartial("_StyleImports");}
+
+    @RenderSection("StyleImports", false)
+
+    @{Html.RenderPartial("_ScriptImports");}
+
+    @RenderSection("ScriptImports", false)
+
+    @RenderSection("Imports", false)
+</head>
+<body>
+    <!-- Fixed navbar -->
+    <div id="head-nav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="fa fa-gear"></span>
+                </button>
+                <a class="navbar-brand" style="background: url(@Url.ContentApplicationImage("logo.png")) no-repeat 0 11px;" href="@Url.Content("~")"></a>
+            </div>
+
+            <div class="navbar-collapse collapse" style="margin-left:200px;">
+                @{Html.RenderPartial("_UserNav");}
+
+                <div class="navbar-header" style="float:right;margin-right:30px">
+                    @RenderSection("MainTitle", false)
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+    @*<div id="header">
+            <a class="logo" href="@Url.Action("Index", "Home")"><img src="@Url.ContentApplicationImage("logo.png")" /></a>
+            <h1><a href="@Url.Action("Index", "Home")">Rp3 Admin</a></h1>
+            <a id="menu-trigger" href="#"><i class="icon-list"></i></a>
+        </div>*@
+
+
+    <div id="cl-wrapper" class="fixed-menu sb-collapsed">
+        <div class="cl-sidebar" data-position="right" data-step="1" @*data-intro="<strong>Fixed Sidebar</strong> <br/> It adjust to your needs."*@>
+            <div class="cl-toggle"><i class="fa fa-bars"></i></div>
+            <div class="cl-navblock">
+                @{Html.RenderAction("ApplicationOptionActivitiesAssigned", "Security", new { area = "Security" });}
+            </div>
+        </div>
+
+        <div class="container-fluid" id="pcont">
+
+            <div class="page-head">
+                <div class="row">
+                    <div class="col-md-5">
+                        <h2>@(string.IsNullOrEmpty(ViewBag.ApplicationOptionName) ? ViewBag.Title : ViewBag.ApplicationOptionName)</h2>
+                        @{Html.RenderPartial("_BreadCrumb");}
+                    </div>
+                    <div class="col-md-7">
+                        <div class="pull-right" style="margin-top:15px">
+                            @RenderSection("ActionTitle", false)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="container-fluid padding-sm">
+                    <div class="col-sm-12">
+                        <div class="row" style="margin-top:5px">
+                            <div class="col-sm-12">
+                                @{ Html.RenderPartial("_NotificationMessages"); }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+
+                        <div id="main-content-body" class="row" style="margin-top:5px">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <a href="#" class="back-to-top" style="display: none;"><i class="fa fa-angle-up"></i></a>
+</body>
+</html>

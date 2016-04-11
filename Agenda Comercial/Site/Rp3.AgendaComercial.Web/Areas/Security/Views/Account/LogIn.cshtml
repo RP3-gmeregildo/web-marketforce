@@ -1,0 +1,34 @@
+﻿@{
+    Layout = null;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Rp3.Resources.TitleFor.Login</title>
+
+    @{Html.RenderPartial("_Imports");}
+
+    @Url.ImportStyleSheet("rp3-login.css")
+    @Url.ImportScript("rp3.login.js")    
+</head>
+<body>    
+    <div id="container">
+        @{ Html.RenderPartial("_NotificationMessages"); }
+        <div id="logo">
+            <img src="@Url.ContentApplicationImage("logo.png")" alt="" style="width:auto"/>
+        </div>       
+        <div id="loginbox">            
+            @{Html.RenderPartial("_Login", new Rp3.Web.Mvc.Application.Security.Models.Login());}
+            @{Html.RenderPartial("_RequestPasswordRecovery", new Rp3.Web.Mvc.Application.Security.Models.ResetPassword());}            
+
+            @if (Rp3.Configuration.Rp3ConfigurationSection.Current.AllowUserRegister)
+            {
+                @:@{Html.RenderPartial("_Register", new Rp3.Web.Mvc.Application.Security.Models.Register());}
+            }
+        </div>
+    </div>    
+</body>
+</html>

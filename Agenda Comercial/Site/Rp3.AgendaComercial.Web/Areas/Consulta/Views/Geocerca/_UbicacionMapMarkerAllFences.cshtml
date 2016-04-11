@@ -1,0 +1,152 @@
+﻿@model Rp3.AgendaComercial.Web.Areas.Consulta.Models.Geocerca
+
+@using System.Threading;
+@using System.Globalization;
+@using System.Web.Script.Serialization
+
+@{
+    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+    string mapSelector = "viewMapFences";
+
+    ViewBag.MapWidth = "100%";
+
+    if (ViewBag.MapSelector != null) { mapSelector = ViewBag.MapSelector; }
+    if (ViewBag.MapHeight == null) { ViewBag.MapHeight = "100%"; }
+    if (ViewBag.ReadOnly == null) { ViewBag.ReadOnly = false; }
+}
+
+<script language="javascript" type="text/javascript">
+    var googleMap@{@mapSelector} = null;
+    var sharpeArray = [];
+
+    var zonaColor = [
+        "#8A0808",
+        "#0000FF",
+        "#F4FA58",
+        "#FF8000",
+        "#F78181",
+        "#FF00FF",
+        "#82FA58",
+        "#B18904",
+        "#BDBDBD",
+        "#2ECCFA"
+    ];
+
+    $(document).ready(function () {
+
+        var bounds = new google.maps.LatLngBounds();
+        var infowindow = new google.maps.InfoWindow();
+
+        var options = {
+            zoom : 16,
+            scrollwheel: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: new google.maps.LatLng(@Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLatitud, @Rp3.AgendaComercial.Models.General.Ubicacion.DefaultLongitud),
+        };
+
+        googleMap@{@mapSelector} = new google.maps.Map($("#@{@mapSelector}")[0], options);
+
+        sharpeArray = [];
+
+        var colorindex = -1;
+
+        @foreach(var zona in Model.GeoZonas)
+        {
+            <text>
+            colorindex++;
+        </text>
+
+            if (Model.IncluirClientes && zona.ZonaClienteGeocercas != null)
+            {
+                foreach (var marker in zona.ZonaClienteGeocercas)
+                {
+                     <text>
+                    var point = new google.maps.LatLng(@marker.ClienteDireccion.Latitud, @marker.ClienteDireccion.Longitud);
+
+                    var marker = new google.maps.Marker({
+                        position: point,
+                        map: googleMap@{@mapSelector},
+                        title: '@Html.Raw(@marker.ClienteDireccion.EtiquetaCliente)',
+                        draggable: false
+                    });
+
+                    google.maps.event.addListener(marker, "click", function () {
+                        infowindow.close();
+                        infowindow.setContent('<div style="width:250px"><strong>@{ @marker.ClienteDireccion.EtiquetaCliente }</strong><br>');
+                        infowindow.open(googleMap@{@mapSelector}, this);
+                    });
+
+                    </text>
+                }
+            }
+
+        foreach (var group in zona.ZonaGeocercas.OrderBy(p => p.IdZonaGrupoGeocerca).Select(p => p.IdZonaGrupoGeocerca).Distinct())
+        {
+            <text>
+
+        var polygonCoords = [
+            @foreach (var point in zona.ZonaGeocercas.Where(p => p.IdZonaGrupoGeocerca == group).OrderBy(p => p.Posicion))
+                        {
+                            <text>
+                    new google.maps.LatLng(@point.Latitud, @point.Longitud),
+                </text>
+                         }
+        ];
+
+        @foreach (var point in zona.ZonaGeocercas.Where(p => p.IdZonaGrupoGeocerca == group).OrderBy(p => p.Posicion))
+                {
+                    <text>
+        bounds.extend(new google.maps.LatLng(@point.Latitud, @point.Longitud));
+        </text>
+                }
+
+        var polygon@{@group} = new google.maps.Polygon({
+            paths: polygonCoords,
+            strokeWeight: 0,
+            fillOpacity: 0.45,
+            fillColor: zonaColor[colorindex % 10],
+            editable: false
+        });
+
+        $("#ZonaColor@{@zona.IdZona}").css("background-color", zonaColor[colorindex % 10]);
+
+        polygon@{@group}.setMap(googleMap@{@mapSelector});
+
+        var marker@{@group} = new google.maps.Marker({
+            map: googleMap@{@mapSelector},
+            visible: false
+        });
+
+        google.maps.event.addListener(polygon@{@group}, "mousemove", function(event) {
+            marker@{@group}.setPosition(event.latLng);
+        });
+
+        @*google.maps.event.addListener(polygon@{@group}, "mouseout", function(event) {
+            infowindow.close();
+        });*@
+
+        google.maps.event.addListener(polygon@{@group}, 'click', function() {
+            infowindow.close();
+            infowindow.setContent('<div style="width:150px" class="text-center"><strong>@{ @zona.Descripcion }</strong><br>');
+            infowindow.open(googleMap@{@mapSelector}, marker@{@group});
+        });
+
+        sharpeArray.push(polygon@{@group});
+
+        </text>
+        }
+    }
+
+        @if (Model.GeoZonas.Count > 0)
+        {
+            <text>
+        googleMap@{@mapSelector}.fitBounds(bounds);
+        </text>
+        }
+
+    });
+
+
+</script>
+
+<div id="@{@mapSelector}" style="width: @ViewBag.MapWidth; height: @ViewBag.MapHeight;" />

@@ -1,0 +1,39 @@
+﻿@model Rp3.Web.Mvc.Application.Security.Models.EditRole
+@{
+    ViewBag.Title = Rp3.Resources.TitleFor.EditRole;
+    this.SetImportFormElements(true);
+    this.SetImportFormValidations(true);
+    this.SetImportTables(true);
+}
+@section Imports
+{
+    @Url.ImportStyleSheet("jquery.treegrid.css")
+    @Url.ImportScript("treegrid/jquery.treegrid.js")
+    @Url.ImportScript("rp3.role.js")
+}
+
+@section ActionTitle{    
+    @Html.Rp3ActivityActionButton(ActivityActions.Update, target: "form")
+}
+
+    @using (Html.Rp3BeginForm())
+    {
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_5))
+            {
+                using (Html.Rp3BeginContentBox(Rp3.Resources.LabelFor.GeneralData))
+                {
+                    <text>
+                    @Html.HiddenFor(model => model.RoleId)
+                    @Html.Rp3FormGroupTextBoxFor(model => model.Name)
+                    @Html.Rp3FormGroupCheckBoxFor(model => model.Active) 
+                    </text>
+                }
+            }
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_7))
+            {
+                @:@{Html.RenderPartial("_RoleApplicationActivities", Model);}
+            }
+        }                
+    }

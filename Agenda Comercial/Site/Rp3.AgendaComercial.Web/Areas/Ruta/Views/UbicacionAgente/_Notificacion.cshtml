@@ -1,0 +1,31 @@
+﻿@model Rp3.AgendaComercial.Models.Ruta.Notificacion
+
+<h4>@Rp3.AgendaComercial.Resources.TitleFor.EnvioNotificacion</h4>
+
+<div style="width:400px; margin-top:30px;">
+
+    @using (Html.Rp3BeginForm(htmlAttributes: new { id = "sendnotificacionform" }))
+    {
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Titulo, labelSize: HtmlColumnSize.Size_4))
+                {
+                    @Html.Rp3TextBoxFor(model => model.Titulo, htmlAttributes: new { titulo = "" })
+                }
+            }
+        }
+
+        using (Html.Rp3BeginRow())
+        {
+            using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+            {
+                using (Html.Rp3BeginFormGroupEditor(Rp3.AgendaComercial.Resources.LabelFor.Mensaje, labelSize: HtmlColumnSize.Size_4))
+                {
+                    @Html.Rp3TextAreaFor(model => model.Mensaje, htmlAttributes: new { mensaje = "", style = "height:80px" })
+                }
+            }
+        }
+    }
+</div>

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Rp3.AgendaComercial.Models.Pedido.PedidoDetalle>
+@{
+
+}
+
+            @Html.Rp3().GridView(
+    settings =>
+    {
+        settings.Name = "gridViewIndexDetalle";
+        settings.CallbackRouteValues = new { Controller = "Pedido", Action = "GridViewIndexDetalle" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.KeyFieldName = "IdPedidoDetalle";
+
+        var colCodigo = settings.Columns.Add("IdProducto", Rp3.AgendaComercial.Resources.LabelFor.Codigo);
+        colCodigo.Width = 50;
+        
+        settings.Columns.Add(column =>
+        {
+            column.Caption = Rp3.AgendaComercial.Resources.LabelFor.Descripcion;
+            column.FieldName = "Descripcion";
+            column.SortOrder = 0;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        });
+
+        var colValorUnitario = settings.Columns.Add("ValorUnitario", Rp3.AgendaComercial.Resources.LabelFor.ValorUnitario);
+        var colCantidad = settings.Columns.Add("Cantidad", Rp3.AgendaComercial.Resources.LabelFor.Cantidad);
+        var colValorTotal = settings.Columns.Add("ValorTotal", Rp3.AgendaComercial.Resources.LabelFor.ValorTotal);
+
+        colValorUnitario.Width = 100;
+        colValorUnitario.PropertiesEdit.DisplayFormatString = "C2";
+        colCantidad.Width = 150;
+        colValorTotal.Width = 100;
+        colValorTotal.PropertiesEdit.DisplayFormatString = "C2";
+    }).Bind(Model).GetHtml()

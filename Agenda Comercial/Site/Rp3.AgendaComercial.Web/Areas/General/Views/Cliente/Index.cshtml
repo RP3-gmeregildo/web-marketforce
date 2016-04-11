@@ -1,0 +1,16 @@
+﻿@{
+    this.SetTitle(Rp3.AgendaComercial.Resources.TitleFor.Clientes);
+    this.SetImportAdvTables(true);
+}
+
+@section ActionTitle{
+    @Html.Rp3OptionActivityButton("CLIENTE", "NEW", HtmlElementSize.Default, includeText: true, applicationId: "AGENDACOMERCIAL")
+
+    @Html.Rp3ActionButton(Rp3.AgendaComercial.Resources.LabelFor.Excel, "ExportToXls", "Cliente", new { Area = "General" }, themeType: ElementThemeType.Default, icon: Icons.File)
+    @Html.Rp3ActionButton(Rp3.AgendaComercial.Resources.LabelFor.Pdf, "ExportToPdf", "Cliente", new { Area = "General" }, themeType: ElementThemeType.Default, icon: Icons.File)
+}
+
+@using (Html.Rp3BeginColumn(HtmlColumnSize.Size_12))
+{
+    @Html.Action("GridViewIndex")
+}

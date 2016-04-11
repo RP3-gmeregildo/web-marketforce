@@ -1,0 +1,37 @@
+﻿@model Rp3.AgendaComercial.Models.General.TipoActividad
+@{
+
+}
+
+<text>
+
+    @Html.HiddenFor(model => model.IdTipoActividad)
+
+    @if (!Model.ReadOnly)
+    {
+    @Html.Rp3FormGroupTextBoxFor(model => model.Descripcion)
+    }
+    else
+    {
+    @Html.Rp3FormGroupDisplayFor(model => model.Descripcion)
+    }
+
+    @if (!Model.ReadOnly)
+    {
+    @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Tipo, Rp3.AgendaComercial.Models.Constantes.TipoActividad.Tabla)
+    }
+    else
+    {
+    @Html.Rp3FormGroupDisplayFor(model => model.TipoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Tipo)
+    }
+
+    @if (!Model.ReadOnly)
+    {
+    @Html.Rp3FormGroupDropDownGeneralValuesFor(model => model.Estado, Rp3.AgendaComercial.Models.Constantes.Estado.Tabla)
+    }
+    else
+    {
+    @Html.Rp3FormGroupDisplayFor(model => model.EstadoGeneralValue.Content, labelText: Rp3.AgendaComercial.Resources.LabelFor.Estado)
+    }
+
+</text>

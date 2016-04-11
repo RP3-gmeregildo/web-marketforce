@@ -1,0 +1,142 @@
+@using Rp3.AgendaComercial.Web.Ruta.Controllers;
+
+@{
+    var scheduler = Html.DevExpress().Scheduler(settings =>
+    {
+        settings.Name = "AgendaScheduler";
+        settings.Theme = "Office2010Blue";
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.CallbackRouteValues = new { Controller = "Agenda", Action = "AgendaSchedulerPartial", IdRuta = ViewBag.IdRuta, Duracion = ViewBag.Duracion, FechaInicioCalendario = ViewBag.FechaInicioCalendario, FechaFinCalendario = ViewBag.FechaFinCalendario };
+        settings.EditAppointmentRouteValues = new { Controller = "Agenda", Action = "AgendaSchedulerPartialEditAppointment", IdRuta = ViewBag.IdRuta, Duracion = ViewBag.Duracion, FechaInicioCalendario = ViewBag.FechaInicioCalendario, FechaFinCalendario = ViewBag.FechaFinCalendario };
+
+        settings.Start = ViewBag.FechaInicioCalendario;
+        settings.LimitInterval = new TimeInterval(ViewBag.FechaInicioCalendario, ViewBag.FechaFinCalendario);        
+
+        settings.ActiveViewType = SchedulerViewType.Timeline;
+
+        settings.Views.DayView.MenuCaption = Rp3.AgendaComercial.Resources.LabelFor.Dia;
+        settings.Views.MonthView.MenuCaption = Rp3.AgendaComercial.Resources.LabelFor.Mes;
+        settings.Views.WorkWeekView.MenuCaption = Rp3.AgendaComercial.Resources.LabelFor.SemanaLaboral;
+        settings.Views.WeekView.MenuCaption = Rp3.AgendaComercial.Resources.LabelFor.Semana;
+        settings.Views.TimelineView.MenuCaption = Rp3.AgendaComercial.Resources.LabelFor.LineaTiempo;
+
+        //settings.Views.TimelineView.CellAutoHeightOptions.Mode = AutoHeightMode.LimitHeight;
+        
+        //settings.Views.DayView.VisibleTime = new TimeOfDayInterval(TimeSpan.FromHours(8), TimeSpan.FromHours(18));
+        settings.Views.DayView.TimeScale = new TimeSpan(0, 15, 0);
+        settings.Views.DayView.ShowAllDayArea = false;
+
+        settings.Views.WorkWeekView.VisibleTime = new TimeOfDayInterval(TimeSpan.FromHours(8), TimeSpan.FromHours(18));
+        settings.Views.WorkWeekView.WorkTime = new TimeOfDayInterval(TimeSpan.FromHours(8), TimeSpan.FromHours(18));
+        settings.Views.WorkWeekView.TimeScale = new TimeSpan(0, 15, 0);
+        settings.Views.WorkWeekView.ShowAllDayArea = false;
+        //settings.Views.WorkWeekView.ShowWorkTimeOnly = true;
+        //settings.Views.WorkWeekView.ShowFullWeek = true;
+        
+        settings.PopupMenuShowing = (sender, e) =>
+        {
+            foreach (DevExpress.Web.ASPxMenu.MenuItem item in e.Menu.Items)
+                switch (item.Name)
+                {
+                    case "LabelSubMenu":
+                    case "StatusSubMenu":
+                    case "NewAllDayEvent":
+                    case "GotoDate":
+                    case "GotoToday":
+                        item.Visible = false;
+                        break;
+                }
+        };
+
+        settings.WorkDays.Clear();
+        settings.WorkDays.Add(WeekDays.Monday | WeekDays.Tuesday | WeekDays.Wednesday | WeekDays.Thursday | WeekDays.Friday | WeekDays.Saturday);
+
+        settings.OptionsView.FirstDayOfWeek = FirstDayOfWeek.Monday;
+
+        settings.SetDateHeaderTemplateContent(c =>
+        {
+            string text = System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.GetDayName(c.Interval.Start.DayOfWeek);
+
+            ViewContext.Writer.Write("<div><label style=\"text-align:center;\">" + text + "</label></div>");
+        });
+
+        settings.Views.WeekView.SetDateCellHeaderTemplateContent(c =>
+        {
+            string text = System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.GetDayName(c.Interval.Start.DayOfWeek);
+
+            ViewContext.Writer.Write("<div><label style=\"text-align:center;\">" + text + "</label></div>");
+        });
+
+
+        settings.OptionsCustomization.AllowInplaceEditor = UsedAppointmentType.None;
+        //settings.OptionsCustomization.AllowAppointmentResize = UsedAppointmentType.None;
+
+        settings.Views.WorkWeekView.AppointmentDisplayOptions.StartTimeVisibility = AppointmentTimeVisibility.Never;
+        settings.Views.WorkWeekView.AppointmentDisplayOptions.EndTimeVisibility = AppointmentTimeVisibility.Never;
+
+        settings.OptionsToolTips.ShowAppointmentToolTip = true;
+        settings.OptionsToolTips.ShowSelectionToolTip = true;
+
+        settings.Storage.EnableReminders = false;
+        settings.Storage.Appointments.Assign(AgendaSchedulerSettings.AppointmentStorage);
+        settings.Storage.Resources.Assign(AgendaSchedulerSettings.ResourceStorage);
+
+        settings.ClientSideEvents.SelectionChanged = "onSelectionChanged";        
+
+        settings.InitAppointmentDisplayText = (sender, e) =>
+        {
+            e.Text = String.Format("({0}){1}", e.Appointment.CustomFields["MarkerIndex"], e.Appointment.Location);
+        };
+
+        settings.AppointmentFormShowing = (sender, e) =>
+        {
+            var schedul = sender as MVCxScheduler;
+            if (schedul != null)
+                e.Container = new CustomAppointmentTemplateContainer(schedul);
+        };
+
+        settings.PrepareAppointmentFormPopupContainer = (s, e) =>
+        {
+            e.Popup.Height = 100;
+            e.Popup.HeaderText = Rp3.AgendaComercial.Resources.TitleFor.Agenda;
+        };
+
+        settings.OptionsForms.SetAppointmentFormTemplateContent(c =>
+        {
+            var container = (CustomAppointmentTemplateContainer)c;
+
+            var schedule = new Rp3.AgendaComercial.Models.Ruta.Agenda()
+                {
+                    IdAgenda = container.Appointment.Id == null ? -1 : (long)container.Appointment.Id,
+                    FechaInicio = container.Appointment.Start,
+                    FechaFin = container.Appointment.End,
+                    TareaIds = Convert.ToString(container.Appointment.CustomFields["TareaIds"]),
+                    IdClienteContacto = container.Appointment.CustomFields["IdClienteContacto"] != DBNull.Value ? Convert.ToInt32(container.Appointment.CustomFields["IdClienteContacto"]) : (int?)null
+                };
+
+            if (container.Appointment.Id == null)
+            {
+                var resource = ((IEnumerable<Rp3.AgendaComercial.Models.General.ClienteDireccion>)ViewData["Resources"]).FirstOrDefault();
+
+                if (resource != null)
+                    schedule.IdRecurso = resource.Key;
+
+                schedule.FechaFin = schedule.FechaInicio.Value.AddMinutes(ViewBag.Duracion).AddSeconds(-1);
+                schedule.EstadoAgenda = Rp3.AgendaComercial.Models.Constantes.EstadoAgenda.Pendiente;
+            }
+            else
+            {
+                schedule.IdRecurso = Convert.ToString(container.Appointment.ResourceId);
+                schedule.EstadoAgenda = Convert.ToString(container.Appointment.CustomFields["EstadoAgenda"]);
+            }
+
+            Html.RenderPartial("_AppointmentFormPartial", schedule);
+        });
+
+    });
+    if (ViewData["SchedulerErrorText"] != null)
+    {
+        scheduler.SetErrorText((string)ViewData["SchedulerErrorText"]);
+    }
+}
+@scheduler.Bind(ViewData["Appointments"], ViewData["Resources"]).GetHtml()
